@@ -1,19 +1,12 @@
-/**
- * @file Game.java
- * @brief Class to have the daily game
- * @date 2023-11-24
- * @version 1.0
- */
-
 package com.siesth.mothus.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import org.springframework.data.annotation.Id;
 
 import java.util.Date;
 
-/**
- * Class to have the daily game
- */
 @Entity
 public class Game {
 
@@ -21,29 +14,11 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.AUTO)
     int idGame;
 
-    @Column(columnDefinition = "datetime") // The default "datetime(6)" is not supported in our server
     Date dateOfTheGame;
 
     String frenchWord;
 
     String englishWord;
-
-    /**
-     * Constructor of the game
-     * @param dateOfTheGame date of the game
-     * @param frenchWord French word
-     * @param englishWord English word
-     */
-    public Game(Date dateOfTheGame, String frenchWord, String englishWord) {
-        super();
-        this.setDateOfTheGame(dateOfTheGame);
-        this.setFrenchWord(frenchWord);
-        this.setEnglishWord(englishWord);
-    }
-
-    public Game() {
-
-    }
 
     public int getIdGame() {
         return idGame;

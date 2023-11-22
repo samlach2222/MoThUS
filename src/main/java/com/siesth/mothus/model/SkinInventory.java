@@ -1,46 +1,29 @@
-/**
- * @file SkinInventory.java
- * @brief Class to manage all the skins of the user
- * @date 2023-11-25
- * @version 1.0
- */
 package com.siesth.mothus.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.ManyToMany;
+import org.springframework.data.annotation.Id;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
-/**
- * Class to manage all the skins of the user
- */
 @Entity
 public class SkinInventory {
+
+
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     int idSkinInventory;
 
-    /**
-     * List of all the skins of the user
-     */
-    @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(
-            name = "skinSkinInventory",
-            joinColumns = @JoinColumn(name = "idSkin"),
-            inverseJoinColumns = @JoinColumn(name = "idSkinInventory")
-    )
-    ArrayList<Skin> skinList;
+    @ManyToMany
+    Set<Skin> skinList;
 
     int currentElementSkinId;
 
     int currentPageSkinId;
-
-    public SkinInventory(){
-        skinList = new ArrayList<>();
-        this.currentElementSkinId = -1;
-        this.currentPageSkinId = -1;
-    }
 
     public int getIdSkinInventory() {
         return idSkinInventory;
@@ -62,18 +45,10 @@ public class SkinInventory {
         this.currentPageSkinId = currentPageSkinId;
     }
 
-    /**
-     * Add a skin to the skin inventory
-     * @param newSkin skin to add
-     */
     public void addSkinToList(Skin newSkin){
         skinList.add(newSkin);
     }
 
-    /**
-     * Get a list of all the skins of the user
-     * @return list of all the skins of the user
-     */
     public List<Skin> getSkinList() {
         return skinList;
     }
