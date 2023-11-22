@@ -1,0 +1,68 @@
+
+/**
+ * Main div with 100 % of the page size and flexbox to center the login panel in the middle of the page. No scrollbars.
+ */
+body {
+    background-color: blue;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/**
+ * Login panel with a max width of 600px and a height of 60% of the page size. The panel has a box shadow and is a flexbox with a column direction.
+ */
+#loginPanel {
+    background-color: darkred;
+    max-width: 600px;
+    width: 100%;
+    height: 60%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+/**
+ * Set the max-width for media
+ */
+@media (max-width: 768px) {
+    #loginPanel {
+        max-width: 100%;
+    }
+}
+
+/**
+ * Login panel buttons in vertical direction with space around.
+ */
+#loginPanelButtons {
+    width: 60%;
+    height: 80%;
+    background-color: darkgreen;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-self: center;
+}
+
+/**
+ * Login panel logo
+ */
+#loginPanelLogo {
+    width: 98%;
+    height: 20%;
+    background-color: orangered;
+    margin: 1%;
+}
+
+/**
+ * Login panel buttons
+ */
+button {
+    align-self: center;
+    width: 100%;
+    height: 5em;
+}
