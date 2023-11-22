@@ -1,11 +1,15 @@
 package com.siesth.mothus.model;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.ManyToMany;
 import org.springframework.data.annotation.Id;
 
 import java.util.List;
+import java.util.Set;
 
+@Entity
 public class SkinInventory {
 
 
@@ -14,7 +18,8 @@ public class SkinInventory {
     @GeneratedValue(strategy= GenerationType.AUTO)
     int idSkinInventory;
 
-    List<Skin> skinList;
+    @ManyToMany
+    Set<Skin> skinList;
 
     int currentElementSkinId;
 

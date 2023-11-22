@@ -1,9 +1,10 @@
 package com.siesth.mothus.model;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+import java.util.Set;
+
+@Entity
 public class Skin {
 
     @Id
@@ -14,6 +15,9 @@ public class Skin {
     SkinRarity rarity;
 
     String cssFile;
+
+    @ManyToMany
+    Set<SkinInventory> users;
 
     public int getIdSkin() {
         return idSkin;

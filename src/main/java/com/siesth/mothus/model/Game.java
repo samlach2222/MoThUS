@@ -1,11 +1,13 @@
 package com.siesth.mothus.model;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import org.springframework.data.annotation.Id;
 
 import java.util.Date;
 
+@Entity
 public class Game {
 
     @Id
