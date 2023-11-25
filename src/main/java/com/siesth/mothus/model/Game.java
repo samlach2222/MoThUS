@@ -1,7 +1,7 @@
 /**
  * @file Game.java
  * @brief Class to have the daily game
- * @date 2023-11-21
+ * @date 2023-11-24
  * @version 1.0
  */
 
@@ -26,6 +26,7 @@ public class Game {
     /**
      * Date of the game
      */
+    @Column(columnDefinition = "datetime") // The default "datetime(6)" is not supported in our server
     Date dateOfTheGame;
 
     /**
