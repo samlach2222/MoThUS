@@ -1,7 +1,7 @@
 /**
  * @file SkinInventory.java
  * @brief Class to manage all the skins of the user
- * @date 2023-11-21
+ * @date 2023-11-25
  * @version 1.0
  */
 package com.siesth.mothus.model;
@@ -12,6 +12,7 @@ import java.util.*;
 /**
  * Class to manage all the skins of the user
  */
+@Entity
 public class SkinInventory {
 
     /**
@@ -26,17 +27,11 @@ public class SkinInventory {
      */
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
-            name = "skin_skinInventory",
+            name = "skinSkinInventory",
             joinColumns = @JoinColumn(name = "idSkin"),
             inverseJoinColumns = @JoinColumn(name = "idSkinInventory")
     )
     ArrayList<Skin> skinList;
-
-    /**
-     * User of the skin inventory
-     */
-    @OneToOne(mappedBy = "user")
-    User user;
 
     /**
      * ID of the current element skin
@@ -55,31 +50,6 @@ public class SkinInventory {
         skinList = new ArrayList<>();
         this.currentElementSkinId = -1;
         this.currentPageSkinId = -1;
-    }
-
-    /**
-     * Constructor of the skin inventory
-     * @param user user of the skin inventory
-     */
-    public SkinInventory(User user){
-        super();
-        this.setUser(user);
-    }
-
-    /**
-     * Getter of the user
-     * @return user of the skin inventory
-     */
-    public User getUser() {
-        return user;
-    }
-
-    /**
-     * Setter of the user
-     * @param user user of the skin inventory
-     */
-    public void setUser(User user) {
-        this.user = user;
     }
 
     /**

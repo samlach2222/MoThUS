@@ -1,7 +1,7 @@
 /**
  * @file Stats.java
  * @brief Class to have the stats of the user
- * @date 2023-11-21
+ * @date 2023-11-25
  * @version 1.0
  * @author Titouan DEGIEUX
  * @author Samuel LACHAUD
@@ -22,13 +22,7 @@ public class Stats {
      */
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    int statsId;
-
-    /**
-     * User of the stats
-     */
-    @OneToOne(mappedBy = "user")
-    User user;
+    int idStats;
 
     /**
      * Number of times the user found the word at the first try
@@ -121,20 +115,11 @@ public class Stats {
     }
 
     /**
-     * Constructor of the stats
-     * @param user user of the stats
-     */
-    public Stats(User user){
-        this();
-        this.setUser(user);
-    }
-
-    /**
      * Getter of the stats ID
      * @return stats ID
      */
-    public int getStatsId() {
-        return statsId;
+    public int getIdStats() {
+        return idStats;
     }
 
     /**
@@ -250,14 +235,6 @@ public class Stats {
     }
 
     /**
-     * Getter of the user
-     * @return user
-     */
-    public User getUser() {
-        return user;
-    }
-
-    /**
      * Setter of the first try count
      * @param firstTryCount first try count
      */
@@ -369,11 +346,4 @@ public class Stats {
         this.yellowCircleCount = yellowCircleCount;
     }
 
-    /**
-     * Setter of the user
-     * @param user user
-     */
-    public void setUser(User user) {
-        this.user = user;
-    }
 }
