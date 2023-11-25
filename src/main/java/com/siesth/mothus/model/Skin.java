@@ -1,12 +1,15 @@
 /**
  * @file Skin.java
  * @brief Class to create a skin
- * @date 2023-11-21
+ * @date 2023-11-24
  * @version 1.0
  */
 package com.siesth.mothus.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 /**
  * Class to create a skin
@@ -14,9 +17,6 @@ import jakarta.persistence.*;
 @Entity
 public class Skin {
 
-    /**
-     * ID of the skin
-     */
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     int idSkin;
@@ -31,9 +31,6 @@ public class Skin {
      */
     SkinRarity rarity;
 
-    /**
-     * CSS file of the skin
-     */
     String cssFile;
 
     /**
@@ -49,24 +46,17 @@ public class Skin {
         this.setCssFile(cssFile);
     }
 
-    /**
-     * Empty constructor of the skin
-     */
     public Skin() {
 
     }
 
-    /**
-     * Getter of the skin ID
-     * @return ID of the skin
-     */
     public int getIdSkin() {
         return idSkin;
     }
 
     /**
      * Getter of the skin type
-     * @return type of the skin
+     * @return type of the skin (PageSkin or ElementSkin)
      */
     public SkinType getType() {
         return type;
@@ -74,7 +64,7 @@ public class Skin {
 
     /**
      * Setter of the skin type
-     * @param type type of the skin
+     * @param type type of the skin (PageSkin or ElementSkin)
      */
     public void setType(SkinType type) {
         this.type = type;
@@ -82,7 +72,7 @@ public class Skin {
 
     /**
      * Getter of the skin rarity
-     * @return rarity of the skin
+     * @return rarity of the skin (Common, Uncommon, Rare, Mythic)
      */
     public SkinRarity getRarity() {
         return rarity;
@@ -90,24 +80,16 @@ public class Skin {
 
     /**
      * Setter of the skin rarity
-     * @param rarity rarity of the skin
+     * @param rarity rarity of the skin (Common, Uncommon, Rare, Mythic)
      */
     public void setRarity(SkinRarity rarity) {
         this.rarity = rarity;
     }
 
-    /**
-     * Getter of the skin CSS file
-     * @return CSS file of the skin
-     */
     public String getCssFile() {
         return cssFile;
     }
 
-    /**
-     * Setter of the skin CSS file
-     * @param cssFile CSS file of the skin
-     */
     public void setCssFile(String cssFile) {
         this.cssFile = cssFile;
     }
