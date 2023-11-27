@@ -1,20 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" href="/css/login.css">
-<head>
-    <meta charset="UTF-8">
-    <title th:text="${pageTitle}">Page Title</title>
-</head>
-<body>
-    <div id="loginPanel">
-        <div id="loginPanelLogo">
-            <img src="TEMP_LOGO.png" alt="logo">
+    <link rel="stylesheet" href="/css/login.css">
+    <head>
+        <meta charset="UTF-8">
+        <title th:text="${pageTitle}">Page Title</title>
+    </head>
+    <body>
+        <div id="loginPanel">
+            <div id="loginPanelLogo">
+                <img src="TEMP_LOGO.png" alt="logo">
+            </div>
+            <div id="loginPanelButtons">
+                <a href="/playZone">
+                    <button id="LoginButton" th:text="${loginButton}">Login</button>
+                </a>
+                <a href="/playZone">
+                    <button id="RegisterButton" th:text="${registerButton}">Register</button>
+                </a>
+                <a href="/playZone">
+                    <button id="PlayAsInviteButton" th:text="${playAsInviteButton}">Play as Invite</button>
+                </a>
+            </div>
         </div>
-        <div id="loginPanelButtons">
-            <button id="LoginButton" th:text="${loginButton}">Login</button>
-            <button id="RegisterButton" th:text="${registerButton}">Register</button>
-            <button id="PlayAsInviteButton" th:text="${playAsInviteButton}">Play as Invite</button>
-        </div>
-    </div>
-</body>
+    </body>
 </html>

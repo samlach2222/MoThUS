@@ -23,7 +23,7 @@ public class ManageLogin {
         String loginButton = messageSource.getMessage("Login.LoginButton", null, locale);
         String registerButton = messageSource.getMessage("Login.RegisterButton", null, locale);
         String playAsInviteButton = messageSource.getMessage("Login.PlayAsInviteButton", null, locale);
-        ;
+
         model.addAttribute("pageTitle", pageTitle);
         model.addAttribute("loginButton", loginButton);
         model.addAttribute("registerButton", registerButton);

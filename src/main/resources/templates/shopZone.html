@@ -1,23 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
-<link href="../static/css/shopZone.css" rel="stylesheet">
-<head>
-    <meta charset="UTF-8">
-    <title>MoThUS - Shop</title>
-</head>
-<body>
-<div id="verticalMenu">
-    <a id="goBackButton" href="/playZone.html"></a>
-    <button class="verticalMenuButton">
-        <img class="verticalMenuButtonIcon"
-             src="https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/green-checkmark-icon.png">
-        <span class="verticalMenuButtonText"></span>
-    </button>
-    <button class="verticalMenuButton">
-        <img class="verticalMenuButtonIcon"
-             src="https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/green-checkmark-icon.png">
-        <span class="verticalMenuButtonText"></span>
-    </button>
-</div>
-</body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <link href="/css/shopZone.css" rel="stylesheet">
+    <head>
+        <meta charset="UTF-8">
+        <title th:text="${pageTitle}">Page title</title>
+    </head>
+    <body>
+        <div id="verticalMenu">
+            <a id="goBackButton" href="/playZone"></a>
+            <button class="verticalMenuButton" onclick="loadContent('/elementCaseContent')">
+                <img class="verticalMenuButtonIcon"
+                     src="https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/green-checkmark-icon.png">
+                <span class="verticalMenuButtonText" th:text="${menuElementCase}">Element case</span>
+            </button>
+            <button class="verticalMenuButton" onclick="loadContent('/coinShopContent')">
+                <img class="verticalMenuButtonIcon"
+                     src="https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/green-checkmark-icon.png">
+                <span class="verticalMenuButtonText" th:text="${menuCoinShop}">Coin shop</span>
+            </button>
+        </div>
+        <div id="content" th:fragment="contentFragment">
+            <!-- Define default content -->
+        </div>
+
+        <script>
+            function loadContent(url) {
+                fetch(url)
+                    .then(response => response.text())
+                    .then(data => {
+                        document.getElementById('content').innerHTML = data;
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        </script>
+
+    </body>
 </html>

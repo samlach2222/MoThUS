@@ -1,6 +1,10 @@
 body {
     background-color: blue;
     margin: 0;
+    display: flex;
+    flex-direction: row;
+    width : 100vw;
+    height: 100vh;
 }
 
 #verticalMenu {
@@ -54,4 +58,12 @@ body {
     font-size: 1.6em;
     background-color: purple;
     width: 100%;
+}
+
+#content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    background-color: aqua;
 }
