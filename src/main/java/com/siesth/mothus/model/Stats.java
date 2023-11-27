@@ -1,15 +1,16 @@
 /**
  * @file Stats.java
  * @brief Class to have the stats of the user
- * @date 2023-11-21
+ * @date 2023-11-25
  * @version 1.0
- * @author Titouan DEGIEUX
- * @author Samuel LACHAUD
  */
 
 package com.siesth.mothus.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 /**
  * Class to have the stats of the user
@@ -17,18 +18,9 @@ import jakarta.persistence.*;
 @Entity
 public class Stats {
 
-    /**
-     * ID of the stats
-     */
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    int statsId;
-
-    /**
-     * User of the stats
-     */
-    @OneToOne(mappedBy = "user")
-    User user;
+    int idStats;
 
     /**
      * Number of times the user found the word at the first try
@@ -70,39 +62,21 @@ public class Stats {
      */
     int eighthTryCount;
 
-    /**
-     * Number of times the user won
-     */
     int winCount;
 
-    /**
-     * Number of times the user lost
-     */
     int looseCount;
 
     /**
-     * Time played by the user
+     * Time played by the user in seconds
      */
-    int playTime; // in seconds
+    int playTime;
 
-    /**
-     * Number of red squares found by the user
-     */
     int redSquareCount;
 
-    /**
-     * Number of blue squares found by the user
-     */
     int blueSquareCount;
 
-    /**
-     * Number of yellow circles found by the user
-     */
     int yellowCircleCount;
 
-    /**
-     * Empty constructor of the stats
-     */
     public Stats(){
         firstTryCount = 0;
         secondTryCount = 0;
@@ -120,26 +94,13 @@ public class Stats {
         yellowCircleCount = 0;
     }
 
-    /**
-     * Constructor of the stats
-     * @param user user of the stats
-     */
-    public Stats(User user){
-        this();
-        this.setUser(user);
-    }
-
-    /**
-     * Getter of the stats ID
-     * @return stats ID
-     */
-    public int getStatsId() {
-        return statsId;
+    public int getIdStats() {
+        return idStats;
     }
 
     /**
      * Getter of the first try count
-     * @return first try count
+     * @return number of times the user found the word at the first try
      */
     public int getFirstTryCount() {
         return firstTryCount;
@@ -147,7 +108,7 @@ public class Stats {
 
     /**
      * Getter of the second try count
-     * @return second try count
+     * @return number of times the user found the word at the second try
      */
     public int getSecondTryCount() {
         return secondTryCount;
@@ -155,7 +116,7 @@ public class Stats {
 
     /**
      * Getter of the third try count
-     * @return third try count
+     * @return number of times the user found the word at the third try
      */
     public int getThirdTryCount() {
         return thirdTryCount;
@@ -163,7 +124,7 @@ public class Stats {
 
     /**
      * Getter of the fourth try count
-     * @return fourth try count
+     * @return number of times the user found the word at the fourth try
      */
     public int getFourthTryCount() {
         return fourthTryCount;
@@ -171,7 +132,7 @@ public class Stats {
 
     /**
      * Getter of the fifth try count
-     * @return fifth try count
+     * @return number of times the user found the word at the fifth try
      */
     public int getFifthTryCount() {
         return fifthTryCount;
@@ -179,7 +140,7 @@ public class Stats {
 
     /**
      * Getter of the sixth try count
-     * @return sixth try count
+     * @return number of times the user found the word at the sixth try
      */
     public int getSixthTryCount() {
         return sixthTryCount;
@@ -187,7 +148,7 @@ public class Stats {
 
     /**
      * Getter of the seventh try count
-     * @return seventh try count
+     * @return number of times the user found the word at the seventh try
      */
     public int getSeventhTryCount() {
         return seventhTryCount;
@@ -195,71 +156,43 @@ public class Stats {
 
     /**
      * Getter of the eighth try count
-     * @return eighth try count
+     * @return number of times the user found the word at the eighth try
      */
     public int getEighthTryCount() {
         return eighthTryCount;
     }
 
-    /**
-     * Getter of the win count
-     * @return win count
-     */
     public int getWinCount() {
         return winCount;
     }
 
-    /**
-     * Getter of the loose count
-     * @return loose count
-     */
     public int getLooseCount() {
         return looseCount;
     }
 
     /**
      * Getter of the play time
-     * @return play time
+     * @return time played by the user in seconds
      */
     public int getPlayTime() {
         return playTime;
     }
 
-    /**
-     * Getter of the red square count
-     * @return red square count
-     */
     public int getRedSquareCount() {
         return redSquareCount;
     }
 
-    /**
-     * Getter of the blue square count
-     * @return blue square count
-     */
     public int getBlueSquareCount() {
         return blueSquareCount;
     }
 
-    /**
-     * Getter of the yellow circle count
-     * @return yellow circle count
-     */
     public int getYellowCircleCount() {
         return yellowCircleCount;
     }
 
     /**
-     * Getter of the user
-     * @return user
-     */
-    public User getUser() {
-        return user;
-    }
-
-    /**
      * Setter of the first try count
-     * @param firstTryCount first try count
+     * @param firstTryCount number of times the user found the word at the first try
      */
     public void setFirstTryCount(int firstTryCount) {
         this.firstTryCount = firstTryCount;
@@ -267,7 +200,7 @@ public class Stats {
 
     /**
      * Setter of the second try count
-     * @param secondTryCount second try count
+     * @param secondTryCount number of times the user found the word at the second try
      */
     public void setSecondTryCount(int secondTryCount) {
         this.secondTryCount = secondTryCount;
@@ -275,7 +208,7 @@ public class Stats {
 
     /**
      * Setter of the third try count
-     * @param thirdTryCount third try count
+     * @param thirdTryCount number of times the user found the word at the third try
      */
     public void setThirdTryCount(int thirdTryCount) {
         this.thirdTryCount = thirdTryCount;
@@ -283,7 +216,7 @@ public class Stats {
 
     /**
      * Setter of the fourth try count
-     * @param fourthTryCount fourth try count
+     * @param fourthTryCount number of times the user found the word at the fourth try
      */
     public void setFourthTryCount(int fourthTryCount) {
         this.fourthTryCount = fourthTryCount;
@@ -291,7 +224,7 @@ public class Stats {
 
     /**
      * Setter of the fifth try count
-     * @param fifthTryCount fifth try count
+     * @param fifthTryCount number of times the user found the word at the fifth try
      */
     public void setFifthTryCount(int fifthTryCount) {
         this.fifthTryCount = fifthTryCount;
@@ -299,7 +232,7 @@ public class Stats {
 
     /**
      * Setter of the sixth try count
-     * @param sixthTryCount sixth try count
+     * @param sixthTryCount number of times the user found the word at the sixth try
      */
     public void setSixthTryCount(int sixthTryCount) {
         this.sixthTryCount = sixthTryCount;
@@ -307,7 +240,7 @@ public class Stats {
 
     /**
      * Setter of the seventh try count
-     * @param seventhTryCount seventh try count
+     * @param seventhTryCount number of times the user found the word at the seventh try
      */
     public void setSeventhTryCount(int seventhTryCount) {
         this.seventhTryCount = seventhTryCount;
@@ -315,65 +248,38 @@ public class Stats {
 
     /**
      * Setter of the eighth try count
-     * @param eighthTryCount eighth try count
+     * @param eighthTryCount number of times the user found the word at the eighth try
      */
     public void setEighthTryCount(int eighthTryCount) {
         this.eighthTryCount = eighthTryCount;
     }
 
-    /**
-     * Setter of the win count
-     * @param winCount win count
-     */
     public void setWinCount(int winCount) {
         this.winCount = winCount;
     }
 
-    /**
-     * Setter of the loose count
-     * @param looseCount loose count
-     */
     public void setLooseCount(int looseCount) {
         this.looseCount = looseCount;
     }
 
     /**
      * Setter of the play time
-     * @param playTime play time
+     * @param playTime time played by the user in seconds
      */
     public void setPlayTime(int playTime) {
         this.playTime = playTime;
     }
 
-    /**
-     * Setter of the red square count
-     * @param redSquareCount red square count
-     */
     public void setRedSquareCount(int redSquareCount) {
         this.redSquareCount = redSquareCount;
     }
 
-    /**
-     * Setter of the blue square count
-     * @param blueSquareCount blue square count
-     */
     public void setBlueSquareCount(int blueSquareCount) {
         this.blueSquareCount = blueSquareCount;
     }
 
-    /**
-     * Setter of the yellow circle count
-     * @param yellowCircleCount yellow circle count
-     */
     public void setYellowCircleCount(int yellowCircleCount) {
         this.yellowCircleCount = yellowCircleCount;
     }
 
-    /**
-     * Setter of the user
-     * @param user user
-     */
-    public void setUser(User user) {
-        this.user = user;
-    }
 }
