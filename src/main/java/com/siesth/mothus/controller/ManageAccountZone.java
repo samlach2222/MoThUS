@@ -38,27 +38,27 @@ public class ManageAccountZone {
     public String loadAccountContent(Model model) {
         // To pass data to the template
         model.addAttribute("someData", "Some data for Coin Shop");
-        return "accountContent"; // Thymeleaf template name
+        return "Content/accountContent"; // Thymeleaf template name
     }
 
     @GetMapping("/elementSkinsContent")
     public String loadElementSkinsContent(Model model) {
         // To pass data to the template
         model.addAttribute("someData", "Some data for Coin Shop");
-        return "elementSkinsContent"; // Thymeleaf template name
+        return "Content/elementSkinsContent"; // Thymeleaf template name
     }
 
     @GetMapping("/pageSkinsContent")
     public String loadPageSkinsContent(Model model) {
         // To pass data to the template
         model.addAttribute("someData", "Some data for Coin Shop");
-        return "pageSkinsContent"; // Thymeleaf template name
+        return "Content/pageSkinsContent"; // Thymeleaf template name
     }
 
     @GetMapping("/termsOfUseContent")
     public String loadTermsOfUseContent(Model model) {
         // To pass data to the template
         model.addAttribute("someData", "Some data for Coin Shop");
-        return "termsOfUseContent"; // Thymeleaf template name
+        return "Content/termsOfUseContent"; // Thymeleaf template name
     }
 }
