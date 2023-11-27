@@ -1,35 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
-<link href="../static/css/accountZone.css" rel="stylesheet">
-<head>
-    <meta charset="UTF-8">
-    <title>MoThUS - Account</title>
-</head>
-<body>
-<div id="verticalMenu">
-    <div>
-        <a id="goBackButton" href="/playZone.html"></a>
-        <button class="verticalMenuButton">
-            <img class="verticalMenuButtonIcon"
-                 src="https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/green-checkmark-icon.png">
-            <span class="verticalMenuButtonText"></span>
-        </button>
-        <button class="verticalMenuButton">
-            <img class="verticalMenuButtonIcon"
-                 src="https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/green-checkmark-icon.png">
-            <span class="verticalMenuButtonText"></span>
-        </button>
-        <button class="verticalMenuButton">
-            <img class="verticalMenuButtonIcon"
-                 src="https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/green-checkmark-icon.png">
-            <span class="verticalMenuButtonText"></span>
-        </button>
-    </div>
-    <button class="verticalMenuButton">
-        <img class="verticalMenuButtonIcon"
-             src="https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/green-checkmark-icon.png">
-        <span class="verticalMenuButtonText"></span>
-    </button>
-</div>
-</body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <link href="/css/accountZone.css" rel="stylesheet">
+    <head>
+        <meta charset="UTF-8">
+        <title th:text="${pageTitle}">Page Title</title>
+    </head>
+    <body>
+        <div id="verticalMenu">
+            <div>
+                <a id="goBackButton" href="/playZone"></a>
+                <button class="verticalMenuButton" onclick="loadContent('/accountContent')">
+                    <img class="verticalMenuButtonIcon"
+                         src="https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/green-checkmark-icon.png">
+                    <span class="verticalMenuButtonText" th:text="${menuAccount}">Account</span>
+                </button>
+                <button class="verticalMenuButton" onclick="loadContent('/elementSkinsContent')">
+                    <img class="verticalMenuButtonIcon"
+                         src="https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/green-checkmark-icon.png">
+                    <span class="verticalMenuButtonText" th:text="${menuElementSkins}">Element skins</span>
+                </button>
+                <button class="verticalMenuButton" onclick="loadContent('/pageSkinsContent')">
+                    <img class="verticalMenuButtonIcon"
+                         src="https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/green-checkmark-icon.png">
+                    <span class="verticalMenuButtonText" th:text="${menuPageSkins}">Page skins</span>
+                </button>
+            </div>
+            <button class="verticalMenuButton" onclick="loadContent('/termsOfUseContent')">
+                <img class="verticalMenuButtonIcon"
+                     src="https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/green-checkmark-icon.png">
+                <span class="verticalMenuButtonText" th:text="${menuTermsOfUse}">Terms of use</span>
+            </button>
+        </div>
+
+        <div id="content" th:fragment="contentFragment">
+            <!-- Define default content -->
+        </div>
+
+        <script>
+            function loadContent(url) {
+                fetch(url)
+                    .then(response => response.text())
+                    .then(data => {
+                        document.getElementById('content').innerHTML = data;
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        </script>
+    </body>
 </html>
