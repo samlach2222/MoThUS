@@ -31,4 +31,18 @@ public class ManageLogin {
 
         return "login";
     }
+
+    @GetMapping("/loginContent")
+    public String loadCoinShopContent(Model model) {
+        // To pass data to the template
+        model.addAttribute("someData", "Some data for Coin Shop");
+        return "Content/loginContent"; // Thymeleaf template name
+    }
+
+    @GetMapping("/registerContent")
+    public String loadElementCaseContent(Model model) {
+        // o pass data to the template
+        model.addAttribute("someData", "Some data for Coin Shop");
+        return "Content/registerContent"; // Thymeleaf template name
+    }
 }

@@ -11,16 +11,23 @@
                 <img src="TEMP_LOGO.png" alt="logo">
             </div>
             <div id="loginPanelButtons">
-                <a href="/playZone">
-                    <button id="LoginButton" th:text="${loginButton}">Login</button>
-                </a>
-                <a href="/playZone">
-                    <button id="RegisterButton" th:text="${registerButton}">Register</button>
-                </a>
+                <button id="LoginButton" th:text="${loginButton}" onclick="loadContent('/loginContent')">Login</button>
+                <button id="RegisterButton" th:text="${registerButton}" onclick="loadContent('/registerContent')">Register</button>
                 <a href="/playZone">
                     <button id="PlayAsInviteButton" th:text="${playAsInviteButton}">Play as Invite</button>
                 </a>
             </div>
         </div>
+
+        <script>
+            function loadContent(url) {
+                fetch(url)
+                    .then(response => response.text())
+                    .then(data => {
+                        document.getElementById('loginPanel').innerHTML = data;
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        </script>
     </body>
 </html>
