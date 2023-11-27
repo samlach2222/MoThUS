@@ -12,9 +12,9 @@
                 <img src="/assets/MoThUS_logo.svg" alt="logo" id="mothusLogo">
             </div>
             <div id="loginPanelButtons">
-                <button id="LoginButton" th:text="${loginButton}" onclick="loadContent('/loginContent')">Login</button>
-                <button id="RegisterButton" th:text="${registerButton}" onclick="loadContent('/registerContent')">Register</button>
-                <button id="PlayAsInviteButton" th:text="${playAsInviteButton}" onclick="location.href='/playZone'">Play as Invite</button>
+                <button class="homeLoginButton" id="LoginButton" th:text="${loginButton}" onclick="loadContent('/loginContent')">Login</button>
+                <button class="homeLoginButton" id="RegisterButton" th:text="${registerButton}" onclick="loadContent('/registerContent')">Register</button>
+                <button class="homeLoginButton" id="PlayAsInviteButton" th:text="${playAsInviteButton}" onclick="location.href='/playZone'">Play as Invite</button>
             </div>
         </div>
 

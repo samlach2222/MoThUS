@@ -1,3 +1,6 @@
+/**************/
+/* login.html */
+/**************/
 
 /**
  * Main div with 100 % of the page size and flexbox to center the login panel in the middle of the page. No scrollbars.
@@ -28,7 +31,7 @@ body {
     display: flex;
     flex-direction: column;
     border: 2px solid black;
-    border-radius: 5%;
+    border-radius: 30px;
 }
 
 /**
@@ -58,24 +61,24 @@ body {
  */
 #loginPanelLogo {
     width: 98%;
-    height: 20%;
+    height: 30%;
     margin: 2% 1% 2% 1%;
 }
 
 /**
  * Login panel buttons
  */
-button {
+.homeLoginButton {
     align-self: center;
     width: 80%;
-    height: 5em;
+    height: 7vh;
 }
 
 #mothusLogo {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    margin-top: 3%;
+    margin-top: 4%;
 }
 
 #LoginButton {
@@ -117,5 +120,95 @@ button {
     cursor: pointer;
 }
 
+#returnButton {
+    display: block;
+    z-index:100;
+    width: 5vh;
+    height: 5vh;
+    color: white;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
+    border-radius: 28px 0 28px 0;
+    position: fixed;
+}
 
+#returnButton:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
 
+/*********************/
+/* loginContent.html */
+/*********************/
+
+#usernameInput, #passwordInput, #passwordConfirmInput, #emailInput {
+    width: 100%;
+    height: 4vh;
+    font-size: 2vh;
+    border-radius: 10px;
+    border: 1px solid black;
+    text-align: center;
+    margin-bottom: 1vh;
+}
+
+label {
+    font-size: 2vh;
+    margin-bottom: 0.5vh;
+    align-self: baseline;
+}
+
+#submitInput {
+    margin-top: 4vh;
+    width: 90%;
+    height: 4vh;
+    background-color: #005f9f;
+    color: white;
+    font-size: 1.5vh;
+    border-radius: 10px;
+    border: none;
+}
+
+#submitInput:hover {
+    background-color: #004d8c;
+    cursor: pointer;
+}
+
+#loginForm {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+}
+
+/************************/
+/* RegisterContent.html */
+/************************/
+
+#registerForm {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+}
+
+#registerInput {
+    margin-top: 4vh;
+    width: 90%;
+    height: 4vh;
+    background-color: #997100;
+    color: white;
+    font-size: 1.5vh;
+    border-radius: 10px;
+    border: none;
+}
+
+#registerInput:hover {
+    background-color: #7a5f00;
+    cursor: pointer;
+}
