@@ -15,6 +15,7 @@ body {
     display: block;
     cursor: pointer;
     border: none;
+    padding: 5px;
 }
 
 #verticalMenu #goBackButton {
@@ -37,7 +38,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 5px;
     align-items: center;
 }
 
