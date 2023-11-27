@@ -1,0 +1,142 @@
+/* TODO : DO TOP BAR */
+
+/**
+ * Main div with 100 % of the page size
+ */
+body {
+    background-color: blue;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/**
+ * Top banner with 15% of the page size
+ */
+#topBanner {
+    width: 100vw;
+    height: 15vh;
+    background-color: darkred;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/**
+ * Game table with 40% of the page size
+ */
+#gameTable {
+    max-width: 600px;
+    width: 50vw;
+    min-width: 400px;
+    height: 40vh;
+    background-color: darkgreen;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/**
+ * Periodic keyboard with 35% of the page size
+ */
+#periodicTable {
+    max-width: 800px;
+    width: 65vw;
+    min-width: 500px;
+    height: 35vh;
+    background-color: orangered;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/**
+ * Bottom banner with 10% of the page size for the advertising
+ */
+#advertisingInsert {
+    max-width: 500px;
+    width: 50vw;
+    height: 10vh;
+    min-height: 10vh;
+    background-color: white;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    border: 1px solid black;
+}
+
+/**
+ * Game table in the game div
+ */
+#mothusHtmlTable {
+    width : 95%;
+    height: 95%;
+    background-color: white;
+    align-self: center;
+    justify-self: center;
+}
+
+/**
+ * Periodic table in the periodic div
+ */
+#periodicHtmlTable {
+    width : 95%;
+    height: 95%;
+    background-color: white;
+    align-self: center;
+    justify-self: center;
+}
+
+/**
+ * Top bar help button
+ */
+#help {
+    width: 8vh;
+    height: 8vh;
+    background-color: coral;
+}
+
+/**
+ * Top bar stats button
+ */
+#stats {
+    width: 8vh;
+    height: 8vh;
+    background-color: darkolivegreen;
+}
+
+/**
+ * Top bar logo
+ */
+#logo {
+    width: 40vh;
+    height: 40vh;
+    background-color: fuchsia;
+}
+
+/**
+ * Top bar account button
+ */
+#account {
+    width: 8vh;
+    height: 8vh;
+    background-color: darkgoldenrod;
+}
+
+/**
+ * Top bar shop button
+ */
+#shop {
+    width: 8vh;
+    height: 8vh;
+    background-color: darkorchid;
+}
+
+
