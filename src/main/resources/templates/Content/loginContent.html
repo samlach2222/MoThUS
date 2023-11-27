@@ -1,8 +1,13 @@
+<a href="/login" id="returnButton"></a>
 <div id="loginPanelLogo">
     <img src="/assets/MoThUS_logo.svg" alt="logo" id="mothusLogo">
 </div>
 <div id="loginPanelButtons">
-    <p>
-        Login Content
-    </p>
+    <form method="post" id="loginForm">
+        <label for="usernameInput">Username</label><br>
+        <input type="text" id="usernameInput" name="username" required><br>
+        <label for="passwordInput">Password</label><br>
+        <input type="password" id="passwordInput" name="password" required><br>
+        <input type="submit" value="Log In" id="submitInput" onclick="location.href='/playZone'">
+    </form>
 </div>
