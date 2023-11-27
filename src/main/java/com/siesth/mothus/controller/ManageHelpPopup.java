@@ -29,6 +29,6 @@ public class ManageHelpPopup {
         model.addAttribute("RulesExplanation", RulesExplanation);
         model.addAttribute("LettersExplanation", LettersExplanation);
 
-        return "helpPopup";
+        return "Popup/helpPopup";
     }
 }

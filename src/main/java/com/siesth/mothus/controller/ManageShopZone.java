@@ -34,13 +34,13 @@ public class ManageShopZone {
     public String loadCoinShopContent(Model model) {
         // To pass data to the template
         model.addAttribute("someData", "Some data for Coin Shop");
-        return "coinShopContent"; // Thymeleaf template name
+        return "Content/coinShopContent"; // Thymeleaf template name
     }
 
     @GetMapping("/elementCaseContent")
     public String loadElementCaseContent(Model model) {
         // o pass data to the template
         model.addAttribute("someData", "Some data for Coin Shop");
-        return "elementCaseContent"; // Thymeleaf template name
+        return "Content/elementCaseContent"; // Thymeleaf template name
     }
 }
