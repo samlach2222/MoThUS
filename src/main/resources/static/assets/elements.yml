@@ -1,0 +1,591 @@
+elements:
+  - symbol: H
+    name: Hydrogen
+    atomicNumber: 1
+    xPos: 0
+    yPos: 0
+  - symbol: He
+    name: Helium
+    atomicNumber: 2
+    xPos: 17
+    yPos: 0
+  - symbol: Li
+    name: Lithium
+    atomicNumber: 3
+    xPos: 0
+    yPos: 1
+  - symbol: Be
+    name: Beryllium
+    atomicNumber: 4
+    xPos: 1
+    yPos: 1
+  - symbol: B
+    name: Boron
+    atomicNumber: 5
+    xPos: 12
+    yPos: 1
+  - symbol: C
+    name: Carbon
+    atomicNumber: 6
+    xPos: 13
+    yPos: 1
+  - symbol: N
+    name: Nitrogen
+    atomicNumber: 7
+    xPos: 14
+    yPos: 1
+  - symbol: O
+    name: Oxygen
+    atomicNumber: 8
+    xPos: 15
+    yPos: 1
+  - symbol: F
+    name: Fluorine
+    atomicNumber: 9
+    xPos: 16
+    yPos: 1
+  - symbol: Ne
+    name: Neon
+    atomicNumber: 10
+    xPos: 17
+    yPos: 1
+  - symbol: Na
+    name: Sodium
+    atomicNumber: 11
+    xPos: 0
+    yPos: 2
+  - symbol: Mg
+    name: Magnesium
+    atomicNumber: 12
+    xPos: 1
+    yPos: 2
+  - symbol: Al
+    name: Aluminum
+    atomicNumber: 13
+    xPos: 12
+    yPos: 2
+  - symbol: Si
+    name: Silicon
+    atomicNumber: 14
+    xPos: 13
+    yPos: 2
+  - symbol: P
+    name: Phosphorus
+    atomicNumber: 15
+    xPos: 14
+    yPos: 2
+  - symbol: S
+    name: Sulfur
+    atomicNumber: 16
+    xPos: 15
+    yPos: 2
+  - symbol: Cl
+    name: Chlorine
+    atomicNumber: 17
+    xPos: 16
+    yPos: 2
+  - symbol: Ar
+    name: Argon
+    atomicNumber: 18
+    xPos: 17
+    yPos: 2
+  - symbol: K
+    name: Potassium
+    atomicNumber: 19
+    xPos: 0
+    yPos: 3
+  - symbol: Ca
+    name: Calcium
+    atomicNumber: 20
+    xPos: 1
+    yPos: 3
+  - symbol: Sc
+    name: Scandium
+    atomicNumber: 21
+    xPos: 2
+    yPos: 3
+  - symbol: Ti
+    name: Titanium
+    atomicNumber: 22
+    xPos: 3
+    yPos: 3
+  - symbol: V
+    name: Vanadium
+    atomicNumber: 23
+    xPos: 4
+    yPos: 3
+  - symbol: Cr
+    name: Chromium
+    atomicNumber: 24
+    xPos: 5
+    yPos: 3
+  - symbol: Mn
+    name: Manganese
+    atomicNumber: 25
+    xPos: 6
+    yPos: 3
+  - symbol: Fe
+    name: Iron
+    atomicNumber: 26
+    xPos: 7
+    yPos: 3
+  - symbol: Co
+    name: Cobalt
+    atomicNumber: 27
+    xPos: 8
+    yPos: 3
+  - symbol: Ni
+    name: Nickel
+    atomicNumber: 28
+    xPos: 9
+    yPos: 3
+  - symbol: Cu
+    name: Copper
+    atomicNumber: 29
+    xPos: 10
+    yPos: 3
+  - symbol: Zn
+    name: Zinc
+    atomicNumber: 30
+    xPos: 11
+    yPos: 3
+  - symbol: Ga
+    name: Gallium
+    atomicNumber: 31
+    xPos: 12
+    yPos: 3
+  - symbol: Ge
+    name: Germanium
+    atomicNumber: 32
+    xPos: 13
+    yPos: 3
+  - symbol: As
+    name: Arsenic
+    atomicNumber: 33
+    xPos: 14
+    yPos: 3
+  - symbol: Se
+    name: Selenium
+    atomicNumber: 34
+    xPos: 15
+    yPos: 3
+  - symbol: Br
+    name: Bromine
+    atomicNumber: 35
+    xPos: 16
+    yPos: 3
+  - symbol: Kr
+    name: Krypton
+    atomicNumber: 36
+    xPos: 17
+    yPos: 3
+  - symbol: Rb
+    name: Rubidium
+    atomicNumber: 37
+    xPos: 0
+    yPos: 4
+  - symbol: Sr
+    name: Strontium
+    atomicNumber: 38
+    xPos: 1
+    yPos: 4
+  - symbol: Y
+    name: Yttrium
+    atomicNumber: 39
+    xPos: 2
+    yPos: 4
+  - symbol: Zr
+    name: Zirconium
+    atomicNumber: 40
+    xPos: 3
+    yPos: 4
+  - symbol: Nb
+    name: Niobium
+    atomicNumber: 41
+    xPos: 4
+    yPos: 4
+  - symbol: Mo
+    name: Molybdenum
+    atomicNumber: 42
+    xPos: 5
+    yPos: 4
+  - symbol: Tc
+    name: Technetium
+    atomicNumber: 43
+    xPos: 6
+    yPos: 4
+  - symbol: Ru
+    name: Ruthenium
+    atomicNumber: 44
+    xPos: 7
+    yPos: 4
+  - symbol: Rh
+    name: Rhodium
+    atomicNumber: 45
+    xPos: 8
+    yPos: 4
+  - symbol: Pd
+    name: Palladium
+    atomicNumber: 46
+    xPos: 9
+    yPos: 4
+  - symbol: Ag
+    name: Silver
+    atomicNumber: 47
+    xPos: 10
+    yPos: 4
+  - symbol: Cd
+    name: Cadmium
+    atomicNumber: 48
+    xPos: 11
+    yPos: 4
+  - symbol: In
+    name: Indium
+    atomicNumber: 49
+    xPos: 12
+    yPos: 4
+  - symbol: Sn
+    name: Tin
+    atomicNumber: 50
+    xPos: 13
+    yPos: 4
+  - symbol: Sb
+    name: Antimony
+    atomicNumber: 51
+    xPos: 14
+    yPos: 4
+  - symbol: Te
+    name: Tellurium
+    atomicNumber: 52
+    xPos: 15
+    yPos: 4
+  - symbol: I
+    name: Iodine
+    atomicNumber: 53
+    xPos: 16
+    yPos: 4
+  - symbol: Xe
+    name: Xenon
+    atomicNumber: 54
+    xPos: 17
+    yPos: 4
+  - symbol: Cs
+    name: Cesium
+    atomicNumber: 55
+    xPos: 0
+    yPos: 5
+  - symbol: Ba
+    name: Barium
+    atomicNumber: 56
+    xPos: 1
+    yPos: 5
+  - symbol: La
+    name: Lanthanum
+    atomicNumber: 57
+    xPos: 3
+    yPos: 8
+  - symbol: Ce
+    name: Cerium
+    atomicNumber: 58
+    xPos: 4
+    yPos: 8
+  - symbol: Pr
+    name: Praseodymium
+    atomicNumber: 59
+    xPos: 5
+    yPos: 8
+  - symbol: Nd
+    name: Neodymium
+    atomicNumber: 60
+    xPos: 6
+    yPos: 8
+  - symbol: Pm
+    name: Promethium
+    atomicNumber: 61
+    xPos: 7
+    yPos: 8
+  - symbol: Sm
+    name: Samarium
+    atomicNumber: 62
+    xPos: 8
+    yPos: 8
+  - symbol: Eu
+    name: Europium
+    atomicNumber: 63
+    xPos: 9
+    yPos: 8
+  - symbol: Gd
+    name: Gadolinium
+    atomicNumber: 64
+    xPos: 10
+    yPos: 8
+  - symbol: Tb
+    name: Terbium
+    atomicNumber: 65
+    xPos: 11
+    yPos: 8
+  - symbol: Dy
+    name: Dysprosium
+    atomicNumber: 66
+    xPos: 12
+    yPos: 8
+  - symbol: Ho
+    name: Holmium
+    atomicNumber: 67
+    xPos: 13
+    yPos: 8
+  - symbol: Er
+    name: Erbium
+    atomicNumber: 68
+    xPos: 14
+    yPos: 8
+  - symbol: Tm
+    name: Thulium
+    atomicNumber: 69
+    xPos: 15
+    yPos: 8
+  - symbol: Yb
+    name: Ytterbium
+    atomicNumber: 70
+    xPos: 16
+    yPos: 8
+  - symbol: Lu
+    name: Lutetium
+    atomicNumber: 71
+    xPos: 17
+    yPos: 8
+  - symbol: Hf
+    name: Hafnium
+    atomicNumber: 72
+    xPos: 3
+    yPos: 5
+  - symbol: Ta
+    name: Tantalum
+    atomicNumber: 73
+    xPos: 4
+    yPos: 5
+  - symbol: W
+    name: Tungsten
+    atomicNumber: 74
+    xPos: 5
+    yPos: 5
+  - symbol: Re
+    name: Rhenium
+    atomicNumber: 75
+    xPos: 6
+    yPos: 5
+  - symbol: Os
+    name: Osmium
+    atomicNumber: 76
+    xPos: 7
+    yPos: 5
+  - symbol: Ir
+    name: Iridium
+    atomicNumber: 77
+    xPos: 8
+    yPos: 5
+  - symbol: Pt
+    name: Platinum
+    atomicNumber: 78
+    xPos: 9
+    yPos: 5
+  - symbol: Au
+    name: Gold
+    atomicNumber: 79
+    xPos: 10
+    yPos: 5
+  - symbol: Hg
+    name: Mercury
+    atomicNumber: 80
+    xPos: 11
+    yPos: 5
+  - symbol: Tl
+    name: Thallium
+    atomicNumber: 81
+    xPos: 12
+    yPos: 5
+  - symbol: Pb
+    name: Lead
+    atomicNumber: 82
+    xPos: 13
+    yPos: 5
+  - symbol: Bi
+    name: Bismuth
+    atomicNumber: 83
+    xPos: 14
+    yPos: 5
+  - symbol: Po
+    name: Polonium
+    atomicNumber: 84
+    xPos: 15
+    yPos: 5
+  - symbol: At
+    name: Astatine
+    atomicNumber: 85
+    xPos: 16
+    yPos: 5
+  - symbol: Rn
+    name: Radon
+    atomicNumber: 86
+    xPos: 17
+    yPos: 5
+  - symbol: Fr
+    name: Francium
+    atomicNumber: 87
+    xPos: 0
+    yPos: 6
+  - symbol: Ra
+    name: Radium
+    atomicNumber: 88
+    xPos: 1
+    yPos: 6
+  - symbol: Ac
+    name: Actinium
+    atomicNumber: 89
+    xPos: 3
+    yPos: 9
+  - symbol: Th
+    name: Thorium
+    atomicNumber: 90
+    xPos: 4
+    yPos: 9
+  - symbol: Pa
+    name: Protactinium
+    atomicNumber: 91
+    xPos: 5
+    yPos: 9
+  - symbol: U
+    name: Uranium
+    atomicNumber: 92
+    xPos: 6
+    yPos: 9
+  - symbol: Np
+    name: Neptunium
+    atomicNumber: 93
+    xPos: 7
+    yPos: 9
+  - symbol: Pu
+    name: Plutonium
+    atomicNumber: 94
+    xPos: 8
+    yPos: 9
+  - symbol: Am
+    name: Americium
+    atomicNumber: 95
+    xPos: 9
+    yPos: 9
+  - symbol: Cm
+    name: Curium
+    atomicNumber: 96
+    xPos: 10
+    yPos: 9
+  - symbol: Bk
+    name: Berkelium
+    atomicNumber: 97
+    xPos: 11
+    yPos: 9
+  - symbol: Cf
+    name: Californium
+    atomicNumber: 98
+    xPos: 12
+    yPos: 9
+  - symbol: Es
+    name: Einsteinium
+    atomicNumber: 99
+    xPos: 13
+    yPos: 9
+  - symbol: Fm
+    name: Fermium
+    atomicNumber: 100
+    xPos: 14
+    yPos: 9
+  - symbol: Md
+    name: Mendelevium
+    atomicNumber: 101
+    xPos: 15
+    yPos: 9
+  - symbol: No
+    name: Nobelium
+    atomicNumber: 102
+    xPos: 16
+    yPos: 9
+  - symbol: Lr
+    name: Lawrencium
+    atomicNumber: 103
+    xPos: 17
+    yPos: 9
+  - symbol: Rf
+    name: Rutherfordium
+    atomicNumber: 104
+    xPos: 3
+    yPos: 6
+  - symbol: Db
+    name: Dubnium
+    atomicNumber: 105
+    xPos: 4
+    yPos: 6
+  - symbol: Sg
+    name: Seaborgium
+    atomicNumber: 106
+    xPos: 5
+    yPos: 6
+  - symbol: Bh
+    name: Bohrium
+    atomicNumber: 107
+    xPos: 6
+    yPos: 6
+  - symbol: Hs
+    name: Hassium
+    atomicNumber: 108
+    xPos: 7
+    yPos: 6
+  - symbol: Mt
+    name: Meitnerium
+    atomicNumber: 109
+    xPos: 8
+    yPos: 6
+  - symbol: Ds
+    name: Darmstadtium
+    atomicNumber: 110
+    xPos: 9
+    yPos: 6
+  - symbol: Rg
+    name: Roentgenium
+    atomicNumber: 111
+    xPos: 10
+    yPos: 6
+  - symbol: Cn
+    name: Copernicium
+    atomicNumber: 112
+    xPos: 11
+    yPos: 6
+  - symbol: Nh
+    name: Nihonium
+    atomicNumber: 113
+    xPos: 12
+    yPos: 6
+  - symbol: Fl
+    name: Flerovium
+    atomicNumber: 114
+    xPos: 13
+    yPos: 6
+  - symbol: Mc
+    name: Moscovium
+    atomicNumber: 115
+    xPos: 14
+    yPos: 6
+  - symbol: Lv
+    name: Livermorium
+    atomicNumber: 116
+    xPos: 15
+    yPos: 6
+  - symbol: Ts
+    name: Tennessine
+    atomicNumber: 117
+    xPos: 16
+    yPos: 6
+  - symbol: Og
+    name: Oganesson
+    atomicNumber: 118
+    xPos: 17
+    yPos: 6

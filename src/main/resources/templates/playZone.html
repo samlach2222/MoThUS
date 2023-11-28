@@ -5,6 +5,8 @@
         <title th:text="${pageTitle}">Page Title</title>
         <link rel="icon" href="/assets/favicon.ico" type="image/x-icon"/>
         <link rel="stylesheet" href="/css/playZone.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+        <script src="/js/playZone.js"></script>
     </head>
     <body>
 
@@ -35,10 +37,7 @@
         </div>
 
         <div id="periodicTable">
-            <!-- TODO : Create in JS the table here with the text file -->
-            <table id="periodicHtmlTable">
-
-            </table>
+            <table id="periodicHtmlTable"></table>
         </div>
 
         <!-- if Google AdSense don't find any ad, it will display empty iframe -->
