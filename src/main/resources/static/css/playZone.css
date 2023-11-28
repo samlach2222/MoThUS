@@ -1,10 +1,7 @@
-/* TODO : DO TOP BAR */
-
 /**
  * Main div with 100 % of the page size
  */
 body {
-    background-color: blue;
     margin: 0;
     padding: 0;
     display: flex;
@@ -21,7 +18,6 @@ body {
 #topBanner {
     width: 100vw;
     height: 15vh;
-    background-color: darkred;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -50,7 +46,6 @@ body {
     width: 65vw;
     min-width: 500px;
     height: 35vh;
-    background-color: orangered;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -89,27 +84,8 @@ body {
 #periodicHtmlTable {
     width : 95%;
     height: 95%;
-    background-color: white;
     align-self: center;
     justify-self: center;
-}
-
-/**
- * Top bar help button
- */
-#help {
-    width: 8vh;
-    height: 8vh;
-    background-color: coral;
-}
-
-/**
- * Top bar stats button
- */
-#stats {
-    width: 8vh;
-    height: 8vh;
-    background-color: darkolivegreen;
 }
 
 /**
@@ -117,17 +93,8 @@ body {
  */
 #logo {
     width: 40vh;
-    height: 40vh;
-    background-color: fuchsia;
-}
-
-/**
- * Top bar account button
- */
-#account {
-    width: 8vh;
-    height: 8vh;
-    background-color: darkgoldenrod;
+    padding-left: 5vw;
+    padding-right: 5vw;
 }
 
 /**
@@ -139,10 +106,34 @@ body {
     background-color: darkorchid;
 }
 
-#mothusLogo {
+#mothusLogo{
     width: 100%;
     height: 100%;
     object-fit: contain;
+}
+
+#helpButton, #statsButton, #accountButton {
+    width: 85%;
+    height: 85%;
+    object-fit: contain;
+    margin: auto;
+}
+
+#helpButton:hover, #statsButton:hover, #accountButton:hover {
+    cursor: pointer;
+    width: 92%;
+    height: 92%;
+}
+
+#help, #stats, #account {
+    width: 8vh;
+    height: 8vh;
+    display: flex;
+}
+
+hr {
+    width: 100vh;
+    margin-top: 0;
 }
 
 

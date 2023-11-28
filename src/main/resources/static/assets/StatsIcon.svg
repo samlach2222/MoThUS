@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="73.511mm" height="73.511mm" version="1.1" viewBox="0 0 73.511 73.511" xmlns="http://www.w3.org/2000/svg">
+	<defs>
+		<clipPath id="clipPath6">
+			<circle cx="105" cy="148.5" r="35.256" fill-opacity="0" stroke="#000" stroke-width="3"/>
+		</clipPath>
+		<clipPath id="clipPath7">
+			<circle cx="105" cy="148.5" r="35.256" fill-opacity="0" stroke="#000" stroke-width="3"/>
+		</clipPath>
+		<clipPath id="clipPath8">
+			<circle cx="105" cy="148.5" r="35.256" fill-opacity="0" stroke="#000" stroke-width="3"/>
+		</clipPath>
+	</defs>
+	<g transform="translate(-198.36 -198.09)">
+		<g>
+			<rect transform="matrix(1 0 0 1.176 130.12 54.212)" x="98.534" y="132.49" width="12.933" height="50.105" clip-path="url(#clipPath8)"/>
+			<rect transform="translate(130.12 86.341)" x="77.244" y="140.62" width="12.933" height="40.554" clip-path="url(#clipPath7)"/>
+			<rect transform="translate(130.12 86.341)" x="119.82" y="153.96" width="12.933" height="26.503" clip-path="url(#clipPath6)"/>
+		</g>
+		<circle cx="235.12" cy="234.84" r="35.256" fill-opacity="0" stroke="#000" stroke-width="3"/>
+	</g>
+</svg>
