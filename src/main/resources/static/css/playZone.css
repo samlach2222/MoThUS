@@ -146,3 +146,39 @@ body {
 }
 
 
+/*****************/
+/* Element table */
+/*****************/
+
+.elementDiv {
+    width: 100%;
+    height: 100%;
+}
+
+.elementAtomicNumberDiv {
+    position: absolute;
+    display: block;
+    z-index: 100;
+    top: 0;
+    right: 0;
+    margin: 0.1vh;
+    padding: 0;
+    font-size: 0.8vh;
+}
+
+.elementLettersDiv {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    font-size: 1.5vh;
+}
+
+#periodicTable td, #periodicTable th {
+    padding: 8px;
+    text-align: center;
+    position: relative;
+}
+
+#periodicTable table {
+    table-layout: fixed;
+}
