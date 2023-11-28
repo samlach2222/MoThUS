@@ -48,18 +48,25 @@ function displayElementTable(data){
             const cell = document.createElement("td");
             elts.forEach(elt => {
                 if (elt.xPos === j && elt.yPos === i) {
-                    cell.style.border = "1px solid black";
+                    cell.style.border = "1px solid #494A4B";
+                    cell.style.color = "#FFFFFF";
                     cell.style.borderRadius = "5px";
                     cell.style.cursor = "pointer";
                     // style td:hover
-                    cell.style.backgroundColor = "#FFFFFF";
+                    cell.style.backgroundColor = "#494A4B";
                     cell.onmouseover = function () {
-                        cell.style.backgroundColor = "#D3D3D3";
+                        cell.style.backgroundColor = "#707070";
                     }
                     cell.onmouseout = function () {
-                        cell.style.backgroundColor = "#FFFFFF";
+                        cell.style.backgroundColor = "#494A4B";
                     }
                     cell.onclick = function () {
+                        // TODO : Gameplay
+                    }
+                    // allow drag and drop
+                    cell.draggable = true;
+                    cell.ondragstart = function (event) {
+                        event.dataTransfer.setData("text", elt.symbol);
                         // TODO : Gameplay
                     }
                     cell.appendChild(displayElement(elt));
