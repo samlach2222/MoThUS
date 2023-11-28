@@ -38,4 +38,19 @@ public class ManagePlayZone {
         Resource file = resourceLoader.getResource("classpath:static/assets/elements.yml");
         return file.getContentAsString(StandardCharsets.UTF_8);
     }
+
+    // TODO : Function to pass sub-dictionary to frontend (a dictionary of words starting with a specific letter)
+
+    @GetMapping("/getTodayWordData")
+    @ResponseBody
+    public String getTodayWordData() throws IOException {
+        String word = "SAlUTaTiONS"; // case is very important --> THIS IS TEMPORARY, GET FROM DB
+        // split each upper case letter
+        String[] letters = word.split("(?=[A-Z])");
+        int length = letters.length;
+        String firstLetter = letters[0];
+
+        // return length and first letter
+        return length + " " + firstLetter;
+    }
 }
