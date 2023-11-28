@@ -1,5 +1,6 @@
 window.onload = function () {
     receiveDataFromSpring();
+    receiveWordFromSpring();
 }
 
 
@@ -80,7 +81,7 @@ function displayElementTable(data){
 }
 
 function receiveDataFromSpring() {
-    return fetch('/getYamlData')
+    fetch('/getYamlData')
         .then(response => response.text())
         .then(yamlData => {
             // string to Yaml
@@ -89,6 +90,83 @@ function receiveDataFromSpring() {
         })
         .catch(error => {
             console.error('Error fetching or parsing YAML data:', error);
+            throw error; // Rethrow the error if necessary
+        });
+}
+
+function displayGameTable(length, firstLetter) {
+    // create a table of 8 rows and "length" columns
+    const gameTable = document.getElementById("mothusHtmlTable");
+    const gameTableBody = document.createElement("tbody");
+    for (let i = 0; i < 8; i++) {
+        const row = document.createElement("tr");
+        for (let j = 0; j < length; j++) {
+            const cell = document.createElement("td");
+            cell.style.color = "#FFFFFF";
+            cell.style.borderRadius = "5px";
+
+            if (i === 0 && j === 0) {
+                cell.style.border = "1px solid #b90022";
+                cell.style.backgroundColor = "#b90022";
+                const elt = {
+                    atomicNumber: 1,
+                    symbol: firstLetter,
+                };
+                cell.appendChild(displayElement(elt));
+            }
+            else if (i ===0 && j >= 1) {
+                cell.style.border = "1px solid #005f9f";
+                cell.style.backgroundColor = "#005f9f";
+                const elt = {
+                    atomicNumber: 1,
+                    symbol: ".",
+                };
+                cell.appendChild(displayElement(elt));
+            }
+            else {
+                cell.style.border = "1px solid #005f9f";
+                cell.style.backgroundColor = "#005f9f";
+                const elt = {
+                    atomicNumber: 1,
+                    symbol: "&nbsp;",
+                };
+                cell.appendChild(displayElement(elt));
+            }
+            // allow drop
+            cell.ondragover = function (event) {
+                event.preventDefault();
+            }
+
+            cell.ondrop = function (event) {
+                event.preventDefault();
+                // Get the dragged text
+                const draggedText = event.dataTransfer.getData("text");
+                // Find the corresponding elementDiv in the dropped cell
+                const elementDiv = cell.querySelector('.elementDiv');
+                // Find the elementLettersDiv inside the elementDiv
+                const elementLettersDiv = elementDiv.querySelector('.elementLettersDiv');
+                // Set the innerHTML of elementLettersDiv
+                elementLettersDiv.innerHTML = draggedText;
+            }
+            row.appendChild(cell);
+        }
+        gameTableBody.appendChild(row);
+    }
+    gameTable.appendChild(gameTableBody);
+}
+
+function receiveWordFromSpring() {
+    fetch('/getTodayWordData')
+        .then(response => response.text())
+        .then(word => {
+            let splitWord = word.split(" ");
+            let length = splitWord[0];
+            let firstLetter = splitWord[1];
+
+            displayGameTable(length, firstLetter);
+        })
+        .catch(error => {
+            console.error('Error fetching word data:', error);
             throw error; // Rethrow the error if necessary
         });
 }
