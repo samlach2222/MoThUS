@@ -3,13 +3,13 @@
     <head>
         <meta charset="UTF-8">
         <title th:text="${pageTitle}">Page Title</title>
-        <link rel="icon" href="/assets/favicon.ico" type="image/x-icon"/>
+        <link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon"/>
         <link rel="stylesheet" href="/css/login.css">
     </head>
     <body>
         <div id="loginPanel">
             <div id="loginPanelLogo">
-                <img src="/assets/MoThUS_logo.svg" alt="logo" id="mothusLogo">
+                <img src="/assets/logos/MoThUS_logo.svg" alt="logo" id="mothusLogo">
             </div>
             <div id="loginPanelButtons">
                 <button class="homeLoginButton" id="LoginButton" th:text="${loginButton}" onclick="loadContent('/loginContent')">Login</button>
