@@ -1,4 +1,3 @@
-RhEs
 RhEsUS
 RhINaNThEs
 RhINeNCePHAlEs
@@ -9,7 +8,6 @@ RhInOPHArYNGe
 RhInOPHArYNGeEs
 RhInOPHArYNGeS
 RhInOPLaSTiEs
-RhO
 RhOTaCISmEs
 RhUBArBe
 RhUBaRbEs
@@ -19,3 +17,4 @@ RhYNCHITeS
 RhYOLiTe
 RhYOLiTeS
 RhYOLiThEs
+

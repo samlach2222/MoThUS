@@ -21,7 +21,6 @@ AmArInErONS
 AmArInEs
 AmArInIONS
 AmArInONS
-AmArRa
 AmArRaGe
 AmArRaGeS
 AmArRaI
@@ -31,14 +30,12 @@ AmArRaSSe
 AmArRaSSeS
 AmArRaSSiONS
 AmArRaTeS
-AmArRe
 AmArReEs
 AmArReRa
 AmArReRaI
 AmArReRaIS
 AmArReRaS
 AmArReS
-AmAs
 AmAsSAmEs
 AmAsSAs
 AmAsSAsSe
@@ -46,7 +43,6 @@ AmAsSAsSeS
 AmAsSAsSiONS
 AmAsSAt
 AmAsSAtEs
-AmAsSe
 AmAsSeEs
 AmAsSEr
 AmAsSeRa
@@ -58,9 +54,7 @@ AmAsSErONS
 AmAsSeS
 AmAsSiONS
 AmAsSONS
-AmAtI
 AmAtIEs
-AmAtIr
 AmAtIRa
 AmAtIRaI
 AmAtIRaIS
@@ -100,7 +94,6 @@ AmBiTiONNeS
 AmBiTiONNiONS
 AmBiTiONNoNS
 AmBiTiONS
-AmBLa
 AmBLaI
 AmBLaIS
 AmBLaS
@@ -111,26 +104,20 @@ AmBLaTeS
 AmBLiONS
 AmBON
 AmBONS
-AmBRa
 AmBRaI
 AmBRaIS
 AmBrAmEs
-AmBrAs
 AmBrAsSe
 AmBrAsSeS
 AmBrAsSiONS
-AmBrAt
 AmBrAtEs
-AmBRe
 AmBReEs
-AmBrEr
 AmBReRa
 AmBReRaI
 AmBReRaIS
 AmBrErAs
 AmBrErIONS
 AmBrErONS
-AmBrEs
 AmBrIONS
 AmBrOISiEs
 AmBrONS
@@ -144,8 +131,6 @@ AmBULaNCIErS
 AmBULaNTe
 AmBULaNTeS
 AmBULaNTs
-AmEr
-AmErEs
 AmErICaIn
 AmErICaINe
 AmErICaInEs
@@ -174,8 +159,6 @@ AmErICaNiSmEs
 AmErICaNiSONS
 AmErICaNiSTe
 AmErICaNiSTeS
-AmErS
-AmEs
 AmEuBLi
 AmEuBLiEs
 AmEuBLiRa
@@ -188,7 +171,6 @@ AmEuBLiSSeS
 AmEuBLiSSiONS
 AmEuBLiSSONS
 AmEuBLiTeS
-AmEuTa
 AmEuTaI
 AmEuTaIS
 AmEuTaS
@@ -196,7 +178,6 @@ AmEuTaSSe
 AmEuTaSSeS
 AmEuTaSSiONS
 AmEuTaTeS
-AmEuTe
 AmEuTeEs
 AmEuTeRa
 AmEuTeRaI
@@ -204,14 +185,11 @@ AmEuTeRaIS
 AmEuTeRaS
 AmEuTeS
 AmEuTiONS
-AmI
-AmIBe
 AmIBeS
 AmIBiAsEs
 AmICAl
 AmICAlEs
 AmICTs
-AmIEs
 AmInCI
 AmInCIEs
 AmInCIr
@@ -227,16 +205,12 @@ AmInCISSeS
 AmInCISSiONS
 AmInCISSONS
 AmInCITeS
-AmINe
 AmINeEs
-AmInEs
 AmInOPLaSTe
 AmInOPLaSTeS
-AmIrAl
 AmIrAlEs
 AmIrAuTe
 AmIrAuTeS
-AmIS
 AmITiEs
 AmMoDyTe
 AmMoDyTeS
@@ -251,7 +225,6 @@ AmMoNiTeS
 AmNeSiEs
 AmNiOCeNTeSe
 AmNiOCeNTeSeS
-AmNiOs
 AmNiOsCoPIEs
 AmNiSTiAmEs
 AmNiSTiAs
@@ -324,7 +297,6 @@ AmPHoRe
 AmPHoReS
 AmPHoTeRe
 AmPHoTeReS
-AmPLi
 AmPLiAtIF
 AmPLiAtIFS
 AmPLiAtION
@@ -347,7 +319,6 @@ AmPLiFIEs
 AmPLiFIIONS
 AmPLiFIONS
 AmPLiS
-AmPuTa
 AmPuTaI
 AmPuTaIS
 AmPuTaS
@@ -357,7 +328,6 @@ AmPuTaSSiONS
 AmPuTaTeS
 AmPuTaTiON
 AmPuTaTiONS
-AmPuTe
 AmPuTeEs
 AmPuTeRa
 AmPuTeRaI
@@ -365,7 +335,6 @@ AmPuTeRaIS
 AmPuTeRaS
 AmPuTeS
 AmPuTiONS
-AmUI
 AmUIEs
 AmUIrIONS
 AmUIrONS
@@ -373,7 +342,6 @@ AmUIS
 AmUISSiONS
 AmUISSONS
 AmUITeS
-AmURa
 AmURaI
 AmURaIS
 AmURaS
@@ -381,7 +349,6 @@ AmURaSSe
 AmURaSSeS
 AmURaSSiONS
 AmURaTeS
-AmURe
 AmUReEs
 AmUReRa
 AmUReRaI
@@ -395,7 +362,6 @@ AmUSAsSeS
 AmUSAsSiONS
 AmUSAt
 AmUSAtEs
-AmUSe
 AmUSeEs
 AmUSEr
 AmUSeRa
@@ -418,3 +384,4 @@ AmYLaCeEs
 AmYLaCeS
 AmYLaSe
 AmYLaSeS
+

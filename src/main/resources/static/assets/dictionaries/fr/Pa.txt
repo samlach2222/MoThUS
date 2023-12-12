@@ -1,4 +1,3 @@
-PaCaGe
 PaCaGeAmEs
 PaCaGeAs
 PaCaGeAsSe
@@ -39,11 +38,9 @@ PaCIFIONS
 PaCIFISmEs
 PaCIFISTe
 PaCIFISTeS
-PaCK
 PaCKS
 PaCsON
 PaCsONS
-PaCTe
 PaCTeS
 PaCTiSAmEs
 PaCTiSAs
@@ -63,7 +60,6 @@ PaCTiSErONS
 PaCTiSeS
 PaCTiSiONS
 PaCTiSONS
-PaF
 PaGaIErAs
 PaGaIErIONS
 PaGaIErONS
@@ -104,15 +100,11 @@ PaGaYEuSe
 PaGaYEuSeS
 PaGaYIONS
 PaGaYONS
-PaGe
 PaGeAmEs
-PaGeAs
 PaGeAsSe
 PaGeAsSeS
 PaGeAsSiONS
-PaGeAt
 PaGeAtEs
-PaGeEs
 PaGeONS
 PaGeOTa
 PaGeOTaI
@@ -131,3 +123,7 @@ PaGeOTeRaS
 PaGeOTeS
 PaGeOTiONS
 PaGeOTs
+PaGeRaI
+PaGeRaIS
+PaGeRaS
+
