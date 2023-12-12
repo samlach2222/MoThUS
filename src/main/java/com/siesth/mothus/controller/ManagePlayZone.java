@@ -20,10 +20,36 @@ public class ManagePlayZone {
     private final MessageSource messageSource;
     private final ResourceLoader resourceLoader;
 
+    private final String word;
+
     @Autowired
     public ManagePlayZone(MessageSource messageSource, ResourceLoader resourceLoader) {
         this.messageSource = messageSource;
         this.resourceLoader = resourceLoader;
+        this.word = "SAlUTaTiONS"; // TODO : THIS IS TEMPORARY, GET FROM DB
+    }
+
+    private String compareWords(String receivedWord) {
+        // remove empty strings and quote from receivedWord
+        receivedWord = receivedWord.replace("\"", "");
+        receivedWord = receivedWord.replace(" ", "");
+        String[] localWordLetters = word.split("(?=[A-Z])");
+        String[] receivedWordLetters = receivedWord.split("(?=[A-Z])");
+
+        //TODO : Check yellow color because the rule is not completely implemented here
+        StringBuilder result = new StringBuilder();
+        for(int i = 0; i < receivedWordLetters.length; i++) {
+            if(receivedWordLetters[i].equals(localWordLetters[i])) {
+                result.append("+");
+            }
+            else if(word.contains(receivedWordLetters[i])) {
+                result.append("*");
+            }
+            else {
+                result.append("-");
+            }
+        }
+        return result.toString();
     }
 
     @GetMapping("/playZone")
@@ -44,7 +70,6 @@ public class ManagePlayZone {
     @GetMapping("/getTodayWordData")
     @ResponseBody
     public String getTodayWordData() throws IOException {
-        String word = "SAlUTaTiONS"; // case is very important --> THIS IS TEMPORARY, GET FROM DB
         // split each upper case letter
         String[] letters = word.split("(?=[A-Z])");
         int length = letters.length;
@@ -60,6 +85,6 @@ public class ManagePlayZone {
         System.out.println("Received word: " + word);
         // Perform any necessary operations with the received word
 
-        return "+-*++*-+"; // TODO : This is a random value, replace with actual value
+        return compareWords(word);
     }
 }
