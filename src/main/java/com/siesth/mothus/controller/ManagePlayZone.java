@@ -7,6 +7,8 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
@@ -39,8 +41,6 @@ public class ManagePlayZone {
         return file.getContentAsString(StandardCharsets.UTF_8);
     }
 
-    // TODO : Function to pass sub-dictionary to frontend (a dictionary of words starting with a specific letter)
-
     @GetMapping("/getTodayWordData")
     @ResponseBody
     public String getTodayWordData() throws IOException {
@@ -52,5 +52,14 @@ public class ManagePlayZone {
 
         // return length and first letter
         return length + " " + firstLetter;
+    }
+
+    @PostMapping("/sendWord")
+    @ResponseBody
+    public String receiveWord(@RequestBody String word) {
+        System.out.println("Received word: " + word);
+        // Perform any necessary operations with the received word
+
+        return "+-*++*-+"; // TODO : This is a random value, replace with actual value
     }
 }
