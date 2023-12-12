@@ -106,6 +106,90 @@ function displayElementTable(data){
         }
         periodicTableBody.appendChild(row);
     }
+
+    // return button
+    const row0 = periodicTableBody.rows[0];
+    const row1 = periodicTableBody.rows[1];
+    const row2 = periodicTableBody.rows[2];
+    const cell1 = row0.cells[3];
+    cell1.colSpan = 3;
+    cell1.rowSpan = 3;
+    // add button
+    const returnButton = document.createElement("button");
+
+    // backspace symbol innerHTML
+    returnButton.innerHTML = "&#x232B;";
+    returnButton.style.width = "100%";
+    returnButton.style.height = "100%";
+    returnButton.style.backgroundColor = "#b90022";
+    returnButton.style.color = "white";
+    returnButton.style.fontSize = "1.5em";
+    returnButton.style.borderRadius = "8px";
+    returnButton.style.border = "none";
+    returnButton.style.cursor = "pointer";
+    returnButton.style.display = "flex";
+    returnButton.style.alignItems = "center";
+    returnButton.style.justifyContent = "center";
+    returnButton.onclick = function () {
+
+    }
+    cell1.appendChild(returnButton);
+
+    // enter button
+    const cell2 = row0.cells[6];
+    cell2.colSpan = 3;
+    cell2.rowSpan = 3;
+    // add button
+    const validateButton = document.createElement("button");
+
+    // enter symbol innerHTML
+    validateButton.innerHTML = "&#x23CE;";
+    validateButton.style.width = "100%";
+    validateButton.style.height = "100%";
+    validateButton.style.backgroundColor = "#005f9f";
+    validateButton.style.color = "white";
+    validateButton.style.fontSize = "1.5em";
+    validateButton.style.borderRadius = "8px";
+    validateButton.style.border = "none";
+    validateButton.style.cursor = "pointer";
+    validateButton.style.display = "flex";
+    validateButton.style.alignItems = "center";
+    validateButton.style.justifyContent = "center";
+    validateButton.onclick = function () {
+        // call event listener on enter key
+        const event = new KeyboardEvent('keydown', {
+            key: 'Enter',
+            code: 'Enter',
+            which: 13,
+            keyCode: 13,
+            charCode: 13,
+            view: window,
+            bubbles: true
+        });
+        document.dispatchEvent(event);
+    }
+    cell2.appendChild(validateButton);
+
+    // delete cells
+    row0.deleteCell(7);
+    row0.deleteCell(8);
+    row0.deleteCell(9);
+    row0.deleteCell(10);
+
+    row1.deleteCell(7);
+    row1.deleteCell(8);
+    row1.deleteCell(9);
+    row1.deleteCell(10);
+    row1.deleteCell(11);
+    row1.deleteCell(12);
+
+    row2.deleteCell(7);
+    row2.deleteCell(8);
+    row2.deleteCell(9);
+    row2.deleteCell(10);
+    row2.deleteCell(11);
+    row2.deleteCell(12);
+
     periodicTable.appendChild(periodicTableBody);
     activatePlayLine(currentLine);
 }
