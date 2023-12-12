@@ -180,25 +180,26 @@ function displayElementTable(data){
     }
     cell2.appendChild(validateButton);
 
-    // delete cells
-    row0.deleteCell(7);
-    row0.deleteCell(8);
-    row0.deleteCell(9);
-    row0.deleteCell(10);
-
-    row1.deleteCell(7);
-    row1.deleteCell(8);
-    row1.deleteCell(9);
-    row1.deleteCell(10);
-    row1.deleteCell(11);
-    row1.deleteCell(12);
-
-    row2.deleteCell(7);
-    row2.deleteCell(8);
-    row2.deleteCell(9);
-    row2.deleteCell(10);
-    row2.deleteCell(11);
-    row2.deleteCell(12);
+    // delete cells // TODO : Debug this, horrible
+    // row0.deleteCell(8);
+    // row0.deleteCell(8);
+    // row0.deleteCell(8);
+    // row0.deleteCell(8);
+    //
+    //
+    // row1.deleteCell(8);
+    // row1.deleteCell(8);
+    // row1.deleteCell(8);
+    // row1.deleteCell(8);
+    // row1.deleteCell(8);
+    // row1.deleteCell(8);
+    //
+    // row2.deleteCell(8);
+    // row2.deleteCell(8);
+    // row2.deleteCell(8);
+    // row2.deleteCell(8);
+    // row2.deleteCell(8);
+    // row2.deleteCell(8);
 
     periodicTable.appendChild(periodicTableBody);
     activatePlayLine(currentLine);
