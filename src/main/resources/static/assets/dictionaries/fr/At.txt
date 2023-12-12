@@ -12,7 +12,6 @@ AtErMoYAtEs
 AtErMoYEr
 AtErMoYIONS
 AtErMoYONS
-AtHeEs
 AtHeISmEs
 AtHeNeEs
 AtHErOsClErOSe
@@ -20,7 +19,6 @@ AtHErOsClErOsEs
 AtLaNTe
 AtLaNTeS
 AtLaNTiSmEs
-AtLaS
 AtMoSPHeRe
 AtMoSPHeReS
 AtONAl
@@ -28,13 +26,11 @@ AtONAlEs
 AtONaLiTe
 AtONaLiTeS
 AtONAlS
-AtONe
 AtONeS
 AtONiEs
 AtOUTs
 AtRaBiLaIRe
 AtRaBiLaIrEs
-AtRe
 AtTaBLa
 AtTaBLaI
 AtTaBLaIS
@@ -74,7 +70,6 @@ AtTeInS
 AtTeInTe
 AtTeInTeS
 AtTeInTs
-AtTeLa
 AtTeLaGe
 AtTeLaGeS
 AtTeLaI
@@ -88,7 +83,6 @@ AtTeLiONS
 AtTeNaNTe
 AtTeNaNTeS
 AtTeNaNTs
-AtTeNd
 AtTeNdEs
 AtTeNdIONS
 AtTeNdIS
@@ -174,7 +168,6 @@ AtTiFAsSeS
 AtTiFAsSiONS
 AtTiFAt
 AtTiFAtEs
-AtTiFe
 AtTiFeEs
 AtTiFEr
 AtTiFeRa
@@ -186,7 +179,6 @@ AtTiFErONS
 AtTiFeS
 AtTiFIONS
 AtTiFONS
-AtTiGe
 AtTiGeAmEs
 AtTiGeAs
 AtTiGeAsSe
@@ -200,7 +192,6 @@ AtTiGeRaI
 AtTiGeRaIS
 AtTiGeRaS
 AtTiGeS
-AtTiRa
 AtTiRaI
 AtTiRaIS
 AtTiRaNCe
@@ -213,7 +204,6 @@ AtTiRaSSe
 AtTiRaSSeS
 AtTiRaSSiONS
 AtTiRaTeS
-AtTiRe
 AtTiReEs
 AtTiReRa
 AtTiReRaI
@@ -227,7 +217,6 @@ AtTiSAsSeS
 AtTiSAsSiONS
 AtTiSAt
 AtTiSAtEs
-AtTiSe
 AtTiSeEs
 AtTiSEr
 AtTiSeRa
@@ -239,3 +228,4 @@ AtTiSErONS
 AtTiSeS
 AtTiSiONS
 AtTiSONS
+

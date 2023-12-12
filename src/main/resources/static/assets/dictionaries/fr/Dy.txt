@@ -40,7 +40,6 @@ DyNAmITeRaIS
 DyNAmITeRaS
 DyNAmITeS
 DyNAmITiONS
-DyNaMo
 DyNaMoGeNe
 DyNaMoGeNeS
 DyNAmOgRaPHe
@@ -59,3 +58,4 @@ DySPHoNiEs
 DySPLaSiEs
 DySPNeEs
 DySTaSiEs
+
