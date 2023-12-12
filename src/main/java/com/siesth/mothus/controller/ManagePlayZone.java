@@ -19,7 +19,6 @@ import java.util.Locale;
 public class ManagePlayZone {
     private final MessageSource messageSource;
     private final ResourceLoader resourceLoader;
-
     private final String word;
 
     @Autowired
@@ -36,20 +35,54 @@ public class ManagePlayZone {
         String[] localWordLetters = word.split("(?=[A-Z])");
         String[] receivedWordLetters = receivedWord.split("(?=[A-Z])");
 
-        //TODO : Check yellow color because the rule is not completely implemented here
-        StringBuilder result = new StringBuilder();
+        String[] result = new String[receivedWordLetters.length];
+
+        // check red color
         for(int i = 0; i < receivedWordLetters.length; i++) {
             if(receivedWordLetters[i].equals(localWordLetters[i])) {
-                result.append("+");
-            }
-            else if(word.contains(receivedWordLetters[i])) {
-                result.append("*");
-            }
-            else {
-                result.append("-");
+                result[i] = "+";
+                receivedWordLetters[i] = "";
+                localWordLetters[i] = "";
             }
         }
-        return result.toString();
+
+        // check blue color
+        for(int i = 0; i < receivedWordLetters.length; i++) {
+            if(!receivedWordLetters[i].isEmpty()) {
+                // check if not contains
+                if(!word.contains(receivedWordLetters[i])) {
+                    result[i] = "-";
+                    receivedWordLetters[i] = "";
+                    localWordLetters[i] = "";
+                }
+            }
+        }
+
+        // check yellow color
+        for(int i = 0; i < receivedWordLetters.length; i++) {
+            if(!receivedWordLetters[i].isEmpty()) {
+                // check if not contains
+                for (int j = 0; j < localWordLetters.length; j++) {
+                    String localWordLetter = localWordLetters[j];
+                    if (localWordLetter.equals(receivedWordLetters[i])) {
+                        result[i] = "*";
+                        receivedWordLetters[i] = "";
+                        localWordLetters[j] = "";
+                        break;
+                    }
+                }
+            }
+        }
+
+        // build final string
+        StringBuilder resultString = new StringBuilder();
+        for (String s : result) {
+            if(s == null) {
+                s = "-";
+            }
+            resultString.append(s);
+        }
+        return resultString.toString();
     }
 
     @GetMapping("/playZone")
