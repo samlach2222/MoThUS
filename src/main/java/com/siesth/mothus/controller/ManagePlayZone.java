@@ -1,5 +1,7 @@
 package com.siesth.mothus.controller;
 
+import com.siesth.mothus.model.Game;
+import com.siesth.mothus.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.core.io.Resource;
@@ -19,20 +21,44 @@ import java.util.Locale;
 public class ManagePlayZone {
     private final MessageSource messageSource;
     private final ResourceLoader resourceLoader;
-    private final String word;
+    private final GameRepository gameRepository;
+    private String frenchWord;
 
     @Autowired
-    public ManagePlayZone(MessageSource messageSource, ResourceLoader resourceLoader) {
+    public ManagePlayZone(MessageSource messageSource, ResourceLoader resourceLoader, GameRepository gameRepository) {
         this.messageSource = messageSource;
         this.resourceLoader = resourceLoader;
-        this.word = "SAlUTaTiONS"; // TODO : THIS IS TEMPORARY, GET FROM DB
+        this.gameRepository = gameRepository;
+    }
+
+    @GetMapping("/getTodayWordData")
+    @ResponseBody
+    public String getTodayWordData() throws IOException {
+        // Fetch the latest game entity
+        Game latestGame = gameRepository.findTopByOrderByDateOfTheGameDesc();
+
+        if (latestGame != null) {
+            // Extract the word from the latest game entity
+            frenchWord = latestGame.getFrenchWord(); // Assuming you want the English word
+
+            // split each upper case letter
+            String[] letters = frenchWord.split("(?=[A-Z])");
+            int length = letters.length;
+            String firstLetter = letters[0];
+
+            // return length and first letter
+            return length + " " + firstLetter;
+        } else {
+            // Handle the case where there is no game data for today
+            return "0 NoWord";
+        }
     }
 
     private String compareWords(String receivedWord) {
         // remove empty strings and quote from receivedWord
         receivedWord = receivedWord.replace("\"", "");
         receivedWord = receivedWord.replace(" ", "");
-        String[] localWordLetters = word.split("(?=[A-Z])");
+        String[] localWordLetters = frenchWord.split("(?=[A-Z])");
         String[] receivedWordLetters = receivedWord.split("(?=[A-Z])");
 
         String[] result = new String[receivedWordLetters.length];
@@ -50,7 +76,7 @@ public class ManagePlayZone {
         for(int i = 0; i < receivedWordLetters.length; i++) {
             if(!receivedWordLetters[i].isEmpty()) {
                 // check if not contains
-                if(!word.contains(receivedWordLetters[i])) {
+                if(!frenchWord.contains(receivedWordLetters[i])) {
                     result[i] = "-";
                     receivedWordLetters[i] = "";
                     localWordLetters[i] = "";
@@ -98,18 +124,6 @@ public class ManagePlayZone {
     public String getYamlData() throws IOException {
         Resource file = resourceLoader.getResource("classpath:static/assets/elements.yml");
         return file.getContentAsString(StandardCharsets.UTF_8);
-    }
-
-    @GetMapping("/getTodayWordData")
-    @ResponseBody
-    public String getTodayWordData() throws IOException {
-        // split each upper case letter
-        String[] letters = word.split("(?=[A-Z])");
-        int length = letters.length;
-        String firstLetter = letters[0];
-
-        // return length and first letter
-        return length + " " + firstLetter;
     }
 
     @PostMapping("/sendWord")
