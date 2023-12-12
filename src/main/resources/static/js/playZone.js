@@ -1,9 +1,22 @@
 window.onload = function () {
+    currentLine = 0;
+    firstLetter = "";
     receiveDataFromSpring();
     receiveWordFromSpring();
 }
 
+let currentLine;
+let firstLetter;
 
+//////////////////////////
+//    GAME FUNCTIONS    //
+//////////////////////////
+
+/**
+ * Display an element in the periodic table
+ * @param element to display
+ * @returns {HTMLDivElement} elementDiv
+ */
 function displayElement(element) {
     // Create a div for the element
     const elementDiv = document.createElement("div");
@@ -24,6 +37,10 @@ function displayElement(element) {
     return elementDiv;
 }
 
+/**
+ * Display the periodic table
+ * @param data from Spring
+ */
 function displayElementTable(data){
     // Create a table of 10 rows and 18 columns with the periodic table
     const periodicTable = document.getElementById("periodicHtmlTable");
@@ -62,13 +79,25 @@ function displayElementTable(data){
                         cell.style.backgroundColor = "#494A4B";
                     }
                     cell.onclick = function () {
-                        // TODO : Gameplay
+                        // get first td of the current line
+                        const gameTable = document.getElementById("mothusHtmlTable");
+                        const gameTableBody = gameTable.getElementsByTagName("tbody")[0];
+                        const row = gameTableBody.rows[currentLine];
+                        const cells = row.cells;
+                        for (let i = 0; i < cells.length; i++) {
+                            const cell = cells[i];
+                            const elementDiv = cell.querySelector('.elementDiv');
+                            const elementLettersDiv = elementDiv.querySelector('.elementLettersDiv');
+                            if (elementLettersDiv.innerHTML === ".") {
+                                elementLettersDiv.innerHTML = elt.symbol;
+                                break;
+                            }
+                        }
                     }
                     // allow drag and drop
                     cell.draggable = true;
                     cell.ondragstart = function (event) {
                         event.dataTransfer.setData("text", elt.symbol);
-                        // TODO : Gameplay
                     }
                     cell.appendChild(displayElement(elt));
                 }
@@ -78,23 +107,14 @@ function displayElementTable(data){
         periodicTableBody.appendChild(row);
     }
     periodicTable.appendChild(periodicTableBody);
+    activatePlayLine(currentLine);
 }
 
-function receiveDataFromSpring() {
-    fetch('/getYamlData')
-        .then(response => response.text())
-        .then(yamlData => {
-            // string to Yaml
-            yamlData = jsyaml.load(yamlData);
-            displayElementTable(yamlData);
-        })
-        .catch(error => {
-            console.error('Error fetching or parsing YAML data:', error);
-            throw error; // Rethrow the error if necessary
-        });
-}
-
-function displayGameTable(length, firstLetter) {
+/**
+ * Display the game table when the page is loaded
+ * @param length of the word
+ */
+function displayGameTable(length) {
     // create a table of 8 rows and "length" columns
     const gameTable = document.getElementById("mothusHtmlTable");
     const gameTableBody = document.createElement("tbody");
@@ -132,22 +152,6 @@ function displayGameTable(length, firstLetter) {
                 };
                 cell.appendChild(displayElement(elt));
             }
-            // allow drop
-            cell.ondragover = function (event) {
-                event.preventDefault();
-            }
-
-            cell.ondrop = function (event) {
-                event.preventDefault();
-                // Get the dragged text
-                const draggedText = event.dataTransfer.getData("text");
-                // Find the corresponding elementDiv in the dropped cell
-                const elementDiv = cell.querySelector('.elementDiv');
-                // Find the elementLettersDiv inside the elementDiv
-                const elementLettersDiv = elementDiv.querySelector('.elementLettersDiv');
-                // Set the innerHTML of elementLettersDiv
-                elementLettersDiv.innerHTML = draggedText;
-            }
             row.appendChild(cell);
         }
         gameTableBody.appendChild(row);
@@ -155,15 +159,167 @@ function displayGameTable(length, firstLetter) {
     gameTable.appendChild(gameTableBody);
 }
 
+/**
+ * Allow user to drag and drop or to click on the elements in the periodic table in a specific line of the game table
+ */
+function activatePlayLine(rowNumber) {
+    const gameTable = document.getElementById("mothusHtmlTable");
+    const gameTableBody = gameTable.getElementsByTagName("tbody")[0];
+
+    for (let i = 0; i < 8; i++) {
+        const row = gameTableBody.rows[i];
+        const cells = row.cells;
+
+        // for each cell in the row
+        for (let j = 0; j < cells.length; j++) {
+            const cell = cells[j];
+
+            // allow drop
+            if(i === rowNumber && j > 0) {
+                cell.ondragover = function (event) {
+                    event.preventDefault();
+                }
+
+                cell.ondrop = function (event) {
+                    event.preventDefault();
+
+                    // Get the dragged text
+                    const draggedText = event.dataTransfer.getData("text");
+                    // Find the corresponding elementDiv in the dropped cell
+                    const elementDiv = cell.querySelector('.elementDiv');
+                    // Find the elementLettersDiv inside the elementDiv
+                    const elementLettersDiv = elementDiv.querySelector('.elementLettersDiv');
+                    // Set the innerHTML of elementLettersDiv
+                    elementLettersDiv.innerHTML = draggedText;
+                }
+            }
+            // disallow drop
+            else {
+                cell.ondragover = function (event) {
+                    event.preventDefault();
+                }
+
+                cell.ondrop = function (event) {
+                    event.preventDefault();
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Color the current line of the game table
+ * @param coloration a string with + if the letter is correct, - if the letter is incorrect, * if the letter is correct but not in the right place
+ */
+function colorCurrentLine(coloration) {
+    const gameTable = document.getElementById("mothusHtmlTable");
+    const gameTableBody = gameTable.getElementsByTagName("tbody")[0];
+    const row = gameTableBody.rows[currentLine];
+    const cells = row.cells;
+    for (let i = 0; i < cells.length; i++) {
+        const cell = cells[i];
+        const symbol = coloration[i];
+        if(symbol === "+") {
+            cell.style.backgroundColor = "#b90022";
+        }
+        else if(symbol === "-") {
+            cell.style.backgroundColor = "#005f9f";
+        }
+        else if(symbol === "*") {
+            cell.style.backgroundColor = "#997100";
+        }
+    }
+}
+
+//////////////////////////
+//    KEYBOARD EVENT    //
+//////////////////////////
+
+/**
+ * Catch keyboard events to send the current word to Spring or to delete a letter
+ */
+document.addEventListener('keydown', function(event) {
+    if (event.code === 'Enter') {
+        // check if the line is complete
+        const gameTable = document.getElementById("mothusHtmlTable");
+        const gameTableBody = gameTable.getElementsByTagName("tbody")[0];
+        const row = gameTableBody.rows[currentLine];
+        const cells = row.cells;
+        let isComplete = true;
+        for (let i = 0; i < cells.length; i++) {
+            const cell = cells[i];
+            const elementDiv = cell.querySelector('.elementDiv');
+            const elementLettersDiv = elementDiv.querySelector('.elementLettersDiv');
+            if (elementLettersDiv.innerHTML === ".") {
+                isComplete = false;
+            }
+        }
+        if (isComplete) {
+
+            sendCurrentWord(); // Send to spring and color the line
+
+            currentLine++;
+            activatePlayLine(currentLine);
+
+            // first letter
+            const newRow = gameTableBody.rows[currentLine];
+            const newCells = newRow.cells;
+            for(let i = 0; i < newCells.length; i++) {
+                const cell = newCells[i];
+                if (i === 0 ) {
+                    cell.style.border = "1px solid #b90022";
+                    cell.style.backgroundColor = "#b90022";
+                    cell.children[0].remove();
+                    const elt = {
+                        atomicNumber: 1,
+                        symbol: firstLetter,
+                    };
+                    cell.appendChild(displayElement(elt));
+                }
+                else if (i >= 1) {
+                    cell.style.border = "1px solid #005f9f";
+                    cell.style.backgroundColor = "#005f9f";
+                    cell.children[0].remove();
+                    const elt = {
+                        atomicNumber: 1,
+                        symbol: ".",
+                    };
+                    cell.appendChild(displayElement(elt));
+                }
+                else {
+                    cell.style.border = "1px solid #005f9f";
+                    cell.style.backgroundColor = "#005f9f";
+                    cell.children[0].remove();
+                    const elt = {
+                        atomicNumber: 1,
+                        symbol: "&nbsp;",
+                    };
+                    cell.appendChild(displayElement(elt));
+                }
+            }
+        }
+        else {
+            alert("La ligne n'est pas complète");
+        }
+    }
+});
+
+//////////////////////////
+// SPRING COMMUNICATION //
+//////////////////////////
+
+/**
+ * Fetch the first letter and the length of the word from Spring
+ */
 function receiveWordFromSpring() {
     fetch('/getTodayWordData')
         .then(response => response.text())
         .then(word => {
             let splitWord = word.split(" ");
             let length = splitWord[0];
-            let firstLetter = splitWord[1];
+            firstLetter = splitWord[1];
 
-            displayGameTable(length, firstLetter);
+            displayGameTable(length);
         })
         .catch(error => {
             console.error('Error fetching word data:', error);
@@ -171,3 +327,56 @@ function receiveWordFromSpring() {
         });
 }
 
+/**
+ * Fetch the elements from Spring
+ */
+function receiveDataFromSpring() {
+    fetch('/getYamlData')
+        .then(response => response.text())
+        .then(yamlData => {
+            // string to Yaml
+            yamlData = jsyaml.load(yamlData);
+            displayElementTable(yamlData);
+        })
+        .catch(error => {
+            console.error('Error fetching or parsing YAML data:', error);
+            throw error; // Rethrow the error if necessary
+        });
+}
+
+/**
+ * Send the current word to Spring
+ * This is synchronous because we need the response before continuing
+ */
+function sendCurrentWord(){
+    let word = "";
+    const gameTable = document.getElementById("mothusHtmlTable");
+    const gameTableBody = gameTable.getElementsByTagName("tbody")[0];
+    const row = gameTableBody.rows[currentLine];
+    const cells = row.cells;
+    for (let i = 0; i < cells.length; i++) {
+        const cell = cells[i];
+        const elementDiv = cell.querySelector('.elementDiv');
+        const elementLettersDiv = elementDiv.querySelector('.elementLettersDiv');
+        word += elementLettersDiv.innerHTML;
+    }
+
+    // send the word to Spring
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '/sendWord', false);  // The third parameter 'false' makes the request synchronous
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    try {
+        xhr.send(JSON.stringify(word));
+
+        if (xhr.status === 200) {
+            console.log('Response:', xhr.responseText);
+            colorCurrentLine(xhr.responseText);
+        } else {
+            throw new Error('Network response was not ok');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    }
+
+}
