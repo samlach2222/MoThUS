@@ -131,7 +131,17 @@ function displayElementTable(data){
     returnButton.style.alignItems = "center";
     returnButton.style.justifyContent = "center";
     returnButton.onclick = function () {
-
+        // call event listener on backspace key
+        const event = new KeyboardEvent('keydown', {
+            key: 'Backspace',
+            code: 'Backspace',
+            which: 8,
+            keyCode: 8,
+            charCode: 8,
+            view: window,
+            bubbles: true
+        });
+        document.dispatchEvent(event);
     }
     cell1.appendChild(returnButton);
 
@@ -384,6 +394,22 @@ document.addEventListener('keydown', function(event) {
         }
         else {
             alert("La ligne n'est pas complète");
+        }
+    }
+    else if (event.code === 'Backspace') {
+        // get first td of the current line
+        const gameTable = document.getElementById("mothusHtmlTable");
+        const gameTableBody = gameTable.getElementsByTagName("tbody")[0];
+        const row = gameTableBody.rows[currentLine];
+        const cells = row.cells;
+        for (let i = cells.length - 1; i >= 1; i--) {
+            const cell = cells[i];
+            const elementDiv = cell.querySelector('.elementDiv');
+            const elementLettersDiv = elementDiv.querySelector('.elementLettersDiv');
+            if (elementLettersDiv.innerHTML !== ".") {
+                elementLettersDiv.innerHTML = ".";
+                break;
+            }
         }
     }
 });
