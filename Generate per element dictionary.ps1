@@ -15,7 +15,7 @@ param (
     [string]$fullDictionaryPath
 )
 
-Push-Location $PSScriptRoot\src\main\resources\static\assets\dictionaries
+Push-Location $PSScriptRoot
 
 ## INITIALIZATION : Check param values
 
@@ -24,11 +24,13 @@ if ($fullDictionaryPath) {
     $fullDictionary = Get-Content $fullDictionaryPath 2> $null
 }
 
+Set-Variable -Name languageDirectoryPath -Value "src\main\resources\static\assets\dictionaries\$languageHtmlFormat" -Option ReadOnly
+
 # Check if folder $languageHtmlFormat exists
-if (-not (Test-Path -PathType Container $languageHtmlFormat)) {
+if (-not (Test-Path -PathType Container $languageDirectoryPath)) {
     if ($fullDictionary) {
-        Write-Output "Creating folder $languageHtmlFormat"
-        New-Item -Path $languageHtmlFormat -ItemType Directory
+        Write-Output "Creating folder for language $languageHtmlFormat"
+        New-Item -Path $languageDirectoryPath -ItemType Directory > $null
     }
     else {
         if ($fullDictionaryPath) {
@@ -50,8 +52,8 @@ if (-not ($fullDictionaryPath)) {
 
 ## INITIALIZATION : Set initial values
 
-# Change working directory to this script location
-Set-Location $languageHtmlFormat
+# Change working directory to the language directory
+Set-Location $languageDirectoryPath
 
 # Try (again) to get content, this time from the language folder
 if (-not ($fullDictionary)) {
