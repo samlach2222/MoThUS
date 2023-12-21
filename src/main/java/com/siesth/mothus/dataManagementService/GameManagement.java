@@ -24,7 +24,8 @@ public class GameManagement implements IGameManagement {
      */
     private static String GetRandomLine(File fullDictionary) throws IOException {
         try (RandomAccessFile randomAccessFile = new RandomAccessFile(fullDictionary, "r")) {
-            randomAccessFile.seek((long) (Math.random() * randomAccessFile.length()));
+            // - 1 to not seek at the end of the file, and another - 1 to not seek at the last \n
+            randomAccessFile.seek((long) (Math.random() * (randomAccessFile.length() - 2)));
 
             // Either \r\n or \n, so we can just check for \n
             while (randomAccessFile.read() != '\n' && randomAccessFile.getFilePointer() > 1) {
