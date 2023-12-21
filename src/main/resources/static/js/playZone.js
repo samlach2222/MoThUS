@@ -323,6 +323,9 @@ function colorCurrentLine(coloration) {
         else if(symbol === "*") {
             cell.style.backgroundColor = "#997100";
         }
+        else if(symbol === "/") {
+            cell.style.backgroundColor = "#7f00fd";
+        }
     }
 }
 

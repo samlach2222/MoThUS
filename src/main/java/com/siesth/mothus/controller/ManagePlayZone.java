@@ -36,7 +36,6 @@ public class ManagePlayZone {
     public String getTodayWordData() throws IOException {
         // Fetch the latest game entity
         Game latestGame = gameManager.getTodayGame();
-//TODO : Debug ça
         // Extract the word from the latest game entity
         frenchWord = latestGame.getFrenchWord(); // TODO : When accounts are made, get the user's language and fetch the word in the user's language
 
@@ -67,18 +66,6 @@ public class ManagePlayZone {
             }
         }
 
-        // check blue color
-        for (int i = 0; i < receivedWordLetters.length; i++) {
-            if (!receivedWordLetters[i].isEmpty()) {
-                // check if not contains
-                if (!frenchWord.contains(receivedWordLetters[i])) {
-                    result[i] = "-";
-                    receivedWordLetters[i] = "";
-                    localWordLetters[i] = "";
-                }
-            }
-        }
-
         // check yellow color
         for (int i = 0; i < receivedWordLetters.length; i++) {
             if (!receivedWordLetters[i].isEmpty()) {
@@ -91,6 +78,50 @@ public class ManagePlayZone {
                         localWordLetters[j] = "";
                         break;
                     }
+                }
+            }
+        }
+
+        // check purple color
+        for (int i = 0; i < receivedWordLetters.length; i++) {
+
+            String receivedWordLetter = receivedWordLetters[i].toLowerCase();
+            String localWordLetter = localWordLetters[i].toLowerCase();
+
+            // check if one of the strings is size 2
+            if(receivedWordLetter.length() == 2) {
+                for (int j = 0; j < receivedWordLetter.length(); j++) {
+                    if (localWordLetter.contains(receivedWordLetter.charAt(j) + "")) {
+                        result[i] = "/";
+                        receivedWordLetters[i] = "";
+                        localWordLetters[i] = "";
+                        break;
+                    }
+                }
+            }
+            else {
+                for (int j = 0; j < localWordLetter.length(); j++) {
+                    if (receivedWordLetter.contains(localWordLetter.charAt(j) + "")) {
+                        result[i] = "/";
+                        receivedWordLetters[i] = "";
+                        localWordLetters[i] = "";
+                        break;
+                    }
+                }
+            }
+
+            // get the longest string
+            String longestString = receivedWordLetter.length() > localWordLetter.length() ? receivedWordLetter : localWordLetter;
+        }
+
+        // check blue color
+        for (int i = 0; i < receivedWordLetters.length; i++) {
+            if (!receivedWordLetters[i].isEmpty()) {
+                // check if not contains
+                if (!frenchWord.contains(receivedWordLetters[i])) {
+                    result[i] = "-";
+                    receivedWordLetters[i] = "";
+                    localWordLetters[i] = "";
                 }
             }
         }
