@@ -55,6 +55,7 @@ function displayElementTable(data){
                 name: element.name,
                 xPos: element.xPos,
                 yPos: element.yPos,
+                description: element.description,
             };
             elts.push(elt);
         });
@@ -99,6 +100,9 @@ function displayElementTable(data){
                     cell.ondragstart = function (event) {
                         event.dataTransfer.setData("text", elt.symbol);
                     }
+
+                    // add title attribute
+                    cell.title = elt.name + " (" + elt.symbol + ") : " + elt.description;
                     cell.appendChild(displayElement(elt));
                 }
             })
@@ -303,6 +307,48 @@ function activatePlayLine(rowNumber) {
 }
 
 /**
+ * Deactivate the table when the game is won
+ */
+function deactivateTable() {
+    const gameTable = document.getElementById("mothusHtmlTable");
+    const gameTableBody = gameTable.getElementsByTagName("tbody")[0];
+
+    for (let i = 0; i < 8; i++) {
+        const row = gameTableBody.rows[i];
+        const cells = row.cells;
+
+        // for each cell in the row
+        for (let j = 0; j < cells.length; j++) {
+            const cell = cells[j];
+            cell.ondragover = function (event) {
+                event.preventDefault();
+            }
+
+            cell.ondrop = function (event) {
+                event.preventDefault();
+            }
+        }
+    }
+}
+
+/**
+ * Deactivate the keyboard when the game is won
+ */
+function deactivateKeyboard() {
+    const periodicTable = document.getElementById("periodicHtmlTable");
+    const periodicTableBody = periodicTable.getElementsByTagName("tbody");
+
+    let rows=periodicTableBody[0].rows;
+    for(let i=0; i<rows.length; i++){
+        let cells=rows[i].cells;
+        for(let j=0; j<cells.length; j++){
+            cells[j].onclick = null;
+            cells[j].draggable = false;
+        }
+    }
+}
+
+/**
  * Color the current line of the game table
  * @param coloration a string with + if the letter is correct, - if the letter is incorrect, * if the letter is correct but not in the right place
  */
@@ -485,7 +531,22 @@ function sendCurrentWord(){
 
         if (xhr.status === 200) {
             console.log('Response:', xhr.responseText);
-            colorCurrentLine(xhr.responseText);
+            let coloration = xhr.responseText;
+            colorCurrentLine(coloration);
+            // check if coloration is only composed by + symbols
+            let isWin = true;
+            for(let i = 0; i < coloration.length; i++) {
+                if(coloration[i] !== "+") {
+                    isWin = false;
+                }
+            }
+
+            if(true) {
+                alert("Gagné");
+                deactivateTable();
+                deactivateKeyboard();
+            }
+
         } else {
             throw new Error('Network response was not ok');
         }
