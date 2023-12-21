@@ -1,7 +1,7 @@
 package com.siesth.mothus.controller;
 
+import com.siesth.mothus.dataManagementService.IGameManagement;
 import com.siesth.mothus.model.Game;
-import com.siesth.mothus.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.core.io.Resource;
@@ -21,37 +21,32 @@ import java.util.Locale;
 public class ManagePlayZone {
     private final MessageSource messageSource;
     private final ResourceLoader resourceLoader;
-    private final GameRepository gameRepository;
     private String frenchWord;
+    @Autowired
+    private IGameManagement gameManager;
 
     @Autowired
-    public ManagePlayZone(MessageSource messageSource, ResourceLoader resourceLoader, GameRepository gameRepository) {
+    public ManagePlayZone(MessageSource messageSource, ResourceLoader resourceLoader) {
         this.messageSource = messageSource;
         this.resourceLoader = resourceLoader;
-        this.gameRepository = gameRepository;
     }
 
     @GetMapping("/getTodayWordData")
     @ResponseBody
     public String getTodayWordData() throws IOException {
         // Fetch the latest game entity
-        Game latestGame = gameRepository.findTopByOrderByDateOfTheGameDesc();
+        Game latestGame = gameManager.getTodayGame();
+//TODO : Debug ça
+        // Extract the word from the latest game entity
+        frenchWord = latestGame.getFrenchWord(); // TODO : When accounts are made, get the user's language and fetch the word in the user's language
 
-        if (latestGame != null) {
-            // Extract the word from the latest game entity
-            frenchWord = latestGame.getFrenchWord(); // Assuming you want the English word
+        // split each upper case letter
+        String[] letters = frenchWord.split("(?=[A-Z])");
+        int length = letters.length;
+        String firstLetter = letters[0];
 
-            // split each upper case letter
-            String[] letters = frenchWord.split("(?=[A-Z])");
-            int length = letters.length;
-            String firstLetter = letters[0];
-
-            // return length and first letter
-            return length + " " + firstLetter;
-        } else {
-            // Handle the case where there is no game data for today
-            return "0 NoWord";
-        }
+        // return length and first letter
+        return length + " " + firstLetter;
     }
 
     private String compareWords(String receivedWord) {
@@ -64,8 +59,8 @@ public class ManagePlayZone {
         String[] result = new String[receivedWordLetters.length];
 
         // check red color
-        for(int i = 0; i < receivedWordLetters.length; i++) {
-            if(receivedWordLetters[i].equals(localWordLetters[i])) {
+        for (int i = 0; i < receivedWordLetters.length; i++) {
+            if (receivedWordLetters[i].equals(localWordLetters[i])) {
                 result[i] = "+";
                 receivedWordLetters[i] = "";
                 localWordLetters[i] = "";
@@ -73,10 +68,10 @@ public class ManagePlayZone {
         }
 
         // check blue color
-        for(int i = 0; i < receivedWordLetters.length; i++) {
-            if(!receivedWordLetters[i].isEmpty()) {
+        for (int i = 0; i < receivedWordLetters.length; i++) {
+            if (!receivedWordLetters[i].isEmpty()) {
                 // check if not contains
-                if(!frenchWord.contains(receivedWordLetters[i])) {
+                if (!frenchWord.contains(receivedWordLetters[i])) {
                     result[i] = "-";
                     receivedWordLetters[i] = "";
                     localWordLetters[i] = "";
@@ -85,8 +80,8 @@ public class ManagePlayZone {
         }
 
         // check yellow color
-        for(int i = 0; i < receivedWordLetters.length; i++) {
-            if(!receivedWordLetters[i].isEmpty()) {
+        for (int i = 0; i < receivedWordLetters.length; i++) {
+            if (!receivedWordLetters[i].isEmpty()) {
                 // check if not contains
                 for (int j = 0; j < localWordLetters.length; j++) {
                     String localWordLetter = localWordLetters[j];
@@ -103,7 +98,7 @@ public class ManagePlayZone {
         // build final string
         StringBuilder resultString = new StringBuilder();
         for (String s : result) {
-            if(s == null) {
+            if (s == null) {
                 s = "-";
             }
             resultString.append(s);

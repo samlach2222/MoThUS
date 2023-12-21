@@ -9,7 +9,7 @@ package com.siesth.mothus.model;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * Class to have the daily game
@@ -22,7 +22,7 @@ public class Game {
     int idGame;
 
     @Column(columnDefinition = "datetime") // The default "datetime(6)" is not supported in our server
-    Date dateOfTheGame;
+    LocalDate dateOfTheGame;
 
     String frenchWord;
 
@@ -34,7 +34,7 @@ public class Game {
      * @param frenchWord French word
      * @param englishWord English word
      */
-    public Game(Date dateOfTheGame, String frenchWord, String englishWord) {
+    public Game(LocalDate dateOfTheGame, String frenchWord, String englishWord) {
         super();
         this.setDateOfTheGame(dateOfTheGame);
         this.setFrenchWord(frenchWord);
@@ -49,11 +49,11 @@ public class Game {
         return idGame;
     }
 
-    public Date getDateOfTheGame() {
+    public LocalDate getDateOfTheGame() {
         return dateOfTheGame;
     }
 
-    public void setDateOfTheGame(Date dateOfTheGame) {
+    public void setDateOfTheGame(LocalDate dateOfTheGame) {
         this.dateOfTheGame = dateOfTheGame;
     }
 
