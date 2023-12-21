@@ -7,6 +7,7 @@ window.onload = function () {
 
 let currentLine;
 let firstLetter;
+let isWin = false;
 
 //////////////////////////
 //    GAME FUNCTIONS    //
@@ -338,7 +339,7 @@ function deactivateKeyboard() {
     const periodicTable = document.getElementById("periodicHtmlTable");
     const periodicTableBody = periodicTable.getElementsByTagName("tbody");
 
-    let rows=periodicTableBody[0].rows;
+    let rows= periodicTableBody[0].rows;
     for(let i=0; i<rows.length; i++){
         let cells=rows[i].cells;
         for(let j=0; j<cells.length; j++){
@@ -399,48 +400,7 @@ document.addEventListener('keydown', function(event) {
             }
         }
         if (isComplete) {
-
             sendCurrentWord(); // Send to spring and color the line
-
-            currentLine++;
-            activatePlayLine(currentLine);
-
-            // first letter
-            const newRow = gameTableBody.rows[currentLine];
-            const newCells = newRow.cells;
-            for(let i = 0; i < newCells.length; i++) {
-                const cell = newCells[i];
-                if (i === 0 ) {
-                    cell.style.border = "1px solid #b90022";
-                    cell.style.backgroundColor = "#b90022";
-                    cell.children[0].remove();
-                    const elt = {
-                        atomicNumber: 1,
-                        symbol: firstLetter,
-                    };
-                    cell.appendChild(displayElement(elt));
-                }
-                else if (i >= 1) {
-                    cell.style.border = "1px solid #005f9f";
-                    cell.style.backgroundColor = "#005f9f";
-                    cell.children[0].remove();
-                    const elt = {
-                        atomicNumber: 1,
-                        symbol: ".",
-                    };
-                    cell.appendChild(displayElement(elt));
-                }
-                else {
-                    cell.style.border = "1px solid #005f9f";
-                    cell.style.backgroundColor = "#005f9f";
-                    cell.children[0].remove();
-                    const elt = {
-                        atomicNumber: 1,
-                        symbol: "&nbsp;",
-                    };
-                    cell.appendChild(displayElement(elt));
-                }
-            }
         }
         else {
             alert("La ligne n'est pas complète");
@@ -504,6 +464,30 @@ function receiveDataFromSpring() {
         });
 }
 
+function clearUnderLines() {
+    const gameTable = document.getElementById("mothusHtmlTable");
+    const gameTableBody = gameTable.getElementsByTagName("tbody")[0];
+    for (let i = currentLine + 1; i < gameTableBody.rows.length; i++) {
+        const row = gameTableBody.rows[i];
+        const cells = row.cells;
+        for (let j = 0; j < cells.length; j++) {
+            const cell = cells[j];
+            for (let k = 0; k < cell.children.length; k++) {
+                const child = cell.children[k];
+                child.remove();
+            }
+            cell.style.border = "1px solid #1e1f22";
+            cell.style.backgroundColor = "#1e1f22";
+            const elt = {
+                atomicNumber: 1,
+                symbol: "&nbsp;",
+            };
+            cell.appendChild(displayElement(elt));
+        }
+    }
+
+}
+
 /**
  * Send the current word to Spring
  * This is synchronous because we need the response before continuing
@@ -528,25 +512,66 @@ function sendCurrentWord(){
 
     try {
         xhr.send(JSON.stringify(word));
-
         if (xhr.status === 200) {
             console.log('Response:', xhr.responseText);
             let coloration = xhr.responseText;
             colorCurrentLine(coloration);
-            // check if coloration is only composed by + symbols
-            let isWin = true;
-            for(let i = 0; i < coloration.length; i++) {
-                if(coloration[i] !== "+") {
-                    isWin = false;
-                }
-            }
 
-            if(true) {
+            // WINNING CONDITION
+            if(!coloration.includes("-") && !coloration.includes("*") && !coloration.includes("/")) {
+                isWin = true;
                 alert("Gagné");
                 deactivateTable();
                 deactivateKeyboard();
+                clearUnderLines();
             }
-
+            // LOOSING CONDITION
+            else if(currentLine === 7 && !isWin) {
+                alert("Perdu");
+                deactivateTable();
+                deactivateKeyboard();
+            }
+            // PREPARE FOR THE NEXT LINE
+            else {
+                activatePlayLine(currentLine);
+                currentLine++;
+                // first letter
+                const newRow = gameTableBody.rows[currentLine];
+                const newCells = newRow.cells;
+                for(let i = 0; i < newCells.length; i++) {
+                    const cell = newCells[i];
+                    if (i === 0 ) {
+                        cell.style.border = "1px solid #b90022";
+                        cell.style.backgroundColor = "#b90022";
+                        cell.children[0].remove();
+                        const elt = {
+                            atomicNumber: 1,
+                            symbol: firstLetter,
+                        };
+                        cell.appendChild(displayElement(elt));
+                    }
+                    else if (i >= 1) {
+                        cell.style.border = "1px solid #005f9f";
+                        cell.style.backgroundColor = "#005f9f";
+                        cell.children[0].remove();
+                        const elt = {
+                            atomicNumber: 1,
+                            symbol: ".",
+                        };
+                        cell.appendChild(displayElement(elt));
+                    }
+                    else {
+                        cell.style.border = "1px solid #005f9f";
+                        cell.style.backgroundColor = "#005f9f";
+                        cell.children[0].remove();
+                        const elt = {
+                            atomicNumber: 1,
+                            symbol: "&nbsp;",
+                        };
+                        cell.appendChild(displayElement(elt));
+                    }
+                }
+            }
         } else {
             throw new Error('Network response was not ok');
         }
