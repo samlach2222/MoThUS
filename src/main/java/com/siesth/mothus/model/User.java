@@ -103,7 +103,6 @@ public class User {
     public void setPassword(String password) {
         // Create salt
         Argon2PasswordEncoder arg2SpringSecurity = new Argon2PasswordEncoder(16, 32, 1, 60000, 10);
-
         this.password = arg2SpringSecurity.encode(password);
     }
 

@@ -28,7 +28,7 @@ public class UserManagement implements IUserManagement {
                     0,
                     new Stats(),
                     new SkinInventory());
-            //userRepository.save(user); // TODO : Crash due to password encoding
+            userRepository.save(user); // TODO : Crash due to password encoding
             return true;
         }
     }
