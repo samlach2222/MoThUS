@@ -1,17 +1,22 @@
 package com.siesth.mothus.controller;
 
+import com.siesth.mothus.dataManagementService.IUserManagement;
+import com.siesth.mothus.dto.RegistrationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.Locale;
 
 @Controller
 public class ManageLogin {
     private final MessageSource messageSource;
-
+    @Autowired
+    private IUserManagement userManager;
     @Autowired
     public ManageLogin(MessageSource messageSource) {
         this.messageSource = messageSource;
@@ -42,7 +47,16 @@ public class ManageLogin {
     @GetMapping("/registerContent")
     public String loadElementCaseContent(Model model) {
         // o pass data to the template
-        model.addAttribute("someData", "Some data for Coin Shop");
+        model.addAttribute("registrationDto", new RegistrationDto());
         return "Content/registerContent"; // Thymeleaf template name
+    }
+
+    @PostMapping("/register")
+    public String processRegistrationForm(@ModelAttribute("registrationDto") RegistrationDto registrationDto) {
+        boolean isGood = userManager.createNewUser(registrationDto);
+        if(isGood)
+            return "redirect:/playZone";
+        else
+            return "redirect:/registerContent";
     }
 }
