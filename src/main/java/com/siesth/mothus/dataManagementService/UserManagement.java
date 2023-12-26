@@ -32,4 +32,14 @@ public class UserManagement implements IUserManagement {
             return true;
         }
     }
+
+    @Override
+    public boolean checkLogin(RegistrationDto registrationDto) {
+        if (userRepository.existsUserByUsernameAndPassword(registrationDto.getUsername(), registrationDto.getPassword())) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }

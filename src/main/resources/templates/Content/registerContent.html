@@ -3,7 +3,7 @@
     <img src="/assets/logos/MoThUS_logo.svg" alt="logo" id="mothusLogo">
 </div>
 <div id="loginPanelButtons">
-    <form method="post" id="registerForm" th:action="@{/register}" th:object="${registrationDto}">
+    <form method="post" id="registerForm" th:action="@{/processRegister}" th:object="${registrationDto}">
         <label for="usernameInput">Username</label><br>
         <input type="text" id="usernameInput" th:field="*{username}" name="username" required><br>
         <label for="emailInput">Email</label><br>

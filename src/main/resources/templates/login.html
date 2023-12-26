@@ -18,9 +18,11 @@
             </div>
         </div>
 
-        <div th:if="${successMessage}" class="alert alert-success" role="alert">
+        <div th:if="${registrationSuccess}" class="alert alert-registration-success" role="alert">
         </div>
-        <div th:if="${errorMessage}" class="alert alert-error" role="alert">
+        <div th:if="${registrationError}" class="alert alert-registration-error" role="alert">
+        </div>
+        <div th:if="${loginError}" class="alert alert-login-error" role="alert">
         </div>
 
         <script>
@@ -34,12 +36,15 @@
             }
 
             // check th:if="${successMessage}" and th:if="${errorMessage}" in login.html
-            if (document.getElementsByClassName('alert alert-success').length > 0) {
-                alert('success');
+            if (document.getElementsByClassName('alert alert-registration-success').length > 0) {
+                alert("Registration successful. You can now log in.");
                 loadContent('/loginContent');
-            } else if (document.getElementsByClassName('alert alert-error').length > 0){
-                alert('error');
+            } else if (document.getElementsByClassName('alert alert-registration-error').length > 0){
+                alert("Registration failed. Username or email already exists.");
                 loadContent('/registerContent');
+            } else if (document.getElementsByClassName('alert alert-login-error').length > 0){
+                alert("Login failed. Username or password is incorrect.");
+                loadContent('/loginContent');
             }
 
         </script>
