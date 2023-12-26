@@ -39,39 +39,55 @@ public class ManageLogin {
     }
 
     @GetMapping("/loginContent")
-    public String loadCoinShopContent(Model model) {
+    public String loginContent(Model model) {
         // To pass data to the template
-        Object successMessage = model.asMap().get("successMessage");
+        Object registrationError = model.asMap().get("registrationError");
+        Object loginError = model.asMap().get("loginError");
 
-        if (successMessage != null) {
-            // Pass the success message to the view
-            model.addAttribute("successMessage", successMessage);
+        if (registrationError != null) {
+            model.addAttribute("registrationError", registrationError);
         }
-        return "Content/loginContent"; // Thymeleaf template name
+        if(loginError != null) {
+            model.addAttribute("loginError", loginError);
+        }
+        model.addAttribute("registrationDto", new RegistrationDto());
+        return "Content/loginContent";
     }
 
     @GetMapping("/registerContent")
-    public String loadElementCaseContent(Model model) {
+    public String registerContent(Model model) {
         // To pass data to the template
-        Object errorMessage = model.asMap().get("errorMessage");
+        Object registrationSuccess = model.asMap().get("registrationSuccess");
 
-        if (errorMessage != null) {
+        if (registrationSuccess != null) {
             // Pass the success message to the view
-            model.addAttribute("errorMessage", errorMessage);
+            model.addAttribute("registrationSuccess", registrationSuccess);
         }
         model.addAttribute("registrationDto", new RegistrationDto());
-        return "Content/registerContent"; // Thymeleaf template name
+        return "Content/registerContent";
     }
 
-    @PostMapping("/register")
-    public String processRegistrationForm(@ModelAttribute("registrationDto") RegistrationDto registrationDto , RedirectAttributes redirectAttributes) {
+    @PostMapping("/processRegister")
+    public String processRegister(@ModelAttribute("registrationDto") RegistrationDto registrationDto , RedirectAttributes redirectAttributes) {
         boolean isGood = userManager.createNewUser(registrationDto);
         if(isGood) {
-            redirectAttributes.addFlashAttribute("successMessage", "Registration successful. Please log in.");
+            redirectAttributes.addFlashAttribute("registrationSuccess", "Registration successful. You can now log in.");
         }
         else {
-            redirectAttributes.addFlashAttribute("errorMessage", "Registration failed. Please try again.");
+            redirectAttributes.addFlashAttribute("registrationError", "Registration failed. Username or email already exists.");
         }
         return "redirect:/login";
+    }
+
+    @PostMapping("/processLogin")
+    public String processLogin(@ModelAttribute("registrationDto") RegistrationDto registrationDto , RedirectAttributes redirectAttributes) {
+        boolean isGood = userManager.checkLogin(registrationDto);
+        if(isGood) {
+            return "redirect:/playZone";
+        }
+        else {
+            redirectAttributes.addFlashAttribute("loginError", "Login failed. Username or password is incorrect.");
+            return "redirect:/login";
+        }
     }
 }
