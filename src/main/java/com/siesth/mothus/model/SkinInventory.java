@@ -9,7 +9,7 @@ package com.siesth.mothus.model;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 /**
  * Class to manage all the skins of the user
@@ -30,7 +30,7 @@ public class SkinInventory {
             joinColumns = @JoinColumn(name = "idSkin"),
             inverseJoinColumns = @JoinColumn(name = "idSkinInventory")
     )
-    ArrayList<Skin> skinList;
+    Collection<Skin> skinList;
 
     int currentElementSkinId;
 
@@ -74,7 +74,7 @@ public class SkinInventory {
      * Get a list of all the skins of the user
      * @return list of all the skins of the user
      */
-    public List<Skin> getSkinList() {
+    public Collection<Skin> getSkinList() {
         return skinList;
     }
 }
