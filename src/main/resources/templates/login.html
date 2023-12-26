@@ -5,6 +5,10 @@
         <title th:text="${pageTitle}">Page Title</title>
         <link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon"/>
         <link rel="stylesheet" href="/css/login.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+        <script src="/js/notify.js"></script>
+
     </head>
     <body>
         <div id="loginPanel">
@@ -37,16 +41,16 @@
 
             // check th:if="${successMessage}" and th:if="${errorMessage}" in login.html
             if (document.getElementsByClassName('alert alert-registration-success').length > 0) {
+                notifySuccess('Registration successful. You can now log in.')
                 alert("Registration successful. You can now log in.");
                 loadContent('/loginContent');
             } else if (document.getElementsByClassName('alert alert-registration-error').length > 0){
-                alert("Registration failed. Username or email already exists.");
+                notifyError('Registration failed. Username or email already exists.')
                 loadContent('/registerContent');
             } else if (document.getElementsByClassName('alert alert-login-error').length > 0){
-                alert("Login failed. Username or password is incorrect.");
+                notifyError('Login failed. Username or password is incorrect.')
                 loadContent('/loginContent');
             }
-
         </script>
     </body>
 </html>
