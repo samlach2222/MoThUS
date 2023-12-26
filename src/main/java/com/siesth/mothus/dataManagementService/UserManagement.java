@@ -7,6 +7,7 @@ import com.siesth.mothus.model.User;
 import com.siesth.mothus.model.UserLanguage;
 import com.siesth.mothus.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -35,11 +36,11 @@ public class UserManagement implements IUserManagement {
 
     @Override
     public boolean checkLogin(RegistrationDto registrationDto) {
-        if (userRepository.existsUserByUsernameAndPassword(registrationDto.getUsername(), registrationDto.getPassword())) {
-            return true;
-        }
-        else {
+        User user = userRepository.findUserByUsername(registrationDto.getUsername());
+        if (user == null) {
             return false;
         }
+        Argon2PasswordEncoder arg2SpringSecurity = new Argon2PasswordEncoder(16, 32, 1, 60000, 10);
+        return arg2SpringSecurity.matches(registrationDto.getPassword(), user.getPassword());
     }
 }
