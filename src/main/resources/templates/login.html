@@ -18,6 +18,11 @@
             </div>
         </div>
 
+        <div th:if="${successMessage}" class="alert alert-success" role="alert">
+        </div>
+        <div th:if="${errorMessage}" class="alert alert-error" role="alert">
+        </div>
+
         <script>
             function loadContent(url) {
                 fetch(url)
@@ -27,6 +32,16 @@
                     })
                     .catch(error => console.error('Error:', error));
             }
+
+            // check th:if="${successMessage}" and th:if="${errorMessage}" in login.html
+            if (document.getElementsByClassName('alert alert-success').length > 0) {
+                alert('success');
+                loadContent('/loginContent');
+            } else if (document.getElementsByClassName('alert alert-error').length > 0){
+                alert('error');
+                loadContent('/registerContent');
+            }
+
         </script>
     </body>
 </html>

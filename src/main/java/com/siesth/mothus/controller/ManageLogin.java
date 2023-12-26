@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Locale;
 
@@ -40,23 +41,37 @@ public class ManageLogin {
     @GetMapping("/loginContent")
     public String loadCoinShopContent(Model model) {
         // To pass data to the template
-        model.addAttribute("someData", "Some data for Coin Shop");
+        Object successMessage = model.asMap().get("successMessage");
+
+        if (successMessage != null) {
+            // Pass the success message to the view
+            model.addAttribute("successMessage", successMessage);
+        }
         return "Content/loginContent"; // Thymeleaf template name
     }
 
     @GetMapping("/registerContent")
     public String loadElementCaseContent(Model model) {
-        // o pass data to the template
+        // To pass data to the template
+        Object errorMessage = model.asMap().get("errorMessage");
+
+        if (errorMessage != null) {
+            // Pass the success message to the view
+            model.addAttribute("errorMessage", errorMessage);
+        }
         model.addAttribute("registrationDto", new RegistrationDto());
         return "Content/registerContent"; // Thymeleaf template name
     }
 
     @PostMapping("/register")
-    public String processRegistrationForm(@ModelAttribute("registrationDto") RegistrationDto registrationDto) {
+    public String processRegistrationForm(@ModelAttribute("registrationDto") RegistrationDto registrationDto , RedirectAttributes redirectAttributes) {
         boolean isGood = userManager.createNewUser(registrationDto);
-        if(isGood)
-            return "redirect:/playZone";
-        else
-            return "redirect:/registerContent";
+        if(isGood) {
+            redirectAttributes.addFlashAttribute("successMessage", "Registration successful. Please log in.");
+        }
+        else {
+            redirectAttributes.addFlashAttribute("errorMessage", "Registration failed. Please try again.");
+        }
+        return "redirect:/login";
     }
 }
