@@ -580,3 +580,71 @@ function sendCurrentWord(){
     }
 
 }
+
+/////////////////
+// OPEN POPUPS //
+/////////////////
+
+function openPopup(contentType) {
+    const popup = document.getElementById('popup');
+    const body = document.body;
+
+    // Add a class to the body to apply the overlay
+    body.classList.add('overlay-active');
+
+    // Load content based on contentType
+    loadPopupContent(contentType);
+
+    popup.style.display = 'block';
+
+    // Close the popup and remove the overlay when clicking outside (grayed-out zone)
+    window.onclick = function(event) {
+        if (event.target === popup) {
+            closePopup();
+        }
+    };
+}
+
+function closePopup() {
+    const popup = document.getElementById('popup');
+    const body = document.body;
+
+    // Remove the overlay class from the body
+    body.classList.remove('overlay-active');
+
+    // Clear the window.onclick event to avoid interference with other click events
+    window.onclick = null;
+
+    popup.style.display = 'none';
+}
+
+function loadPopupContent(contentType) {
+    const popupContent = document.querySelector('.popup-content');
+
+    // Clear previous content
+    popupContent.innerHTML = '';
+
+    // Load content based on contentType
+    switch (contentType) {
+        case 'helpButton':
+            fetch('/helpPopup')
+                .then(response => response.text())
+                .then(html => {
+                    popupContent.innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error loading content:', error);
+                });
+            break;
+        case 'statsButton':
+            fetch('/statsPopup')
+                .then(response => response.text())
+                .then(html => {
+                    popupContent.innerHTML = html;
+                })
+                .catch(error => {
+                    console.error('Error loading content:', error);
+                });
+            break;
+    }
+}

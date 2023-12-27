@@ -1,18 +1,3 @@
-/**
- * Main div with 100 % of the page size
- */
-body {
-    background-color: grey;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    overflow: hidden;
-}
-
 #statsZone {
     max-width: 700px;
     width: 70vw;
@@ -30,7 +15,7 @@ body {
     justify-items: center;
 }
 
-#statsZone #globalStats hr {
+#statsZone #globalStats #popupDivider {
     height: 100%;
     border: 1px solid black;
     background-color: white;

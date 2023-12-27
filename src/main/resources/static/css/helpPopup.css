@@ -1,18 +1,3 @@
-/**
- * Main div with 100 % of the page size
- */
-body {
-    background-color: grey;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    overflow: hidden;
-}
-
 #helpZone {
     max-width: 800px;
     width: 65vw;

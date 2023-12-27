@@ -1,23 +1,12 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="/css/helpPopup.css">
-        <title th:text="${pageTitle}">Page Title</title>
-    </head>
-    <body>
-        <div id="grayedZone">
-            <div id="helpZone">
-                <h1>MoThUS ?</h1>
-                <p th:text="${MothusExplanation}">MoThUS Explanation</p>
-                <h1>Rules</h1>
-                <p th:text="${RulesExplanation}">Rules Explanation</p>
-                <div id="mothusLetersExemple">
-                    <p></p>
-                    <!-- PUT HERE EXEMPLE OF WORD FROM PENPOT -->
-                </div>
-                <p th:text="${LettersExplanation}">Letters Explanation</p>
-            </div>
-        </div>
-    </body>
-</html>
+<link href="/css/helpPopup.css" rel="stylesheet">
+<div id="helpZone">
+    <h1>MoThUS ?</h1>
+    <p th:text="${MothusExplanation}">MoThUS Explanation</p>
+    <h1>Rules</h1>
+    <p th:text="${RulesExplanation}">Rules Explanation</p>
+    <div id="mothusLetersExemple">
+        <p></p>
+        <!-- PUT HERE EXEMPLE OF WORD FROM PENPOT -->
+    </div>
+    <p th:text="${LettersExplanation}">Letters Explanation</p>
+</div>
