@@ -1,23 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="../../static/css/confirmEmailPopup.css">
-    <title>MoThUS - Email confirm</title>
-</head>
-<body>
-    <div id="background">
-        <div id="confirmEmailPopup">
-            <p>
-                You have received a verification code on your email address, please enter it here :
-            </p>
-            <form id="confirmEmailForm">
-                <label>
-                    <input type="text" placeholder="ABC123DEF">
-                </label>
-                <button type="submit">Confirmer l'addresse email</button>
-            </form>
-        </div>
-    </div>
-</body>
-</html>
+<div id="confirmEmailPopup">
+    <p>
+        You have received a verification code on your email address, please enter it here :
+    </p>
+    <form id="confirmEmailForm" method="post"  th:action="@{/validateMailRegister}" th:object="${validateEmailDto}">
+        <label>
+            <input type="text" placeholder="0000" th:field="*{code}">
+        </label>
+        <button type="submit">Confirm mail address</button>
+    </form>
+</div>
