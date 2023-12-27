@@ -10,12 +10,17 @@
     </head>
     <body>
 
+        <div id="popup" class="popup">
+            <div class="popup-content"></div>
+        </div>
+
+
         <div id="topBanner">
             <div id="help">
-                <img src="/assets/icons/HelpIcon.svg" alt="logo" id="helpButton" onclick="location.href='/helpPopup'">
+                <img src="/assets/icons/HelpIcon.svg" alt="logo" id="helpButton" onclick="openPopup('helpButton')">
             </div>
             <div id="stats">
-                <img src="/assets/icons/StatsIcon.svg" alt="logo" id="statsButton" onclick="location.href='/statsPopup'">
+                <img src="/assets/icons/StatsIcon.svg" alt="logo" id="statsButton" onclick="openPopup('statsButton')">
             </div>
             <div id="logo">
                 <img src="/assets/logos/MoThUS_logo.svg" alt="logo" id="mothusLogo">
@@ -27,7 +32,7 @@
                 <!-- TODO : Create coin/shop button here -->
             </div>
         </div>
-        <hr>
+        <hr id="topBannerSeparator">
 
         <!-- This is the play zone, where the user will play the game -->
         <div id="gameTable">
