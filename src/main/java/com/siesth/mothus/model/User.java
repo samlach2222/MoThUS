@@ -40,6 +40,9 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     SkinInventory skinInventory;
 
+    @OneToOne(cascade = CascadeType.ALL) // by default, it is optional = true
+    ValidationCode validationCode;
+
     public User() {
 
     }
@@ -144,5 +147,13 @@ public class User {
 
     public void setSkinInventory(SkinInventory skinInventory) {
         this.skinInventory = skinInventory;
+    }
+
+    public ValidationCode getValidationCode() {
+        return validationCode;
+    }
+
+    public void setValidationCode(ValidationCode validationCode) {
+        this.validationCode = validationCode;
     }
 }
