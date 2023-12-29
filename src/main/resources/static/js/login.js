@@ -65,3 +65,25 @@ function loadPopupContent() {
             console.error('Error loading content:', error);
         });
 }
+
+////////////////////
+// REGISTER TIMER //
+////////////////////
+
+// Update the timer and progress bar every second
+function startTimer() {
+    let timeRemaining = 60; // TODO: get time left from server
+
+    const timerInterval = setInterval(function () {
+        timeRemaining--;
+        document.getElementById('timerValue').innerText = timeRemaining.toString();
+
+        const progressPercentage = (timeRemaining / 60) * 100;
+        document.getElementById('progressBar').style.width = progressPercentage + '%';
+
+        if (timeRemaining <= 0) {
+            clearInterval(timerInterval);
+            // You can add code to handle what happens when the timer reaches 0
+        }
+    }, 1000);
+}
