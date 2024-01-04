@@ -37,7 +37,8 @@ public class ManageAccountZone {
     @GetMapping("/accountContent")
     public String loadAccountContent(Model model) {
         // To pass data to the template
-        model.addAttribute("someData", "Some data for Coin Shop");
+        model.addAttribute("email", "email@test.com");
+        model.addAttribute("username","joemama");
         return "Content/accountContent"; // Thymeleaf template name
     }
 
