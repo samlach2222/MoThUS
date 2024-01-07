@@ -39,6 +39,7 @@ function openPopup() {
     // Load content based on contentType
     loadPopupContent();
     popup.style.display = 'block';
+    startTimer();
 }
 
 function closePopup() {
