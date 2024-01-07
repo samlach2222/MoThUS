@@ -75,13 +75,13 @@ public class ManageLogin {
 
     @PostMapping("/processRegister")
     public String processRegister(@ModelAttribute("registrationDto") RegistrationDto registrationDto , RedirectAttributes redirectAttributes) {
+        // TODO : createNewUser is very slow (a few seconds), make it faster
         boolean isGood = userManager.createNewUser(registrationDto); // TODO : Actually the user is created even if he doesn't validate his email
         if(isGood) {
             // TODO : Create service to generate validation code
             int validationCode = 1234;
             // TODO : Create service to generate validation code
 
-            // TODO : send email asynchronously
             sendEmail(new EmailDto(registrationDto.getEmail(), "MoThUS Registration Validation", "Hello, thank you for register to MoThUS by Siesth. Here is your validation code : " + validationCode + ". Please enter this code in the validation page."));
             redirectAttributes.addFlashAttribute("pendingRegistration", "Please validate email to complete registration.");
         }

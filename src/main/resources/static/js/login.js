@@ -87,4 +87,7 @@ function startTimer() {
             // You can add code to handle what happens when the timer reaches 0
         }
     }, 1000);
+
+    // TODO: implement resend email button + backend when 0 seconds
+    // TODO: protect against spamming trying codes (long wait between tries, max tries, ...)
 }
