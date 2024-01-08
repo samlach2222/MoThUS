@@ -42,18 +42,29 @@ function displayExemple() {
     elts.push(elt);
 
     const table = document.getElementById("mothusLettersExampleTable");
-
     const tableBody = document.createElement("tbody");
 
     const tableWidth = table.offsetWidth;
-    console.log(tableWidth);
     const elmtWidthAndHeight = tableWidth / elts.length;
-    console.log(elmtWidthAndHeight);
+    table.style.height = elmtWidthAndHeight + "px";
 
     const row = document.createElement("tr");
     for (let i = 0; i < elts.length; i++) {
         // create all in row
         const cell = document.createElement("td");
+        cell.appendChild(displayElement(elts[i]));
+        row.appendChild(cell);
+        const div = cell.getElementsByClassName("elementDiv")[0];
+        div.style.height = "auto";
+    }
+    tableBody.appendChild(row);
+    table.appendChild(tableBody);
+    table.style.height = elmtWidthAndHeight + "px";
+
+    for(let i = 0; i < elts.length; i++) {
+        const cell = table.getElementsByTagName("td")[i];
+        const div = cell.getElementsByClassName("elementDiv")[0];
+        div.style.height = "auto";
         cell.style.border = "1px solid #494A4B";
         cell.style.color = "#FFFFFF";
         cell.style.borderRadius = "5px";
@@ -62,8 +73,6 @@ function displayExemple() {
         cell.style.height = elmtWidthAndHeight + "px";
         cell.style.maxHeight = elmtWidthAndHeight + "px";
         cell.style.minHeight = elmtWidthAndHeight + "px";
-        cell.appendChild(displayElement(elts[i]));
-        row.appendChild(cell);
 
         switch (i) {
             case 0:
@@ -91,13 +100,6 @@ function displayExemple() {
                 cell.style.backgroundColor = "#7f00fd";
                 break;
         }
-
-        // TODO : compare CTRL F5 and F5 HTML
-
-        const div = cell.getElementsByClassName("elementDiv")[0];
-        div.style.height = "auto";
     }
-    tableBody.appendChild(row);
-    table.style.height = elmtWidthAndHeight + "px";
-    table.appendChild(tableBody);
 }
+
