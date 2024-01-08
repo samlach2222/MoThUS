@@ -6,6 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 
 @Controller
@@ -37,22 +40,42 @@ public class ManageAccountZone {
     @GetMapping("/accountContent")
     public String loadAccountContent(Model model) {
         // To pass data to the template
-        model.addAttribute("email", "email@test.com");
-        model.addAttribute("username","joemama");
-        return "Content/accountContent"; // Thymeleaf template name
+        Object connected = model.asMap().get("connected");
+        if(connected != null){
+            model.addAttribute("email", "email@test.com");
+            model.addAttribute("username","joemama");
+            return "Content/accountContent"; // Thymeleaf template name
+        } else {
+            model.addAttribute("email","please connect");
+            model.addAttribute("username","please connect");
+            return "Content/accountContent";
+        }
+
     }
 
     @GetMapping("/elementSkinsContent")
     public String loadElementSkinsContent(Model model) {
-        // To pass data to the template
-        model.addAttribute("someData", "Some data for Coin Shop");
+        List<String> skins = new LinkedList<>();
+        skins.add("Skin 1");
+        skins.add("Skin 2");
+        skins.add("Skin 3");
+
+        // Ajout de la liste de skins au modèle
+        model.addAttribute("skins", skins);
         return "Content/elementSkinsContent"; // Thymeleaf template name
     }
 
     @GetMapping("/pageSkinsContent")
     public String loadPageSkinsContent(Model model) {
         // To pass data to the template
-        model.addAttribute("someData", "Some data for Coin Shop");
+        List<String> skins = new LinkedList<>();
+        skins.add("Skin 1");
+        skins.add("Skin 2");
+        skins.add("Skin 3");
+
+        // Ajout de la liste de skins au modèle
+        model.addAttribute("skins", skins);
+
         return "Content/pageSkinsContent"; // Thymeleaf template name
     }
 
