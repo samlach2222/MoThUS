@@ -121,20 +121,8 @@ function displayElementTable(data){
     cell1.rowSpan = 3;
     // add button
     const returnButton = document.createElement("button");
-
-    // backspace symbol innerHTML
+    returnButton.id = "returnButton";
     returnButton.innerHTML = "&#x232B;";
-    returnButton.style.width = "100%";
-    returnButton.style.height = "100%";
-    returnButton.style.backgroundColor = "#b90022";
-    returnButton.style.color = "white";
-    returnButton.style.fontSize = "1.5em";
-    returnButton.style.borderRadius = "8px";
-    returnButton.style.border = "none";
-    returnButton.style.cursor = "pointer";
-    returnButton.style.display = "flex";
-    returnButton.style.alignItems = "center";
-    returnButton.style.justifyContent = "center";
     returnButton.onclick = function () {
         // call event listener on backspace key
         const event = new KeyboardEvent('keydown', {
@@ -156,20 +144,8 @@ function displayElementTable(data){
     cell2.rowSpan = 3;
     // add button
     const validateButton = document.createElement("button");
-
-    // enter symbol innerHTML
+    validateButton.id = "validateButton";
     validateButton.innerHTML = "&#x23CE;";
-    validateButton.style.width = "100%";
-    validateButton.style.height = "100%";
-    validateButton.style.backgroundColor = "#005f9f";
-    validateButton.style.color = "white";
-    validateButton.style.fontSize = "1.5em";
-    validateButton.style.borderRadius = "8px";
-    validateButton.style.border = "none";
-    validateButton.style.cursor = "pointer";
-    validateButton.style.display = "flex";
-    validateButton.style.alignItems = "center";
-    validateButton.style.justifyContent = "center";
     validateButton.onclick = function () {
         // call event listener on enter key
         const event = new KeyboardEvent('keydown', {
@@ -184,27 +160,24 @@ function displayElementTable(data){
         document.dispatchEvent(event);
     }
     cell2.appendChild(validateButton);
+    row0.deleteCell(7);
+    row0.deleteCell(7);
+    row0.deleteCell(7);
+    row0.deleteCell(7);
 
-    // delete cells // TODO : Debug this, horrible
-    // row0.deleteCell(8);
-    // row0.deleteCell(8);
-    // row0.deleteCell(8);
-    // row0.deleteCell(8);
-    //
-    //
-    // row1.deleteCell(8);
-    // row1.deleteCell(8);
-    // row1.deleteCell(8);
-    // row1.deleteCell(8);
-    // row1.deleteCell(8);
-    // row1.deleteCell(8);
-    //
-    // row2.deleteCell(8);
-    // row2.deleteCell(8);
-    // row2.deleteCell(8);
-    // row2.deleteCell(8);
-    // row2.deleteCell(8);
-    // row2.deleteCell(8);
+    row1.deleteCell(7);
+    row1.deleteCell(7);
+    row1.deleteCell(7);
+    row1.deleteCell(7);
+    row1.deleteCell(7);
+    row1.deleteCell(6);
+
+    row2.deleteCell(7);
+    row2.deleteCell(7);
+    row2.deleteCell(7);
+    row2.deleteCell(7);
+    row2.deleteCell(7);
+    row2.deleteCell(6);
 
     periodicTable.appendChild(periodicTableBody);
 }
