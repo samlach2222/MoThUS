@@ -8,7 +8,7 @@ package com.siesth.mothus.model;
 
 import jakarta.persistence.*;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.Random;
 
 @Entity
@@ -18,14 +18,15 @@ public class ValidationCode {
     @GeneratedValue(strategy= GenerationType.AUTO)
     int idValidationCode;
 
-    Date creationDate;
+    @Column(columnDefinition = "datetime") // The default "datetime(6)" is not supported in our server
+    LocalDateTime creationDate;
 
     int duration;
 
     String code;
 
 
-    public ValidationCode(Date creationDate, int duration, String code){
+    public ValidationCode(LocalDateTime creationDate, int duration, String code){
         super();
         this.setCreationDate(creationDate);
         this.setDuration(duration);
@@ -35,7 +36,7 @@ public class ValidationCode {
     public ValidationCode() {
 
         // get current server date
-        this.setCreationDate(new Date(System.currentTimeMillis()));
+        this.setCreationDate(LocalDateTime.now());
         this.setDuration(5);
 
         // get random string with 8 characters (a-z, A-Z, 0-9)
@@ -53,7 +54,7 @@ public class ValidationCode {
         return idValidationCode;
     }
 
-    public Date getCreationDate() {
+    public LocalDateTime getCreationDate() {
         return creationDate;
     }
 
@@ -65,7 +66,7 @@ public class ValidationCode {
         return code;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
     }
 
