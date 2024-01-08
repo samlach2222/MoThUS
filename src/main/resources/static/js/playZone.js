@@ -207,7 +207,6 @@ function displayElementTable(data){
     // row2.deleteCell(8);
 
     periodicTable.appendChild(periodicTableBody);
-    activatePlayLine(currentLine);
 }
 
 /**
@@ -441,6 +440,9 @@ function receiveWordFromSpring() {
 
             displayGameTable(length);
         })
+        .then(() => {
+            activatePlayLine(currentLine);
+        })
         .catch(error => {
             console.error('Error fetching word data:', error);
             throw error; // Rethrow the error if necessary
@@ -451,6 +453,9 @@ function receiveWordFromSpring() {
  * Fetch the elements from Spring
  */
 function receiveDataFromSpring() {
+
+    let yamlData = "";
+
     fetch('/getYamlData')
         .then(response => response.text())
         .then(yamlData => {
@@ -524,17 +529,21 @@ function sendCurrentWord(){
                 deactivateTable();
                 deactivateKeyboard();
                 clearUnderLines();
+                // TODO : Mark the user game as won in the database
+                openPopup('statsButton');
             }
             // LOOSING CONDITION
             else if(currentLine === 7 && !isWin) {
                 alert("Perdu");
                 deactivateTable();
                 deactivateKeyboard();
+                // TODO : Mark the user game as lost in the database
+                openPopup('statsButton');
             }
             // PREPARE FOR THE NEXT LINE
             else {
-                activatePlayLine(currentLine);
                 currentLine++;
+                activatePlayLine(currentLine);
                 // first letter
                 const newRow = gameTableBody.rows[currentLine];
                 const newCells = newRow.cells;
@@ -651,5 +660,3 @@ function loadPopupContent(contentType) {
             break;
     }
 }
-
-// TODO : The drag drop is actually not working
