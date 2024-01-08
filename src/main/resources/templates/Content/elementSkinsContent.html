@@ -5,7 +5,19 @@
     <title>Element Skins Content</title>
 </head>
 <body>
-<h2>Element Skins</h2>
-<p>This is the content of the Element Skins.</p>
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom du skin</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="skin : ${skins}">
+            <!--<td th:text="${index}"></td> Index de l'élément + 1 pour l'ID -->
+            <td th:text="${skin}"></td> <!-- Nom du skin -->
+        </tr>
+    </tbody>
+</table>
 </body>
 </html>
