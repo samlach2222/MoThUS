@@ -23,6 +23,15 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(
                         authorize -> authorize
+                                // Allow everyone to access only the files for login, playing and the help popup
+                                .requestMatchers(
+                                        "/loginContent", "/registerContent", "/processRegister", "/processLogin", "/validateMailRegister", "/send-email", "/confirmEmailPopup",
+                                        "/playZone", "/helpPopup", "/getYamlData", "/sendWord",
+                                        "/assets/icons/**", "/assets/logos/**", "/assets/Login_Wallpaper.png",
+                                        "/css/confirmEmailPopup.css", "/css/helpPopup.css", "/css/login.css", "/css/playZone.css",
+                                        "/js/helpPopup.js", "/js/login.js", "/js/notify.js", "/js/playZone.js")
+                                .permitAll()
+                                // Block every other page with authentication
                                 .anyRequest()
                                 .authenticated()
                         // TODO : Change popups and other things that don't need a URL to ResourceUtils.getFile("classpath:...")
@@ -30,11 +39,12 @@ public class SecurityConfig {
                         form -> form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/")
+                                .defaultSuccessUrl("/playZone")
                                 .permitAll()
                 ).logout(
                         logout -> logout
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                                .logoutSuccessUrl("/login")
                                 .permitAll()
                 );
         return http.build();
