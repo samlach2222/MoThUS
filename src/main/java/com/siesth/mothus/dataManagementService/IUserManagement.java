@@ -1,6 +1,7 @@
 package com.siesth.mothus.dataManagementService;
 
 import com.siesth.mothus.dto.RegistrationDto;
+import com.siesth.mothus.model.ValidationCode;
 
 public interface IUserManagement {
 
@@ -17,4 +18,6 @@ public interface IUserManagement {
      * @return true if the login is valid, false otherwise
      */
     public boolean checkLogin(RegistrationDto registrationDto);
+
+    void getUserByUsernameAndUpdateValidationCode(String username, ValidationCode validationCode);
 }

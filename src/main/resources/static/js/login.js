@@ -42,19 +42,6 @@ function openPopup() {
     startTimer();
 }
 
-function closePopup() {
-    const popup = document.getElementById('popup');
-    const body = document.body;
-
-    // Remove the overlay class from the body
-    body.classList.remove('overlay-active');
-
-    // Clear the window.onclick event to avoid interference with other click events
-    window.onclick = null;
-
-    popup.style.display = 'none';
-}
-
 function loadPopupContent() {
     const popupContent = document.querySelector('.popup-content');
     fetch('/confirmEmailPopup')
@@ -73,21 +60,50 @@ function loadPopupContent() {
 
 // Update the timer and progress bar every second
 function startTimer() {
-    let timeRemaining = 60; // TODO: get time left from server
+    fetch('/timeBeforeValidationCode', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username: "username" }), // TODO : Get username from session
+    })
+        .then(response => response.text())
+        .then(data => {
+            let initialTime = parseInt(data);
+            let timeRemaining = initialTime;
+            document.getElementById('timerValue').innerText = timeRemaining.toString();
 
-    const timerInterval = setInterval(function () {
-        timeRemaining--;
-        document.getElementById('timerValue').innerText = timeRemaining.toString();
+            const timerInterval = setInterval(function () {
+                timeRemaining--;
+                document.getElementById('timerValue').innerText = timeRemaining.toString() + 's';
 
-        const progressPercentage = (timeRemaining / 60) * 100;
-        document.getElementById('progressBar').style.width = progressPercentage + '%';
+                const progressPercentage = (timeRemaining / initialTime) * 100;
+                document.getElementById('progressBar').style.width = progressPercentage + '%';
 
-        if (timeRemaining <= 0) {
-            clearInterval(timerInterval);
-            // You can add code to handle what happens when the timer reaches 0
-        }
-    }, 1000);
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById('PopupLabel').innerText = 'Time expired, please use resend code button.';
+                    document.getElementById('confirmEmailForm').style.display = 'none';
+                    document.getElementById('resendCodeForm').style.display = 'flex';
+                    document.getElementById('timerContainer').style.display = 'none';
+                }
+            }, 1000);
+        })
+        .catch(error => {
+            console.error('Error fetching or parsing data:', error);
+            throw error; // Rethrow the error if necessary
+        });
+}
 
-    // TODO: implement resend email button + backend when 0 seconds
-    // TODO: protect against spamming trying codes (long wait between tries, max tries, ...)
+function resendEmail() {
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '/createNewValidationCode', false);  // The third parameter 'false' makes the request synchronous
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    try {
+        xhr.send(JSON.stringify("username")); // TODO : Get username from session
+    }
+    catch (err) {
+        console.error(err);
+    }
 }
