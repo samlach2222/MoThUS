@@ -2,7 +2,7 @@
     max-width: 700px;
     width: 70vw;
     min-width: 450px;
-    background-color: orangered;
+    background-color: white;
     border: 2px solid black;
     border-radius: 1em;
     padding: 0 1em 1em;
@@ -68,7 +68,6 @@
 
 #statsZone #globalStats #globalStatsLeft {
     justify-content: space-between;
-    background-color: purple;
 }
 
 #statsZone #globalStats #globalStatsLeft #globalStatsLeftTop {
@@ -114,7 +113,7 @@
 }
 
 #statsZone #globalStats #globalStatsLeft #globalStatsLeftBottom #firstTry .numberOfTriesBar {
-    background-color: gold;
+    background-color: #005e9e;
     height: 10px;
 }
 
@@ -164,7 +163,6 @@
 
 #statsZone #globalStats #globalStatsRight {
     justify-content: space-around;
-    background-color: pink;
 }
 
 #statsZone #globalStats #globalStatsRight .globalStatsRightFrame {

@@ -632,6 +632,9 @@ function loadPopupContent(contentType) {
                 .then(html => {
                     popupContent.innerHTML = html;
                 })
+                .then(() => {
+                    displayExemple();
+                })
                 .catch(error => {
                     console.error('Error loading content:', error);
                 });
@@ -648,3 +651,5 @@ function loadPopupContent(contentType) {
             break;
     }
 }
+
+// TODO : The drag drop is actually not working

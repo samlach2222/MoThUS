@@ -31,7 +31,6 @@ body {
     width: 50vw;
     min-width: 400px;
     height: 40vh;
-    background-color: darkgreen;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
