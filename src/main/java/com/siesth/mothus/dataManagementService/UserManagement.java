@@ -1,10 +1,7 @@
 package com.siesth.mothus.dataManagementService;
 
 import com.siesth.mothus.dto.RegistrationDto;
-import com.siesth.mothus.model.SkinInventory;
-import com.siesth.mothus.model.Stats;
-import com.siesth.mothus.model.User;
-import com.siesth.mothus.model.UserLanguage;
+import com.siesth.mothus.model.*;
 import com.siesth.mothus.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
@@ -42,5 +39,12 @@ public class UserManagement implements IUserManagement {
         }
         Argon2PasswordEncoder arg2SpringSecurity = new Argon2PasswordEncoder(16, 32, 1, 60000, 10);
         return arg2SpringSecurity.matches(registrationDto.getPassword(), user.getPassword());
+    }
+
+    @Override
+    public void getUserByUsernameAndUpdateValidationCode(String username, ValidationCode validationCode) {
+        User user = userRepository.findUserByUsername(username);
+        user.setValidationCode(validationCode);
+        userRepository.save(user);
     }
 }
