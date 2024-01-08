@@ -613,8 +613,6 @@ function loadPopupContent(contentType) {
                 .then(response => response.text())
                 .then(html => {
                     popupContent.innerHTML = html;
-                })
-                .then(() => {
                     displayExemple();
                 })
                 .catch(error => {

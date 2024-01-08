@@ -33,16 +33,33 @@
             </button>
         </div>
 
-        <div id="content" th:fragment="contentFragment">
-            <!-- Define default content -->
-        </div>
+        <div id="content" th:fragment="contentFragment"></div>
 
         <script>
+            window.onload = function () {
+                loadContent('/accountContent');
+            }
             function loadContent(url) {
                 fetch(url)
                     .then(response => response.text())
                     .then(data => {
                         document.getElementById('content').innerHTML = data;
+                        switch (url) {
+                            case '/accountContent':
+                                const script = document.createElement('script');
+                                script.onload = function () {
+                                    initAccountContent();
+                                };
+                                script.src = "/js/accountContent.js";
+                                document.head.appendChild(script);
+                                break;
+                            case '/elementSkinsContent':
+                                break;
+                            case '/pageSkinsContent':
+                                break;
+                            case '/termsOfUseContent':
+                                break;
+                        }
                     })
                     .catch(error => console.error('Error:', error));
             }
