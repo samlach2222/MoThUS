@@ -7,6 +7,9 @@ import com.siesth.mothus.dto.RegistrationDto;
 import com.siesth.mothus.dto.ValidateEmailDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +34,11 @@ public class ManageLogin {
 
     @GetMapping("/login")
     public String login(Model model, Locale locale) {
+        // Redirect to playZone if the user is already logged in
+        if (isAuthenticated()) {
+            return "redirect:/playZone";
+        }
+
         String pageTitle = messageSource.getMessage("Login.PageTitle", null, locale);
         String loginButton = messageSource.getMessage("Login.LoginButton", null, locale);
         String registerButton = messageSource.getMessage("Login.RegisterButton", null, locale);
@@ -46,6 +54,11 @@ public class ManageLogin {
 
     @GetMapping("/loginContent")
     public String loginContent(Model model) {
+        // Redirect to playZone if the user is already logged in
+        if (isAuthenticated()) {
+            return "redirect:/playZone";
+        }
+
         // To pass data to the template
         Object registrationError = model.asMap().get("registrationError");
         Object loginError = model.asMap().get("loginError");
@@ -62,6 +75,11 @@ public class ManageLogin {
 
     @GetMapping("/registerContent")
     public String registerContent(Model model) {
+        // Redirect to playZone if the user is already logged in
+        if (isAuthenticated()) {
+            return "redirect:/playZone";
+        }
+
         // To pass data to the template
         Object registrationSuccess = model.asMap().get("registrationSuccess");
 
@@ -75,6 +93,11 @@ public class ManageLogin {
 
     @PostMapping("/processRegister")
     public String processRegister(@ModelAttribute("registrationDto") RegistrationDto registrationDto , RedirectAttributes redirectAttributes) {
+        // Redirect to playZone if the user is already logged in
+        if (isAuthenticated()) {
+            return "redirect:/playZone";
+        }
+
         // TODO : createNewUser is very slow (a few seconds), make it faster
         boolean isGood = userManager.createNewUser(registrationDto); // TODO : Actually the user is created even if he doesn't validate his email
         if(isGood) {
@@ -91,20 +114,13 @@ public class ManageLogin {
         return "redirect:/login";
     }
 
-    @PostMapping("/processLogin")
-    public String processLogin(@ModelAttribute("registrationDto") RegistrationDto registrationDto , RedirectAttributes redirectAttributes) {
-        boolean isGood = userManager.checkLogin(registrationDto);
-        if(isGood) {
-            return "redirect:/playZone";
-        }
-        else {
-            redirectAttributes.addFlashAttribute("loginError", "Login failed. Username or password is incorrect.");
-            return "redirect:/login";
-        }
-    }
-
     @PostMapping("/validateMailRegister")
     public String validateMailRegister(@ModelAttribute("ValidateEmailDto") ValidateEmailDto validateEmailDto , RedirectAttributes redirectAttributes) {
+        // Redirect to playZone if the user is already logged in
+        if (isAuthenticated()) {
+            return "redirect:/playZone";
+        }
+
         boolean isGood = true; // TODO : Compare here sent code with generated code
         if(isGood) {
             redirectAttributes.addFlashAttribute("registrationSuccess", "Registration successful. You can now log in.");
@@ -118,6 +134,11 @@ public class ManageLogin {
 
     @PostMapping("/send-email")
     public String sendEmail(@RequestBody EmailDto emailRequest) {
+        // Redirect to playZone if the user is already logged in
+        if (isAuthenticated()) {
+            return "redirect:/playZone";
+        }
+
         emailService.sendEmail(emailRequest.getTo(), emailRequest.getSubject(), emailRequest.getBody());
 
         return "Email sent successfully!";
@@ -125,7 +146,18 @@ public class ManageLogin {
 
     @GetMapping("/confirmEmailPopup")
     public String ConfirmEmailPopup(Model model) {
+        // Redirect to playZone if the user is already logged in
+        if (isAuthenticated()) {
+            return "redirect:/playZone";
+        }
+
         model.addAttribute("validateEmailDto", new ValidateEmailDto());
         return "Popup/confirmEmailPopup";
+    }
+
+    private boolean isAuthenticated() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        // True if the user is not anonymous (logged in)
+        return !(authentication instanceof AnonymousAuthenticationToken);
     }
 }
