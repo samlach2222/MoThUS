@@ -94,3 +94,5 @@ public class Skin {
         this.cssFile = cssFile;
     }
 }
+
+// TODO : Add preview image of the skin

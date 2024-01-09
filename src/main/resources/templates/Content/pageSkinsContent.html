@@ -3,21 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Page Skins Content</title>
+    <link href="/css/pageSkinsContent.css" rel="stylesheet">
+    <script src="/js/pageSkinsContent.js"></script>
 </head>
 <body>
-<table border="1">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Nom du skin</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="skin : ${skins}">
-        <!--<td th:text="${index}"></td> Index de l'élément + 1 pour l'ID -->
-        <td th:text="${skin}"></td> <!-- Nom du skin -->
-    </tr>
-    </tbody>
-</table>
+    <div id="skinList"></div>
 </body>
 </html>
