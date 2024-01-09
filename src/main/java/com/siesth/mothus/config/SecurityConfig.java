@@ -25,7 +25,7 @@ public class SecurityConfig {
                         authorize -> authorize
                                 // Allow everyone to access only the files for login, playing and the help popup
                                 .requestMatchers(
-                                        "/login", "/loginContent", "/registerContent", "/processRegister", "/processLogin", "/validateMailRegister", "/send-email", "/confirmEmailPopup",
+                                        "/login", "/loginContent", "/registerContent", "/processRegister", "/validateMailRegister", "/send-email", "/confirmEmailPopup",
                                         "/playZone", "/helpPopup", "/getYamlData", "/sendWord",
                                         "/assets/icons/**", "/assets/logos/**", "/assets/Login_Wallpaper.png",
                                         "/css/confirmEmailPopup.css", "/css/helpPopup.css", "/css/login.css", "/css/playZone.css",
@@ -39,11 +39,9 @@ public class SecurityConfig {
                         form -> form
                                 .loginPage("/login")
 
-                                // Doesn't work
+                                .defaultSuccessUrl("/playZone", true)
+                                // TODO : Notifications no longer work, fix it
                                 /*
-                                .loginProcessingUrl("/processLogin")
-                                .defaultSuccessUrl("/playZone")
-                                .failureUrl("/login?loginError=true")
                                 .failureHandler((request, response, exception) -> {
                                     request.getSession().setAttribute("loginError", exception.getMessage());
                                     response.sendRedirect("/login?loginError=test");

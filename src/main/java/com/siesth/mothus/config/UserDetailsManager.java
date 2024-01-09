@@ -27,7 +27,7 @@ public class UserDetailsManager implements UserDetailsService {
                 throw new UsernameNotFoundException("User not found");
             }
         }
-        Set<GrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority("USER"));
+        Set<GrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
         return new org.springframework.security.core.userdetails.User(username, user.getPassword(), authorities);
     }
 }
