@@ -5,11 +5,12 @@
         <title th:text="${pageTitle}">Page Title</title>
         <link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon"/>
         <link href="/css/accountZone.css" rel="stylesheet">
+        <script src="/js/accountZone.js"></script>
     </head>
     <body>
         <div id="verticalMenu">
             <div>
-                <a id="goBackButton" href="/playZone"></a>
+                <a id="goBackButton" href="/playZone">⮪</a>
                 <button class="verticalMenuButton" onclick="loadContent('/accountContent')">
                     <img class="verticalMenuButtonIcon"
                          src="https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/green-checkmark-icon.png">
@@ -34,43 +35,5 @@
         </div>
 
         <div id="content" th:fragment="contentFragment"></div>
-
-        <script>
-            window.onload = function () {
-                loadContent('/accountContent');
-            }
-            function loadContent(url) {
-                fetch(url)
-                    .then(response => response.text())
-                    .then(data => {
-                        document.getElementById('content').innerHTML = data;
-                        switch (url) {
-                            case '/accountContent':
-                                const script = document.createElement('script');
-                                script.onload = function () {
-                                    initAccountContent();
-                                };
-                                script.src = "/js/accountContent.js";
-                                document.head.appendChild(script);
-                                break;
-                            case '/elementSkinsContent':
-                                break;
-                            case '/pageSkinsContent':
-                                break;
-                            case '/termsOfUseContent':
-                                break;
-                        }
-                        updateMargin();
-                    })
-                    .catch(error => console.error('Error:', error));
-            }
-
-            function updateMargin() {
-                const verticalMenuWidth = document.getElementById('verticalMenu').offsetWidth;
-                document.getElementById('content').style.marginLeft = verticalMenuWidth + 'px';
-            }
-
-            window.addEventListener('resize', updateMargin);
-        </script>
     </body>
 </html>
