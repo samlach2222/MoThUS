@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title th:text="${pageTitle}">Page Title</title>
+        <link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon"/>
+        <link rel="stylesheet" href="/css/login.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+        <script src="/js/notify.js"></script>
+        <script src="/js/login.js"></script>
+    </head>
+    <body>
+
+        <div id="popup" class="popup">
+            <div class="popup-content"></div>
+        </div>
+
+        <div id="loginPanel">
+            <div id="loginPanelLogo">
+                <img src="/assets/logos/MoThUS_logo.svg" alt="logo" id="mothusLogo">
+            </div>
+            <div id="loginPanelButtons">
+                <button class="homeLoginButton" id="LoginButton" th:text="${loginButton}" onclick="loadContent('/loginContent')">Login</button>
+                <button class="homeLoginButton" id="RegisterButton" th:text="${registerButton}" onclick="loadContent('/registerContent')">Register</button>
+                <button class="homeLoginButton" id="PlayAsInviteButton" th:text="${playAsInviteButton}" onclick="location.href='/playZone'">Play as Invite</button>
+            </div>
+        </div>
+
+        <div th:if="${registrationSuccess}" class="alert alert-registration-success" role="alert">
+        </div>
+        <div th:if="${pendingRegistration}" class="alert alert-registration-pending" role="alert">
+        </div>
+        <div th:if="${registrationError}" class="alert alert-registration-error" role="alert">
+        </div>
+        <div th:if="${loginError}" class="alert alert-login-error" role="alert">
+        </div>
+        <div th:if="${wrongCodeRegistration}" class="alert alert-registration-wrong-code" role="alert">
+        </div>
+    </body>
+</html>

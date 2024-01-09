@@ -1,0 +1,76 @@
+h1 {
+    font-size: 4vh;
+}
+
+h2 {
+    font-size: 2vh;
+}
+
+label {
+    padding-bottom: 1vh;
+}
+
+input[type="email"], input[type="text"], #language , #oldPass, #newPass, #confirmNewPass {
+    height: 2vh;
+    width: 8vw;
+    font-size: 1vh;
+    border-radius: 7px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+#language {
+
+}
+
+#passReset, #logout, #passChangeCancel, #passChangeValidate {
+    height: 2vh;
+    width: 8vw;
+    color: white;
+    font-size: 1vh;
+    border-radius: 7px;
+    border: none;
+}
+
+#emailChange, #usernameChange {
+    height: 2vh;
+    width: 5vw;
+    color: white;
+    font-size: 1vh;
+    border-radius: 7px;
+    border: none;
+    background-color: #005f9f;
+    display: none;
+}
+
+#emailChange:hover, #usernameChange:hover, #passChangeValidate:hover, #passReset:hover {
+    background-color: #00487f;
+    cursor: pointer;
+}
+
+#passReset, #passChangeValidate {
+    background-color: #005f9f;
+}
+
+#logout {
+    background-color: #b90022;
+    margin-top: 4vh;
+}
+
+#passChangeCancel {
+    background-color: #b90022;
+}
+
+#logout:hover, #passChangeCancel:hover {
+    background-color: #8f001a;
+    cursor: pointer;
+}
+
+input, select {
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+}
+
+#changePasswordDiv {
+    display: none;
+}

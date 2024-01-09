@@ -1,0 +1,17 @@
+<link href="/css/confirmEmailPopup.css" rel="stylesheet">
+<div id="confirmEmailPopup">
+    <p id="PopupLabel">You have received a verification code on your email address, please enter it here :</p>
+    <form id="confirmEmailForm" method="post"  th:action="@{/validateMailRegister}" th:object="${validateEmailDto}">
+        <label>
+            <input type="text" placeholder="0000" th:field="*{code}">
+        </label>
+        <button type="submit">Confirm mail address</button>
+    </form>
+    <form id="resendEmailForm">
+        <button type="submit" onclick="resendEmail()">Resend code</button>
+    </form>
+    <div id="timerContainer">
+        <p id="timerText">Time remaining: <span id="timerValue">60</span> seconds</p>
+        <div id="progressBar"></div>
+    </div>
+</div>

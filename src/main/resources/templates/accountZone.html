@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title th:text="${pageTitle}">Page Title</title>
+        <link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon"/>
+        <link href="/css/accountZone.css" rel="stylesheet">
+        <script src="/js/accountZone.js"></script>
+    </head>
+    <body>
+        <div id="verticalMenu">
+            <div>
+                <a id="goBackButton" href="/playZone">⮪</a>
+                <button class="verticalMenuButton" onclick="loadContent('/accountContent')">
+                    <img class="verticalMenuButtonIcon"
+                         src="https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/green-checkmark-icon.png">
+                    <span class="verticalMenuButtonText" th:text="${menuAccount}">Account</span>
+                </button>
+                <button class="verticalMenuButton" onclick="loadContent('/elementSkinsContent')">
+                    <img class="verticalMenuButtonIcon"
+                         src="https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/green-checkmark-icon.png">
+                    <span class="verticalMenuButtonText" th:text="${menuElementSkins}">Element skins</span>
+                </button>
+                <button class="verticalMenuButton" onclick="loadContent('/pageSkinsContent')">
+                    <img class="verticalMenuButtonIcon"
+                         src="https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/green-checkmark-icon.png">
+                    <span class="verticalMenuButtonText" th:text="${menuPageSkins}">Page skins</span>
+                </button>
+            </div>
+            <button class="verticalMenuButton" onclick="loadContent('/termsOfUseContent')">
+                <img class="verticalMenuButtonIcon"
+                     src="https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/green-checkmark-icon.png">
+                <span class="verticalMenuButtonText" th:text="${menuTermsOfUse}">Terms of use</span>
+            </button>
+        </div>
+
+        <div id="content" th:fragment="contentFragment"></div>
+    </body>
+</html>
