@@ -43,4 +43,9 @@ public class ManageShopZone {
         model.addAttribute("someData", "Some data for Coin Shop");
         return "Content/elementCaseContent"; // Thymeleaf template name
     }
+
+    @GetMapping("/creditCardPopup")
+    public String creditCardPopup(Model model, Locale locale) {
+        return "Popup/creditCardPopup";
+    }
 }
