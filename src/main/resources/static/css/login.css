@@ -141,7 +141,7 @@ body {
 /* loginContent.html */
 /*********************/
 
-#usernameInput, #passwordInput, #passwordConfirmInput, #emailInput {
+#username, #password, #passwordConfirm, #email {
     width: 100%;
     height: 4vh;
     font-size: 2vh;

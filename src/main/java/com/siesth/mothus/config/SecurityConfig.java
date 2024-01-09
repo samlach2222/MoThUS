@@ -25,7 +25,7 @@ public class SecurityConfig {
                         authorize -> authorize
                                 // Allow everyone to access only the files for login, playing and the help popup
                                 .requestMatchers(
-                                        "/loginContent", "/registerContent", "/processRegister", "/processLogin", "/validateMailRegister", "/send-email", "/confirmEmailPopup",
+                                        "/login", "/loginContent", "/registerContent", "/processRegister", "/processLogin", "/validateMailRegister", "/send-email", "/confirmEmailPopup",
                                         "/playZone", "/helpPopup", "/getYamlData", "/sendWord",
                                         "/assets/icons/**", "/assets/logos/**", "/assets/Login_Wallpaper.png",
                                         "/css/confirmEmailPopup.css", "/css/helpPopup.css", "/css/login.css", "/css/playZone.css",
@@ -38,8 +38,17 @@ public class SecurityConfig {
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")
-                                .loginProcessingUrl("/login")
+
+                                // Doesn't work
+                                /*
+                                .loginProcessingUrl("/processLogin")
                                 .defaultSuccessUrl("/playZone")
+                                .failureUrl("/login?loginError=true")
+                                .failureHandler((request, response, exception) -> {
+                                    request.getSession().setAttribute("loginError", exception.getMessage());
+                                    response.sendRedirect("/login?loginError=test");
+                                })
+                                */
                                 .permitAll()
                 ).logout(
                         logout -> logout
