@@ -1,0 +1,82 @@
+#creditCardZone {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    width: 35vw;
+    min-width: 300px;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 1em;
+    text-align: center;
+    overflow: hidden;
+}
+
+#cczTitle {
+    font-size: 1.5em;
+    text-align: center;
+    background-color: #c8c9cb;
+    margin-bottom: 2vh;
+}
+
+label {
+    font-size: 1.2em;
+}
+
+span {
+    margin: 1vh;
+    font-size: 3vh;
+}
+
+#cczRowDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#cczRowButtons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 1vh;
+}
+
+#creditCardZone input {
+    height: 4vh;
+    border-radius: 10px;
+    border: 1px solid black;
+    text-align: center;
+    margin: 1em;
+    font-size: 100%;
+}
+
+#cczExpDateInput, #cczSecurityCodeInput {
+    width: 8em;
+}
+
+#cczPayButton, #cczCancelButton {
+    color: white;
+    border-radius: 20px;
+    border: none;
+    width: 100%;
+    height: 4vh;
+}
+
+#cczPayButton {
+    background-color: #005f9f;
+}
+
+#cczCancelButton {
+    background-color: #b90022;
+}
+
+#cczPayButton:hover{
+    cursor: pointer;
+    background-color: #003f9f;
+}
+
+#cczCancelButton:hover{
+    cursor: pointer;
+    background-color: #a90022;
+}
