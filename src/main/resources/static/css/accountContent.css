@@ -10,7 +10,7 @@ label {
     padding-bottom: 1vh;
 }
 
-input[type="email"], input[type="text"], #language {
+input[type="email"], input[type="text"], #language , #oldPass, #newPass, #confirmNewPass {
     height: 2vh;
     width: 8vw;
     font-size: 1vh;
@@ -23,7 +23,7 @@ input[type="email"], input[type="text"], #language {
 
 }
 
-#passReset, #logout {
+#passReset, #logout, #passChangeCancel, #passChangeValidate {
     height: 2vh;
     width: 8vw;
     color: white;
@@ -43,18 +43,13 @@ input[type="email"], input[type="text"], #language {
     display: none;
 }
 
-#emailChange:hover, #usernameChange:hover {
+#emailChange:hover, #usernameChange:hover, #passChangeValidate:hover, #passReset:hover {
     background-color: #00487f;
     cursor: pointer;
 }
 
-#passReset {
+#passReset, #passChangeValidate {
     background-color: #005f9f;
-}
-
-#passReset:hover {
-    background-color: #00487f;
-    cursor: pointer;
 }
 
 #logout {
@@ -62,7 +57,11 @@ input[type="email"], input[type="text"], #language {
     margin-top: 4vh;
 }
 
-#logout:hover {
+#passChangeCancel {
+    background-color: #b90022;
+}
+
+#logout:hover, #passChangeCancel:hover {
     background-color: #8f001a;
     cursor: pointer;
 }
@@ -70,4 +69,8 @@ input[type="email"], input[type="text"], #language {
 input, select {
     margin-top: 1vh;
     margin-bottom: 1vh;
+}
+
+#changePasswordDiv {
+    display: none;
 }
