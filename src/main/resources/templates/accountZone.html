@@ -60,9 +60,17 @@
                             case '/termsOfUseContent':
                                 break;
                         }
+                        updateMargin();
                     })
                     .catch(error => console.error('Error:', error));
             }
+
+            function updateMargin() {
+                const verticalMenuWidth = document.getElementById('verticalMenu').offsetWidth;
+                document.getElementById('content').style.marginLeft = verticalMenuWidth + 'px';
+            }
+
+            window.addEventListener('resize', updateMargin);
         </script>
     </body>
 </html>

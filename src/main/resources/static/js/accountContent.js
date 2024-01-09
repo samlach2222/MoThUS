@@ -1,9 +1,6 @@
 function initAccountContent() {
     let email = document.getElementById("email");
     let username = document.getElementById("username");
-    console.log(email);
-    console.log(username);
-
     email.addEventListener("click", displayEmailValidateButton);
     username.addEventListener("click", displayUsernameValidateButton);
 }
@@ -24,4 +21,9 @@ function validateEmailChange() {
 function validateUsernameChange() {
     // TODO : Send username change request to server and change in the input
     document.getElementById("usernameChange").style.display = "none";
+}
+
+function disconnect() {
+    // TODO : Disconnect the account
+    location.href='/login'
 }
