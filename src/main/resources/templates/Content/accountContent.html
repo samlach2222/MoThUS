@@ -23,7 +23,18 @@
     <div>
         <h2>Password</h2>
         <label for="passReset">Your password protects your MoThus account.</label><br>
-        <input type="button" id="passReset" name="passReset" value="Reset password">
+        <div id="passwordDiv">
+            <input type="button" id="passReset" name="passReset" value="Reset password" onclick="changeDisplayPassword()">
+        </div>
+        <div id="changePasswordDiv">
+            <form>
+                <input type="password" id="oldPass" name="oldPass" required placeholder="Previous password">
+                <input type="password" id="newPass" name="newPass" required placeholder="New password">
+                <input type="password" id="confirmNewPass" name="confirmNewPass" required placeholder="Confirm new password">
+            </form>
+            <input type="button" id="passChangeValidate" name="passChangeValidate" value="Validate" onclick="validatePasswordChange()">
+            <input type="button" id="passChangeCancel" name="passChangeCancel" value="Cancel" onclick="cancelChangeDisplayPassword()">
+        </div>
     </div>
     <div>
         <h2>Language</h2>

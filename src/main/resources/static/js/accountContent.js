@@ -27,3 +27,22 @@ function disconnect() {
     // TODO : Disconnect the account
     location.href='/login'
 }
+
+function changeDisplayPassword() {
+    let passwordDiv = document.getElementById("passwordDiv");
+    passwordDiv.style.display = "none";
+    let changePasswordDiv = document.getElementById("changePasswordDiv");
+    changePasswordDiv.style.display = "unset";
+}
+
+function cancelChangeDisplayPassword() {
+    let passwordDiv = document.getElementById("passwordDiv");
+    passwordDiv.style.display = "unset";
+    let changePasswordDiv = document.getElementById("changePasswordDiv");
+    changePasswordDiv.style.display = "none";
+}
+
+function validatePasswordChange() {
+    // TODO : Send password change request to server and change in the input
+    cancelChangeDisplayPassword();
+}
