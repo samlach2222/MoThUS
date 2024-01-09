@@ -1,0 +1,276 @@
+/**
+ * Main div with 100 % of the page size
+ */
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#donations {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 1em;
+}
+
+/**
+ * Top banner with 15% of the page size
+ */
+#topBanner {
+    width: 100vw;
+    height: 15vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/**
+ * Game table with 40% of the page size
+ */
+#gameTable {
+    max-width: 600px;
+    width: 50vw;
+    min-width: 400px;
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    user-select: none;
+}
+
+/**
+ * Periodic keyboard with 35% of the page size
+ */
+#periodicTable {
+    max-width: 800px;
+    width: 65vw;
+    min-width: 500px;
+    height: 35vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    user-select: none;
+}
+
+/**
+ * Bottom banner with 10% of the page size for the advertising
+ */
+#advertisingInsert {
+    max-width: 500px;
+    width: 50vw;
+    height: 10vh;
+    min-height: 10vh;
+    background-color: white;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    border: 1px solid black;
+}
+
+/**
+ * Game table in the game div
+ */
+#mothusHtmlTable {
+    width : 95%;
+    height: 95%;
+    background-color: white;
+    align-self: center;
+    justify-self: center;
+}
+
+#mothusHtmlTable td {
+    width: 1%;
+}
+
+/**
+ * Periodic table in the periodic div
+ */
+#periodicHtmlTable {
+    width : 95%;
+    height: 95%;
+    align-self: center;
+    justify-self: center;
+}
+
+/**
+ * Top bar logo
+ */
+#logo {
+    width: 40vh;
+    padding-left: 5vw;
+    padding-right: 5vw;
+}
+
+/**
+ * Top bar shop button
+ */
+#shop {
+    width: 8vh;
+    height: 8vh;
+    background-color: darkorchid;
+}
+
+#mothusLogo{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+#helpButton, #statsButton, #accountButton {
+    width: 85%;
+    height: 85%;
+    object-fit: contain;
+    margin: auto;
+}
+
+#helpButton:hover, #statsButton:hover, #accountButton:hover {
+    cursor: pointer;
+    width: 92%;
+    height: 92%;
+}
+
+#help, #stats, #account {
+    width: 8vh;
+    height: 8vh;
+    display: flex;
+}
+
+#topBannerSeparator {
+    width: 100vh;
+    margin-top: 0;
+}
+
+
+/*****************/
+/* Element table */
+/*****************/
+
+.elementDiv {
+    width: 100%;
+    height: 100%;
+}
+
+.elementAtomicNumberDiv {
+    position: absolute;
+    display: block;
+    z-index: 100;
+    top: 0;
+    right: 0;
+    margin: 0.1vh;
+    padding: 0;
+    font-size: 0.8vh;
+}
+
+.elementLettersDiv {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    font-size: 1.5vh;
+}
+
+#periodicTable td, #periodicTable th {
+    text-align: center;
+    position: relative;
+}
+
+/*************************/
+/* Element table buttons */
+/*************************/
+
+#validateButton {
+    width: 100%;
+    height: 100%;
+    background-color: #005f9f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.5em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#validateButton:hover {
+    background-color: #00487f;
+}
+
+#returnButton {
+    width: 100%;
+    height: 100%;
+    background-color: #b90022;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.5em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#returnButton:hover {
+    background-color: #8f001a;
+}
+
+
+
+/***************/
+/* Popup style */
+/***************/
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+}
+
+.popup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+body.overlay-active {
+    overflow: hidden;
+}
+
+body.overlay-active::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+
+
+#aswift_1 {
+    background-image: url("/assets/SamplePublicity.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+}

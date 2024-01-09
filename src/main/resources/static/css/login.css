@@ -1,0 +1,259 @@
+/**************/
+/* login.html */
+/**************/
+
+/**
+ * Main div with 100 % of the page size and flexbox to center the login panel in the middle of the page. No scrollbars.
+ */
+body {
+    background-image: url("../assets/Login_Wallpaper.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/**
+ * Login panel with a max width of 600px and a height of 60% of the page size. The panel has a box shadow and is a flexbox with a column direction.
+ */
+#loginPanel {
+    background-color: white;
+    max-width: 600px;
+    width: 100%;
+    height: 60%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    border-radius: 30px;
+}
+
+/**
+ * Set the max-width for media
+ */
+@media (max-width: 768px) {
+    #loginPanel {
+        max-width: 100%;
+    }
+}
+
+/**
+ * Login panel buttons in vertical direction with space around.
+ */
+#loginPanelButtons {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-self: center;
+    align-items: center
+}
+
+/**
+ * Login panel logo
+ */
+#loginPanelLogo {
+    width: 98%;
+    height: 30%;
+    margin: 2% 1% 2% 1%;
+}
+
+/**
+ * Login panel buttons
+ */
+.homeLoginButton {
+    align-self: center;
+    width: 80%;
+    height: 7vh;
+}
+
+#mothusLogo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    margin-top: 4%;
+}
+
+#LoginButton {
+    background-color: #005f9f;
+    color: white;
+    font-size: 1.5em;
+    border-radius: 20px;
+    border: none;
+}
+
+#LoginButton:hover {
+    background-color: #004d8c;
+    cursor: pointer;
+}
+
+#RegisterButton {
+    background-color: #997100;
+    color: white;
+    font-size: 1.5em;
+    border-radius: 20px;
+    border: none;
+}
+
+#RegisterButton:hover {
+    background-color: #7a5f00;
+    cursor: pointer;
+}
+
+#PlayAsInviteButton {
+    background-color: #7f00fd;
+    color: white;
+    font-size: 1.5em;
+    border-radius: 20px;
+    border: none;
+}
+
+#PlayAsInviteButton:hover {
+    background-color: #6b00d4;
+    cursor: pointer;
+}
+
+#returnButton {
+    z-index:100;
+    width: 5vh;
+    height: 5vh;
+    text-decoration: none;
+    font-size: 3.5vh;
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    align-self: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid black;
+    border-right: 2px solid black;
+    border-radius: 28px 0 28px 0;
+    position: fixed;
+}
+
+#returnButton:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
+
+/*********************/
+/* loginContent.html */
+/*********************/
+
+#usernameInput, #passwordInput, #passwordConfirmInput, #emailInput {
+    width: 100%;
+    height: 4vh;
+    font-size: 2vh;
+    border-radius: 10px;
+    border: 1px solid black;
+    text-align: center;
+    margin-bottom: 1vh;
+}
+
+label {
+    font-size: 2vh;
+    margin-bottom: 0.5vh;
+    align-self: baseline;
+}
+
+#submitInput {
+    margin-top: 4vh;
+    width: 90%;
+    height: 4vh;
+    background-color: #005f9f;
+    color: white;
+    font-size: 1.5vh;
+    border-radius: 10px;
+    border: none;
+}
+
+#submitInput:hover {
+    background-color: #004d8c;
+    cursor: pointer;
+}
+
+#loginForm {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+}
+
+/************************/
+/* RegisterContent.html */
+/************************/
+
+#registerForm {
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+}
+
+#registerInput {
+    margin-top: 4vh;
+    width: 90%;
+    height: 4vh;
+    background-color: #997100;
+    color: white;
+    font-size: 1.5vh;
+    border-radius: 10px;
+    border: none;
+}
+
+#registerInput:hover {
+    background-color: #7a5f00;
+    cursor: pointer;
+}
+
+/***************/
+/* Popup style */
+/***************/
+
+.popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+}
+
+.popup-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+body.overlay-active {
+    overflow: hidden;
+}
+
+body.overlay-active::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+}
+

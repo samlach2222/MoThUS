@@ -1,0 +1,170 @@
+#statsZone {
+    max-width: 700px;
+    width: 70vw;
+    min-width: 450px;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 1em;
+    padding: 0 1em 1em;
+}
+
+#statsZone #globalStats {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 10fr 1fr 10fr;
+    justify-items: center;
+}
+
+#statsZone #globalStats #popupDivider {
+    height: 100%;
+    border: 1px solid black;
+    background-color: white;
+    margin: 0 5%;
+    display: block;
+}
+
+#statsZone #globalStats .globalStatsFrameContainer {
+    text-align: center;
+}
+
+#statsZone #globalStats .globalStatsFrame {
+    width: auto;
+    border: 1px solid black;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+#statsZone #globalStats .globalStatsFrameTop {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom: none;
+    font-size: 1.5em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
+
+#statsZone #globalStats .globalStatsFrameBottom {
+    background-color: dimgray;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top: none;
+    color: white;
+    padding-top: 0.05em;
+    padding-bottom: 0.15em;
+}
+
+#statsZone #globalStats #globalStatsLeft, #statsZone #globalStats #globalStatsRight {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#statsZone #globalStats #globalStatsLeft > *, #statsZone #globalStats #globalStatsRight > * {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+#statsZone #globalStats #globalStatsLeft {
+    justify-content: space-between;
+}
+
+#statsZone #globalStats #globalStatsLeft #globalStatsLeftTop {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+#statsZone #globalStats #globalStatsLeft #globalStatsLeftTop > * {
+    margin-left: 0.2em;
+    margin-right: 0.2em;
+}
+
+#statsZone #globalStats #globalStatsLeft #globalStatsLeftBottom {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    width: 100%;
+}
+
+#statsZone #globalStats #globalStatsLeft #globalStatsLeftBottom > * {
+    margin-left: 0.2em;
+    margin-right: 0.2em;
+    text-align: center;
+}
+
+#statsZone #globalStats #globalStatsLeft #globalStatsLeftBottom > *:has(.numberOfTriesBar:hover) .numberOfTriesText {
+    visibility: visible;
+}
+
+#statsZone #globalStats #globalStatsLeft #globalStatsLeftBottom .numberOfTriesText {
+    background-color: grey;
+    padding: 0.1em;
+    color: white;
+    border-radius: 4px;
+    visibility: hidden;
+    min-width: 1em;
+}
+
+#statsZone #globalStats #globalStatsLeft #globalStatsLeftBottom .numberOfTriesBar {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#statsZone #globalStats #globalStatsLeft #globalStatsLeftBottom #firstTry .numberOfTriesBar {
+    background-color: #005e9e;
+    height: 10px;
+}
+
+#statsZone #globalStats #globalStatsLeft #globalStatsLeftBottom #secondTry .numberOfTriesBar {
+    background-color: #005e9e;
+    height: 30px;
+}
+
+#statsZone #globalStats #globalStatsLeft #globalStatsLeftBottom #thirdTry .numberOfTriesBar {
+    background-color: #005e9e;
+    height: 30px;
+}
+
+#statsZone #globalStats #globalStatsLeft #globalStatsLeftBottom #fourthTry .numberOfTriesBar {
+    background-color: #005e9e;
+    height: 70px;
+}
+
+#statsZone #globalStats #globalStatsLeft #globalStatsLeftBottom #fifthTry .numberOfTriesBar {
+    background-color: #005e9e;
+    height: 60px;
+}
+
+#statsZone #globalStats #globalStatsLeft #globalStatsLeftBottom #sixthTry .numberOfTriesBar {
+    background-color: #005e9e;
+    height: 80px;
+}
+
+#statsZone #globalStats #globalStatsLeft #globalStatsLeftBottom #seventhTry .numberOfTriesBar {
+    background-color: #b90021;
+    height: 100px;
+}
+
+#statsZone #globalStats #globalStatsLeft #globalStatsLeftBottom #eighthTry .numberOfTriesBar {
+    background-color: #005e9e;
+    height: 90px;
+}
+
+#statsZone #globalStats #globalStatsLeft #globalStatsLeftBottom #looseTry .numberOfTriesBar {
+    background-color: #005e9e;
+    height: 40px;
+}
+
+#statsZone #globalStats #globalStatsLeft #globalStatsLeftBottom #looseTry #looseTryLabel {
+    font-size: smaller;
+}
+
+#statsZone #globalStats #globalStatsRight {
+    justify-content: space-around;
+}
+
+#statsZone #globalStats #globalStatsRight .globalStatsRightFrame {
+    width: 80%;
+}

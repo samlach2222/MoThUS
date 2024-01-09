@@ -1,0 +1,78 @@
+<link href="/css/statsPopup.css" rel="stylesheet">
+<div id="statsZone">
+    <h1 th:text="${statisticsTitle}">Statistics</h1>
+    <p th:text="${gameNotFinished}">You haven't finished today's game yet.</p>
+    <h1 th:text="${globalTitle}">Global</h1>
+    <div id="globalStats">
+        <div id="globalStatsLeft">
+            <div id="globalStatsLeftTop">
+                <div class="globalStatsFrameContainer globalStatsleftFrame">
+                    <div class="globalStatsFrame globalStatsFrameTop">15</div>
+                    <div class="globalStatsFrame globalStatsFrameBottom" th:text="${victoriesLabel}">🏆Wins🏆</div>
+                </div>
+                <div class="globalStatsFrameContainer globalStatsleftFrame">
+                    <div class="globalStatsFrame globalStatsFrameTop">3</div>
+                    <div class="globalStatsFrame globalStatsFrameBottom" th:text="${loosesLabel}">💀Looses💀</div>
+                </div>
+            </div>
+            <div id="globalStatsLeftBottom">
+                <div id="firstTry">
+                    <div class="numberOfTriesText">1</div>
+                    <div class="numberOfTriesBar"></div>
+                    <div>1</div>
+                </div>
+                <div id="secondTry">
+                    <div class="numberOfTriesText">3</div>
+                    <div class="numberOfTriesBar"></div>
+                    <div>2</div>
+                </div>
+                <div id="thirdTry">
+                    <div class="numberOfTriesText">3</div>
+                    <div class="numberOfTriesBar"></div>
+                    <div>3</div>
+                </div>
+                <div id="fourthTry">
+                    <div class="numberOfTriesText">7</div>
+                    <div class="numberOfTriesBar"></div>
+                    <div>4</div>
+                </div>
+                <div id="fifthTry">
+                    <div class="numberOfTriesText">6</div>
+                    <div class="numberOfTriesBar"></div>
+                    <div>5</div>
+                </div>
+                <div id="sixthTry">
+                    <div class="numberOfTriesText">8</div>
+                    <div class="numberOfTriesBar"></div>
+                    <div>6</div>
+                </div>
+                <div id="seventhTry">
+                    <div class="numberOfTriesText">10</div>
+                    <div class="numberOfTriesBar"></div>
+                    <div>7</div>
+                </div>
+                <div id="eighthTry">
+                    <div class="numberOfTriesText">9</div>
+                    <div class="numberOfTriesBar"></div>
+                    <div>8</div>
+                </div>
+                <div id="looseTry">
+                    <div class="numberOfTriesText">4</div>
+                    <div class="numberOfTriesBar"></div>
+                    <div id="looseTryLabel">💀</div>
+                </div>
+            </div>
+        </div>
+        <hr id="popupDivider">
+        <div id="globalStatsRight">
+            <div class="globalStatsFrameContainer globalStatsRightFrame">
+                <div class="globalStatsFrame globalStatsFrameTop">2 hours and 30 minutes</div>
+                <div class="globalStatsFrame globalStatsFrameBottom" th:text="${playTimeLabel}">⌛Playtime⌛</div>
+            </div>
+            <div class="globalStatsFrameContainer globalStatsRightFrame">
+                <div class="globalStatsFrame globalStatsFrameTop">🟥280 🟦139 🟨143</div>
+                <div class="globalStatsFrame globalStatsFrameBottom" th:text="${elementsHandledLabel}">⚛️️Physical elements handled⚛️️</div>
+            </div>
+        </div>
+    </div>
+</div>
