@@ -6,9 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Locale;
 
 @Controller
@@ -22,6 +19,8 @@ public class ManageAccountZone {
 
     @GetMapping("/accountZone")
     public String accountZone(Model model, Locale locale) {
+
+        // locale BEGIN
         String pageTitle = messageSource.getMessage("AccountZone.PageTitle", null, locale);
         String menuAccount = messageSource.getMessage("AccountZone.MenuAccount", null, locale);
         String menuElementSkins = messageSource.getMessage("AccountZone.MenuElementSkins", null, locale);
@@ -33,56 +32,156 @@ public class ManageAccountZone {
         model.addAttribute("menuElementSkins", menuElementSkins);
         model.addAttribute("menuPageSkins", menuPageSkins);
         model.addAttribute("menuTermsOfUse", menuTermsOfUse);
+        // locale END
 
         return "accountZone";
     }
 
     @GetMapping("/accountContent")
-    public String loadAccountContent(Model model) {
-        // To pass data to the template
+    public String loadAccountContent(Model model, Locale locale) {
+
+        // locale BEGIN
+        String pageTitle = messageSource.getMessage("AccountZone.AccountContent.PageTitle", null, locale);
+        String accountTitle = messageSource.getMessage("AccountZone.AccountContent.AccountTitle", null, locale);
+        String emailTitle = messageSource.getMessage("AccountZone.AccountContent.EmailTitle", null, locale);
+        String usernameTitle = messageSource.getMessage("AccountZone.AccountContent.UsernameTitle", null, locale);
+        String passwordTitle = messageSource.getMessage("AccountZone.AccountContent.PasswordTitle", null, locale);
+        String languageTitle = messageSource.getMessage("AccountZone.AccountContent.LanguageTitle", null, locale);
+        String emailSubtitle = messageSource.getMessage("AccountZone.AccountContent.EmailSubtitle", null, locale);
+        String usernameSubtitle = messageSource.getMessage("AccountZone.AccountContent.UsernameSubtitle", null, locale);
+        String passwordSubtitle = messageSource.getMessage("AccountZone.AccountContent.PasswordSubtitle", null, locale);
+        String languageSubtitle = messageSource.getMessage("AccountZone.AccountContent.LanguageSubtitle", null, locale);
+        String resetPasswordButton = messageSource.getMessage("AccountZone.AccountContent.ResetPasswordButton", null, locale);
+        String logOutButton = messageSource.getMessage("AccountZone.AccountContent.LogOutButton", null, locale);
+        String previousPasswordLabel = messageSource.getMessage("AccountZone.AccountContent.PreviousPasswordLabel", null, locale);
+        String newPasswordLabel = messageSource.getMessage("AccountZone.AccountContent.NewPasswordLabel", null, locale);
+        String confirmNewPasswordLabel = messageSource.getMessage("AccountZone.AccountContent.ConfirmNewPasswordLabel", null, locale);
+        String validateButton = messageSource.getMessage("AccountZone.AccountContent.ValidateButton", null, locale);
+        String cancelButton = messageSource.getMessage("AccountZone.AccountContent.CancelButton", null, locale);
+
+        model.addAttribute("pageTitle", pageTitle);
+        model.addAttribute("accountTitle", accountTitle);
+        model.addAttribute("emailTitle", emailTitle);
+        model.addAttribute("usernameTitle", usernameTitle);
+        model.addAttribute("passwordTitle", passwordTitle);
+        model.addAttribute("languageTitle", languageTitle);
+        model.addAttribute("emailSubtitle", emailSubtitle);
+        model.addAttribute("usernameSubtitle", usernameSubtitle);
+        model.addAttribute("passwordSubtitle", passwordSubtitle);
+        model.addAttribute("languageSubtitle", languageSubtitle);
+        model.addAttribute("resetPasswordButton", resetPasswordButton);
+        model.addAttribute("logOutButton", logOutButton);
+        model.addAttribute("previousPasswordLabel", previousPasswordLabel);
+        model.addAttribute("newPasswordLabel", newPasswordLabel);
+        model.addAttribute("confirmNewPasswordLabel", confirmNewPasswordLabel);
+        model.addAttribute("validateButton", validateButton);
+        model.addAttribute("cancelButton", cancelButton);
+        // locale END
+
         Object connected = model.asMap().get("connected");
         if(connected != null){
             model.addAttribute("email", "email@test.com");
             model.addAttribute("username","joemama");
-            return "Content/accountContent"; // Thymeleaf template name
         } else {
             model.addAttribute("email","please connect");
             model.addAttribute("username","please connect");
-            return "Content/accountContent";
         }
+        return "Content/accountContent";
 
     }
 
     @GetMapping("/elementSkinsContent")
-    public String loadElementSkinsContent(Model model) {
-        List<String> skins = new LinkedList<>();
-        skins.add("Skin 1");
-        skins.add("Skin 2");
-        skins.add("Skin 3");
+    public String loadElementSkinsContent(Model model, Locale locale) {
+        // locale BEGIN
+        String pageTitle = messageSource.getMessage("AccountZone.ElementSkinsContent.PageTitle", null, locale);
+        String equippedLabel = messageSource.getMessage("AccountZone.ElementSkinsContent.EquippedLabel", null, locale);
+        String commonLabel = messageSource.getMessage("AccountZone.ElementSkinsContent.CommonLabel", null, locale);
+        String uncommonLabel = messageSource.getMessage("AccountZone.ElementSkinsContent.UncommonLabel", null, locale);
+        String rareLabel = messageSource.getMessage("AccountZone.ElementSkinsContent.RareLabel", null, locale);
+        String mythicLabel = messageSource.getMessage("AccountZone.ElementSkinsContent.MythicLabel", null, locale);
 
-        // Ajout de la liste de skins au modèle
-        model.addAttribute("skins", skins);
-        return "Content/elementSkinsContent"; // Thymeleaf template name
+        model.addAttribute("pageTitle", pageTitle);
+        model.addAttribute("equippedLabel", equippedLabel);
+        model.addAttribute("commonLabel", commonLabel);
+        model.addAttribute("uncommonLabel", uncommonLabel);
+        model.addAttribute("rareLabel", rareLabel);
+        model.addAttribute("mythicLabel", mythicLabel);
+        // locale END
+
+        return "Content/elementSkinsContent";
     }
 
     @GetMapping("/pageSkinsContent")
-    public String loadPageSkinsContent(Model model) {
-        // To pass data to the template
-        List<String> skins = new LinkedList<>();
-        skins.add("Skin 1");
-        skins.add("Skin 2");
-        skins.add("Skin 3");
+    public String loadPageSkinsContent(Model model, Locale locale) {
+        // locale BEGIN
+        String pageTitle = messageSource.getMessage("AccountZone.ElementSkinsContent.PageTitle", null, locale);
+        String equippedLabel = messageSource.getMessage("AccountZone.ElementSkinsContent.EquippedLabel", null, locale);
+        String commonLabel = messageSource.getMessage("AccountZone.ElementSkinsContent.CommonLabel", null, locale);
+        String uncommonLabel = messageSource.getMessage("AccountZone.ElementSkinsContent.UncommonLabel", null, locale);
+        String rareLabel = messageSource.getMessage("AccountZone.ElementSkinsContent.RareLabel", null, locale);
+        String mythicLabel = messageSource.getMessage("AccountZone.ElementSkinsContent.MythicLabel", null, locale);
 
-        // Ajout de la liste de skins au modèle
-        model.addAttribute("skins", skins);
+        model.addAttribute("pageTitle", pageTitle);
+        model.addAttribute("equippedLabel", equippedLabel);
+        model.addAttribute("commonLabel", commonLabel);
+        model.addAttribute("uncommonLabel", uncommonLabel);
+        model.addAttribute("rareLabel", rareLabel);
+        model.addAttribute("mythicLabel", mythicLabel);
+        // locale END
 
-        return "Content/pageSkinsContent"; // Thymeleaf template name
+        return "Content/pageSkinsContent";
     }
 
     @GetMapping("/termsOfUseContent")
-    public String loadTermsOfUseContent(Model model) {
-        // To pass data to the template
-        model.addAttribute("someData", "Some data for Coin Shop");
-        return "Content/termsOfUseContent"; // Thymeleaf template name
+    public String loadTermsOfUseContent(Model model, Locale locale) {
+        // locale BEGIN
+        String pageTitle = messageSource.getMessage("AccountZone.TermsOfUseContent.PageTitle", null, locale);
+        String title1 = messageSource.getMessage("AccountZone.TermsOfUseContent.Title1", null, locale);
+        String title1Par = messageSource.getMessage("AccountZone.TermsOfUseContent.Title1Par", null, locale);
+        String title2 = messageSource.getMessage("AccountZone.TermsOfUseContent.Title2", null, locale);
+        String title2Dot1 = messageSource.getMessage("AccountZone.TermsOfUseContent.Title2Dot1", null, locale);
+        String title2Dot2 = messageSource.getMessage("AccountZone.TermsOfUseContent.Title2Dot2", null, locale);
+        String title2Dot3 = messageSource.getMessage("AccountZone.TermsOfUseContent.Title2Dot3", null, locale);
+        String title3 = messageSource.getMessage("AccountZone.TermsOfUseContent.Title3", null, locale);
+        String title3Dot1 = messageSource.getMessage("AccountZone.TermsOfUseContent.Title3Dot1", null, locale);
+        String title3Dot2 = messageSource.getMessage("AccountZone.TermsOfUseContent.Title3Dot2", null, locale);
+        String title4 = messageSource.getMessage("AccountZone.TermsOfUseContent.Title4", null, locale);
+        String title4Dot1 = messageSource.getMessage("AccountZone.TermsOfUseContent.Title4Dot1", null, locale);
+        String title4Dot2 = messageSource.getMessage("AccountZone.TermsOfUseContent.Title4Dot2", null, locale);
+        String title5 = messageSource.getMessage("AccountZone.TermsOfUseContent.Title5", null, locale);
+        String title5Dot1 = messageSource.getMessage("AccountZone.TermsOfUseContent.Title5Dot1", null, locale);
+        String title5Dot2 = messageSource.getMessage("AccountZone.TermsOfUseContent.Title5Dot2", null, locale);
+        String title6 = messageSource.getMessage("AccountZone.TermsOfUseContent.Title6", null, locale);
+        String title6Dot1 = messageSource.getMessage("AccountZone.TermsOfUseContent.Title6Dot1", null, locale);
+        String title7 = messageSource.getMessage("AccountZone.TermsOfUseContent.Title7", null, locale);
+        String title7Dot1 = messageSource.getMessage("AccountZone.TermsOfUseContent.Title7Dot1", null, locale);
+        String title8 = messageSource.getMessage("AccountZone.TermsOfUseContent.Title8", null, locale);
+        String title8Dot1 = messageSource.getMessage("AccountZone.TermsOfUseContent.Title8Dot1", null, locale);
+
+        model.addAttribute("pageTitle", pageTitle);
+        model.addAttribute("title1", title1);
+        model.addAttribute("title1Par", title1Par);
+        model.addAttribute("title2", title2);
+        model.addAttribute("title2Dot1", title2Dot1);
+        model.addAttribute("title2Dot2", title2Dot2);
+        model.addAttribute("title2Dot3", title2Dot3);
+        model.addAttribute("title3", title3);
+        model.addAttribute("title3Dot1", title3Dot1);
+        model.addAttribute("title3Dot2", title3Dot2);
+        model.addAttribute("title4", title4);
+        model.addAttribute("title4Dot1", title4Dot1);
+        model.addAttribute("title4Dot2", title4Dot2);
+        model.addAttribute("title5", title5);
+        model.addAttribute("title5Dot1", title5Dot1);
+        model.addAttribute("title5Dot2", title5Dot2);
+        model.addAttribute("title6", title6);
+        model.addAttribute("title6Dot1", title6Dot1);
+        model.addAttribute("title7", title7);
+        model.addAttribute("title7Dot1", title7Dot1);
+        model.addAttribute("title8", title8);
+        model.addAttribute("title8Dot1", title8Dot1);
+        // locale END
+
+        return "Content/termsOfUseContent";
     }
 }
