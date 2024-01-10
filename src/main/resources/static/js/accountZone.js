@@ -67,22 +67,26 @@ function displaySkinsContent(elt, type) { // type = "page" or "element"
     // create <div> in elementSkin (Element rarity)
     let elementSkinRarityDiv = document.createElement("div");
     elementSkinRarityDiv.classList.add("elementSkinRarity");
-    elementSkinRarityDiv.innerHTML = elt.rarity;
 
     switch (elt.rarity) {
         case "Common":
             elementSkinRarityDiv.style.background = "#009f63";
+            elementSkinRarityDiv.innerHTML = document.getElementById("commonLabel").innerHTML;
             break;
         case "Uncommon":
             elementSkinRarityDiv.style.background = "#1075d6";
+            elementSkinRarityDiv.innerHTML = document.getElementById("uncommonLabel").innerHTML;
             break;
         case "Rare":
             elementSkinRarityDiv.style.background = "linear-gradient(to bottom right, #c3ab1c, #ffdb00)";
+            elementSkinRarityDiv.innerHTML = document.getElementById("rareLabel").innerHTML;
             break;
         case "Mythic":
+            elementSkinRarityDiv.innerHTML = document.getElementById("mythicLabel").innerHTML;
             elementSkinRarityDiv.style.background = "linear-gradient(to bottom right, #fa6101, #cd0c07)";
             break;
         default:
+            elementSkinRarityDiv.innerHTML = document.getElementById("commonLabel").innerHTML;
             elementSkinRarityDiv.style.background = "#009f63";
             break;
     }
@@ -91,7 +95,7 @@ function displaySkinsContent(elt, type) { // type = "page" or "element"
     if(elt.equipped === "true") {
         let elementSkinEquipped = document.createElement("div");
         elementSkinEquipped.classList.add("elementSkinEquipped");
-        elementSkinEquipped.innerHTML = "Equipped";
+        elementSkinEquipped.innerHTML = document.getElementById("equippedLabel").innerHTML;
         elementSkin.appendChild(elementSkinEquipped);
     }
 

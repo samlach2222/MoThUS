@@ -53,3 +53,7 @@
     text-align: center;
     font-size: 1.5vh;
 }
+
+#equippedLabel, #commonLabel, #uncommonLabel, #rareLabel, #mythicLabel {
+    display: none;
+}
