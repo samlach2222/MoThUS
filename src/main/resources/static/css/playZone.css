@@ -120,9 +120,16 @@ footer {
  * Top bar shop button
  */
 #shop {
-    width: 8vh;
+    width: 10vh;
     height: 8vh;
-    background-color: darkorchid;
+    display: flex;
+}
+
+#coinCounter {
+    font-size: 2vh;
+    width: 50%;
+    margin-right: 0.5vh;
+    text-align: center;
 }
 
 #mothusLogo{
@@ -131,7 +138,7 @@ footer {
     object-fit: contain;
 }
 
-#helpButton, #statsButton, #accountButton {
+#helpButton, #statsButton, #accountButton, #coinCounterDiv, #coinButton {
     width: 85%;
     height: 85%;
     object-fit: contain;
@@ -142,6 +149,26 @@ footer {
     cursor: pointer;
     width: 92%;
     height: 92%;
+}
+
+#coinCounterDiv {
+    display: flex;
+    flex-direction: row;
+    border: 0.3vh solid black;
+    border-radius: 20px;
+    align-items: center;
+    width: unset;
+}
+
+#coinCounterDiv:hover {
+    cursor: pointer;
+    transform: scale(1.03);
+}
+
+#coinButton {
+    margin-left: 0.5vh;
+    margin-right: 0.5vh;
+    width: unset;
 }
 
 #help, #stats, #account {
