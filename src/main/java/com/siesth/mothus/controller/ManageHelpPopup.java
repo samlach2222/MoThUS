@@ -23,11 +23,13 @@ public class ManageHelpPopup {
         String MothusExplanation = messageSource.getMessage("HelpPopup.MothusExplanation", null, locale);
         String RulesExplanation = messageSource.getMessage("HelpPopup.RulesExplanation", null, locale);
         String LettersExplanation = messageSource.getMessage("HelpPopup.LettersExplanation", null, locale);
+        String rulesTitle = messageSource.getMessage("HelpPopup.RulesTitle", null, locale);
 
         model.addAttribute("pageTitle", pageTitle);
         model.addAttribute("MothusExplanation", MothusExplanation);
         model.addAttribute("RulesExplanation", RulesExplanation);
         model.addAttribute("LettersExplanation", LettersExplanation);
+        model.addAttribute("rulesTitle", rulesTitle);
 
         return "Popup/helpPopup";
     }
