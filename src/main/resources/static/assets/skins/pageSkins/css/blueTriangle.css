@@ -1,0 +1,11 @@
+body {
+    /* background gradient */
+    background-image: url("/assets/skins/pageSkins/image/blueTriangle.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#helpButton, #statsButton, #accountButton, #coinCounterDiv {
+    filter: invert(100%);
+}
