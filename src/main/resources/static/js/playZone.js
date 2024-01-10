@@ -68,18 +68,8 @@ function displayElementTable(data){
             const cell = document.createElement("td");
             elts.forEach(elt => {
                 if (elt.xPos === j && elt.yPos === i) {
-                    cell.style.border = "1px solid #494A4B";
-                    cell.style.color = "#FFFFFF";
                     cell.style.borderRadius = "5px";
                     cell.style.cursor = "pointer";
-                    // style td:hover
-                    cell.style.backgroundColor = "#494A4B";
-                    cell.onmouseover = function () {
-                        cell.style.backgroundColor = "#707070";
-                    }
-                    cell.onmouseout = function () {
-                        cell.style.backgroundColor = "#494A4B";
-                    }
                     cell.onclick = function () {
                         // get first td of the current line
                         const gameTable = document.getElementById("mothusHtmlTable");
@@ -104,6 +94,8 @@ function displayElementTable(data){
 
                     // add title attribute
                     cell.title = elt.name + " (" + elt.symbol + ") : " + elt.description;
+                    cell.id = "elt" + elt.atomicNumber;
+                    cell.className = "elementInTable";
                     cell.appendChild(displayElement(elt));
                 }
             })

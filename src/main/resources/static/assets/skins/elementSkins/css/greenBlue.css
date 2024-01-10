@@ -1,0 +1,11 @@
+.elementInTable {
+    background-color: #009f93;
+    border-color: #009f93;
+    color: white;
+}
+
+.elementInTable:hover {
+    background-color: #00bfae;
+    border-color: #00bfae;
+    cursor: pointer;
+}
