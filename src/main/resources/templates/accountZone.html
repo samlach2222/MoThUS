@@ -12,24 +12,20 @@
             <div>
                 <a id="goBackButton" href="/playZone">⮪</a>
                 <button class="verticalMenuButton" onclick="loadContent('/accountContent')">
-                    <img class="verticalMenuButtonIcon"
-                         src="https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/green-checkmark-icon.png">
+                    <img class="verticalMenuButtonIcon" src="/assets/icons/AccountIcon.svg" alt="account icon">
                     <span class="verticalMenuButtonText" th:text="${menuAccount}">Account</span>
                 </button>
                 <button class="verticalMenuButton" onclick="loadContent('/elementSkinsContent')">
-                    <img class="verticalMenuButtonIcon"
-                         src="https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/green-checkmark-icon.png">
+                    <img class="verticalMenuButtonIcon" src="/assets/icons/ElementSkinsIcon.svg" alt="element skins icon">
                     <span class="verticalMenuButtonText" th:text="${menuElementSkins}">Element skins</span>
                 </button>
                 <button class="verticalMenuButton" onclick="loadContent('/pageSkinsContent')">
-                    <img class="verticalMenuButtonIcon"
-                         src="https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/green-checkmark-icon.png">
+                    <img class="verticalMenuButtonIcon" src="/assets/icons/PageSkinsIcon.svg" alt="page skins icon">
                     <span class="verticalMenuButtonText" th:text="${menuPageSkins}">Page skins</span>
                 </button>
             </div>
             <button class="verticalMenuButton" onclick="loadContent('/termsOfUseContent')">
-                <img class="verticalMenuButtonIcon"
-                     src="https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/green-checkmark-icon.png">
+                <img class="verticalMenuButtonIcon" src="/assets/icons/TermsOfUseIcon.svg" alt="terms of use icon">
                 <span class="verticalMenuButtonText" th:text="${menuTermsOfUse}">Terms of use</span>
             </button>
         </div>

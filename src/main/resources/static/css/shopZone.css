@@ -25,7 +25,15 @@ body {
     cursor: pointer;
     border: none;
     padding: 5px;
+    background-color: transparent;
+    margin-bottom: 2vh;
+    margin-top: 2vh;
 }
+
+#verticalMenu button:hover {
+    background-color: #e6e6e6;
+}
+
 
 #verticalMenu #goBackButton {
     width: 90px;
