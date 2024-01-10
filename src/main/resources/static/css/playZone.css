@@ -160,6 +160,17 @@ footer {
     width: unset;
 }
 
+.elementInTable {
+    border: 1px solid rgb(73, 74, 75);
+    color: rgb(255, 255, 255);
+    background-color: rgb(73, 74, 75);
+}
+
+.elementInTable:hover {
+    background-color: #707070;
+    cursor: pointer;
+}
+
 #coinCounterDiv:hover {
     cursor: pointer;
     transform: scale(1.03);
