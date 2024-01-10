@@ -1,0 +1,8 @@
+body {
+    background-color: #1e1f22;
+}
+
+#helpButton, #statsButton, #accountButton, #coinCounterDiv {
+    filter: invert(100%);
+}
+
