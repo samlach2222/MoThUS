@@ -18,7 +18,10 @@ public class ManageError implements ErrorController {
             case 404:
                 // Redirect to /login when a page doesn't exist
                 // It will then redirect to /playZone if the user is already logged in
-                System.err.println("Error code " + statusCode + ": Page not found");
+                System.err.println("Error code " + statusCode + ": Page " + request.getAttribute(RequestDispatcher.ERROR_REQUEST_URI) + " not found");
+                return "redirect:/login";
+            case 403:
+                System.err.println("Error code " + statusCode + ": Page " + request.getAttribute(RequestDispatcher.ERROR_REQUEST_URI) + " Forbidden");
                 return "redirect:/login";
             default:
                 System.err.println("Error code " + statusCode);
