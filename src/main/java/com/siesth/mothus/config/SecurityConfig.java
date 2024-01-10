@@ -2,6 +2,7 @@ package com.siesth.mothus.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
@@ -25,12 +26,18 @@ public class SecurityConfig {
                         authorize -> authorize
                                 // Allow everyone to access only the files for login, playing and the help popup
                                 .requestMatchers(
-                                        "/login", "/loginContent", "/registerContent", "/processRegister", "/validateMailRegister", "/send-email", "/confirmEmailPopup",
-                                        "/playZone", "/helpPopup", "/getYamlData", "/sendWord",
+                                        HttpMethod.GET,
+                                        "/login", "/loginContent", "/registerContent", "/confirmEmailPopup",
+                                        "/playZone", "/helpPopup", "/getYamlData",
                                         "/assets/icons/**", "/assets/logos/**", "/assets/Login_Wallpaper.png",
                                         "/css/confirmEmailPopup.css", "/css/helpPopup.css", "/css/login.css", "/css/playZone.css",
-                                        "/js/helpPopup.js", "/js/login.js", "/js/notify.js", "/js/playZone.js")
-                                .permitAll()
+                                        "/js/helpPopup.js", "/js/login.js", "/js/notify.js", "/js/playZone.js"
+                                ).permitAll()
+                                // Post requests
+                                .requestMatchers(
+                                        HttpMethod.POST,
+                                        "/processRegister", "/validateMailRegister", "/send-email", "/sendWord"
+                                ).permitAll()
                                 // Block every other page with authentication
                                 .anyRequest()
                                 .authenticated()
@@ -38,7 +45,6 @@ public class SecurityConfig {
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")
-
                                 .defaultSuccessUrl("/playZone", true)
                                 // TODO : Notifications no longer work, fix it
                                 /*
