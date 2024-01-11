@@ -156,10 +156,14 @@ public class ManageLogin {
      * @param username the username of the user
      */
     @PostMapping("/createNewValidationCode")
-    public void createNewValidationCode(@RequestBody String username) {
+    public void createNewValidationCode(@RequestBody String username, Locale locale) {
         emailService.createNewValidationCode(username);
         User user = userRepository.findUserByUsername(username);
-        emailService.sendEmail(user.getMail(), "MoThUS Registration Validation", "Hello, thank you for register to MoThUS by Siesth. Here is your new validation code : " + emailService.getValidationCode(username) + ". Please enter this code in the validation page.");
+
+        String subject = messageSource.getMessage("Login.Email.Subject", null, locale);
+        String body1 = messageSource.getMessage("Login.Email.Body1", null, locale);
+        String body2 = messageSource.getMessage("Login.Email.Body2", null, locale);
+        emailService.sendEmail(user.getMail(), subject, body1 + emailService.getValidationCode(username) + body2);
     }
 
 
