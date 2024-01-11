@@ -1,7 +1,11 @@
 package com.siesth.mothus.controller;
 
+import com.siesth.mothus.dataManagementService.IUserManagement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +15,8 @@ import java.util.Locale;
 @Controller
 public class ManageAccountZone {
     private final MessageSource messageSource;
+    @Autowired
+    private IUserManagement userManagement;
 
     @Autowired
     public ManageAccountZone(MessageSource messageSource) {
@@ -78,14 +84,15 @@ public class ManageAccountZone {
         model.addAttribute("cancelButton", cancelButton);
         // locale END
 
-        Object connected = model.asMap().get("connected");
-        if(connected != null){
-            model.addAttribute("email", "email@test.com");
-            model.addAttribute("username","joemama");
-        } else {
-            model.addAttribute("email","please connect");
-            model.addAttribute("username","please connect");
+        // get current user
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            model.addAttribute("username", currentUserName);
+            model.addAttribute("email", userManagement.getEmailByUsername(currentUserName));
+            model.addAttribute("language", userManagement.getLanguageByUsername(currentUserName));
         }
+
         return "Content/accountContent";
 
     }

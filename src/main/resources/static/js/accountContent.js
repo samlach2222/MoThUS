@@ -14,18 +14,39 @@ function displayUsernameValidateButton() {
 }
 
 function validateEmailChange() {
+
+    // get the value
+    let email = document.getElementById("email");
+    let emailValue = email.value;
+
+    // check if the email is valid
+    let emailRegex = /\S+@\S+\.\S+/;
+    if (!emailRegex.test(emailValue)) {
+        notifyError("Invalid email") // TODO : translate
+        return;
+    }
     // TODO : Send email change request to server and change in the input
     document.getElementById("emailChange").style.display = "none";
 }
 
 function validateUsernameChange() {
+
+    // get the value
+    let username = document.getElementById("username");
+    let usernameValue = username.value;
+
+    // check if the username is valid
+    let usernameRegex = /^[a-zA-Z0-9]+$/;
+    if (!usernameRegex.test(usernameValue)) {
+        notifyError("Invalid username") // TODO : translate
+        return;
+    }
     // TODO : Send username change request to server and change in the input
     document.getElementById("usernameChange").style.display = "none";
 }
 
 function disconnect() {
-    // TODO : Disconnect the account
-    location.href='/login'
+    location.href='/logout'
 }
 
 function changeDisplayPassword() {
