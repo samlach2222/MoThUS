@@ -5,6 +5,9 @@ window.onload = function () {
     } else if (document.getElementsByClassName('alert alert-registration-error').length > 0){
         notifyError('Registration failed. Username or email already exists.')
         loadContent('/registerContent');
+    } else if (document.getElementsByClassName('alert alert-registration-password-error').length > 0) {
+        notifyError('Registration failed. Password and confirmed password do not match.')
+        loadContent('/registerContent');
     } else if (document.getElementsByClassName('alert alert-login-error').length > 0){
         notifyError('Login failed. Username or password is incorrect.')
         loadContent('/loginContent');

@@ -33,6 +33,8 @@
         </div>
         <div th:if="${registrationError}" class="alert alert-registration-error" role="alert">
         </div>
+        <div class="alert alert-registration-password-error" role="alert" th:if="${registrationPasswordError}">
+        </div>
         <div th:if="${loginError}" class="alert alert-login-error" role="alert">
         </div>
         <div th:if="${wrongCodeRegistration}" class="alert alert-registration-wrong-code" role="alert">
