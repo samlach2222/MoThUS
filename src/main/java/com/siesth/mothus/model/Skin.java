@@ -17,6 +17,9 @@ import jakarta.persistence.Id;
 @Entity
 public class Skin {
 
+    /**
+     * Id of the skin
+     */
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     int idSkin;
@@ -31,8 +34,14 @@ public class Skin {
      */
     SkinRarity rarity;
 
+    /**
+     * CSS file of the skin
+     */
     String cssFile;
 
+    /**
+     * Preview image of the skin
+     */
     String previewImage;
 
     /**
@@ -40,6 +49,7 @@ public class Skin {
      * @param rarity rarity of the skin
      * @param type type of the skin
      * @param cssFile CSS file of the skin
+     * @param previewImage preview image of the skin
      */
     public Skin(SkinRarity rarity, SkinType type, String cssFile, String previewImage){
         super();
@@ -49,12 +59,11 @@ public class Skin {
         this.setPreviewImage(previewImage);
     }
 
+    /**
+     * Empty constructor
+     */
     public Skin() {
 
-    }
-
-    public int getIdSkin() {
-        return idSkin;
     }
 
     /**
@@ -89,18 +98,34 @@ public class Skin {
         this.rarity = rarity;
     }
 
+    /**
+     * Getter of css file
+     * @return CSS file of the skin
+     */
     public String getCssFile() {
         return cssFile;
     }
 
+    /**
+     * Setter of css file
+     * @param cssFile CSS file of the skin
+     */
     public void setCssFile(String cssFile) {
         this.cssFile = cssFile;
     }
 
+    /**
+     * Getter of preview image
+     * @return preview image of the skin
+     */
     public String getPreviewImage() {
         return previewImage;
     }
 
+    /**
+     * Setter of preview image
+     * @param previewImage preview image of the skin
+     */
     public void setPreviewImage(String previewImage) {
         this.previewImage = previewImage;
     }

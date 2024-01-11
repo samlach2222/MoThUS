@@ -11,8 +11,23 @@ package com.siesth.mothus.model;
  * Enum of skin possible rarities
  */
 public enum SkinRarity {
+    /**
+     * Common rarity
+     */
     Common,
+
+    /**
+     * Uncommon rarity
+     */
     Uncommon,
+
+    /**
+     * Rare rarity
+     */
     Rare,
+
+    /**
+     * Mythic rarity
+     */
     Mythic,
 }

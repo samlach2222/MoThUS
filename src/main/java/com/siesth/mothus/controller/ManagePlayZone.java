@@ -17,23 +17,51 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
+/**
+ * This class is used to manage the play zone.
+ */
 @Controller
 public class ManagePlayZone {
+    /**
+     * This field is used to get the message from the message source.
+     */
     private final MessageSource messageSource;
+
+    /**
+     * This field is used to get the resource from the resource loader.
+     */
     private final ResourceLoader resourceLoader;
+
+    /**
+     * This field is used to store the word of the day.
+     */
     private String frenchWord;
+
+    /**
+     * This field is used to get the game manager.
+     */
     @Autowired
     private IGameManagement gameManager;
 
+    /**
+     * This constructor is used to autowire the message source and resource loader.
+     * @param messageSource the message source
+     * @param resourceLoader the resource loader
+     */
     @Autowired
     public ManagePlayZone(MessageSource messageSource, ResourceLoader resourceLoader) {
         this.messageSource = messageSource;
         this.resourceLoader = resourceLoader;
     }
 
+    /**
+     * This method is used to get the today's word.
+     * It adds the texts to the model from locale.
+     * @return the today's word
+     */
     @GetMapping("/getTodayWordData")
     @ResponseBody
-    public String getTodayWordData() throws IOException {
+    public String getTodayWordData() {
         // Fetch the latest game entity
         Game latestGame = gameManager.getTodayGame();
         // Extract the word from the latest game entity
@@ -48,6 +76,11 @@ public class ManagePlayZone {
         return length + " " + firstLetter;
     }
 
+    /**
+     * This method is used to compare the received word with the today's word.
+     * @param receivedWord the received word
+     * @return the result of the comparison
+     */
     private String compareWords(String receivedWord) {
         // remove empty strings and quote from receivedWord
         receivedWord = receivedWord.replace("\"", "");
@@ -109,9 +142,6 @@ public class ManagePlayZone {
                     }
                 }
             }
-
-            // get the longest string
-            String longestString = receivedWordLetter.length() > localWordLetter.length() ? receivedWordLetter : localWordLetter;
         }
 
         // check blue color
@@ -137,6 +167,13 @@ public class ManagePlayZone {
         return resultString.toString();
     }
 
+    /**
+     * This method is used to show the play zone.
+     * It adds the texts to the model from locale.
+     * @param model the model
+     * @param locale the locale
+     * @return the play zone page
+     */
     @GetMapping("/playZone")
     public String playZone(Model model, Locale locale) {
         String pageTitle = messageSource.getMessage("PlayZone.PageTitle", null, locale);
@@ -145,6 +182,10 @@ public class ManagePlayZone {
         return "playZone";
     }
 
+    /**
+     * This method is used to get elements data from the yaml file.
+     * @return the elements data
+     */
     @GetMapping("/getYamlData")
     @ResponseBody
     public String getYamlData() throws IOException {
@@ -152,12 +193,15 @@ public class ManagePlayZone {
         return file.getContentAsString(StandardCharsets.UTF_8);
     }
 
+    /**
+     * This method is used to receive the word from the client.
+     * @param word the received word
+     * @return the result of the comparison
+     */
     @PostMapping("/sendWord")
     @ResponseBody
     public String receiveWord(@RequestBody String word) {
         System.out.println("Received word: " + word);
-        // Perform any necessary operations with the received word
-
         return compareWords(word);
     }
 }

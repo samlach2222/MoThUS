@@ -10,12 +10,20 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * This class is used to manage the skin management.
+ */
 @Service
-public class SkinManagement implements ISkinManagement {
+public class SkinManagement{
+    /**
+     * This field is used to get the skin repository.
+     */
     @Autowired
     SkinRepository skinRepository;
 
-    @Override
+    /**
+     * This method is used to initialize the skins when the server will be launching.
+     */
     @PostConstruct
     public void initSkins() {
         List<Skin> skins = skinRepository.findAll();

@@ -8,15 +8,32 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Locale;
 
+/**
+ * This class is used to manage the shop zone.
+ */
 @Controller
 public class ManageShopZone {
+    /**
+     * This field is used to get the message from the message source.
+     */
     private final MessageSource messageSource;
 
+    /**
+     * This constructor is used to autowire the message source.
+     * @param messageSource the message source
+     */
     @Autowired
     public ManageShopZone(MessageSource messageSource) {
         this.messageSource = messageSource;
     }
 
+    /**
+     * This method is used to show the shop zone.
+     * It adds the texts to the model from locale.
+     * @param model the model
+     * @param locale the locale
+     * @return the shop zone page
+     */
     @GetMapping("/shopZone")
     public String shopZone(Model model, Locale locale) {
         String pageTitle = messageSource.getMessage("ShopZone.PageTitle", null, locale);
@@ -30,19 +47,35 @@ public class ManageShopZone {
         return "shopZone";
     }
 
+    /**
+     * This method is used to show the coin shop content.
+     * @param model the model
+     * @return the coin shop content page
+     */
     @GetMapping("/coinShopContent")
     public String loadCoinShopContent(Model model) {
         return "Content/coinShopContent";
     }
 
+    /**
+     * This method is used to show the element case content.
+     * @param model the model
+     * @return the element case content page
+     */
     @GetMapping("/elementCaseContent")
     public String loadElementCaseContent(Model model) {
         return "Content/elementCaseContent";
     }
 
+    /**
+     * This method is used to show the credit card popup.
+     * It adds the texts to the model from locale.
+     * @param model the model
+     * @param locale the locale
+     * @return the credit card popup page
+     */
     @GetMapping("/creditCardPopup")
     public String creditCardPopup(Model model, Locale locale) {
-
         // locale BEGIN
         String paymentAmountLabel = messageSource.getMessage("ShopZone.CreditCardPopup.PaymentAmountLabel", null, locale);
         String payInvoiceLabel = messageSource.getMessage("ShopZone.CreditCardPopup.PayInvoiceLabel", null, locale);

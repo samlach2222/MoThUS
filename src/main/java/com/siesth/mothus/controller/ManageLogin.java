@@ -18,22 +18,53 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Locale;
 
+/**
+ * This class is used to manage the login page.
+ */
 @Controller
 public class ManageLogin {
+    /**
+     * This field is used to get the message from the message source.
+     */
     private final MessageSource messageSource;
+
+    /**
+     * This field is used to manage the user.
+     */
     @Autowired
     private IUserManagement userManagement;
+
+    /**
+     * This field is used to manage the user repository.
+     */
     @Autowired
     private UserRepository userRepository;
+
+    /**
+     * This field is used to manage the email service.
+     */
     @Autowired
     private IEmailService emailService;
+
+    /**
+     * This constructor is used to autowire the message source.
+     * @param messageSource the message source
+     */
     @Autowired
     public ManageLogin(MessageSource messageSource) {
         this.messageSource = messageSource;
     }
 
+    /**
+     * This method is used to show the login page.
+     * It adds the texts to the model from locale.
+     * @param model the model
+     * @param locale the locale
+     * @return the login page
+     */
     @GetMapping("/login")
     public String login(Model model, Locale locale) {
+        // locale BEGIN
         String pageTitle = messageSource.getMessage("Login.PageTitle", null, locale);
         String loginButton = messageSource.getMessage("Login.LoginButton", null, locale);
         String registerButton = messageSource.getMessage("Login.RegisterButton", null, locale);
@@ -43,10 +74,18 @@ public class ManageLogin {
         model.addAttribute("loginButton", loginButton);
         model.addAttribute("registerButton", registerButton);
         model.addAttribute("playAsInviteButton", playAsInviteButton);
+        // locale END
 
         return "login";
     }
 
+    /**
+     * This method is used to show the login content.
+     * It adds the texts to the model from locale.
+     * @param model the model
+     * @param locale the locale
+     * @return the login content page
+     */
     @GetMapping("/loginContent")
     public String loginContent(Model model, Locale locale) {
         // To pass data to the template
@@ -77,6 +116,13 @@ public class ManageLogin {
         return "Content/loginContent";
     }
 
+    /**
+     * This method is used to show the register content.
+     * It adds the texts to the model from locale.
+     * @param model the model
+     * @param locale the locale
+     * @return the register content page
+     */
     @GetMapping("/registerContent")
     public String registerContent(Model model, Locale locale) {
         // To pass data to the template
@@ -106,6 +152,14 @@ public class ManageLogin {
         return "Content/registerContent";
     }
 
+    /**
+     * This method is used to show the email validation content.
+     * It adds the texts to the model from locale.
+     * @param registrationDto the registration data from the form
+     * @param redirectAttributes to pass data to the template
+     * @param locale the locale
+     * @return a redirection to the login page
+     */
     @PostMapping("/processRegister")
     public String processRegister(@ModelAttribute("registrationDto") RegistrationDto registrationDto , RedirectAttributes redirectAttributes, Locale locale) {
         // TODO : createNewUser is very slow (a few seconds), make it faster
@@ -126,6 +180,14 @@ public class ManageLogin {
         return "redirect:/login";
     }
 
+    /**
+     * This method is used to show the email validation content.
+     * It adds the texts to the model from locale.
+     * @param registrationDto the registration data from the form
+     * @param redirectAttributes to pass data to the template
+     * @param locale the locale
+     * @return a redirection to the playZone if the login is successful, else a redirection to the login page with an error message
+     */
     @PostMapping("/processLogin")
     public String processLogin(@ModelAttribute("registrationDto") RegistrationDto registrationDto , RedirectAttributes redirectAttributes, Locale locale) {
         boolean isGood = userManagement.checkLogin(registrationDto);
@@ -145,6 +207,7 @@ public class ManageLogin {
      * It is used to validate the email of the user after clicking on the validate email address button in the email validation page
      * @param validateEmailDto the username and the validation code
      * @param redirectAttributes to pass data to the template
+     * @param locale the locale
      * @return "redirect:/login"
      */
     @PostMapping("/validateMailRegister")
@@ -178,6 +241,7 @@ public class ManageLogin {
      * Create a new validation code
      * It is used to create a new validation code when the user clicks on the "resend validation code" button in the email validation page
      * @param username the username of the user
+     * @param locale the locale
      */
     @PostMapping("/createNewValidationCode")
     public void createNewValidationCode(@RequestBody String username, Locale locale) {
@@ -190,7 +254,13 @@ public class ManageLogin {
         emailService.sendEmail(user.getMail(), subject, body1 + emailService.getValidationCode(username) + body2);
     }
 
-
+    /**
+     * This method is used to show the email validation content.
+     * It adds the texts to the model from locale.
+     * @param model the model
+     * @param locale the locale
+     * @return the email validation content page
+     */
     @GetMapping("/confirmEmailPopup")
     public String ConfirmEmailPopup(Model model, Locale locale) {
         model.addAttribute("validateEmailDto", new ValidateEmailDto());
@@ -208,6 +278,7 @@ public class ManageLogin {
         model.addAttribute("timeRemainingLabel1", timeRemainingLabel1);
         model.addAttribute("timeRemainingLabel2", timeRemainingLabel2);
         // locale END
+
         return "Popup/confirmEmailPopup";
     }
 }

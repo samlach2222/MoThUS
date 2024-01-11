@@ -11,8 +11,14 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.time.LocalDate;
 
+/**
+ * This class is used to manage the game.
+ */
 @Service
 public class GameManagement implements IGameManagement {
+    /**
+     * This field is used to get the game repository.
+     */
     @Autowired
     GameRepository gameRepository;
 
@@ -47,8 +53,8 @@ public class GameManagement implements IGameManagement {
 
         // Create and return a new game if there is no game at all, or the last game is not today
         if (lastGame == null || !lastGame.getDateOfTheGame().equals(today)) {
-            String frenchWord = "MoThUS";
-            String englishWord = "MoThUS";
+            String frenchWord;
+            String englishWord;
 
             // For each language, get the resource file and then read a random line
             try {

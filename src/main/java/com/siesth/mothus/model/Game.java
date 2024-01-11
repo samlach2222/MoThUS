@@ -17,15 +17,27 @@ import java.time.LocalDate;
 @Entity
 public class Game {
 
+    /**
+     * Id of the game
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     int idGame;
 
+    /**
+     * Date of the game
+     */
     @Column(columnDefinition = "datetime") // The default "datetime(6)" is not supported in our server
     LocalDate dateOfTheGame;
 
+    /**
+     * French word
+     */
     String frenchWord;
 
+    /**
+     * English word
+     */
     String englishWord;
 
     /**
@@ -41,34 +53,57 @@ public class Game {
         this.setEnglishWord(englishWord);
     }
 
+    /**
+     * Empty constructor
+     */
     public Game() {
 
     }
 
-    public int getIdGame() {
-        return idGame;
-    }
-
+    /**
+     * Getter of the date of the game
+     * @return date of the game
+     */
     public LocalDate getDateOfTheGame() {
         return dateOfTheGame;
     }
 
+    /**
+     * Setter of the date of the game
+     * @param dateOfTheGame date of the game
+     */
     public void setDateOfTheGame(LocalDate dateOfTheGame) {
         this.dateOfTheGame = dateOfTheGame;
     }
 
+    /**
+     * Getter of the French word
+     * @return French word
+     */
     public String getFrenchWord() {
         return frenchWord;
     }
 
+    /**
+     * Setter of the French word
+     * @param frenchWord French word
+     */
     public void setFrenchWord(String frenchWord) {
         this.frenchWord = frenchWord;
     }
 
+    /**
+     * Getter of the English word
+     * @return English word
+     */
     public String getEnglishWord() {
         return englishWord;
     }
 
+    /**
+     * Setter of the English word
+     * @param englishWord English word
+     */
     public void setEnglishWord(String englishWord) {
         this.englishWord = englishWord;
     }

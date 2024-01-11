@@ -15,11 +15,21 @@ import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
  */
 @Entity
 public class User {
+    /**
+     * Id of the user
+     */
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     int idUser;
 
+    /**
+     * Username of the user
+     */
     String username;
+
+    /**
+     * Mail of the user
+     */
     String mail;
 
     /**
@@ -27,6 +37,9 @@ public class User {
      */
     String password;
 
+    /**
+     * Language of the user
+     */
     UserLanguage currentLanguage;
 
     /**
@@ -34,15 +47,27 @@ public class User {
      */
     int balance;
 
+    /**
+     * Stats of the user
+     */
     @OneToOne(cascade = CascadeType.ALL)
     Stats stats;
 
+    /**
+     * Skin inventory of the user
+     */
     @OneToOne(cascade = CascadeType.ALL)
     SkinInventory skinInventory;
 
+    /**
+     * Validation code of the user
+     */
     @OneToOne(cascade = CascadeType.ALL) // by default, it is optional = true
     ValidationCode validationCode;
 
+    /**
+     * Empty constructor
+     */
     public User() {
 
     }
@@ -67,26 +92,34 @@ public class User {
         setSkinInventory(skinInventory);
     }
 
-    public int getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(int idUser) {
-        this.idUser = idUser;
-    }
-
+    /**
+     * Getter of the username
+     * @return username
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Setter of the username
+     * @param username username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * Getter of the mail
+     * @return mail
+     */
     public String getMail() {
         return mail;
     }
 
+    /**
+     * Setter of the mail
+     * @param mail mail
+     */
     public void setMail(String mail) {
         this.mail = mail;
     }
@@ -109,10 +142,18 @@ public class User {
         this.password = arg2SpringSecurity.encode(password);
     }
 
+    /**
+     * Getter of the language
+     * @return language
+     */
     public UserLanguage getCurrentLanguage() {
         return currentLanguage;
     }
 
+    /**
+     * Setter of the language
+     * @param currentLanguage language
+     */
     public void setCurrentLanguage(UserLanguage currentLanguage) {
         this.currentLanguage = currentLanguage;
     }
@@ -133,26 +174,50 @@ public class User {
         this.balance = balance;
     }
 
+    /**
+     * Getter of the stats
+     * @return stats
+     */
     public Stats getStats() {
         return stats;
     }
 
+    /**
+     * Setter of the stats
+     * @param stats stats
+     */
     public void setStats(Stats stats) {
         this.stats = stats;
     }
 
+    /**
+     * Getter of the skin inventory
+     * @return skin inventory
+     */
     public SkinInventory getSkinInventory() {
         return skinInventory;
     }
 
+    /**
+     * Setter of the skin inventory
+     * @param skinInventory skin inventory
+     */
     public void setSkinInventory(SkinInventory skinInventory) {
         this.skinInventory = skinInventory;
     }
 
+    /**
+     * Getter of the validation code
+     * @return validation code
+     */
     public ValidationCode getValidationCode() {
         return validationCode;
     }
 
+    /**
+     * Setter of the validation code
+     * @param validationCode validation code
+     */
     public void setValidationCode(ValidationCode validationCode) {
         this.validationCode = validationCode;
     }
