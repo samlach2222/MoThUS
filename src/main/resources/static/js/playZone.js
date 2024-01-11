@@ -311,6 +311,11 @@ function deactivateKeyboard() {
             cells[j].draggable = false;
         }
     }
+
+    let returnButton = document.getElementById("returnButton");
+    returnButton.onclick = null;
+    let validateButton = document.getElementById("validateButton");
+    validateButton.onclick = null;
 }
 
 /**
@@ -367,7 +372,7 @@ document.addEventListener('keydown', function(event) {
             sendCurrentWord(); // Send to spring and color the line
         }
         else {
-            alert("La ligne n'est pas complète");
+            notifyError("La ligne n'est pas complète"); // TODO : translate
         }
     }
     else if (event.code === 'Backspace') {
@@ -490,7 +495,7 @@ function sendCurrentWord(){
             // WINNING CONDITION
             if(!coloration.includes("-") && !coloration.includes("*") && !coloration.includes("/")) {
                 isWin = true;
-                alert("Gagné");
+                notifySuccess("Gagné"); // TODO : translate
                 deactivateTable();
                 deactivateKeyboard();
                 clearUnderLines();
@@ -499,7 +504,7 @@ function sendCurrentWord(){
             }
             // LOOSING CONDITION
             else if(currentLine === 7 && !isWin) {
-                alert("Perdu");
+                notifyError("Perdu"); // TODO : translate
                 deactivateTable();
                 deactivateKeyboard();
                 // TODO : Mark the user game as lost in the database
