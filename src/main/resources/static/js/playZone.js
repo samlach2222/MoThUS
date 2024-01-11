@@ -3,6 +3,9 @@ window.onload = function () {
     firstLetter = "";
     receiveDataFromSpring();
     receiveWordFromSpring();
+
+    let currentTime = new Date();
+    // TODO : send to Spring to save the start time (if there is no startTime in Spring)
 }
 
 let currentLine;
@@ -463,6 +466,11 @@ function clearUnderLines() {
 
 }
 
+function sendEndGameTime() {
+    let currentTime = new Date();
+    // TODO : send to Spring to save the end time (if there is no endTime in Spring)
+}
+
 /**
  * Send the current word to Spring
  * This is synchronous because we need the response before continuing
@@ -495,6 +503,7 @@ function sendCurrentWord(){
             // WINNING CONDITION
             if(!coloration.includes("-") && !coloration.includes("*") && !coloration.includes("/")) {
                 isWin = true;
+                sendEndGameTime();
                 notifySuccess("Gagné"); // TODO : translate
                 deactivateTable();
                 deactivateKeyboard();
@@ -504,6 +513,7 @@ function sendCurrentWord(){
             }
             // LOOSING CONDITION
             else if(currentLine === 7 && !isWin) {
+                sendEndGameTime();
                 notifyError("Perdu"); // TODO : translate
                 deactivateTable();
                 deactivateKeyboard();
