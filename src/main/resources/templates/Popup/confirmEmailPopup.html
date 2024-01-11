@@ -1,17 +1,17 @@
 <link href="/css/confirmEmailPopup.css" rel="stylesheet">
 <div id="confirmEmailPopup">
-    <p id="PopupLabel">You have received a verification code on your email address, please enter it here :</p>
+    <p id="PopupLabel" th:text="${popupLabel}"></p>
     <form id="confirmEmailForm" method="post"  th:action="@{/validateMailRegister}" th:object="${validateEmailDto}">
         <label>
             <input type="text" placeholder="0000" th:field="*{code}">
         </label>
-        <button type="submit">Confirm mail address</button>
+        <button type="submit" th:text="${confirmEmailLabel}"></button>
     </form>
     <form id="resendEmailForm">
-        <button type="submit" onclick="resendEmail()">Resend code</button>
+        <button type="submit" onclick="resendEmail()" th:text="${resendCodeLabel}"></button>
     </form>
     <div id="timerContainer">
-        <p id="timerText">Time remaining: <span id="timerValue">60</span> seconds</p>
+        <p id="timerText"><span th:text="${timeRemainingLabel1}"></span><span id="timerValue">60</span><span th:text="${timeRemainingLabel2}"></span></p>
         <div id="progressBar"></div>
     </div>
 </div>

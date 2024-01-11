@@ -63,6 +63,16 @@ public class ManageLogin {
             String loginErrorMessage = messageSource.getMessage("Login.Messages.LoginErrorMessage", null, locale);
             model.addAttribute("loginErrorMessage", loginErrorMessage);
         }
+
+        // locale BEGIN
+        String passwordLabel = messageSource.getMessage("Login.LoginContent.PasswordLabel", null, locale);
+        String usernameLabel = messageSource.getMessage("Login.LoginContent.UsernameLabel", null, locale);
+        String loginLabel = messageSource.getMessage("Login.LoginContent.LoginLabel", null, locale);
+
+        model.addAttribute("passwordLabel", passwordLabel);
+        model.addAttribute("usernameLabel", usernameLabel);
+        model.addAttribute("loginLabel", loginLabel);
+        // locale END
         model.addAttribute("registrationDto", new RegistrationDto());
         return "Content/loginContent";
     }
@@ -78,6 +88,20 @@ public class ManageLogin {
             String registrationSuccessMessage = messageSource.getMessage("Login.Messages.RegistrationSuccessMessage", null, locale);
             model.addAttribute("registrationSuccessMessage", registrationSuccessMessage);
         }
+
+        // locale BEGIN
+        String passwordLabel = messageSource.getMessage("Login.RegisterContent.PasswordLabel", null, locale);
+        String usernameLabel = messageSource.getMessage("Login.RegisterContent.UsernameLabel", null, locale);
+        String emailLabel = messageSource.getMessage("Login.RegisterContent.EmailLabel", null, locale);
+        String registerLabel = messageSource.getMessage("Login.RegisterContent.RegisterLabel", null, locale);
+        String confirmPasswordLabel = messageSource.getMessage("Login.RegisterContent.ConfirmPasswordLabel", null, locale);
+
+        model.addAttribute("passwordLabel", passwordLabel);
+        model.addAttribute("usernameLabel", usernameLabel);
+        model.addAttribute("emailLabel", emailLabel);
+        model.addAttribute("registerLabel", registerLabel);
+        model.addAttribute("confirmPasswordLabel", confirmPasswordLabel);
+        // locale END
         model.addAttribute("registrationDto", new RegistrationDto());
         return "Content/registerContent";
     }
@@ -168,8 +192,22 @@ public class ManageLogin {
 
 
     @GetMapping("/confirmEmailPopup")
-    public String ConfirmEmailPopup(Model model) {
+    public String ConfirmEmailPopup(Model model, Locale locale) {
         model.addAttribute("validateEmailDto", new ValidateEmailDto());
+
+        // locale BEGIN
+        String confirmEmailLabel = messageSource.getMessage("Login.ConfirmEmailPopup.ConfirmEmailLabel", null, locale);
+        String popupLabel = messageSource.getMessage("Login.ConfirmEmailPopup.PopupLabel", null, locale);
+        String resendCodeLabel = messageSource.getMessage("Login.ConfirmEmailPopup.ResendCodeLabel", null, locale);
+        String timeRemainingLabel1 = messageSource.getMessage("Login.ConfirmEmailPopup.TimeRemainingLabel1", null, locale);
+        String timeRemainingLabel2 = messageSource.getMessage("Login.ConfirmEmailPopup.TimeRemainingLabel2", null, locale);
+
+        model.addAttribute("confirmEmailLabel", confirmEmailLabel);
+        model.addAttribute("popupLabel", popupLabel);
+        model.addAttribute("resendCodeLabel", resendCodeLabel);
+        model.addAttribute("timeRemainingLabel1", timeRemainingLabel1);
+        model.addAttribute("timeRemainingLabel2", timeRemainingLabel2);
+        // locale END
         return "Popup/confirmEmailPopup";
     }
 }

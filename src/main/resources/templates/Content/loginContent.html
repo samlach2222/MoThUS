@@ -4,10 +4,10 @@
 </div>
 <div id="loginPanelButtons">
     <form method="post" id="loginForm" th:action="@{/processLogin}" th:object="${registrationDto}">
-        <label for="usernameInput">Username</label><br>
+        <label for="usernameInput" th:text="${usernameLabel}"></label><br>
         <input type="text" id="usernameInput" th:field="*{username}" name="username" required><br>
-        <label for="passwordInput">Password</label><br>
+        <label for="passwordInput" th:text="${passwordLabel}"></label><br>
         <input type="password" id="passwordInput" th:field="*{password}" name="password" required><br>
-        <input type="submit" value="Log In" id="submitInput">
+        <input type="submit" th:value="${loginLabel}" id="submitInput">
     </form>
 </div>
