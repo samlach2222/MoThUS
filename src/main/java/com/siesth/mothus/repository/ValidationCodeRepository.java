@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ValidationCodeRepository extends JpaRepository<ValidationCode, Long> {
-    ValidationCode findValidationCodeByIdValidationCode(int idValidationCode);
+    long deleteByIdValidationCode(int idValidationCode);
 }

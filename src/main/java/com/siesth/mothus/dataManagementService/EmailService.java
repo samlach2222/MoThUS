@@ -37,19 +37,7 @@ public class EmailService implements IEmailService {
     }
 
     private void createValidationCode(String username) {
-
-        // get random validation code composed of 6 digits
-        StringBuilder validationCode = new StringBuilder();
-        for (int i = 0; i < 6; i++) {
-            validationCode.append((int) (Math.random() * 10));
-        }
-        final LocalDateTime today = LocalDateTime.now();
-        int duration = 300; // 5 minutes
-
-        String mail = userRepository.findUserByUsername(username).getMail();
-        sendEmail(mail, "MoThUS Registration Validation", "Hello, thank you for register to MoThUS by Siesth. Here is your new validation code : " + validationCode + ". Please enter this code in the validation page.");
-
-        ValidationCode validationCodeObject = new ValidationCode(today, duration, username);
+        ValidationCode validationCodeObject = new ValidationCode();
         validationCodeRepository.save(validationCodeObject);
 
         userManagement.getUserByUsernameAndUpdateValidationCode(username, validationCodeObject);
@@ -81,19 +69,38 @@ public class EmailService implements IEmailService {
     }
 
     @Override
-    public int getValidationCode(String username) {
+    public String getValidationCode(String username) {
         ValidationCode vc = userRepository.findUserByUsername(username).getValidationCode();
         if (vc == null) { // if there is no validation code we create one
             createValidationCode(username);
             vc = userRepository.findUserByUsername(username).getValidationCode();
         }
         assert vc != null;
-        return vc.getIdValidationCode();
+        return vc.getCode();
     }
 
     @Override
     public void createNewValidationCode(String username) {
         createValidationCode(username);
+    }
+
+    @Override
+    public int getDurationMinutes(String username) {
+        ValidationCode vc = userRepository.findUserByUsername(username).getValidationCode();
+        if (vc == null) {
+            return -1;
+        }
+
+        // Because the duration is a int, dividing it with another int already returns as an int
+        return vc.getDuration() / 60;
+    }
+
+    @Override
+    public void removeValidationCode(String username) {
+        ValidationCode vc = userRepository.findUserByUsername(username).getValidationCode();
+        if (vc != null) {
+            validationCodeRepository.deleteByIdValidationCode(vc.getIdValidationCode());
+        }
     }
 }
 
