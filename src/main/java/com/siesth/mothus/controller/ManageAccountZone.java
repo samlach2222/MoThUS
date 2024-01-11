@@ -12,20 +12,41 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Locale;
 
+/**
+ * This class is used to manage the account zone.
+ * The account zone is the zone where the user can manage his account.
+ */
 @Controller
 public class ManageAccountZone {
+    /**
+     * The message source is used to get the messages from the messages.properties file.
+     */
     private final MessageSource messageSource;
+
+    /**
+     * The user management is used to manage the user.
+     */
     @Autowired
     private IUserManagement userManagement;
 
+    /**
+     * This constructor is used to autowire the message source.
+     * @param messageSource the message source
+     */
     @Autowired
     public ManageAccountZone(MessageSource messageSource) {
         this.messageSource = messageSource;
     }
 
+    /**
+     * This method is used to load the account zone.
+     * It adds the texts to the model from locale.
+     * @param model the model
+     * @param locale the locale
+     * @return the account zone
+     */
     @GetMapping("/accountZone")
     public String accountZone(Model model, Locale locale) {
-
         // locale BEGIN
         String pageTitle = messageSource.getMessage("AccountZone.PageTitle", null, locale);
         String menuAccount = messageSource.getMessage("AccountZone.MenuAccount", null, locale);
@@ -43,9 +64,15 @@ public class ManageAccountZone {
         return "accountZone";
     }
 
+    /**
+     * This method is used to load the account content.
+     * It adds the texts to the model from locale and user information.
+     * @param model the model
+     * @param locale the locale
+     * @return the account content
+     */
     @GetMapping("/accountContent")
     public String loadAccountContent(Model model, Locale locale) {
-
         // locale BEGIN
         String pageTitle = messageSource.getMessage("AccountZone.AccountContent.PageTitle", null, locale);
         String accountTitle = messageSource.getMessage("AccountZone.AccountContent.AccountTitle", null, locale);
@@ -94,9 +121,15 @@ public class ManageAccountZone {
         }
 
         return "Content/accountContent";
-
     }
 
+    /**
+     * This method is used to load the element skins content.
+     * It adds the texts to the model from locale.
+     * @param model the model
+     * @param locale the locale
+     * @return the element skins content
+     */
     @GetMapping("/elementSkinsContent")
     public String loadElementSkinsContent(Model model, Locale locale) {
         // locale BEGIN
@@ -118,6 +151,13 @@ public class ManageAccountZone {
         return "Content/elementSkinsContent";
     }
 
+    /**
+     * This method is used to load the page skins content.
+     * It adds the texts to the model from locale.
+     * @param model the model
+     * @param locale the locale
+     * @return the page skins content
+     */
     @GetMapping("/pageSkinsContent")
     public String loadPageSkinsContent(Model model, Locale locale) {
         // locale BEGIN
@@ -139,6 +179,13 @@ public class ManageAccountZone {
         return "Content/pageSkinsContent";
     }
 
+    /**
+     * This method is used to load the terms of use content.
+     * It adds the texts to the model from locale.
+     * @param model the model
+     * @param locale the locale
+     * @return the terms of use content
+     */
     @GetMapping("/termsOfUseContent")
     public String loadTermsOfUseContent(Model model, Locale locale) {
         // locale BEGIN

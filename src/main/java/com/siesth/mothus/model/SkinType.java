@@ -11,6 +11,13 @@ package com.siesth.mothus.model;
  * Enum of possible skin types
  */
 public enum SkinType {
+    /**
+     * If the skin is a page skin
+     */
     PageSkin,
+
+    /**
+     * If the skin is an element skin
+     */
     ElementSkin,
 }

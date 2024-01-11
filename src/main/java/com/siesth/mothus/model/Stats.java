@@ -62,8 +62,14 @@ public class Stats {
      */
     int eighthTryCount;
 
+    /**
+     * Number of times the user won
+     */
     int winCount;
 
+    /**
+     * Number of times the user lost
+     */
     int looseCount;
 
     /**
@@ -71,12 +77,29 @@ public class Stats {
      */
     int playTime;
 
+    /**
+     * Number of times the user used the red square
+     */
     int redSquareCount;
 
+    /**
+     * Number of times the user used the blue square
+     */
     int blueSquareCount;
 
+    /**
+     * Number of times the user used the purple square
+     */
+    int purpleSquareCount;
+
+    /**
+     * Number of times the user used the yellow circle
+     */
     int yellowCircleCount;
 
+    /**
+     * Constructor of the stats
+     */
     public Stats(){
         firstTryCount = 0;
         secondTryCount = 0;
@@ -92,10 +115,6 @@ public class Stats {
         redSquareCount = 0;
         blueSquareCount = 0;
         yellowCircleCount = 0;
-    }
-
-    public int getIdStats() {
-        return idStats;
     }
 
     /**
@@ -162,10 +181,18 @@ public class Stats {
         return eighthTryCount;
     }
 
+    /**
+     * Getter of the win count
+     * @return number of times the user won
+     */
     public int getWinCount() {
         return winCount;
     }
 
+    /**
+     * Getter of the loose count
+     * @return number of times the user lost
+     */
     public int getLooseCount() {
         return looseCount;
     }
@@ -178,14 +205,34 @@ public class Stats {
         return playTime;
     }
 
+    /**
+     * Getter of the red square count
+     * @return number of times the user used the red square
+     */
     public int getRedSquareCount() {
         return redSquareCount;
     }
 
+    /**
+     * Getter of the blue square count
+     * @return number of times the user used the blue square
+     */
     public int getBlueSquareCount() {
         return blueSquareCount;
     }
 
+    /**
+     * Getter of the purple square count
+     * @return number of times the user used the purple square
+     */
+    public int getPurpleSquareCount() {
+        return purpleSquareCount;
+    }
+
+    /**
+     * Getter of the yellow circle count
+     * @return number of times the user used the yellow circle
+     */
     public int getYellowCircleCount() {
         return yellowCircleCount;
     }
@@ -254,10 +301,18 @@ public class Stats {
         this.eighthTryCount = eighthTryCount;
     }
 
+    /**
+     * Setter of the win count
+     * @param winCount number of times the user won
+     */
     public void setWinCount(int winCount) {
         this.winCount = winCount;
     }
 
+    /**
+     * Setter of the loose count
+     * @param looseCount number of times the user lost
+     */
     public void setLooseCount(int looseCount) {
         this.looseCount = looseCount;
     }
@@ -270,14 +325,34 @@ public class Stats {
         this.playTime = playTime;
     }
 
+    /**
+     * Setter of the red square count
+     * @param redSquareCount number of times the user used the red square
+     */
     public void setRedSquareCount(int redSquareCount) {
         this.redSquareCount = redSquareCount;
     }
 
+    /**
+     * Setter of the blue square count
+     * @param blueSquareCount number of times the user used the blue square
+     */
     public void setBlueSquareCount(int blueSquareCount) {
         this.blueSquareCount = blueSquareCount;
     }
 
+    /**
+     * Setter of the purple square count
+     * @param purpleSquareCount number of times the user used the purple square
+     */
+    public void setPurpleSquareCount(int purpleSquareCount) {
+        this.purpleSquareCount = purpleSquareCount;
+    }
+
+    /**
+     * Setter of the yellow circle count
+     * @param yellowCircleCount number of times the user used the yellow circle
+     */
     public void setYellowCircleCount(int yellowCircleCount) {
         this.yellowCircleCount = yellowCircleCount;
     }

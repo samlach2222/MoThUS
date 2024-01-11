@@ -8,15 +8,32 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Locale;
 
+/**
+ * This class is used to manage the stats popup.
+ */
 @Controller
 public class ManageStatsPopup {
+    /**
+     * This field is used to get the message from the message source.
+     */
     private final MessageSource messageSource;
 
+    /**
+     * This constructor is used to autowire the message source.
+     * @param messageSource the message source
+     */
     @Autowired
     public ManageStatsPopup(MessageSource messageSource) {
         this.messageSource = messageSource;
     }
 
+    /**
+     * This method is used to show the stats popup.
+     * It adds the texts to the model from locale.
+     * @param model the model
+     * @param locale the locale
+     * @return the stats popup page
+     */
     @GetMapping("/statsPopup")
     public String statsPopup(Model model, Locale locale) {
         String pageTitle = messageSource.getMessage("StatsPopup.PageTitle", null, locale);

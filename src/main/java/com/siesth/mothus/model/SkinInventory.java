@@ -17,6 +17,9 @@ import java.util.Collection;
 @Entity
 public class SkinInventory {
 
+    /**
+     * Id of the skin inventory
+     */
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     int idSkinInventory;
@@ -32,34 +35,23 @@ public class SkinInventory {
     )
     Collection<Skin> skinList;
 
+    /**
+     * Id of the current element skin
+     */
     int currentElementSkinId;
 
+    /**
+     * Id of the current page skin
+     */
     int currentPageSkinId;
 
+    /**
+     * Constructor of the skin inventory
+     */
     public SkinInventory(){
         skinList = new ArrayList<>();
         this.currentElementSkinId = -1;
         this.currentPageSkinId = -1;
-    }
-
-    public int getIdSkinInventory() {
-        return idSkinInventory;
-    }
-
-    public int getCurrentElementSkinId() {
-        return currentElementSkinId;
-    }
-
-    public void setCurrentElementSkinId(int currentElementSkinId) {
-        this.currentElementSkinId = currentElementSkinId;
-    }
-
-    public int getCurrentPageSkinId() {
-        return currentPageSkinId;
-    }
-
-    public void setCurrentPageSkinId(int currentPageSkinId) {
-        this.currentPageSkinId = currentPageSkinId;
     }
 
     /**
