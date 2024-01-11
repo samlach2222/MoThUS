@@ -43,6 +43,10 @@ body {
     }
 }
 
+div[role="alert"] {
+    display: none;
+}
+
 /**
  * Login panel buttons in vertical direction with space around.
  */

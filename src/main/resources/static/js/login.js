@@ -1,17 +1,21 @@
 window.onload = function () {
     if (document.getElementsByClassName('alert alert-registration-success').length > 0) {
-        notifySuccess('Registration successful. You can now log in.')
+        let text = document.getElementsByClassName('alert alert-registration-success')[0].innerText;
+        notifySuccess(text)
         loadContent('/loginContent');
     } else if (document.getElementsByClassName('alert alert-registration-error').length > 0){
-        notifyError('Registration failed. Username or email already exists.')
+        let text = document.getElementsByClassName('alert alert-registration-error')[0].innerText;
+        notifyError(text)
         loadContent('/registerContent');
     } else if (document.getElementsByClassName('alert alert-login-error').length > 0){
-        notifyError('Login failed. Username or password is incorrect.')
+        let text = document.getElementsByClassName('alert alert-login-error')[0].innerText;
+        notifyError(text)
         loadContent('/loginContent');
     } else if (document.getElementsByClassName('alert alert-registration-pending').length > 0){
         openPopup();
     } else if (document.getElementsByClassName('alert alert-registration-wrong-code').length > 0){
-        notifyError('Invalid code. Please try again.');
+        let text = document.getElementsByClassName('alert alert-registration-wrong-code')[0].innerText;
+        notifyError(text);
         openPopup();
     }
 }

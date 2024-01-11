@@ -48,58 +48,70 @@ public class ManageLogin {
     }
 
     @GetMapping("/loginContent")
-    public String loginContent(Model model) {
+    public String loginContent(Model model, Locale locale) {
         // To pass data to the template
         Object registrationError = model.asMap().get("registrationError");
         Object loginError = model.asMap().get("loginError");
 
         if (registrationError != null) {
             model.addAttribute("registrationError", registrationError);
+            String registrationErrorMessage = messageSource.getMessage("Login.Messages.RegistrationErrorMessage", null, locale);
+            model.addAttribute("registrationErrorMessage", registrationErrorMessage);
         }
         if(loginError != null) {
             model.addAttribute("loginError", loginError);
+            String loginErrorMessage = messageSource.getMessage("Login.Messages.LoginErrorMessage", null, locale);
+            model.addAttribute("loginErrorMessage", loginErrorMessage);
         }
         model.addAttribute("registrationDto", new RegistrationDto());
         return "Content/loginContent";
     }
 
     @GetMapping("/registerContent")
-    public String registerContent(Model model) {
+    public String registerContent(Model model, Locale locale) {
         // To pass data to the template
         Object registrationSuccess = model.asMap().get("registrationSuccess");
 
         if (registrationSuccess != null) {
             // Pass the success message to the view
             model.addAttribute("registrationSuccess", registrationSuccess);
+            String registrationSuccessMessage = messageSource.getMessage("Login.Messages.RegistrationSuccessMessage", null, locale);
+            model.addAttribute("registrationSuccessMessage", registrationSuccessMessage);
         }
         model.addAttribute("registrationDto", new RegistrationDto());
         return "Content/registerContent";
     }
 
     @PostMapping("/processRegister")
-    public String processRegister(@ModelAttribute("registrationDto") RegistrationDto registrationDto , RedirectAttributes redirectAttributes) {
+    public String processRegister(@ModelAttribute("registrationDto") RegistrationDto registrationDto , RedirectAttributes redirectAttributes, Locale locale) {
         // TODO : createNewUser is very slow (a few seconds), make it faster
         boolean isGood = userManagement.createNewUser(registrationDto); // TODO : Actually the user is created even if he doesn't validate his email (maybe add a pending column in the user table)
         if(isGood) {
             int validationCode = emailService.getValidationCode(registrationDto.getUsername());
 
             emailService.sendEmail(registrationDto.getEmail(), "MoThUS Registration Validation", "Hello, thank you for register to MoThUS by Siesth. Here is your validation code : " + validationCode + ". Please enter this code in the validation page.");
-            redirectAttributes.addFlashAttribute("pendingRegistration", "Please validate email to complete registration.");
+            String pendingRegistrationMessage = messageSource.getMessage("Login.Messages.PendingRegistrationMessage", null, locale);
+            redirectAttributes.addFlashAttribute("pendingRegistration", pendingRegistrationMessage);
+            redirectAttributes.addFlashAttribute("pendingRegistrationMessage", pendingRegistrationMessage);
         }
         else {
-            redirectAttributes.addFlashAttribute("registrationError", "Registration failed. Username or email already exists.");
+            String registrationErrorMessage = messageSource.getMessage("Login.Messages.RegistrationErrorMessage", null, locale);
+            redirectAttributes.addFlashAttribute("registrationError", registrationErrorMessage);
+            redirectAttributes.addFlashAttribute("registrationErrorMessage", registrationErrorMessage);
         }
         return "redirect:/login";
     }
 
     @PostMapping("/processLogin")
-    public String processLogin(@ModelAttribute("registrationDto") RegistrationDto registrationDto , RedirectAttributes redirectAttributes) {
+    public String processLogin(@ModelAttribute("registrationDto") RegistrationDto registrationDto , RedirectAttributes redirectAttributes, Locale locale) {
         boolean isGood = userManagement.checkLogin(registrationDto);
         if(isGood) {
             return "redirect:/playZone";
         }
         else {
-            redirectAttributes.addFlashAttribute("loginError", "Login failed. Username or password is incorrect.");
+            String loginErrorMessage = messageSource.getMessage("Login.Messages.LoginErrorMessage", null, locale);
+            redirectAttributes.addFlashAttribute("loginError", loginErrorMessage);
+            redirectAttributes.addFlashAttribute("loginErrorMessage", loginErrorMessage);
             return "redirect:/login";
         }
     }
@@ -112,13 +124,17 @@ public class ManageLogin {
      * @return "redirect:/login"
      */
     @PostMapping("/validateMailRegister")
-    public String validateMailRegister(@ModelAttribute("ValidateEmailDto") ValidateEmailDto validateEmailDto , RedirectAttributes redirectAttributes) {
+    public String validateMailRegister(@ModelAttribute("ValidateEmailDto") ValidateEmailDto validateEmailDto , RedirectAttributes redirectAttributes, Locale locale) {
         boolean isGood = emailService.checkValidationCode(validateEmailDto.getUsername(), validateEmailDto.getCode());
         if(isGood) {
-            redirectAttributes.addFlashAttribute("registrationSuccess", "Registration successful. You can now log in.");
+            String registrationSuccessMessage = messageSource.getMessage("Login.Messages.RegistrationSuccessMessage", null, locale);
+            redirectAttributes.addFlashAttribute("registrationSuccess", registrationSuccessMessage);
+            redirectAttributes.addFlashAttribute("registrationSuccessMessage", registrationSuccessMessage);
         }
         else {
-            redirectAttributes.addFlashAttribute("wrongCodeRegistration", "Please validate email to complete registration.");
+            String wrongCodeRegistrationMessage = messageSource.getMessage("Login.Messages.WrongCodeRegistrationMessage", null, locale);
+            redirectAttributes.addFlashAttribute("wrongCodeRegistration", wrongCodeRegistrationMessage);
+            redirectAttributes.addFlashAttribute("wrongCodeRegistrationMessage", wrongCodeRegistrationMessage);
         }
         return "redirect:/login";
     }
@@ -145,7 +161,6 @@ public class ManageLogin {
         User user = userRepository.findUserByUsername(username);
         emailService.sendEmail(user.getMail(), "MoThUS Registration Validation", "Hello, thank you for register to MoThUS by Siesth. Here is your new validation code : " + emailService.getValidationCode(username) + ". Please enter this code in the validation page.");
     }
-
 
 
     @GetMapping("/confirmEmailPopup")
