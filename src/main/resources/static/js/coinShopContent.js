@@ -32,13 +32,6 @@ function openPopup(contentType) {
     loadPopupContent(contentType);
 
     popup.style.display = 'block';
-
-    // Close the popup and remove the overlay when clicking outside (grayed-out zone)
-    window.onclick = function(event) {
-        if (event.target === popup) {
-            closePopup();
-        }
-    };
 }
 
 function closePopup() {
