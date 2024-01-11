@@ -4,6 +4,7 @@ import com.siesth.mothus.model.Skin;
 import com.siesth.mothus.model.SkinRarity;
 import com.siesth.mothus.model.SkinType;
 import com.siesth.mothus.repository.SkinRepository;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ public class SkinManagement implements ISkinManagement {
     SkinRepository skinRepository;
 
     @Override
+    @PostConstruct
     public void initSkins() {
         List<Skin> skins = skinRepository.findAll();
         if (skins.isEmpty()) {
