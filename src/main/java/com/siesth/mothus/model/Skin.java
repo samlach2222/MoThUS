@@ -33,17 +33,20 @@ public class Skin {
 
     String cssFile;
 
+    String previewImage;
+
     /**
      * Constructor of the skin
      * @param rarity rarity of the skin
      * @param type type of the skin
      * @param cssFile CSS file of the skin
      */
-    public Skin(SkinRarity rarity, SkinType type, String cssFile){
+    public Skin(SkinRarity rarity, SkinType type, String cssFile, String previewImage){
         super();
         this.setRarity(rarity);
         this.setType(type);
         this.setCssFile(cssFile);
+        this.setPreviewImage(previewImage);
     }
 
     public Skin() {
@@ -93,6 +96,12 @@ public class Skin {
     public void setCssFile(String cssFile) {
         this.cssFile = cssFile;
     }
-}
 
-// TODO : Add preview image of the skin
+    public String getPreviewImage() {
+        return previewImage;
+    }
+
+    public void setPreviewImage(String previewImage) {
+        this.previewImage = previewImage;
+    }
+}
