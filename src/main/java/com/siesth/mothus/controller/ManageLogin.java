@@ -102,6 +102,11 @@ public class ManageLogin {
             return "redirect:/playZone";
         }
 
+        if (!registrationDto.getPassword().equals(registrationDto.getPasswordConfirm())) {
+            redirectAttributes.addFlashAttribute("registrationPasswordError", "Registration failed. Passwords don't match.");
+            return "redirect:/login";
+        }
+
         // TODO : createNewUser is very slow (a few seconds), make it faster
         boolean isGood = userManagement.createNewUser(registrationDto); // TODO : Actually the user is created even if he doesn't validate his email (maybe add a pending column in the user table)
         if(isGood) {
