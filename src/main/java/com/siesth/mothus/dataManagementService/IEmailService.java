@@ -8,7 +8,11 @@ public interface IEmailService {
 
     boolean checkValidationCode(String username, String code);
 
-    int getValidationCode(String username);
+    String getValidationCode(String username);
 
     void createNewValidationCode(String username);
+
+    int getDurationMinutes(String username);
+
+    void removeValidationCode(String username);
 }

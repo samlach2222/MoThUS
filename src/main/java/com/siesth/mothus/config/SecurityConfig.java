@@ -36,8 +36,9 @@ public class SecurityConfig {
                                 // Post requests
                                 .requestMatchers(
                                         HttpMethod.POST,
-                                        "/processRegister", "/validateMailRegister", "/send-email", "/sendWord"
+                                        "/processRegister", "/validateMailRegister", "/timeBeforeValidationCode", "/createNewValidationCode", "/sendWord"
                                 ).permitAll()
+                                // TODO : Create intermediate role ROLE_PENDING
                                 // Block every other page with authentication
                                 .anyRequest()
                                 .authenticated()

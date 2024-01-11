@@ -23,6 +23,7 @@ import java.util.Locale;
 
 @Controller
 public class ManageLogin {
+    // TODO : When registering connect to spring with the role ROLE_PENDING
     private final MessageSource messageSource;
     @Autowired
     private IUserManagement userManagement;
@@ -104,27 +105,17 @@ public class ManageLogin {
         // TODO : createNewUser is very slow (a few seconds), make it faster
         boolean isGood = userManagement.createNewUser(registrationDto); // TODO : Actually the user is created even if he doesn't validate his email (maybe add a pending column in the user table)
         if(isGood) {
-            int validationCode = emailService.getValidationCode(registrationDto.getUsername());
+            String validationCode = emailService.getValidationCode(registrationDto.getUsername());
+            int a = emailService.getValidationCodeTime(registrationDto.getUsername());
+            int minutesDuration = emailService.getDurationMinutes(registrationDto.getUsername());
 
-            emailService.sendEmail(registrationDto.getEmail(), "MoThUS Registration Validation", "Hello, thank you for register to MoThUS by Siesth. Here is your validation code : " + validationCode + ". Please enter this code in the validation page.");
+            emailService.sendEmail(registrationDto.getEmail(), "MoThUS Registration Validation", "Hello, thank you for registering to MoThUS by Siesth. Here is your validation code : " + validationCode + ", it will be valid for " + minutesDuration + " minutes. Please enter this code in the validation page.");
             redirectAttributes.addFlashAttribute("pendingRegistration", "Please validate email to complete registration.");
         }
         else {
             redirectAttributes.addFlashAttribute("registrationError", "Registration failed. Username or email already exists.");
         }
         return "redirect:/login";
-    }
-
-    @PostMapping("/processLogin")
-    public String processLogin(@ModelAttribute("registrationDto") RegistrationDto registrationDto , RedirectAttributes redirectAttributes) {
-        boolean isGood = userManagement.checkLogin(registrationDto);
-        if(isGood) {
-            return "redirect:/playZone";
-        }
-        else {
-            redirectAttributes.addFlashAttribute("loginError", "Login failed. Username or password is incorrect.");
-            return "redirect:/login";
-        }
     }
 
     /**
@@ -143,6 +134,9 @@ public class ManageLogin {
 
         boolean isGood = emailService.checkValidationCode(validateEmailDto.getUsername(), validateEmailDto.getCode());
         if(isGood) {
+            // If the validation code is correct, we remove it from the database
+            // Therefore a user that has validated his email will have a null validation code
+            emailService.removeValidationCode(validateEmailDto.getUsername());
             redirectAttributes.addFlashAttribute("registrationSuccess", "Registration successful. You can now log in.");
         }
         else {
@@ -159,6 +153,11 @@ public class ManageLogin {
      */
     @PostMapping("/timeBeforeValidationCode")
     public int timeBeforeValidationCode(@RequestBody String username) {
+        // Return -1 if the user is already logged in
+        if (isAuthenticated()) {
+            return -1;
+        }
+
         return emailService.getValidationCodeTime(username);
     }
 
@@ -169,6 +168,11 @@ public class ManageLogin {
      */
     @PostMapping("/createNewValidationCode")
     public void createNewValidationCode(@RequestBody String username) {
+        // Return nothing if the user is already logged in
+        if (isAuthenticated()) {
+            return;
+        }
+
         emailService.createNewValidationCode(username);
         User user = userRepository.findUserByUsername(username);
         emailService.sendEmail(user.getMail(), "MoThUS Registration Validation", "Hello, thank you for register to MoThUS by Siesth. Here is your new validation code : " + emailService.getValidationCode(username) + ". Please enter this code in the validation page.");
