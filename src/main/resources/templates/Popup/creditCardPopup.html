@@ -1,34 +1,34 @@
 <link href="/css/creditCardPopup.css" rel="stylesheet">
 <div id="creditCardZone">
     <div id="cczTitle">
-        <p>Pay Invoice</p>
+        <p th:text="${payInvoiceLabel}">Pay Invoice</p>
     </div>
 
-    <label for="cczPaymentValue">Payment amount</label>
-    <span id="cczPaymentValue" >1€99</span>
+    <label for="cczPaymentValue" th:text="${paymentAmountLabel}">Payment amount</label>
+    <span id="cczPaymentValue">1€99</span>
 
-    <label for="cczNameOnCardInput">Name on card</label>
-    <input type="text" id="cczNameOnCardInput" name="cczNameOnCardInput" placeholder="Name" required>
+    <label for="cczNameOnCardInput" th:text="${nameOnCardLabel}"></label>
+    <input type="text" id="cczNameOnCardInput" name="cczNameOnCardInput" th:placeholder="${namePlaceholder}" required>
 
-    <label for="cczCardNumberInput">Card number</label>
+    <label for="cczCardNumberInput" th:text="${cardNumberLabel}">Card number</label>
     <input id="cczCardNumberInput" name="cczCardNumberInput" placeholder="XXXX XXXX XXXX XXXX" required>
 
     <div id="cczRowDiv">
         <div>
-            <label for="cczExpDateInput">Expiry date</label><br>
+            <label for="cczExpDateInput" th:text="${expirationDateLabel}">Expiry date</label><br>
             <input id="cczExpDateInput" name="cczExpDateInput" placeholder="MM/YY" required>
         </div>
         <div>
-            <label for="cczSecurityCodeInput">Security code</label><br>
+            <label for="cczSecurityCodeInput" th:text="${securityCodeLabel}">Security code</label><br>
             <input type="text" id="cczSecurityCodeInput" name="cczSecurityCodeInput" placeholder="XXX" required maxlength="3" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
         </div>
     </div>
 
-    <label for="cczZipCode">ZIP/Postal code</label>
+    <label for="cczZipCode" th:text="${zipCodeLabel}">ZIP/Postal code</label>
     <input type="text" id="cczZipCode" name="cczZipCode" placeholder="XXXXX" required maxlength="5" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
 
     <div id="cczRowButtons">
-        <input type="button" id="cczPayButton" name="cczPayButton" value="Pay">
-        <input type="button" id="cczCancelButton" name="cczCancelButton" value="Cancel">
+        <input type="button" id="cczPayButton" name="cczPayButton" th:value="${payButton}">
+        <input type="button" id="cczCancelButton" name="cczCancelButton" th:value="${cancelButton}">
     </div>
 </div>

@@ -32,20 +32,41 @@ public class ManageShopZone {
 
     @GetMapping("/coinShopContent")
     public String loadCoinShopContent(Model model) {
-        // To pass data to the template
-        model.addAttribute("someData", "Some data for Coin Shop");
-        return "Content/coinShopContent"; // Thymeleaf template name
+        return "Content/coinShopContent";
     }
 
     @GetMapping("/elementCaseContent")
     public String loadElementCaseContent(Model model) {
-        // o pass data to the template
-        model.addAttribute("someData", "Some data for Coin Shop");
-        return "Content/elementCaseContent"; // Thymeleaf template name
+        return "Content/elementCaseContent";
     }
 
     @GetMapping("/creditCardPopup")
     public String creditCardPopup(Model model, Locale locale) {
+
+        // locale BEGIN
+        String paymentAmountLabel = messageSource.getMessage("ShopZone.CreditCardPopup.PaymentAmountLabel", null, locale);
+        String payInvoiceLabel = messageSource.getMessage("ShopZone.CreditCardPopup.PayInvoiceLabel", null, locale);
+        String nameOnCardLabel = messageSource.getMessage("ShopZone.CreditCardPopup.NameOnCardLabel", null, locale);
+        String namePlaceholder = messageSource.getMessage("ShopZone.CreditCardPopup.NamePlaceholder", null, locale);
+        String cardNumberLabel = messageSource.getMessage("ShopZone.CreditCardPopup.CardNumberLabel", null, locale);
+        String expirationDateLabel = messageSource.getMessage("ShopZone.CreditCardPopup.ExpirationDateLabel", null, locale);
+        String securityCodeLabel = messageSource.getMessage("ShopZone.CreditCardPopup.SecurityCodeLabel", null, locale);
+        String zipCodeLabel = messageSource.getMessage("ShopZone.CreditCardPopup.ZipCodeLabel", null, locale);
+        String payButton = messageSource.getMessage("ShopZone.CreditCardPopup.PayButton", null, locale);
+        String cancelButton = messageSource.getMessage("ShopZone.CreditCardPopup.CancelButton", null, locale);
+
+        model.addAttribute("paymentAmountLabel", paymentAmountLabel);
+        model.addAttribute("payInvoiceLabel", payInvoiceLabel);
+        model.addAttribute("nameOnCardLabel", nameOnCardLabel);
+        model.addAttribute("namePlaceholder", namePlaceholder);
+        model.addAttribute("cardNumberLabel", cardNumberLabel);
+        model.addAttribute("expirationDateLabel", expirationDateLabel);
+        model.addAttribute("securityCodeLabel", securityCodeLabel);
+        model.addAttribute("zipCodeLabel", zipCodeLabel);
+        model.addAttribute("payButton", payButton);
+        model.addAttribute("cancelButton", cancelButton);
+        // locale END
+
         return "Popup/creditCardPopup";
     }
 }
