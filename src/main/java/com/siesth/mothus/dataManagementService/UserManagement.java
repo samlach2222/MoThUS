@@ -47,4 +47,37 @@ public class UserManagement implements IUserManagement {
         user.setValidationCode(validationCode);
         userRepository.save(user);
     }
+
+    @Override
+    public String getEmailByUsername(String username) {
+        User user = userRepository.findUserByUsername(username);
+        return user.getMail();
+    }
+
+    @Override
+    public String getLanguageByUsername(String username) {
+        User user = userRepository.findUserByUsername(username);
+        return user.getCurrentLanguage().toString();
+    }
+
+    @Override
+    public void updateLanguageByUsername(String username, String language) {
+        User user = userRepository.findUserByUsername(username);
+        user.setCurrentLanguage(UserLanguage.valueOf(language));
+        userRepository.save(user);
+    }
+
+    @Override
+    public void updateUsernameByUsername(String oldUsername, String newUsername) {
+        User user = userRepository.findUserByUsername(oldUsername);
+        user.setUsername(newUsername);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void updatePasswordByUsername(String username, String password) {
+        User user = userRepository.findUserByUsername(username);
+        user.setPassword(password);
+        userRepository.save(user);
+    }
 }

@@ -20,4 +20,14 @@ public interface IUserManagement {
     public boolean checkLogin(RegistrationDto registrationDto);
 
     void getUserByUsernameAndUpdateValidationCode(String username, ValidationCode validationCode);
+
+    String getEmailByUsername(String username);
+
+    String getLanguageByUsername(String username);
+
+    void updateLanguageByUsername(String username, String language);
+
+    void updateUsernameByUsername(String oldUsername, String newUsername);
+
+    void updatePasswordByUsername(String username, String password);
 }
