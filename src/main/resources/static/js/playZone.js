@@ -1,3 +1,7 @@
+/**
+ * Function called when the user visits the play zone page.
+ * It fetches the elements from Spring and displays them in the periodic table.
+ */
 window.onload = function () {
     currentLine = 0;
     firstLetter = "";
@@ -354,6 +358,7 @@ function colorCurrentLine(coloration) {
 
 /**
  * Catch keyboard events to send the current word to Spring or to delete a letter
+ * @param event the keyboard event
  */
 document.addEventListener('keydown', function(event) {
     if (event.code === 'Enter') {
@@ -442,6 +447,9 @@ function receiveDataFromSpring() {
         });
 }
 
+/**
+ * Function to clear the underlines of the game table
+ */
 function clearUnderLines() {
     const gameTable = document.getElementById("mothusHtmlTable");
     const gameTableBody = gameTable.getElementsByTagName("tbody")[0];
@@ -466,6 +474,9 @@ function clearUnderLines() {
 
 }
 
+/**
+ * Send the end game time to Spring
+ */
 function sendEndGameTime() {
     let currentTime = new Date();
     // TODO : send to Spring to save the end time (if there is no endTime in Spring)
@@ -574,6 +585,10 @@ function sendCurrentWord(){
 // OPEN POPUPS //
 /////////////////
 
+/**
+ * Function to open a popup depends on the button clicked
+ * @param contentType the type of the popup to open
+ */
 function openPopup(contentType) {
     const popup = document.getElementById('popup');
     const body = document.body;
@@ -594,6 +609,9 @@ function openPopup(contentType) {
     };
 }
 
+/**
+ * Function to close the popup
+ */
 function closePopup() {
     const popup = document.getElementById('popup');
     const body = document.body;
@@ -607,6 +625,10 @@ function closePopup() {
     popup.style.display = 'none';
 }
 
+/**
+ * Load the content of the popup
+ * @param contentType the type of the popup to open
+ */
 function loadPopupContent(contentType) {
     const popupContent = document.querySelector('.popup-content');
 

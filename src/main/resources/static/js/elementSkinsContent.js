@@ -1,3 +1,6 @@
+/**
+ * Function to get the element skins from the server and display them
+ */
 function initElementSkinsContent() {
     let elementSkins = { // TODO : Get element skins from server
         "common": [

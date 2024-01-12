@@ -1,3 +1,6 @@
+/**
+ * Function to display a word example with colors in the help popup
+ */
 function displayExemple() {
     let elts = [];
     let elt = {
@@ -102,4 +105,3 @@ function displayExemple() {
         }
     }
 }
-
