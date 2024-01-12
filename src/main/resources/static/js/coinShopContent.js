@@ -1,7 +1,13 @@
+/**
+ * Function called when the user clicks on the "Coin Shop" button in the vertical menu.
+ */
 function initCoinShopContent() {
 
 }
 
+/**
+ * Function called when the user^open the pay invoice popup button in the vertical menu to set up creditCard inputs.
+ */
 function setupInputs(){
     let cleaveCNI = new Cleave('#cczCardNumberInput', {
         creditCard: true,
@@ -21,6 +27,10 @@ function setupInputs(){
 // OPEN POPUPS //
 /////////////////
 
+/**
+ * Function to open a popup
+ * @param contentType the type of content to load in the popup
+ */
 function openPopup(contentType) {
     const popup = document.getElementById('popup');
     const body = document.body;
@@ -34,6 +44,9 @@ function openPopup(contentType) {
     popup.style.display = 'block';
 }
 
+/**
+ * Function to close a popup
+ */
 function closePopup() {
     const popup = document.getElementById('popup');
     const body = document.body;
@@ -47,6 +60,10 @@ function closePopup() {
     popup.style.display = 'none';
 }
 
+/**
+ * Function to load content in the popup
+ * @param contentType the type of content to load in the popup
+ */
 function loadPopupContent(contentType) {
     const popupContent = document.querySelector('.popup-content');
 
@@ -69,11 +86,17 @@ function loadPopupContent(contentType) {
     }
 }
 
+/**
+ * Function called when the user click on the validate payment button in the popup.
+ */
 function validatePayment(){
     // TODO: Validate payment
     closePopup();
 }
 
+/**
+ * Function called when the user click on the cancel payment button in the popup.
+ */
 function cancelPayment(){
     closePopup();
 }

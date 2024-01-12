@@ -1,3 +1,6 @@
+/**
+ * Function to get the page skins from the server and display them
+ */
 function initPageSkinsContent() {
     let elementSkins = { // TODO : Get page skins from server
         "common": [

@@ -1,6 +1,15 @@
+/**
+ * Function called when the user clicks on the "Account" button in the vertical menu.
+ */
 window.onload = function () {
     loadContent('/accountContent');
+    window.addEventListener('resize', updateMargin);
 }
+
+/**
+ * Function called when the user clicks on a button in the vertical menu to display the content.
+ * @param url the url of the content to display
+ */
 function loadContent(url) {
     fetch(url)
         .then(response => response.text())
@@ -37,14 +46,21 @@ function loadContent(url) {
         .catch(error => console.error('Error:', error));
 }
 
+/**
+ * Function to update the margin of the content when the window is resized.
+ */
 function updateMargin() {
     const verticalMenuWidth = document.getElementById('verticalMenu').offsetWidth;
     document.getElementById('content').style.marginLeft = verticalMenuWidth + 'px';
 }
 
-window.addEventListener('resize', updateMargin);
-
-function displaySkinsContent(elt, type) { // type = "page" or "element"
+/**
+ * Function to display a skin
+ * @param elt the default element
+ * @param type the type of the skin (page or element)
+ * @returns {HTMLDivElement} the skin div
+ */
+function displaySkinsContent(elt, type) {
     // create <div> in elementSkinList (Element skin)
     let elementSkin = document.createElement("div");
     elementSkin.classList.add("elementSkin");
@@ -103,6 +119,11 @@ function displaySkinsContent(elt, type) { // type = "page" or "element"
     return elementSkin;
 }
 
+/**
+ * Function to display the all the skins of the user
+ * @param data the data to display
+ * @param type the type of the skins (page or element), depends on the page
+ */
 function displaySkins(data, type) {
     let elts = [];
     Object.values(data).forEach(elementSkin => {

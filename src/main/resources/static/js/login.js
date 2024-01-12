@@ -1,3 +1,7 @@
+/**
+ * Function called when the user visit the login page.
+ * It redirects to loginContent or registerContent based and display a notification if needed.
+ */
 window.onload = function () {
     if (document.getElementsByClassName('alert alert-registration-success').length > 0) {
         let text = document.getElementsByClassName('alert alert-registration-success')[0].innerText;
@@ -20,6 +24,10 @@ window.onload = function () {
     }
 }
 
+/**
+ * Function used to load the content of an url.
+ * @param url the url of the content to load.
+ */
 function loadContent(url) {
     fetch(url)
         .then(response => response.text())
@@ -33,6 +41,9 @@ function loadContent(url) {
 // OPEN POPUPS //
 /////////////////
 
+/**
+ * Function to open a popup.
+ */
 function openPopup() {
     const popup = document.getElementById('popup');
     const body = document.body;
@@ -46,6 +57,9 @@ function openPopup() {
     startTimer();
 }
 
+/**
+ * Function to load the content of the popup.
+ */
 function loadPopupContent() {
     const popupContent = document.querySelector('.popup-content');
     fetch('/confirmEmailPopup')
@@ -62,7 +76,9 @@ function loadPopupContent() {
 // REGISTER TIMER //
 ////////////////////
 
-// Update the timer and progress bar every second
+/**
+ * Function to start the timer of the register popup.
+ */
 function startTimer() {
     fetch('/timeBeforeValidationCode', {
         method: 'POST',
@@ -99,6 +115,9 @@ function startTimer() {
         });
 }
 
+/**
+ * Function to resend the validation email.
+ */
 function resendEmail() {
     let xhr = new XMLHttpRequest();
     xhr.open('POST', '/createNewValidationCode', false);  // The third parameter 'false' makes the request synchronous
