@@ -14,7 +14,9 @@ window.onload = function () {
 
 let currentLine;
 let firstLetter;
+let lines = [];
 let isWin = false;
+let isGameFinished = false;
 
 //////////////////////////
 //    GAME FUNCTIONS    //
@@ -509,10 +511,12 @@ function sendCurrentWord(){
         if (xhr.status === 200) {
             console.log('Response:', xhr.responseText);
             let coloration = xhr.responseText;
+            lines.push(coloration);
             colorCurrentLine(coloration);
 
             // WINNING CONDITION
             if(!coloration.includes("-") && !coloration.includes("*") && !coloration.includes("/")) {
+                isGameFinished = true;
                 isWin = true;
                 sendEndGameTime();
                 notifySuccess("Gagné"); // TODO : translate
@@ -520,14 +524,17 @@ function sendCurrentWord(){
                 deactivateKeyboard();
                 clearUnderLines();
                 // TODO : Mark the user game as won in the database
+                exportResult();
                 openPopup('statsButton');
             }
             // LOOSING CONDITION
             else if(currentLine === 7 && !isWin) {
+                isGameFinished = true;
                 sendEndGameTime();
                 notifyError("Perdu"); // TODO : translate
                 deactivateTable();
                 deactivateKeyboard();
+                exportResult();
                 // TODO : Mark the user game as lost in the database
                 openPopup('statsButton');
             }
@@ -653,10 +660,72 @@ function loadPopupContent(contentType) {
                 .then(response => response.text())
                 .then(html => {
                     popupContent.innerHTML = html;
+                    exportResult();
                 })
                 .catch(error => {
                     console.error('Error loading content:', error);
                 });
             break;
     }
+}
+
+function exportResult(){
+    if(isGameFinished) {
+        let gameNotFinishedText = document.getElementById("gameNotFinishedText");
+        gameNotFinishedText.style.display = "none";
+        let shareStatsButton = document.getElementById("shareStats");
+        shareStatsButton.style.display = "unset";
+
+        // EXPORT TABLE
+        let table = document.createElement("table");
+        let tableBody = document.createElement("tbody");
+        for (let i = 0; i < lines.length; i++) {
+            let row = document.createElement("tr");
+            let cell = document.createElement("td");
+
+            let coloration = lines[i];
+            coloration = coloration.replaceAll("-", "🟦");
+            coloration = coloration.replaceAll("+", "🟥");
+            coloration = coloration.replaceAll("*", "🟨");
+            coloration = coloration.replaceAll("/", "🟪");
+            cell.innerHTML = coloration;
+            row.appendChild(cell);
+            tableBody.appendChild(row);
+        }
+        table.appendChild(tableBody);
+        table.id = "gameResultsTable";
+
+        // MOTHUS TEXT
+        let mothustext = document.createElement("p");
+        let gameNumber = 1; // TODO : get the number of the game
+        let row = lines.length;
+        let time = "00:35";
+        mothustext.innerHTML = "#MoThUS #" + gameNumber + " " + row + "/8 " + time;
+        mothustext.id = "mothusText";
+
+        let gameResults = document.getElementById("gameResults");
+        gameResults.appendChild(mothustext);
+        gameResults.appendChild(table);
+    }
+}
+
+function shareResult(){
+    let mothustext = document.getElementById("mothusText");
+    let gameResultsTable = document.getElementById("gameResultsTable");
+    const gameResultsTableBody = gameResultsTable.getElementsByTagName("tbody")[0];
+    let rows = gameResultsTableBody.rows;
+    let string = mothustext.innerHTML + "\n\n";
+    for(let i = 0; i < rows.length; i++) {
+        let row = rows[i];
+        let cells = row.cells;
+        for(let j = 0; j < cells.length; j++) {
+            let cell = cells[j];
+            string += cell.innerHTML;
+        }
+        string += "\n";
+    }
+    // put the string in the clipboard
+    navigator.clipboard.writeText(string).then(
+        r => notifySuccess("Résultats copiés dans le presse-papier"), // TODO : translate
+    );
 }
