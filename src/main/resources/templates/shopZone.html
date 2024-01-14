@@ -7,10 +7,12 @@
         <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
         <link href="/css/shopZone.css" rel="stylesheet">
         <link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon"/>
+        <script src="/js/shopZone.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/cleave.js/1.6.0/cleave.min.js" integrity="sha512-KaIyHb30iXTXfGyI9cyKFUIRSSuekJt6/vqXtyQKhQP6ozZEGY8nOtRS6fExqE4+RbYHus2yGyYg1BrqxzV6YA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     </head>
     <body>
         <div id="verticalMenu">
-            <a id="goBackButton" href="/playZone"></a>
+            <a id="goBackButton" href="/playZone">⮪</a>
             <button class="verticalMenuButton" onclick="loadContent('/elementCaseContent')">
                 <img class="verticalMenuButtonIcon"
                      src="https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/green-checkmark-icon.png">
@@ -25,17 +27,5 @@
         <div id="content" th:fragment="contentFragment">
             <!-- Define default content -->
         </div>
-
-        <script>
-            function loadContent(url) {
-                fetch(url)
-                    .then(response => response.text())
-                    .then(data => {
-                        document.getElementById('content').innerHTML = data;
-                    })
-                    .catch(error => console.error('Error:', error));
-            }
-        </script>
-
     </body>
 </html>

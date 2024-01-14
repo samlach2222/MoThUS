@@ -1,13 +1,13 @@
-<a href="/login" id="returnButton"></a>
+<a href="/login" id="returnButton">⮪</a>
 <div id="loginPanelLogo">
     <img src="/assets/logos/MoThUS_logo.svg" alt="logo" id="mothusLogo">
 </div>
 <div id="loginPanelButtons">
     <form id="loginForm" method="post" th:action="@{/login}" th:object="${registrationDto}">
-        <label for="username">Username</label><br>
+        <label for="username" th:text="${usernameLabel}"></label><br>
         <input id="username" name="username" required th:field="*{username}" type="text"><br>
-        <label for="password">Password</label><br>
+        <label for="password" th:text="${passwordLabel}"></label><br>
         <input id="password" name="password" required th:field="*{password}" type="password"><br>
-        <input id="submitInput" type="submit" value="Login">
+        <input id="submitInput" type="submit" th:value="${loginLabel}">
     </form>
 </div>

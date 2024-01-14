@@ -1,0 +1,7 @@
+body {
+    /* background gradient */
+    background-image: url("/assets/skins/pageSkins/image/pinkChemistry.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

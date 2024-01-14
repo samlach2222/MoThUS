@@ -3,9 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Page Skins Content</title>
+    <link href="/css/pageSkinsContent.css" rel="stylesheet">
+    <script src="/js/pageSkinsContent.js"></script>
 </head>
 <body>
-<h2>Page Skins</h2>
-<p>This is the content of the Page Skins.</p>
+    <div id="equippedLabel" th:text="${equippedLabel}"></div>
+    <div id="commonLabel" th:text="${commonLabel}"></div>
+    <div id="uncommonLabel" th:text="${uncommonLabel}"></div>
+    <div id="rareLabel" th:text="${rareLabel}"></div>
+    <div id="mythicLabel" th:text="${mythicLabel}"></div>
+    <div id="skinList"></div>
 </body>
 </html>

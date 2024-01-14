@@ -29,17 +29,18 @@
             </div>
         </div>
 
-        <div th:if="${registrationSuccess}" class="alert alert-registration-success" role="alert">
+        <div th:if="${registrationSuccess}" class="alert alert-registration-success" role="alert" th:text="${registrationSuccessMessage}">
         </div>
-        <div th:if="${pendingRegistration}" class="alert alert-registration-pending" role="alert">
+        <div th:if="${pendingRegistration}" class="alert alert-registration-pending" role="alert" th:text="${pedingRegistrationMessage}">
         </div>
-        <div th:if="${registrationError}" class="alert alert-registration-error" role="alert">
+        <div th:if="${registrationError}" class="alert alert-registration-error" role="alert" th:text="${registrationErrorMessage}">
         </div>
+        <!-- TODO : Add th:text -->
         <div class="alert alert-registration-password-error" role="alert" th:if="${registrationPasswordError}">
         </div>
-        <div th:if="${loginError}" class="alert alert-login-error" role="alert">
+        <div th:if="${loginError}" class="alert alert-login-error" role="alert" th:text="${loginErrorMessage}">
         </div>
-        <div th:if="${wrongCodeRegistration}" class="alert alert-registration-wrong-code" role="alert">
+        <div th:if="${wrongCodeRegistration}" class="alert alert-registration-wrong-code" role="alert" th:text="${wrongCodeRegistrationMessage}">
         </div>
     </body>
 </html>

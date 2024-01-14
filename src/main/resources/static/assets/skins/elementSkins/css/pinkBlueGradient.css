@@ -1,0 +1,10 @@
+.elementInTable {
+    background: linear-gradient(to top right, #b9005a, #0088b9);
+    border: none;
+    color: white;
+}
+
+.elementInTable:hover {
+    background: linear-gradient(to top right, #d1006b, #00a0d1);
+    cursor: pointer;
+}

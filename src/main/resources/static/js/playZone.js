@@ -1,13 +1,22 @@
+/**
+ * Function called when the user visits the play zone page.
+ * It fetches the elements from Spring and displays them in the periodic table.
+ */
 window.onload = function () {
     currentLine = 0;
     firstLetter = "";
     receiveDataFromSpring();
     receiveWordFromSpring();
+
+    let currentTime = new Date();
+    // TODO : send to Spring to save the start time (if there is no startTime in Spring)
 }
 
 let currentLine;
 let firstLetter;
+let lines = [];
 let isWin = false;
+let isGameFinished = false;
 
 //////////////////////////
 //    GAME FUNCTIONS    //
@@ -68,18 +77,8 @@ function displayElementTable(data){
             const cell = document.createElement("td");
             elts.forEach(elt => {
                 if (elt.xPos === j && elt.yPos === i) {
-                    cell.style.border = "1px solid #494A4B";
-                    cell.style.color = "#FFFFFF";
                     cell.style.borderRadius = "5px";
                     cell.style.cursor = "pointer";
-                    // style td:hover
-                    cell.style.backgroundColor = "#494A4B";
-                    cell.onmouseover = function () {
-                        cell.style.backgroundColor = "#707070";
-                    }
-                    cell.onmouseout = function () {
-                        cell.style.backgroundColor = "#494A4B";
-                    }
                     cell.onclick = function () {
                         // get first td of the current line
                         const gameTable = document.getElementById("mothusHtmlTable");
@@ -104,6 +103,8 @@ function displayElementTable(data){
 
                     // add title attribute
                     cell.title = elt.name + " (" + elt.symbol + ") : " + elt.description;
+                    cell.id = "elt" + elt.atomicNumber;
+                    cell.className = "elementInTable";
                     cell.appendChild(displayElement(elt));
                 }
             })
@@ -121,20 +122,8 @@ function displayElementTable(data){
     cell1.rowSpan = 3;
     // add button
     const returnButton = document.createElement("button");
-
-    // backspace symbol innerHTML
+    returnButton.id = "returnButton";
     returnButton.innerHTML = "&#x232B;";
-    returnButton.style.width = "100%";
-    returnButton.style.height = "100%";
-    returnButton.style.backgroundColor = "#b90022";
-    returnButton.style.color = "white";
-    returnButton.style.fontSize = "1.5em";
-    returnButton.style.borderRadius = "8px";
-    returnButton.style.border = "none";
-    returnButton.style.cursor = "pointer";
-    returnButton.style.display = "flex";
-    returnButton.style.alignItems = "center";
-    returnButton.style.justifyContent = "center";
     returnButton.onclick = function () {
         // call event listener on backspace key
         const event = new KeyboardEvent('keydown', {
@@ -156,20 +145,8 @@ function displayElementTable(data){
     cell2.rowSpan = 3;
     // add button
     const validateButton = document.createElement("button");
-
-    // enter symbol innerHTML
+    validateButton.id = "validateButton";
     validateButton.innerHTML = "&#x23CE;";
-    validateButton.style.width = "100%";
-    validateButton.style.height = "100%";
-    validateButton.style.backgroundColor = "#005f9f";
-    validateButton.style.color = "white";
-    validateButton.style.fontSize = "1.5em";
-    validateButton.style.borderRadius = "8px";
-    validateButton.style.border = "none";
-    validateButton.style.cursor = "pointer";
-    validateButton.style.display = "flex";
-    validateButton.style.alignItems = "center";
-    validateButton.style.justifyContent = "center";
     validateButton.onclick = function () {
         // call event listener on enter key
         const event = new KeyboardEvent('keydown', {
@@ -184,30 +161,26 @@ function displayElementTable(data){
         document.dispatchEvent(event);
     }
     cell2.appendChild(validateButton);
+    row0.deleteCell(7);
+    row0.deleteCell(7);
+    row0.deleteCell(7);
+    row0.deleteCell(7);
 
-    // delete cells // TODO : Debug this, horrible
-    // row0.deleteCell(8);
-    // row0.deleteCell(8);
-    // row0.deleteCell(8);
-    // row0.deleteCell(8);
-    //
-    //
-    // row1.deleteCell(8);
-    // row1.deleteCell(8);
-    // row1.deleteCell(8);
-    // row1.deleteCell(8);
-    // row1.deleteCell(8);
-    // row1.deleteCell(8);
-    //
-    // row2.deleteCell(8);
-    // row2.deleteCell(8);
-    // row2.deleteCell(8);
-    // row2.deleteCell(8);
-    // row2.deleteCell(8);
-    // row2.deleteCell(8);
+    row1.deleteCell(7);
+    row1.deleteCell(7);
+    row1.deleteCell(7);
+    row1.deleteCell(7);
+    row1.deleteCell(7);
+    row1.deleteCell(6);
+
+    row2.deleteCell(7);
+    row2.deleteCell(7);
+    row2.deleteCell(7);
+    row2.deleteCell(7);
+    row2.deleteCell(7);
+    row2.deleteCell(6);
 
     periodicTable.appendChild(periodicTableBody);
-    activatePlayLine(currentLine);
 }
 
 /**
@@ -347,6 +320,11 @@ function deactivateKeyboard() {
             cells[j].draggable = false;
         }
     }
+
+    let returnButton = document.getElementById("returnButton");
+    returnButton.onclick = null;
+    let validateButton = document.getElementById("validateButton");
+    validateButton.onclick = null;
 }
 
 /**
@@ -382,6 +360,7 @@ function colorCurrentLine(coloration) {
 
 /**
  * Catch keyboard events to send the current word to Spring or to delete a letter
+ * @param event the keyboard event
  */
 document.addEventListener('keydown', function(event) {
     if (event.code === 'Enter') {
@@ -403,7 +382,7 @@ document.addEventListener('keydown', function(event) {
             sendCurrentWord(); // Send to spring and color the line
         }
         else {
-            alert("La ligne n'est pas complète");  // TODO : localize this
+            notifyError("La ligne n'est pas complète"); // TODO : translate
         }
     }
     else if (event.code === 'Backspace') {
@@ -441,6 +420,9 @@ function receiveWordFromSpring() {
 
             displayGameTable(length);
         })
+        .then(() => {
+            activatePlayLine(currentLine);
+        })
         .catch(error => {
             console.error('Error fetching word data:', error);
             throw error; // Rethrow the error if necessary
@@ -451,6 +433,9 @@ function receiveWordFromSpring() {
  * Fetch the elements from Spring
  */
 function receiveDataFromSpring() {
+
+    let yamlData = "";
+
     fetch('/getYamlData')
         .then(response => response.text())
         .then(yamlData => {
@@ -464,6 +449,9 @@ function receiveDataFromSpring() {
         });
 }
 
+/**
+ * Function to clear the underlines of the game table
+ */
 function clearUnderLines() {
     const gameTable = document.getElementById("mothusHtmlTable");
     const gameTableBody = gameTable.getElementsByTagName("tbody")[0];
@@ -486,6 +474,14 @@ function clearUnderLines() {
         }
     }
 
+}
+
+/**
+ * Send the end game time to Spring
+ */
+function sendEndGameTime() {
+    let currentTime = new Date();
+    // TODO : send to Spring to save the end time (if there is no endTime in Spring)
 }
 
 /**
@@ -518,26 +514,37 @@ function sendCurrentWord(){
         if (xhr.status === 200) {
             console.log('Response:', xhr.responseText);
             let coloration = xhr.responseText;
+            lines.push(coloration);
             colorCurrentLine(coloration);
 
             // WINNING CONDITION
             if(!coloration.includes("-") && !coloration.includes("*") && !coloration.includes("/")) {
+                isGameFinished = true;
                 isWin = true;
-                alert("Gagné");
+                sendEndGameTime();
+                notifySuccess("Gagné"); // TODO : translate
                 deactivateTable();
                 deactivateKeyboard();
                 clearUnderLines();
+                // TODO : Mark the user game as won in the database
+                exportResult();
+                openPopup('statsButton');
             }
             // LOOSING CONDITION
             else if(currentLine === 7 && !isWin) {
-                alert("Perdu");
+                isGameFinished = true;
+                sendEndGameTime();
+                notifyError("Perdu"); // TODO : translate
                 deactivateTable();
                 deactivateKeyboard();
+                exportResult();
+                // TODO : Mark the user game as lost in the database
+                openPopup('statsButton');
             }
             // PREPARE FOR THE NEXT LINE
             else {
-                activatePlayLine(currentLine);
                 currentLine++;
+                activatePlayLine(currentLine);
                 // first letter
                 const newRow = gameTableBody.rows[currentLine];
                 const newCells = newRow.cells;
@@ -588,6 +595,10 @@ function sendCurrentWord(){
 // OPEN POPUPS //
 /////////////////
 
+/**
+ * Function to open a popup depends on the button clicked
+ * @param contentType the type of the popup to open
+ */
 function openPopup(contentType) {
     const popup = document.getElementById('popup');
     const body = document.body;
@@ -608,6 +619,9 @@ function openPopup(contentType) {
     };
 }
 
+/**
+ * Function to close the popup
+ */
 function closePopup() {
     const popup = document.getElementById('popup');
     const body = document.body;
@@ -621,6 +635,10 @@ function closePopup() {
     popup.style.display = 'none';
 }
 
+/**
+ * Load the content of the popup
+ * @param contentType the type of the popup to open
+ */
 function loadPopupContent(contentType) {
     const popupContent = document.querySelector('.popup-content');
 
@@ -634,8 +652,6 @@ function loadPopupContent(contentType) {
                 .then(response => response.text())
                 .then(html => {
                     popupContent.innerHTML = html;
-                })
-                .then(() => {
                     displayExemple();
                 })
                 .catch(error => {
@@ -653,6 +669,7 @@ function loadPopupContent(contentType) {
                 .then(response => response.text())
                 .then(html => {
                     popupContent.innerHTML = html;
+                    exportResult();
                 })
                 .catch(error => {
                     console.error('Error loading content:', error);
@@ -661,5 +678,65 @@ function loadPopupContent(contentType) {
     }
 }
 
-// TODO : The drag drop is actually not working
+function exportResult(){
+    if(isGameFinished) {
+        let gameNotFinishedText = document.getElementById("gameNotFinishedText");
+        gameNotFinishedText.style.display = "none";
+        let shareStatsButton = document.getElementById("shareStats");
+        shareStatsButton.style.display = "unset";
+
+        // EXPORT TABLE
+        let table = document.createElement("table");
+        let tableBody = document.createElement("tbody");
+        for (let i = 0; i < lines.length; i++) {
+            let row = document.createElement("tr");
+            let cell = document.createElement("td");
+
+            let coloration = lines[i];
+            coloration = coloration.replaceAll("-", "🟦");
+            coloration = coloration.replaceAll("+", "🟥");
+            coloration = coloration.replaceAll("*", "🟨");
+            coloration = coloration.replaceAll("/", "🟪");
+            cell.innerHTML = coloration;
+            row.appendChild(cell);
+            tableBody.appendChild(row);
+        }
+        table.appendChild(tableBody);
+        table.id = "gameResultsTable";
+
+        // MOTHUS TEXT
+        let mothustext = document.createElement("p");
+        let gameNumber = 1; // TODO : get the number of the game
+        let row = lines.length;
+        let time = "00:35";
+        mothustext.innerHTML = "#MoThUS #" + gameNumber + " " + row + "/8 " + time;
+        mothustext.id = "mothusText";
+
+        let gameResults = document.getElementById("gameResults");
+        gameResults.appendChild(mothustext);
+        gameResults.appendChild(table);
+    }
+}
+
+function shareResult(){
+    let mothustext = document.getElementById("mothusText");
+    let gameResultsTable = document.getElementById("gameResultsTable");
+    const gameResultsTableBody = gameResultsTable.getElementsByTagName("tbody")[0];
+    let rows = gameResultsTableBody.rows;
+    let string = mothustext.innerHTML + "\n\n";
+    for(let i = 0; i < rows.length; i++) {
+        let row = rows[i];
+        let cells = row.cells;
+        for(let j = 0; j < cells.length; j++) {
+            let cell = cells[j];
+            string += cell.innerHTML;
+        }
+        string += "\n";
+    }
+    // put the string in the clipboard
+    navigator.clipboard.writeText(string).then(
+        r => notifySuccess("Résultats copiés dans le presse-papier"), // TODO : translate
+    );
+}
+
 // TODO : Update player stats while playing

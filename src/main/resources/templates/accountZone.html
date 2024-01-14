@@ -7,47 +7,34 @@
         <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
         <link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon"/>
         <link href="/css/accountZone.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+        <script src="/js/notify.js"></script>
+        <script src="/js/accountZone.js"></script>
     </head>
     <body>
         <div id="verticalMenu">
             <div>
-                <a id="goBackButton" href="/playZone"></a>
+                <a id="goBackButton" href="/playZone">⮪</a>
                 <button class="verticalMenuButton" onclick="loadContent('/accountContent')">
-                    <img class="verticalMenuButtonIcon"
-                         src="https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/green-checkmark-icon.png">
+                    <img class="verticalMenuButtonIcon" src="/assets/icons/AccountIcon.svg" alt="account icon">
                     <span class="verticalMenuButtonText" th:text="${menuAccount}">Account</span>
                 </button>
                 <button class="verticalMenuButton" onclick="loadContent('/elementSkinsContent')">
-                    <img class="verticalMenuButtonIcon"
-                         src="https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/green-checkmark-icon.png">
+                    <img class="verticalMenuButtonIcon" src="/assets/icons/ElementSkinsIcon.svg" alt="element skins icon">
                     <span class="verticalMenuButtonText" th:text="${menuElementSkins}">Element skins</span>
                 </button>
                 <button class="verticalMenuButton" onclick="loadContent('/pageSkinsContent')">
-                    <img class="verticalMenuButtonIcon"
-                         src="https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/green-checkmark-icon.png">
+                    <img class="verticalMenuButtonIcon" src="/assets/icons/PageSkinsIcon.svg" alt="page skins icon">
                     <span class="verticalMenuButtonText" th:text="${menuPageSkins}">Page skins</span>
                 </button>
             </div>
             <button class="verticalMenuButton" onclick="loadContent('/termsOfUseContent')">
-                <img class="verticalMenuButtonIcon"
-                     src="https://uxwing.com/wp-content/themes/uxwing/download/checkmark-cross/green-checkmark-icon.png">
+                <img class="verticalMenuButtonIcon" src="/assets/icons/TermsOfUseIcon.svg" alt="terms of use icon">
                 <span class="verticalMenuButtonText" th:text="${menuTermsOfUse}">Terms of use</span>
             </button>
         </div>
 
-        <div id="content" th:fragment="contentFragment">
-            <!-- Define default content -->
-        </div>
-
-        <script>
-            function loadContent(url) {
-                fetch(url)
-                    .then(response => response.text())
-                    .then(data => {
-                        document.getElementById('content').innerHTML = data;
-                    })
-                    .catch(error => console.error('Error:', error));
-            }
-        </script>
+        <div id="content" th:fragment="contentFragment"></div>
     </body>
 </html>

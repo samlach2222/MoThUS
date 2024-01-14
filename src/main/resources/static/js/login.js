@@ -1,24 +1,36 @@
+/**
+ * Function called when the user visit the login page.
+ * It redirects to loginContent or registerContent based and display a notification if needed.
+ */
 window.onload = function () {
     if (document.getElementsByClassName('alert alert-registration-success').length > 0) {
-        notifySuccess('Registration successful. You can now log in.')
+        let text = document.getElementsByClassName('alert alert-registration-success')[0].innerText;
+        notifySuccess(text)
         loadContent('/loginContent');
     } else if (document.getElementsByClassName('alert alert-registration-error').length > 0){
-        notifyError('Registration failed. Username or email already exists.')
+        let text = document.getElementsByClassName('alert alert-registration-error')[0].innerText;
+        notifyError(text)
         loadContent('/registerContent');
     } else if (document.getElementsByClassName('alert alert-registration-password-error').length > 0) {
         notifyError('Registration failed. Password and confirmed password do not match.')
         loadContent('/registerContent');
     } else if (document.getElementsByClassName('alert alert-login-error').length > 0){
-        notifyError('Login failed. Username or password is incorrect.')
+        let text = document.getElementsByClassName('alert alert-login-error')[0].innerText;
+        notifyError(text)
         loadContent('/loginContent');
     } else if (document.getElementsByClassName('alert alert-registration-pending').length > 0){
         openPopup();
     } else if (document.getElementsByClassName('alert alert-registration-wrong-code').length > 0){
-        notifyError('Invalid code. Please try again.');
+        let text = document.getElementsByClassName('alert alert-registration-wrong-code')[0].innerText;
+        notifyError(text);
         openPopup();
     }
 }
 
+/**
+ * Function used to load the content of an url.
+ * @param url the url of the content to load.
+ */
 function loadContent(url) {
     fetch(url)
         .then(response => response.text())
@@ -32,6 +44,9 @@ function loadContent(url) {
 // OPEN POPUPS //
 /////////////////
 
+/**
+ * Function to open a popup.
+ */
 function openPopup() {
     const popup = document.getElementById('popup');
     const body = document.body;
@@ -45,6 +60,9 @@ function openPopup() {
     startTimer();
 }
 
+/**
+ * Function to load the content of the popup.
+ */
 function loadPopupContent() {
     const popupContent = document.querySelector('.popup-content');
     fetch('/confirmEmailPopup')
@@ -61,7 +79,9 @@ function loadPopupContent() {
 // REGISTER TIMER //
 ////////////////////
 
-// Update the timer and progress bar every second
+/**
+ * Function to start the timer of the register popup.
+ */
 function startTimer() {
     const token = document.head.querySelector('meta[name="_csrf"]').content;
     const header = document.head.querySelector('meta[name="_csrf_header"]').content;
@@ -100,6 +120,9 @@ function startTimer() {
         });
 }
 
+/**
+ * Function to resend the validation email.
+ */
 function resendEmail() {
     let xhr = new XMLHttpRequest();
     xhr.open('POST', '/createNewValidationCode', false);  // The third parameter 'false' makes the request synchronous
