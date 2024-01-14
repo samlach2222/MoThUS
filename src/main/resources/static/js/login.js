@@ -63,12 +63,14 @@ function loadPopupContent() {
 
 // Update the timer and progress bar every second
 function startTimer() {
+    const token = document.head.querySelector('meta[name="_csrf"]').content;
+    const header = document.head.querySelector('meta[name="_csrf_header"]').content;
     fetch('/timeBeforeValidationCode', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username: "username" }), // TODO : Get username from session
+            [header]: token,
+        }
     })
         .then(response => response.text())
         .then(data => {
@@ -102,9 +104,12 @@ function resendEmail() {
     let xhr = new XMLHttpRequest();
     xhr.open('POST', '/createNewValidationCode', false);  // The third parameter 'false' makes the request synchronous
     xhr.setRequestHeader('Content-Type', 'application/json');
+    const token = document.head.querySelector('meta[name="_csrf"]').content;
+    const header = document.head.querySelector('meta[name="_csrf_header"]').content;
+    xhr.setRequestHeader(header, token);
 
     try {
-        xhr.send(JSON.stringify("username")); // TODO : Get username from session
+        xhr.send();
     }
     catch (err) {
         console.error(err);
