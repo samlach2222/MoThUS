@@ -32,11 +32,15 @@ public interface IEmailService {
      * @param username the username to get the validation code
      * @return the validation code
      */
-    int getValidationCode(String username);
+    String getValidationCode(String username);
 
     /**
      * This method is used to create a new validation code.
      * @param username the username to create a new validation code
      */
     void createNewValidationCode(String username);
+    
+    int getDurationMinutes(String username);
+
+    void removeValidationCode(String username);
 }

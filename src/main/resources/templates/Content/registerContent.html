@@ -4,14 +4,14 @@
 </div>
 <div id="loginPanelButtons">
     <form method="post" id="registerForm" th:action="@{/processRegister}" th:object="${registrationDto}">
-        <label for="usernameInput" th:text="${usernameLabel}"></label><br>
-        <input type="text" id="usernameInput" th:field="*{username}" name="username" required><br>
-        <label for="emailInput" th:text="${emailLabel}"></label><br>
-        <input type="email" id="emailInput" th:field="*{email}" name="email" required><br>
-        <label for="passwordInput" th:text="${passwordLabel}"></label><br>
-        <input type="password" id="passwordInput" th:field="*{password}" name="password" required><br>
-        <label for="passwordConfirmInput" th:text="${confirmPasswordLabel}"></label><br>
-        <input type="password" id="passwordConfirmInput" th:field="*{passwordConfirm}" name="password" required><br>
+        <label for="username" th:text="${usernameLabel}"></label><br>
+        <input id="username" name="username" required th:field="*{username}" type="text"><br>
+        <label for="email" th:text="${emailLabel}"></label><br>
+        <input id="email" name="email" required th:field="*{email}" type="email"><br>
+        <label for="password" th:text="${passwordLabel}"></label><br>
+        <input id="password" name="password" required th:field="*{password}" type="password"><br>
+        <label for="passwordConfirm" th:text="${confirmPasswordLabel}"></label><br>
+        <input id="passwordConfirm" name="password" required th:field="*{passwordConfirm}" type="password"><br>
         <input type="submit" th:value="${registerLabel}" id="registerInput">
     </form>
 </div>

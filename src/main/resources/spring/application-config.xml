@@ -18,6 +18,11 @@
         <property name="templateResolver" ref="templateResolver" />
         <property name="messageSource" ref="messageSource" />
         <property name="enableSpringELCompiler" value="true" />
+        <property name="additionalDialects">
+            <set>
+                <bean class="org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect"/>
+            </set>
+        </property>
     </bean>
 
     <bean id="templateResolver" class="org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver">

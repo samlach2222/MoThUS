@@ -8,6 +8,7 @@ public class ValidateEmailDto {
      * Code from email
      */
     private String code;
+
     /**
      * Username of the user
      */

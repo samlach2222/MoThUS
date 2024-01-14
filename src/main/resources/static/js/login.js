@@ -11,6 +11,9 @@ window.onload = function () {
         let text = document.getElementsByClassName('alert alert-registration-error')[0].innerText;
         notifyError(text)
         loadContent('/registerContent');
+    } else if (document.getElementsByClassName('alert alert-registration-password-error').length > 0) {
+        notifyError('Registration failed. Password and confirmed password do not match.')
+        loadContent('/registerContent');
     } else if (document.getElementsByClassName('alert alert-login-error').length > 0){
         let text = document.getElementsByClassName('alert alert-login-error')[0].innerText;
         notifyError(text)
@@ -80,12 +83,14 @@ function loadPopupContent() {
  * Function to start the timer of the register popup.
  */
 function startTimer() {
+    const token = document.head.querySelector('meta[name="_csrf"]').content;
+    const header = document.head.querySelector('meta[name="_csrf_header"]').content;
     fetch('/timeBeforeValidationCode', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username: "username" }), // TODO : Get username from session
+            [header]: token,
+        }
     })
         .then(response => response.text())
         .then(data => {
@@ -122,9 +127,12 @@ function resendEmail() {
     let xhr = new XMLHttpRequest();
     xhr.open('POST', '/createNewValidationCode', false);  // The third parameter 'false' makes the request synchronous
     xhr.setRequestHeader('Content-Type', 'application/json');
+    const token = document.head.querySelector('meta[name="_csrf"]').content;
+    const header = document.head.querySelector('meta[name="_csrf_header"]').content;
+    xhr.setRequestHeader(header, token);
 
     try {
-        xhr.send(JSON.stringify("username")); // TODO : Get username from session
+        xhr.send();
     }
     catch (err) {
         console.error(err);

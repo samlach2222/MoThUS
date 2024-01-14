@@ -1,5 +1,6 @@
 package com.siesth.mothus.dataManagementService;
 
+import com.siesth.mothus.model.User;
 import com.siesth.mothus.model.ValidationCode;
 import com.siesth.mothus.repository.UserRepository;
 import com.siesth.mothus.repository.ValidationCodeRepository;
@@ -61,21 +62,9 @@ public class EmailService implements IEmailService {
      * @param username the username to send the validation code
      */
     private void createValidationCode(String username) {
-        // get random validation code composed of 6 digits
-        StringBuilder validationCode = new StringBuilder();
-        for (int i = 0; i < 6; i++) {
-            validationCode.append((int) (Math.random() * 10));
-        }
-        final LocalDateTime today = LocalDateTime.now();
-        int duration = 300; // 5 minutes
-
-        // send email
-        String mail = userRepository.findUserByUsername(username).getMail();
-        sendEmail(mail, "MoThUS Registration Validation", "Hello, thank you for register to MoThUS by Siesth. Here is your new validation code : " + validationCode + ". Please enter this code in the validation page.");
-
-        // save validation code in database
-        ValidationCode validationCodeObject = new ValidationCode(today, duration, username);
+        ValidationCode validationCodeObject = new ValidationCode();
         validationCodeRepository.save(validationCodeObject);
+
         userManagement.getUserByUsernameAndUpdateValidationCode(username, validationCodeObject);
     }
 
@@ -128,7 +117,7 @@ public class EmailService implements IEmailService {
             vc = userRepository.findUserByUsername(username).getValidationCode();
         }
         assert vc != null;
-        return vc.getIdValidationCode();
+        return vc.getCode();
     }
 
     /**
@@ -138,6 +127,27 @@ public class EmailService implements IEmailService {
     @Override
     public void createNewValidationCode(String username) {
         createValidationCode(username);
+    }
+
+    @Override
+    public int getDurationMinutes(String username) {
+        ValidationCode vc = userRepository.findUserByUsername(username).getValidationCode();
+        if (vc == null) {
+            return -1;
+        }
+
+        // Because the duration is a int, dividing it with another int already returns as an int
+        return vc.getDuration() / 60;
+    }
+
+    @Override
+    public void removeValidationCode(String username) {
+        User user = userRepository.findUserByUsername(username);
+        ValidationCode vc = user.getValidationCode();
+        if (vc != null) {
+            user.setValidationCode(null);
+            validationCodeRepository.delete(vc);
+        }
     }
 }
 

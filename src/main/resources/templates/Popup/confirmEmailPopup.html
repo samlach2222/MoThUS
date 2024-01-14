@@ -3,12 +3,15 @@
     <p id="PopupLabel" th:text="${popupLabel}"></p>
     <form id="confirmEmailForm" method="post"  th:action="@{/validateMailRegister}" th:object="${validateEmailDto}">
         <label>
-            <input type="text" placeholder="0000" th:field="*{code}">
+            <input pattern="[0-9]{6}" placeholder="000000" th:field="*{code}" type="text">
         </label>
         <button type="submit" th:text="${confirmEmailLabel}"></button>
     </form>
     <form id="resendEmailForm">
         <button type="submit" onclick="resendEmail()" th:text="${resendCodeLabel}"></button>
+    </form>
+    <form id="resendEmailForm">
+        <button type="submit" onclick="resendEmail()">Resend code</button>
     </form>
     <div id="timerContainer">
         <p id="timerText"><span th:text="${timeRemainingLabel1}"></span><span id="timerValue">60</span><span th:text="${timeRemainingLabel2}"></span></p>
