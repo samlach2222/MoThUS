@@ -1,0 +1,10 @@
+.elementInTable {
+    background: radial-gradient(circle at center, #a12b4a, #7201b7);
+    border: none;
+    color: white;
+}
+
+.elementInTable:hover {
+    background: radial-gradient(circle at center, #c02e5a, #8c00c2);
+    cursor: pointer;
+}

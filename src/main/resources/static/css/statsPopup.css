@@ -168,3 +168,19 @@
 #statsZone #globalStats #globalStatsRight .globalStatsRightFrame {
     width: 80%;
 }
+
+#gameResults {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+#mothusText {
+    text-align: center;
+    font-size: 1.5vw;
+    margin: auto;
+}
+
+#shareStats {
+    display: none;
+}

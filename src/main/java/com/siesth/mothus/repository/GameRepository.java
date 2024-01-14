@@ -4,7 +4,14 @@ import com.siesth.mothus.model.Game;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+/**
+ * Repository for the Game model
+ */
 @Repository
 public interface GameRepository extends JpaRepository<Game, Long> {
+    /**
+     * Find the last game in the database
+     * @return The last game in the database
+     */
     Game findTopByOrderByDateOfTheGameDesc();
 }

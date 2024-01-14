@@ -1,0 +1,131 @@
+#elt1 {
+    background-color: #f4dfbe;
+    border-color: #f4dfbe;
+    color: black;
+}
+
+#elt1:hover {
+    background-color: #f4e8d0;
+    border-color: #f4e8d0;
+    cursor: pointer;
+}
+
+#elt3, #elt11, #elt19, #elt37, #elt55, #elt87 {
+    background-color: #bebff0;
+    border-color: #bebff0;
+    color: black;
+}
+
+#elt3:hover, #elt11:hover, #elt19:hover, #elt37:hover, #elt55:hover, #elt87:hover {
+    background-color: #c9caf5;
+    border-color: #c9caf5;
+    cursor: pointer;
+}
+
+#elt4, #elt12, #elt20, #elt38, #elt56, #elt88 {
+    background-color: #bedbf0;
+    border-color: #bedbf0;
+    color: black;
+}
+
+#elt4:hover, #elt12:hover, #elt20:hover, #elt38:hover, #elt56:hover, #elt88:hover {
+    background-color: #c9e0f5;
+    border-color: #c9e0f5;
+    cursor: pointer;
+}
+
+#elt5, #elt14, #elt32, #elt33, #elt51, #elt52, #elt84 {
+    background-color: #f4fbbb;
+    border-color: #f4fbbb;
+    color: black;
+}
+
+#elt5:hover, #elt14:hover, #elt32:hover, #elt33:hover, #elt51:hover, #elt52:hover, #elt84:hover {
+    background-color: #f4fbc9;
+    border-color: #f4fbc9;
+    cursor: pointer;
+}
+
+#elt6, #elt7, #elt8, #elt15, #elt16, #elt34 {
+    background-color: #f1dcbb;
+    border-color: #f1dcbb;
+    color: black;
+}
+
+#elt6:hover, #elt7:hover, #elt8:hover, #elt15:hover, #elt16:hover, #elt34:hover {
+    background-color: #f1e5c9;
+    border-color: #f1e5c9;
+    cursor: pointer;
+}
+
+#elt9, #elt17, #elt35, #elt53, #elt85, #elt117 {
+    background-color: #ebb9b9;
+    border-color: #ebb9b9;
+    color: black;
+}
+
+#elt9:hover, #elt17:hover, #elt35:hover, #elt53:hover, #elt85:hover, #elt117:hover {
+    background-color: #f0c9c9;
+    border-color: #f0c9c9;
+    cursor: pointer;
+}
+
+#elt2, #elt10, #elt18, #elt36, #elt54, #elt86, #elt118 {
+    background-color: #f0bdda;
+    border-color: #f0bdda;
+    color: black;
+}
+
+#elt2:hover, #elt10:hover, #elt18:hover, #elt36:hover, #elt54:hover, #elt86:hover, #elt118:hover {
+    background-color: #f0c9e0;
+    border-color: #f0c9e0;
+    cursor: pointer;
+}
+
+#elt13, #elt31, #elt49, #elt50, #elt81, #elt82, #elt83, #elt113, #elt114, #elt115, #elt116 {
+    background-color: #bbe4c2;
+    border-color: #bbe4c2;
+    color: black;
+}
+
+#elt13:hover, #elt31:hover, #elt49:hover, #elt50:hover, #elt81:hover, #elt82:hover, #elt83:hover, #elt113:hover, #elt114:hover, #elt115:hover, #elt116:hover {
+    background-color: #c9e9d0;
+    border-color: #c9e9d0;
+    cursor: pointer;
+}
+
+#elt21, #elt22, #elt23, #elt24, #elt25, #elt26, #elt27, #elt28, #elt29, #elt30, #elt39, #elt40, #elt41, #elt42, #elt43, #elt44, #elt45, #elt46, #elt47, #elt48, #elt72, #elt73, #elt74, #elt75, #elt76, #elt77, #elt78, #elt79, #elt80, #elt104, #elt105, #elt106, #elt107, #elt108, #elt109, #elt110, #elt111, #elt112 {
+    background-color: #c0dbc4;
+    border-color: #c0dbc4;
+    color: black;
+}
+
+#elt21:hover, #elt22:hover, #elt23:hover, #elt24:hover, #elt25:hover, #elt26:hover, #elt27:hover, #elt28:hover, #elt29:hover, #elt30:hover, #elt39:hover, #elt40:hover, #elt41:hover, #elt42:hover, #elt43:hover, #elt44:hover, #elt45:hover, #elt46:hover, #elt47:hover, #elt48:hover, #elt72:hover, #elt73:hover, #elt74:hover, #elt75:hover, #elt76:hover, #elt77:hover, #elt78:hover, #elt79:hover, #elt80:hover, #elt104:hover, #elt105:hover, #elt106:hover, #elt107:hover, #elt108:hover, #elt109:hover, #elt110:hover, #elt111:hover, #elt112:hover {
+    background-color: #c9e5c9;
+    border-color: #c9e5c9;
+    cursor: pointer;
+}
+
+#elt57, #elt58, #elt59, #elt60, #elt61, #elt62, #elt63, #elt64, #elt65, #elt66, #elt67, #elt68, #elt69, #elt70, #elt71 {
+    background-color: #dfbbe8;
+    border-color: #dfbbe8;
+    color: black;
+}
+
+#elt57:hover, #elt58:hover, #elt59:hover, #elt60:hover, #elt61:hover, #elt62:hover, #elt63:hover, #elt64:hover, #elt65:hover, #elt66:hover, #elt67:hover, #elt68:hover, #elt69:hover, #elt70:hover, #elt71:hover {
+    background-color: #e5c9f0;
+    border-color: #e5c9f0;
+    cursor: pointer;
+}
+
+#elt89, #elt90, #elt91, #elt92, #elt93, #elt94, #elt95, #elt96, #elt97, #elt98, #elt99, #elt100, #elt101, #elt102, #elt103 {
+    background-color: #d4bbe2;
+    border-color: #d4bbe2;
+    color: black;
+}
+
+#elt89:hover, #elt90:hover, #elt91:hover, #elt92:hover, #elt93:hover, #elt94:hover, #elt95:hover, #elt96:hover, #elt97:hover, #elt98:hover, #elt99:hover, #elt100:hover, #elt101:hover, #elt102:hover, #elt103:hover {
+    background-color: #dcc9e9;
+    border-color: #dcc9e9;
+    cursor: pointer;
+}

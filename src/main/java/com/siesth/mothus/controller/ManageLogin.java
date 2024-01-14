@@ -31,16 +31,41 @@ import java.util.Set;
 
 import static org.springframework.security.web.context.HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY;
 
+/**
+ * This class is used to manage the login page.
+ */
 @Controller
 public class ManageLogin {
-    // TODO : When registering connect to spring with the role ROLE_PENDING
+    /**
+     * This field is used to get the message from the message source.
+     */
     private final MessageSource messageSource;
+
+    /**
+     * This field is used to manage the user.
+     */
     @Autowired
     private IUserManagement userManagement;
+
+    /**
+     * This field is used to manage the user repository.
+     */
+    @Autowired
+    private IUserManagement userManagement;
+    
     @Autowired
     private UserRepository userRepository;
+
+    /**
+     * This field is used to manage the email service.
+     */
     @Autowired
     private IEmailService emailService;
+
+    /**
+     * This constructor is used to autowire the message source.
+     * @param messageSource the message source
+     */
     @Autowired
     public ManageLogin(MessageSource messageSource) {
         this.messageSource = messageSource;
@@ -49,6 +74,14 @@ public class ManageLogin {
     @Autowired
     private AuthenticationManager authManager;
 
+    /**
+     * This method is used to show the login page.
+     * It adds the texts to the model from locale.
+     * @param authentication the authentication
+     * @param model the model
+     * @param locale the locale
+     * @return the login page
+     */
     @GetMapping("/login")
     public String login(Authentication authentication, Model model, Locale locale) {
         // Check whether we can change the user role from ROLE_PENDING to ROLE_USER,
@@ -68,7 +101,8 @@ public class ManageLogin {
                 return "redirect:/playZone";
             }
         }
-
+    
+        // locale BEGIN
         String pageTitle = messageSource.getMessage("Login.PageTitle", null, locale);
         String loginButton = messageSource.getMessage("Login.LoginButton", null, locale);
         String registerButton = messageSource.getMessage("Login.RegisterButton", null, locale);
@@ -78,51 +112,104 @@ public class ManageLogin {
         model.addAttribute("loginButton", loginButton);
         model.addAttribute("registerButton", registerButton);
         model.addAttribute("playAsInviteButton", playAsInviteButton);
+        // locale END
 
         return "login";
     }
 
+    /**
+     * This method is used to show the login content.
+     * It adds the texts to the model from locale.
+     * @param model the model
+     * @param locale the locale
+     * @return the login content page
+     */
     @GetMapping("/loginContent")
-    public String loginContent(Model model) {
+    public String loginContent(Model model, Locale locale) {
         // Redirect to /login (which will redirect further if needed) if the user is already logged in
         if (isAuthenticated()) {
             return "redirect:/login";
         }
-
+    
         // To pass data to the template
         Object registrationError = model.asMap().get("registrationError");
         Object loginError = model.asMap().get("loginError");
 
         if (registrationError != null) {
             model.addAttribute("registrationError", registrationError);
+            String registrationErrorMessage = messageSource.getMessage("Login.Messages.RegistrationErrorMessage", null, locale);
+            model.addAttribute("registrationErrorMessage", registrationErrorMessage);
         }
         if(loginError != null) {
             model.addAttribute("loginError", loginError);
+            String loginErrorMessage = messageSource.getMessage("Login.Messages.LoginErrorMessage", null, locale);
+            model.addAttribute("loginErrorMessage", loginErrorMessage);
         }
+
+        // locale BEGIN
+        String passwordLabel = messageSource.getMessage("Login.LoginContent.PasswordLabel", null, locale);
+        String usernameLabel = messageSource.getMessage("Login.LoginContent.UsernameLabel", null, locale);
+        String loginLabel = messageSource.getMessage("Login.LoginContent.LoginLabel", null, locale);
+
+        model.addAttribute("passwordLabel", passwordLabel);
+        model.addAttribute("usernameLabel", usernameLabel);
+        model.addAttribute("loginLabel", loginLabel);
+        // locale END
         model.addAttribute("registrationDto", new RegistrationDto());
         return "Content/loginContent";
     }
 
+    /**
+     * This method is used to show the register content.
+     * It adds the texts to the model from locale.
+     * @param model the model
+     * @param locale the locale
+     * @return the register content page
+     */
     @GetMapping("/registerContent")
-    public String registerContent(Model model) {
+    public String registerContent(Model model, Locale locale) {
         // Redirect to /login (which will redirect further if needed) if the user is already logged in
         if (isAuthenticated()) {
             return "redirect:/login";
         }
-
+    
         // To pass data to the template
         Object registrationSuccess = model.asMap().get("registrationSuccess");
 
         if (registrationSuccess != null) {
             // Pass the success message to the view
             model.addAttribute("registrationSuccess", registrationSuccess);
+            String registrationSuccessMessage = messageSource.getMessage("Login.Messages.RegistrationSuccessMessage", null, locale);
+            model.addAttribute("registrationSuccessMessage", registrationSuccessMessage);
         }
+
+        // locale BEGIN
+        String passwordLabel = messageSource.getMessage("Login.RegisterContent.PasswordLabel", null, locale);
+        String usernameLabel = messageSource.getMessage("Login.RegisterContent.UsernameLabel", null, locale);
+        String emailLabel = messageSource.getMessage("Login.RegisterContent.EmailLabel", null, locale);
+        String registerLabel = messageSource.getMessage("Login.RegisterContent.RegisterLabel", null, locale);
+        String confirmPasswordLabel = messageSource.getMessage("Login.RegisterContent.ConfirmPasswordLabel", null, locale);
+
+        model.addAttribute("passwordLabel", passwordLabel);
+        model.addAttribute("usernameLabel", usernameLabel);
+        model.addAttribute("emailLabel", emailLabel);
+        model.addAttribute("registerLabel", registerLabel);
+        model.addAttribute("confirmPasswordLabel", confirmPasswordLabel);
+        // locale END
         model.addAttribute("registrationDto", new RegistrationDto());
         return "Content/registerContent";
     }
 
+    /**
+     * This method is used to show the email validation content.
+     * It adds the texts to the model from locale.
+     * @param registrationDto the registration data from the form
+     * @param redirectAttributes to pass data to the template
+     * @param locale the locale
+     * @return a redirection to the login page
+     */
     @PostMapping("/processRegister")
-    public String processRegister(HttpServletRequest request, @ModelAttribute("registrationDto") RegistrationDto registrationDto, RedirectAttributes redirectAttributes) {
+    public String processRegister(HttpServletRequest request, @ModelAttribute("registrationDto") RegistrationDto registrationDto , RedirectAttributes redirectAttributes, Locale locale) {
         // Redirect to /login (which will redirect further if needed) if the user is already logged in
         if (isAuthenticated()) {
             return "redirect:/login";
@@ -132,7 +219,7 @@ public class ManageLogin {
             redirectAttributes.addFlashAttribute("registrationPasswordError", "Registration failed. Passwords don't match.");
             return "redirect:/login";
         }
-
+    
         // TODO : createNewUser is very slow (a few seconds), make it faster
         boolean isGood = userManagement.createNewUser(registrationDto);
         if(isGood) {
@@ -149,10 +236,14 @@ public class ManageLogin {
             session.setAttribute(SPRING_SECURITY_CONTEXT_KEY, sc);
 
             emailService.sendEmail(registrationDto.getEmail(), "MoThUS Registration Validation", "Hello, thank you for registering to MoThUS by Siesth!\n\nHere is your validation code : " + validationCode + ", it will be valid for " + minutesDuration + " minutes.\n\nPlease enter this code in the validation page.");
-            redirectAttributes.addFlashAttribute("pendingRegistration", "Please validate email to complete registration.");
+            String pendingRegistrationMessage = messageSource.getMessage("Login.Messages.PendingRegistrationMessage", null, locale);
+            redirectAttributes.addFlashAttribute("pendingRegistration", pendingRegistrationMessage);
+            redirectAttributes.addFlashAttribute("pendingRegistrationMessage", pendingRegistrationMessage);
         }
         else {
-            redirectAttributes.addFlashAttribute("registrationError", "Registration failed. Username or email already exists.");
+            String registrationErrorMessage = messageSource.getMessage("Login.Messages.RegistrationErrorMessage", null, locale);
+            redirectAttributes.addFlashAttribute("registrationError", registrationErrorMessage);
+            redirectAttributes.addFlashAttribute("registrationErrorMessage", registrationErrorMessage);
         }
         return "redirect:/login";
     }
@@ -160,12 +251,14 @@ public class ManageLogin {
     /**
      * Validate the email
      * It is used to validate the email of the user after clicking on the validate email address button in the email validation page
+	 * @param authentication the authentication
      * @param validateEmailDto the username and the validation code
      * @param redirectAttributes to pass data to the template
-     * @return "redirect:/login"
+     * @param locale the locale
+     * @return where to redirect
      */
     @PostMapping("/validateMailRegister")
-    public String validateMailRegister(Authentication authentication, @ModelAttribute("ValidateEmailDto") ValidateEmailDto validateEmailDto, RedirectAttributes redirectAttributes) {
+    public String validateMailRegister(Authentication authentication, @ModelAttribute("ValidateEmailDto") ValidateEmailDto validateEmailDto, RedirectAttributes redirectAttributes, Locale locale) {
         // Redirect to playZone if the user has already validated his email
         if (isRoleUser()) {
             return "redirect:/playZone";
@@ -175,10 +268,15 @@ public class ManageLogin {
         if(isGood) {
             // If the validation code is correct, we remove it from the database
             emailService.removeValidationCode(authentication.getName());
-            redirectAttributes.addFlashAttribute("registrationSuccess", "Registration successful. You can now log in.");
+
+            String registrationSuccessMessage = messageSource.getMessage("Login.Messages.RegistrationSuccessMessage", null, locale);
+            redirectAttributes.addFlashAttribute("registrationSuccess", registrationSuccessMessage);
+            redirectAttributes.addFlashAttribute("registrationSuccessMessage", registrationSuccessMessage);
         }
         else {
-            redirectAttributes.addFlashAttribute("wrongCodeRegistration", "Please validate email to complete registration.");
+            String wrongCodeRegistrationMessage = messageSource.getMessage("Login.Messages.WrongCodeRegistrationMessage", null, locale);
+            redirectAttributes.addFlashAttribute("wrongCodeRegistration", wrongCodeRegistrationMessage);
+            redirectAttributes.addFlashAttribute("wrongCodeRegistrationMessage", wrongCodeRegistrationMessage);
         }
         return "redirect:/login";
     }
@@ -202,10 +300,11 @@ public class ManageLogin {
     /**
      * Create a new validation code
      * It is used to create a new validation code when the user clicks on the "resend validation code" button in the email validation page
-     * @param authentication the authentication of the user (automatically passed by Spring)
+     * @param authentication the authentication of the user
+	 * @param locale the locale
      */
     @PostMapping("/createNewValidationCode")
-    public void createNewValidationCode(Authentication authentication) {
+    public void createNewValidationCode(Authentication authentication, Locale locale) {
         // Exit immediately if the user has already validated his email
         if (isRoleUser()) {
             return;
@@ -219,19 +318,44 @@ public class ManageLogin {
         // Send a new mail
         String validationCode = emailService.getValidationCode(username);
         int minutesDuration = emailService.getDurationMinutes(username);
-        emailService.sendEmail(user.getMail(), "MoThUS Registration Validation New Code", "Hello, thank you for registering to MoThUS by Siesth!\n\nHere is your new validation code : " + validationCode + ", it will be valid for " + minutesDuration + " minutes.\n\nPlease enter this code in the validation page.");
+        // TODO : Show minutes duration before code expire
+        String body1 = messageSource.getMessage("Login.Email.Body1", null, locale);
+        String body2 = messageSource.getMessage("Login.Email.Body2", null, locale);
+        emailService.sendEmail(user.getMail(), subject, body1 + validationCode + body2);
     }
 
+    /**
+     * This method is used to show the email validation content.
+     * It adds the texts to the model from locale.
+     * @param model the model
+     * @param locale the locale
+     * @return the email validation content page
+     */
     @GetMapping("/confirmEmailPopup")
-    public String ConfirmEmailPopup(Model model) {
+    public String ConfirmEmailPopup(Model model, Locale locale) {
         // TODO : Change email popup to a content instead, and automatically show it on /login if user has role ROLE_PENDING
         // TODO : Add a log out button
         // Redirect to playZone if the user has already validated his email
         if (isRoleUser()) {
             return "redirect:/playZone";
         }
-
+    
         model.addAttribute("validateEmailDto", new ValidateEmailDto());
+
+        // locale BEGIN
+        String confirmEmailLabel = messageSource.getMessage("Login.ConfirmEmailPopup.ConfirmEmailLabel", null, locale);
+        String popupLabel = messageSource.getMessage("Login.ConfirmEmailPopup.PopupLabel", null, locale);
+        String resendCodeLabel = messageSource.getMessage("Login.ConfirmEmailPopup.ResendCodeLabel", null, locale);
+        String timeRemainingLabel1 = messageSource.getMessage("Login.ConfirmEmailPopup.TimeRemainingLabel1", null, locale);
+        String timeRemainingLabel2 = messageSource.getMessage("Login.ConfirmEmailPopup.TimeRemainingLabel2", null, locale);
+
+        model.addAttribute("confirmEmailLabel", confirmEmailLabel);
+        model.addAttribute("popupLabel", popupLabel);
+        model.addAttribute("resendCodeLabel", resendCodeLabel);
+        model.addAttribute("timeRemainingLabel1", timeRemainingLabel1);
+        model.addAttribute("timeRemainingLabel2", timeRemainingLabel2);
+        // locale END
+
         return "Popup/confirmEmailPopup";
     }
 

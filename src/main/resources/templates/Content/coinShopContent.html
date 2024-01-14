@@ -3,9 +3,16 @@
     <head>
         <meta charset="UTF-8">
         <title>Coin Shop Content</title>
+        <script src="/js/coinShopContent.js"></script>
     </head>
     <body>
+        <div id="popup" class="popup">
+            <div class="popup-content"></div>
+        </div>
+
         <h2>Coin Shop</h2>
         <p>This is the content of the Coin Shop.</p>
+
+        <input type="button" id="buyButton" name="buyButton" value="Buy" onclick="openPopup('buyButton')">
     </body>
 </html>

@@ -12,6 +12,20 @@ body {
     overflow: hidden;
 }
 
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#donations {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 1em;
+}
+
 /**
  * Top banner with 15% of the page size
  */
@@ -106,9 +120,16 @@ body {
  * Top bar shop button
  */
 #shop {
-    width: 8vh;
+    width: 10vh;
     height: 8vh;
-    background-color: darkorchid;
+    display: flex;
+}
+
+#coinCounter {
+    font-size: 2vh;
+    width: 50%;
+    margin-right: 0.5vh;
+    text-align: center;
 }
 
 #mothusLogo{
@@ -117,7 +138,7 @@ body {
     object-fit: contain;
 }
 
-#helpButton, #statsButton, #accountButton {
+#helpButton, #statsButton, #accountButton, #coinCounterDiv, #coinButton {
     width: 85%;
     height: 85%;
     object-fit: contain;
@@ -128,6 +149,37 @@ body {
     cursor: pointer;
     width: 92%;
     height: 92%;
+}
+
+#coinCounterDiv {
+    display: flex;
+    flex-direction: row;
+    border: 0.3vh solid black;
+    border-radius: 20px;
+    align-items: center;
+    width: unset;
+}
+
+.elementInTable {
+    border: 1px solid rgb(73, 74, 75);
+    color: rgb(255, 255, 255);
+    background-color: rgb(73, 74, 75);
+}
+
+.elementInTable:hover {
+    background-color: #707070;
+    cursor: pointer;
+}
+
+#coinCounterDiv:hover {
+    cursor: pointer;
+    transform: scale(1.03);
+}
+
+#coinButton {
+    margin-left: 0.5vh;
+    margin-right: 0.5vh;
+    width: unset;
 }
 
 #help, #stats, #account {
@@ -170,14 +222,51 @@ body {
 }
 
 #periodicTable td, #periodicTable th {
-    padding: 8px;
     text-align: center;
     position: relative;
 }
 
-#periodicTable table {
-    table-layout: fixed;
+/*************************/
+/* Element table buttons */
+/*************************/
+
+#validateButton {
+    width: 100%;
+    height: 100%;
+    background-color: #005f9f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.5em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+#validateButton:hover {
+    background-color: #00487f;
+}
+
+#returnButton {
+    width: 100%;
+    height: 100%;
+    background-color: #b90022;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.5em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#returnButton:hover {
+    background-color: #8f001a;
+}
+
+
 
 /***************/
 /* Popup style */
@@ -216,3 +305,10 @@ body.overlay-active::before {
     z-index: 9999;
 }
 
+
+#aswift_1 {
+    background-image: url("/assets/SamplePublicity.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+}

@@ -1,7 +1,11 @@
 <link href="/css/statsPopup.css" rel="stylesheet">
 <div id="statsZone">
-    <h1 th:text="${statisticsTitle}">Statistics</h1>
-    <p th:text="${gameNotFinished}">You haven't finished today's game yet.</p>
+    <div style="display: ruby;">
+        <h1 th:text="${statisticsTitle}">Statistics</h1>
+        <button id="shareStats" onclick="shareResult()">Share</button> <!-- TODO : Translate-->
+    </div>
+    <p id="gameNotFinishedText" th:text="${gameNotFinished}">You haven't finished today's game yet.</p>
+    <div id="gameResults"></div>
     <h1 th:text="${globalTitle}">Global</h1>
     <div id="globalStats">
         <div id="globalStatsLeft">

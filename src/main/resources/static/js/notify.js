@@ -1,3 +1,7 @@
+/**
+ * Function to display an error toast message in the top right of the screen
+ * @param message the message to display
+ */
 function notifyError(message) {
     Toastify({
         text: message,
@@ -13,6 +17,10 @@ function notifyError(message) {
     }).showToast();
 }
 
+/**
+ * Function to display a success toast message in the top right of the screen
+ * @param message the message to display
+ */
 function notifySuccess(message) {
     Toastify({
         text: message,

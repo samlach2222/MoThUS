@@ -1,0 +1,8 @@
+body {
+    /* background gradient */
+    background: linear-gradient(to bottom right, #df0698, #141d9f)
+}
+
+#helpButton, #statsButton, #accountButton, #coinCounterDiv {
+    filter: invert(100%);
+}
