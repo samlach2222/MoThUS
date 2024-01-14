@@ -40,7 +40,7 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     SkinInventory skinInventory;
 
-    @OneToOne(cascade = CascadeType.ALL) // by default, it is optional = true
+    @OneToOne
     ValidationCode validationCode;
 
     public User() {
