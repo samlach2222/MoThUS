@@ -403,7 +403,7 @@ document.addEventListener('keydown', function(event) {
             sendCurrentWord(); // Send to spring and color the line
         }
         else {
-            alert("La ligne n'est pas complète");
+            alert("La ligne n'est pas complète");  // TODO : localize this
         }
     }
     else if (event.code === 'Backspace') {
@@ -509,6 +509,9 @@ function sendCurrentWord(){
     let xhr = new XMLHttpRequest();
     xhr.open('POST', '/sendWord', false);  // The third parameter 'false' makes the request synchronous
     xhr.setRequestHeader('Content-Type', 'application/json');
+    const token = document.head.querySelector('meta[name="_csrf"]').content;
+    const header = document.head.querySelector('meta[name="_csrf_header"]').content;
+    xhr.setRequestHeader(header, token);
 
     try {
         xhr.send(JSON.stringify(word));
@@ -640,7 +643,13 @@ function loadPopupContent(contentType) {
                 });
             break;
         case 'statsButton':
-            fetch('/statsPopup')
+            const token = document.head.querySelector('meta[name="_csrf"]').content;
+            const header = document.head.querySelector('meta[name="_csrf_header"]').content;
+            fetch('/statsPopup', {
+                headers: {
+                    [header]: token
+                }
+            })
                 .then(response => response.text())
                 .then(html => {
                     popupContent.innerHTML = html;
@@ -653,3 +662,4 @@ function loadPopupContent(contentType) {
 }
 
 // TODO : The drag drop is actually not working
+// TODO : Update player stats while playing

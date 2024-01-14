@@ -3,28 +3,30 @@
     <head>
         <meta charset="UTF-8">
         <title th:text="${pageTitle}">Page Title</title>
-        <link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon"/>
-        <link rel="stylesheet" href="/css/playZone.css">
+        <meta name="_csrf" th:content="${_csrf.token}"/>
+        <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+        <link href="/assets/icons/favicon.ico" rel="icon" type="image/x-icon"/>
+        <link href="/css/playZone.css" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
         <script src="/js/playZone.js"></script>
         <script src="/js/helpPopup.js"></script>
     </head>
     <body>
 
-        <div id="popup" class="popup">
+        <div class="popup" id="popup">
             <div class="popup-content"></div>
         </div>
 
 
         <div id="topBanner">
             <div id="help">
-                <img src="/assets/icons/HelpIcon.svg" alt="logo" id="helpButton" onclick="openPopup('helpButton')">
+                <img alt="logo" id="helpButton" onclick="openPopup('helpButton')" src="/assets/icons/HelpIcon.svg">
             </div>
             <div id="stats" sec:authorize="hasRole('ROLE_USER')">
-                <img src="/assets/icons/StatsIcon.svg" alt="logo" id="statsButton" onclick="openPopup('statsButton')">
+                <img alt="logo" id="statsButton" onclick="openPopup('statsButton')" src="/assets/icons/StatsIcon.svg">
             </div>
             <div id="logo">
-                <img src="/assets/logos/MoThUS_logo.svg" alt="logo" id="mothusLogo">
+                <img alt="logo" id="mothusLogo" src="/assets/logos/MoThUS_logo.svg">
             </div>
             <div id="account">
                 <img alt="logo" id="accountButton" onclick="location.href='/login'"
@@ -51,9 +53,12 @@
 
         <!-- if Google AdSense don't find any ad, it will display empty iframe -->
         <!-- Google AdSense Test Ad Code -->
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9280706319266514" crossorigin="anonymous"></script>
+        <script async
+                crossorigin="anonymous"
+                src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9280706319266514"></script>
         <!-- AdvertisingInsert -->
-        <ins id="advertisingInsert" class="adsbygoogle" data-ad-client="ca-pub-9280706319266514" data-adtest="on" data-ad-slot="4640802213"></ins>
+        <ins class="adsbygoogle" data-ad-client="ca-pub-9280706319266514" data-ad-slot="4640802213" data-adtest="on"
+             id="advertisingInsert"></ins>
         <script>
             (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
