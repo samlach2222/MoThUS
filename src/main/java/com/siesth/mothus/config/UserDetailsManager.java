@@ -27,7 +27,16 @@ public class UserDetailsManager implements UserDetailsService {
                 throw new UsernameNotFoundException("User not found");
             }
         }
-        Set<GrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
-        return new org.springframework.security.core.userdetails.User(username, user.getPassword(), authorities);
+
+        Set<GrantedAuthority> authorities;
+        // If the user need to validate his email, set the role ROLE_PENDING
+        if (user.getValidationCode() != null) {
+            authorities = Collections.singleton(new SimpleGrantedAuthority("ROLE_PENDING"));
+        } else {
+            authorities = Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
+        }
+        // Always use username, even if email was used to log in
+        // So we don't have to check which one is it when getting the current user's information
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
     }
 }

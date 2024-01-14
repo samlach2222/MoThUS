@@ -1,5 +1,6 @@
 package com.siesth.mothus.dataManagementService;
 
+import com.siesth.mothus.model.User;
 import com.siesth.mothus.model.ValidationCode;
 import com.siesth.mothus.repository.UserRepository;
 import com.siesth.mothus.repository.ValidationCodeRepository;
@@ -97,9 +98,11 @@ public class EmailService implements IEmailService {
 
     @Override
     public void removeValidationCode(String username) {
-        ValidationCode vc = userRepository.findUserByUsername(username).getValidationCode();
+        User user = userRepository.findUserByUsername(username);
+        ValidationCode vc = user.getValidationCode();
         if (vc != null) {
-            validationCodeRepository.deleteByIdValidationCode(vc.getIdValidationCode());
+            user.setValidationCode(null);
+            validationCodeRepository.delete(vc);
         }
     }
 }

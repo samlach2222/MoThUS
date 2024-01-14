@@ -6,20 +6,30 @@ import com.siesth.mothus.dto.RegistrationDto;
 import com.siesth.mothus.dto.ValidateEmailDto;
 import com.siesth.mothus.model.User;
 import com.siesth.mothus.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Collections;
 import java.util.Locale;
+import java.util.Set;
+
+import static org.springframework.security.web.context.HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY;
 
 @Controller
 public class ManageLogin {
@@ -36,11 +46,27 @@ public class ManageLogin {
         this.messageSource = messageSource;
     }
 
+    @Autowired
+    private AuthenticationManager authManager;
+
     @GetMapping("/login")
-    public String login(Model model, Locale locale) {
-        // Redirect to playZone if the user is already logged in
+    public String login(Authentication authentication, Model model, Locale locale) {
+        // Check whether we can change the user role from ROLE_PENDING to ROLE_USER,
+        // and redirect to /playZone if user has ROLE_USER
         if (isAuthenticated()) {
-            return "redirect:/playZone";
+            User user = userRepository.findUserByUsername(authentication.getName());
+            if (!isRoleUser() && user.getValidationCode() == null) {
+                Set<GrantedAuthority> authorities = Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
+
+                Authentication newAuth = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), authorities);
+
+                SecurityContextHolder.getContext().setAuthentication(newAuth);
+            }
+
+            // Redirect to /playZone whether user already had the role ROLE_USER or got it just now
+            if (isRoleUser()) {
+                return "redirect:/playZone";
+            }
         }
 
         String pageTitle = messageSource.getMessage("Login.PageTitle", null, locale);
@@ -58,9 +84,9 @@ public class ManageLogin {
 
     @GetMapping("/loginContent")
     public String loginContent(Model model) {
-        // Redirect to playZone if the user is already logged in
+        // Redirect to /login (which will redirect further if needed) if the user is already logged in
         if (isAuthenticated()) {
-            return "redirect:/playZone";
+            return "redirect:/login";
         }
 
         // To pass data to the template
@@ -79,9 +105,9 @@ public class ManageLogin {
 
     @GetMapping("/registerContent")
     public String registerContent(Model model) {
-        // Redirect to playZone if the user is already logged in
+        // Redirect to /login (which will redirect further if needed) if the user is already logged in
         if (isAuthenticated()) {
-            return "redirect:/playZone";
+            return "redirect:/login";
         }
 
         // To pass data to the template
@@ -96,10 +122,10 @@ public class ManageLogin {
     }
 
     @PostMapping("/processRegister")
-    public String processRegister(@ModelAttribute("registrationDto") RegistrationDto registrationDto , RedirectAttributes redirectAttributes) {
-        // Redirect to playZone if the user is already logged in
+    public String processRegister(HttpServletRequest request, @ModelAttribute("registrationDto") RegistrationDto registrationDto, RedirectAttributes redirectAttributes) {
+        // Redirect to /login (which will redirect further if needed) if the user is already logged in
         if (isAuthenticated()) {
-            return "redirect:/playZone";
+            return "redirect:/login";
         }
 
         if (!registrationDto.getPassword().equals(registrationDto.getPasswordConfirm())) {
@@ -108,13 +134,21 @@ public class ManageLogin {
         }
 
         // TODO : createNewUser is very slow (a few seconds), make it faster
-        boolean isGood = userManagement.createNewUser(registrationDto); // TODO : Actually the user is created even if he doesn't validate his email (maybe add a pending column in the user table)
+        boolean isGood = userManagement.createNewUser(registrationDto);
         if(isGood) {
             String validationCode = emailService.getValidationCode(registrationDto.getUsername());
-            int a = emailService.getValidationCodeTime(registrationDto.getUsername());
             int minutesDuration = emailService.getDurationMinutes(registrationDto.getUsername());
 
-            emailService.sendEmail(registrationDto.getEmail(), "MoThUS Registration Validation", "Hello, thank you for registering to MoThUS by Siesth. Here is your validation code : " + validationCode + ", it will be valid for " + minutesDuration + " minutes. Please enter this code in the validation page.");
+            // Authenticate the user in spring
+            UsernamePasswordAuthenticationToken authReq
+                    = new UsernamePasswordAuthenticationToken(registrationDto.getUsername(), registrationDto.getPassword());
+            Authentication auth = authManager.authenticate(authReq);
+            SecurityContext sc = SecurityContextHolder.getContext();
+            sc.setAuthentication(auth);
+            HttpSession session = request.getSession(true);
+            session.setAttribute(SPRING_SECURITY_CONTEXT_KEY, sc);
+
+            emailService.sendEmail(registrationDto.getEmail(), "MoThUS Registration Validation", "Hello, thank you for registering to MoThUS by Siesth!\n\nHere is your validation code : " + validationCode + ", it will be valid for " + minutesDuration + " minutes.\n\nPlease enter this code in the validation page.");
             redirectAttributes.addFlashAttribute("pendingRegistration", "Please validate email to complete registration.");
         }
         else {
@@ -131,17 +165,16 @@ public class ManageLogin {
      * @return "redirect:/login"
      */
     @PostMapping("/validateMailRegister")
-    public String validateMailRegister(@ModelAttribute("ValidateEmailDto") ValidateEmailDto validateEmailDto , RedirectAttributes redirectAttributes) {
-        // Redirect to playZone if the user is already logged in
-        if (isAuthenticated()) {
+    public String validateMailRegister(Authentication authentication, @ModelAttribute("ValidateEmailDto") ValidateEmailDto validateEmailDto, RedirectAttributes redirectAttributes) {
+        // Redirect to playZone if the user has already validated his email
+        if (isRoleUser()) {
             return "redirect:/playZone";
         }
 
-        boolean isGood = emailService.checkValidationCode(validateEmailDto.getUsername(), validateEmailDto.getCode());
+        boolean isGood = emailService.checkValidationCode(authentication.getName(), validateEmailDto.getCode());
         if(isGood) {
             // If the validation code is correct, we remove it from the database
-            // Therefore a user that has validated his email will have a null validation code
-            emailService.removeValidationCode(validateEmailDto.getUsername());
+            emailService.removeValidationCode(authentication.getName());
             redirectAttributes.addFlashAttribute("registrationSuccess", "Registration successful. You can now log in.");
         }
         else {
@@ -153,40 +186,48 @@ public class ManageLogin {
     /**
      * Returns the time before the validation code expires
      * It is used to display the time before the validation code expires in the email validation page
-     * @param username the username of the user
+     * @param authentication the authentication of the user (automatically passed by Spring)
      * @return the time before the validation code expires
      */
     @PostMapping("/timeBeforeValidationCode")
-    public int timeBeforeValidationCode(@RequestBody String username) {
-        // Return -1 if the user is already logged in
-        if (isAuthenticated()) {
+    public int timeBeforeValidationCode(Authentication authentication) {
+        // Redirect to playZone if the user has already validated his email
+        if (isRoleUser()) {
             return -1;
         }
 
-        return emailService.getValidationCodeTime(username);
+        return emailService.getValidationCodeTime(authentication.getName());
     }
 
     /**
      * Create a new validation code
      * It is used to create a new validation code when the user clicks on the "resend validation code" button in the email validation page
-     * @param username the username of the user
+     * @param authentication the authentication of the user (automatically passed by Spring)
      */
     @PostMapping("/createNewValidationCode")
-    public void createNewValidationCode(@RequestBody String username) {
-        // Return nothing if the user is already logged in
-        if (isAuthenticated()) {
+    public void createNewValidationCode(Authentication authentication) {
+        // Exit immediately if the user has already validated his email
+        if (isRoleUser()) {
             return;
         }
 
+        // Recreate a validation code
+        String username = authentication.getName();
         emailService.createNewValidationCode(username);
         User user = userRepository.findUserByUsername(username);
-        emailService.sendEmail(user.getMail(), "MoThUS Registration Validation", "Hello, thank you for register to MoThUS by Siesth. Here is your new validation code : " + emailService.getValidationCode(username) + ". Please enter this code in the validation page.");
+
+        // Send a new mail
+        String validationCode = emailService.getValidationCode(username);
+        int minutesDuration = emailService.getDurationMinutes(username);
+        emailService.sendEmail(user.getMail(), "MoThUS Registration Validation New Code", "Hello, thank you for registering to MoThUS by Siesth!\n\nHere is your new validation code : " + validationCode + ", it will be valid for " + minutesDuration + " minutes.\n\nPlease enter this code in the validation page.");
     }
 
     @GetMapping("/confirmEmailPopup")
     public String ConfirmEmailPopup(Model model) {
-        // Redirect to playZone if the user is already logged in
-        if (isAuthenticated()) {
+        // TODO : Change email popup to a content instead, and automatically show it on /login if user has role ROLE_PENDING
+        // TODO : Add a log out button
+        // Redirect to playZone if the user has already validated his email
+        if (isRoleUser()) {
             return "redirect:/playZone";
         }
 
@@ -199,4 +240,12 @@ public class ManageLogin {
         // True if the user is not anonymous (logged in)
         return !(authentication instanceof AnonymousAuthenticationToken);
     }
+
+    private boolean isRoleUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        // True if the user has the role ROLE_PENDING
+        return authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+    // TODO : Add backend and frontend for a "forgot password" feature
 }
