@@ -2,6 +2,7 @@ package com.siesth.mothus.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +36,9 @@ public class ManageStatsPopup {
      * @return the stats popup page
      */
     @GetMapping("/statsPopup")
-    public String statsPopup(Model model, Locale locale) {
+    public String statsPopup(Authentication authentication, Model model, Locale locale) {
+        // TODO : Fetch the user's statistics from the database (using authentication.getName()) and display them in the popup
+
         String pageTitle = messageSource.getMessage("StatsPopup.PageTitle", null, locale);
         String elementsHandledLabel = messageSource.getMessage("StatsPopup.ElementsHandledLabel", null, locale);
         String gameNotFinished = messageSource.getMessage("StatsPopup.GameNotFinished", null, locale);

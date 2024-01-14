@@ -62,7 +62,7 @@ public class User {
     /**
      * Validation code of the user
      */
-    @OneToOne(cascade = CascadeType.ALL) // by default, it is optional = true
+    @OneToOne  // Causes problems when removing it if cascade set to CascadeType.ALL
     ValidationCode validationCode;
 
     /**

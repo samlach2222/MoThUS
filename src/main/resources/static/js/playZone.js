@@ -505,6 +505,9 @@ function sendCurrentWord(){
     let xhr = new XMLHttpRequest();
     xhr.open('POST', '/sendWord', false);  // The third parameter 'false' makes the request synchronous
     xhr.setRequestHeader('Content-Type', 'application/json');
+    const token = document.head.querySelector('meta[name="_csrf"]').content;
+    const header = document.head.querySelector('meta[name="_csrf_header"]').content;
+    xhr.setRequestHeader(header, token);
 
     try {
         xhr.send(JSON.stringify(word));
@@ -656,7 +659,13 @@ function loadPopupContent(contentType) {
                 });
             break;
         case 'statsButton':
-            fetch('/statsPopup')
+            const token = document.head.querySelector('meta[name="_csrf"]').content;
+            const header = document.head.querySelector('meta[name="_csrf_header"]').content;
+            fetch('/statsPopup', {
+                headers: {
+                    [header]: token
+                }
+            })
                 .then(response => response.text())
                 .then(html => {
                     popupContent.innerHTML = html;
@@ -729,3 +738,5 @@ function shareResult(){
         r => notifySuccess("Résultats copiés dans le presse-papier"), // TODO : translate
     );
 }
+
+// TODO : Update player stats while playing

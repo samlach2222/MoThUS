@@ -3,6 +3,8 @@
     <head>
         <meta charset="UTF-8">
         <title th:text="${pageTitle}">Page Title</title>
+        <meta name="_csrf" th:content="${_csrf.token}"/>
+        <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
         <link rel="icon" href="/assets/icons/favicon.ico" type="image/x-icon"/>
         <link rel="stylesheet" href="/css/login.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
@@ -32,6 +34,9 @@
         <div th:if="${pendingRegistration}" class="alert alert-registration-pending" role="alert" th:text="${pedingRegistrationMessage}">
         </div>
         <div th:if="${registrationError}" class="alert alert-registration-error" role="alert" th:text="${registrationErrorMessage}">
+        </div>
+        <!-- TODO : Add th:text -->
+        <div class="alert alert-registration-password-error" role="alert" th:if="${registrationPasswordError}">
         </div>
         <div th:if="${loginError}" class="alert alert-login-error" role="alert" th:text="${loginErrorMessage}">
         </div>

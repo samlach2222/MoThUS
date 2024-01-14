@@ -31,7 +31,7 @@ public class ValidationCode {
     LocalDateTime creationDate;
 
     /**
-     * Duration of the validation code
+     * Duration of the validation code in seconds
      */
     int duration;
 
@@ -60,15 +60,13 @@ public class ValidationCode {
 
         // get current server date
         this.setCreationDate(LocalDateTime.now());
-        this.setDuration(5);
+        this.setDuration(900);
 
-        // get random string with 8 characters (a-z, A-Z, 0-9)
-        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        // code is a string of 6 random digits
         StringBuilder sb = new StringBuilder();
         Random random = new Random();
-        while (sb.length() < 8) {
-            int index = (int) (random.nextFloat() * chars.length());
-            sb.append(chars.charAt(index));
+        for (int i = 0; i < 6; i++) {
+            sb.append(random.nextInt(10));
         }
         this.setCode(sb.toString());
     }
