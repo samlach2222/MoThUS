@@ -144,3 +144,4 @@ function displaySkins(data, type) {
         skinList.appendChild(skin);
     }
 }
+

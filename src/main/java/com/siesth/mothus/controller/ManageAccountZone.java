@@ -9,14 +9,18 @@ import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * This class is used to manage the account zone.
@@ -254,6 +258,81 @@ public class ManageAccountZone {
             return result.toString();
         }
         return null;
+    }
+
+    /**
+     * This method is used to change the password.
+     * @param authentication the authentication
+     * @param passwordChangeRequest data from the form
+     * @return a message
+     */
+    @PostMapping("/changePassword")
+    @ResponseBody
+    public String changePassword(Authentication authentication, @RequestBody Map<String, String> passwordChangeRequest) {
+        String previousPassword = passwordChangeRequest.get("oldPassword");
+        String newPassword = passwordChangeRequest.get("newPassword");
+        String confirmNewPassword = passwordChangeRequest.get("newPasswordConfirm");
+        // get current user
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            String serverPass = userManagement.getPasswordByUsername(currentUserName);
+            Argon2PasswordEncoder arg2SpringSecurity = new Argon2PasswordEncoder(16, 32, 1, 60000, 10);
+            if(arg2SpringSecurity.matches(previousPassword, serverPass)) {
+                if(newPassword.equals(confirmNewPassword)) {
+                    userManagement.updatePasswordByUsername(currentUserName, newPassword);
+                    return "SUCCESS"; // not translate this
+                }
+                else {
+                    return "The 2 new passwords are not equals"; // TODO: translate
+                }
+            }
+            else {
+                return "previous password is not correct"; // TODO: translate
+            }
+        }
+        else {
+            return "you are not logged in"; // TODO: translate
+        }
+    }
+
+    @PostMapping("/changeUsername")
+    @ResponseBody
+    public String changeUsername(Authentication authentication, @RequestBody Map<String, String> usernameChangeRequest) {
+        String newUsername = usernameChangeRequest.get("newUsername");
+        // get current user
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            if(userManagement.isUsernameTaken(newUsername)) {
+                return "Username already taken"; // TODO: translate
+            }
+            else {
+                userManagement.updateUsernameByUsername(currentUserName, newUsername);
+                return "SUCCESS"; // not translate this
+            }
+        }
+        else {
+            return "you are not logged in"; // TODO: translate
+        }
+    }
+
+    @PostMapping("/changeMail")
+    @ResponseBody
+    public String changeMail(Authentication authentication, @RequestBody Map<String, String> mailChangeRequest) {
+        String newMail = mailChangeRequest.get("newMail");
+        // get current user
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            if(userManagement.isMailTaken(newMail)) {
+                return "Mail already taken"; // TODO: translate
+            }
+            else {
+                userManagement.updateEmailByUsername(currentUserName, newMail);
+                return "SUCCESS"; // not translate this
+            }
+        }
+        else {
+            return "you are not logged in"; // TODO: translate
+        }
     }
 
     /**
