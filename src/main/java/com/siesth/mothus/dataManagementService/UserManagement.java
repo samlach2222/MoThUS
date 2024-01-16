@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 /**
  * This class is used to manage the user management.
  */
@@ -215,5 +219,23 @@ public class UserManagement implements IUserManagement {
         User user = userRepository.findUserByUsername(username);
         user.setMail(email);
         userRepository.save(user);
+    }
+
+    @Override
+    public Skin getRandomSkin(String username, String type) {
+        List<Skin> skins = skinRepository.findAll();
+        Collection<Skin> ownedSkins = getSkinInventoryByUsername(username).getSkinList();
+        List<Skin> availableSkins = new ArrayList<>();
+        for(Skin s : skins){
+            if(s.getRarity().toString().equals(type) && !ownedSkins.contains(s)){
+                availableSkins.add(s);
+            }
+        }
+
+        int randomIndex = (int) (Math.random() * availableSkins.size());
+        Skin skin = availableSkins.get(randomIndex);
+        getSkinInventoryByUsername(username).addSkinToList(skin);
+        userRepository.save(userRepository.findUserByUsername(username));
+        return skin;
     }
 }
