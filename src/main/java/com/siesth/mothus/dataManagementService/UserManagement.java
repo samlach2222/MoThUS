@@ -92,6 +92,17 @@ public class UserManagement implements IUserManagement {
     }
 
     /**
+     * This method is used to get the stats by username.
+     * @param username the username
+     * @return stats
+     */
+    @Override
+    public Stats getStatsByUsername(String username) {
+        User user = userRepository.findUserByUsername(username);
+        return user.getStats();
+    }
+
+    /**
      * This method is used to update the language by username.
      * @param username the username
      * @param language the language

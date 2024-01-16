@@ -1,7 +1,10 @@
 package com.siesth.mothus.controller;
 
+import com.siesth.mothus.dataManagementService.IUserManagement;
+import com.siesth.mothus.model.Stats;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +21,12 @@ public class ManageStatsPopup {
      * This field is used to get the message from the message source.
      */
     private final MessageSource messageSource;
+
+    /**
+     * The user management is used to manage the user.
+     */
+    @Autowired
+    private IUserManagement userManagement;
 
     /**
      * This constructor is used to autowire the message source.
@@ -37,8 +46,6 @@ public class ManageStatsPopup {
      */
     @GetMapping("/statsPopup")
     public String statsPopup(Authentication authentication, Model model, Locale locale) {
-        // TODO : Fetch the user's statistics from the database (using authentication.getName()) and display them in the popup
-
         String pageTitle = messageSource.getMessage("StatsPopup.PageTitle", null, locale);
         String elementsHandledLabel = messageSource.getMessage("StatsPopup.ElementsHandledLabel", null, locale);
         String gameNotFinished = messageSource.getMessage("StatsPopup.GameNotFinished", null, locale);
@@ -56,6 +63,33 @@ public class ManageStatsPopup {
         model.addAttribute("playTimeLabel", playTimeLabel);
         model.addAttribute("statisticsTitle", statisticsTitle);
         model.addAttribute("victoriesLabel", victoriesLabel);
+
+        // get current user
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            Stats stats = userManagement.getStatsByUsername(currentUserName);
+            model.addAttribute("victories", stats.getWinCount());
+            model.addAttribute("looses", stats.getLooseCount());
+            model.addAttribute("firstTry", stats.getFirstTryCount());
+            model.addAttribute("secondTry", stats.getSecondTryCount());
+            model.addAttribute("thirdTry", stats.getThirdTryCount());
+            model.addAttribute("fourthTry", stats.getFourthTryCount());
+            model.addAttribute("fifthTry", stats.getFifthTryCount());
+            model.addAttribute("sixthTry", stats.getSixthTryCount());
+            model.addAttribute("seventhTry", stats.getSeventhTryCount());
+            model.addAttribute("eighthTry", stats.getEighthTryCount());
+            model.addAttribute("looseTry", stats.getLooseCount());
+            model.addAttribute("redSquareCount", stats.getRedSquareCount());
+            model.addAttribute("blueSquareCount", stats.getBlueSquareCount());
+            model.addAttribute("yellowCircleCount", stats.getYellowCircleCount());
+            model.addAttribute("purpleSquareCount", stats.getPurpleSquareCount());
+            int seconds = stats.getPlayTime();
+            int hours = seconds / 3600;
+            int minutes = (seconds % 3600) / 60;
+            seconds = seconds % 60;
+            String timeString = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+            model.addAttribute("playtime", timeString);
+        }
 
         return "Popup/statsPopup";
     }

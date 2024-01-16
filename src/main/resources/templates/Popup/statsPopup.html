@@ -11,57 +11,57 @@
         <div id="globalStatsLeft">
             <div id="globalStatsLeftTop">
                 <div class="globalStatsFrameContainer globalStatsleftFrame">
-                    <div class="globalStatsFrame globalStatsFrameTop">15</div>
-                    <div class="globalStatsFrame globalStatsFrameBottom" th:text="${victoriesLabel}">🏆Wins🏆</div>
+                    <div class="globalStatsFrame globalStatsFrameTop" th:text="${victories}"></div>
+                    <div class="globalStatsFrame globalStatsFrameBottom" th:text="${victoriesLabel}"></div>
                 </div>
                 <div class="globalStatsFrameContainer globalStatsleftFrame">
-                    <div class="globalStatsFrame globalStatsFrameTop">3</div>
-                    <div class="globalStatsFrame globalStatsFrameBottom" th:text="${loosesLabel}">💀Looses💀</div>
+                    <div class="globalStatsFrame globalStatsFrameTop" th:text="${looses}"></div>
+                    <div class="globalStatsFrame globalStatsFrameBottom" th:text="${loosesLabel}"></div>
                 </div>
             </div>
             <div id="globalStatsLeftBottom">
                 <div id="firstTry">
-                    <div class="numberOfTriesText">1</div>
+                    <div class="numberOfTriesText" th:text="${firstTry}"></div>
                     <div class="numberOfTriesBar"></div>
                     <div>1</div>
                 </div>
                 <div id="secondTry">
-                    <div class="numberOfTriesText">3</div>
+                    <div class="numberOfTriesText" th:text="${secondTry}"></div>
                     <div class="numberOfTriesBar"></div>
                     <div>2</div>
                 </div>
                 <div id="thirdTry">
-                    <div class="numberOfTriesText">3</div>
+                    <div class="numberOfTriesText" th:text="${thirdTry}"></div>
                     <div class="numberOfTriesBar"></div>
                     <div>3</div>
                 </div>
                 <div id="fourthTry">
-                    <div class="numberOfTriesText">7</div>
+                    <div class="numberOfTriesText" th:text="${fourthTry}"></div>
                     <div class="numberOfTriesBar"></div>
                     <div>4</div>
                 </div>
                 <div id="fifthTry">
-                    <div class="numberOfTriesText">6</div>
+                    <div class="numberOfTriesText" th:text="${fifthTry}"></div>
                     <div class="numberOfTriesBar"></div>
                     <div>5</div>
                 </div>
                 <div id="sixthTry">
-                    <div class="numberOfTriesText">8</div>
+                    <div class="numberOfTriesText" th:text="${sixthTry}"></div>
                     <div class="numberOfTriesBar"></div>
                     <div>6</div>
                 </div>
                 <div id="seventhTry">
-                    <div class="numberOfTriesText">10</div>
+                    <div class="numberOfTriesText" th:text="${seventhTry}"></div>
                     <div class="numberOfTriesBar"></div>
                     <div>7</div>
                 </div>
                 <div id="eighthTry">
-                    <div class="numberOfTriesText">9</div>
+                    <div class="numberOfTriesText" th:text="${eighthTry}"></div>
                     <div class="numberOfTriesBar"></div>
                     <div>8</div>
                 </div>
                 <div id="looseTry">
-                    <div class="numberOfTriesText">4</div>
+                    <div class="numberOfTriesText" th:text="${looseTry}"></div>
                     <div class="numberOfTriesBar"></div>
                     <div id="looseTryLabel">💀</div>
                 </div>
@@ -70,11 +70,11 @@
         <hr id="popupDivider">
         <div id="globalStatsRight">
             <div class="globalStatsFrameContainer globalStatsRightFrame">
-                <div class="globalStatsFrame globalStatsFrameTop">2 hours and 30 minutes</div>
+                <div class="globalStatsFrame globalStatsFrameTop" th:text="${playtime}"></div>
                 <div class="globalStatsFrame globalStatsFrameBottom" th:text="${playTimeLabel}">⌛Playtime⌛</div>
             </div>
             <div class="globalStatsFrameContainer globalStatsRightFrame">
-                <div class="globalStatsFrame globalStatsFrameTop">🟥280 🟦139 🟨143</div>
+                <div class="globalStatsFrame globalStatsFrameTop" th:text="'🟥' + ${redSquareCount} + ' 🟦' + ${blueSquareCount} + ' 🟨' + ${yellowCircleCount} + ' 🟪' + ${purpleSquareCount}"></div>
                 <div class="globalStatsFrame globalStatsFrameBottom" th:text="${elementsHandledLabel}">⚛️️Physical elements handled⚛️️</div>
             </div>
         </div>
