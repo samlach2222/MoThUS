@@ -9,11 +9,10 @@ function initPageSkinsContent() {
         .then(response => response.text())
         .then(jd => {
             jsonData = jd;
+            displaySkins(JSON.parse(jsonData), "page");
         })
         .catch(error => {
             console.error('Error fetching or parsing JSON data:', error);
             throw error; // Rethrow the error if necessary
         });
-
-    displaySkins(jsonData, "page");
 }

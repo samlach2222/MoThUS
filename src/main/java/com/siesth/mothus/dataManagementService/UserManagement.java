@@ -2,6 +2,7 @@ package com.siesth.mothus.dataManagementService;
 
 import com.siesth.mothus.dto.RegistrationDto;
 import com.siesth.mothus.model.*;
+import com.siesth.mothus.repository.SkinRepository;
 import com.siesth.mothus.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
@@ -17,6 +18,9 @@ public class UserManagement implements IUserManagement {
      */
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    SkinRepository skinRepository;
 
     /**
      * This method is used to create a new user from registration data from form.
@@ -37,6 +41,14 @@ public class UserManagement implements IUserManagement {
                     0,
                     new Stats(),
                     new SkinInventory());
+            Skin skinGrayElement = skinRepository.findSkinByIdSkin(1);
+            Skin skinLightPage = skinRepository.findSkinByIdSkin(12);
+            Skin skinDarkPage = skinRepository.findSkinByIdSkin(13);
+            user.getSkinInventory().addSkinToList(skinGrayElement);
+            user.getSkinInventory().addSkinToList(skinLightPage);
+            user.getSkinInventory().addSkinToList(skinDarkPage);
+            user.getSkinInventory().setCurrentElementSkinId(1);
+            user.getSkinInventory().setCurrentPageSkinId(12);
             userRepository.save(user);
             return true;
         }
