@@ -1,11 +1,14 @@
 package com.siesth.mothus.controller;
 
 import com.siesth.mothus.dataManagementService.IGameManagement;
+import com.siesth.mothus.dataManagementService.IUserManagement;
 import com.siesth.mothus.model.Game;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,6 +45,9 @@ public class ManagePlayZone {
      */
     @Autowired
     private IGameManagement gameManager;
+
+    @Autowired
+    private IUserManagement userManagement;
 
     /**
      * This constructor is used to autowire the message source and resource loader.
@@ -175,7 +181,13 @@ public class ManagePlayZone {
      * @return the play zone page
      */
     @GetMapping("/playZone")
-    public String playZone(Model model, Locale locale) {
+    public String playZone(Model model, Locale locale, Authentication authentication) {
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            locale = new Locale(userLanguage);
+        }
+
         String pageTitle = messageSource.getMessage("PlayZone.PageTitle", null, locale);
 
         model.addAttribute("pageTitle", pageTitle);

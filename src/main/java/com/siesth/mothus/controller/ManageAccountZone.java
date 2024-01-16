@@ -12,10 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -56,7 +53,13 @@ public class ManageAccountZone {
      * @return the account zone
      */
     @GetMapping("/accountZone")
-    public String accountZone(Model model, Locale locale) {
+    public String accountZone(Model model, Locale locale, Authentication authentication) {
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            locale = new Locale(userLanguage);
+        }
+
         // locale BEGIN
         String pageTitle = messageSource.getMessage("AccountZone.PageTitle", null, locale);
         String menuAccount = messageSource.getMessage("AccountZone.MenuAccount", null, locale);
@@ -82,7 +85,13 @@ public class ManageAccountZone {
      * @return the account content
      */
     @GetMapping("/accountContent")
-    public String loadAccountContent(Model model, Locale locale) {
+    public String loadAccountContent(Model model, Locale locale, Authentication authentication) {
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            locale = new Locale(userLanguage);
+        }
+
         // locale BEGIN
         String pageTitle = messageSource.getMessage("AccountZone.AccountContent.PageTitle", null, locale);
         String accountTitle = messageSource.getMessage("AccountZone.AccountContent.AccountTitle", null, locale);
@@ -122,12 +131,13 @@ public class ManageAccountZone {
         // locale END
 
         // get current user
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
             model.addAttribute("username", currentUserName);
             model.addAttribute("email", userManagement.getEmailByUsername(currentUserName));
             model.addAttribute("language", userManagement.getLanguageByUsername(currentUserName));
+            model.addAttribute("englishLanguageSelected", userManagement.getLanguageByUsername(currentUserName).equals("en"));
+            model.addAttribute("frenchLanguageSelected", userManagement.getLanguageByUsername(currentUserName).equals("fr"));
         }
 
         return "Content/accountContent";
@@ -141,7 +151,13 @@ public class ManageAccountZone {
      * @return the element skins content
      */
     @GetMapping("/elementSkinsContent")
-    public String loadElementSkinsContent(Model model, Locale locale) {
+    public String loadElementSkinsContent(Model model, Locale locale, Authentication authentication) {
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            locale = new Locale(userLanguage);
+        }
+
         // locale BEGIN
         String pageTitle = messageSource.getMessage("AccountZone.ElementSkinsContent.PageTitle", null, locale);
         String equippedLabel = messageSource.getMessage("AccountZone.ElementSkinsContent.EquippedLabel", null, locale);
@@ -169,7 +185,12 @@ public class ManageAccountZone {
      * @return the page skins content
      */
     @GetMapping("/pageSkinsContent")
-    public String loadPageSkinsContent(Model model, Locale locale) {
+    public String loadPageSkinsContent(Model model, Locale locale, Authentication authentication) {
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            locale = new Locale(userLanguage);
+        }
         // locale BEGIN
         String pageTitle = messageSource.getMessage("AccountZone.ElementSkinsContent.PageTitle", null, locale);
         String equippedLabel = messageSource.getMessage("AccountZone.ElementSkinsContent.EquippedLabel", null, locale);
@@ -356,7 +377,13 @@ public class ManageAccountZone {
      * @return the terms of use content
      */
     @GetMapping("/termsOfUseContent")
-    public String loadTermsOfUseContent(Model model, Locale locale) {
+    public String loadTermsOfUseContent(Model model, Locale locale, Authentication authentication) {
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            locale = new Locale(userLanguage);
+        }
+
         // locale BEGIN
         String pageTitle = messageSource.getMessage("AccountZone.TermsOfUseContent.PageTitle", null, locale);
         String title1 = messageSource.getMessage("AccountZone.TermsOfUseContent.Title1", null, locale);
@@ -406,5 +433,16 @@ public class ManageAccountZone {
         // locale END
 
         return "Content/termsOfUseContent";
+    }
+
+    @PostMapping("/changeLocale")
+    public String changeLocale(@RequestParam("language") String language) {
+        // get current user
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            userManagement.updateLanguageByUsername(currentUserName, language);
+        }
+        return "redirect:/accountZone";
     }
 }

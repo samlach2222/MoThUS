@@ -18,5 +18,5 @@ public enum UserLanguage {
     /**
      * Français (France)
      */
-    fr_FR,
+    fr,
 }

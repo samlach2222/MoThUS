@@ -1,7 +1,10 @@
 package com.siesth.mothus.controller;
 
+import com.siesth.mothus.dataManagementService.IUserManagement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +20,9 @@ public class ManageShopZone {
      * This field is used to get the message from the message source.
      */
     private final MessageSource messageSource;
+
+    @Autowired
+    private IUserManagement userManagement;
 
     /**
      * This constructor is used to autowire the message source.
@@ -35,7 +41,13 @@ public class ManageShopZone {
      * @return the shop zone page
      */
     @GetMapping("/shopZone")
-    public String shopZone(Model model, Locale locale) {
+    public String shopZone(Model model, Locale locale, Authentication authentication) {
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            locale = new Locale(userLanguage);
+        }
+
         String pageTitle = messageSource.getMessage("ShopZone.PageTitle", null, locale);
         String menuCoinShop = messageSource.getMessage("ShopZone.MenuCoinShop", null, locale);
         String menuElementCase = messageSource.getMessage("ShopZone.MenuElementCase", null, locale);
@@ -75,7 +87,13 @@ public class ManageShopZone {
      * @return the credit card popup page
      */
     @GetMapping("/creditCardPopup")
-    public String creditCardPopup(Model model, Locale locale) {
+    public String creditCardPopup(Model model, Locale locale, Authentication authentication) {
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            locale = new Locale(userLanguage);
+        }
+
         // locale BEGIN
         String paymentAmountLabel = messageSource.getMessage("ShopZone.CreditCardPopup.PaymentAmountLabel", null, locale);
         String payInvoiceLabel = messageSource.getMessage("ShopZone.CreditCardPopup.PayInvoiceLabel", null, locale);
