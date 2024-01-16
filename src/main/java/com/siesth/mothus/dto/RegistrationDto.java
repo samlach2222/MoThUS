@@ -71,4 +71,21 @@ public class RegistrationDto {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
+    /**
+     * Getter for password confirm
+     * @return confirmation of the user password
+     */
+    public String getPasswordConfirm() {
+        return passwordConfirm;
+    }
+
+    /**
+     * Setter for password confirm
+     * @param passwordConfirm Confirmation of the user password
+     */
+    public void setPasswordConfirm(String passwordConfirm) {
+        this.passwordConfirm = passwordConfirm;
+    }
 }

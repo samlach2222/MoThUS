@@ -46,12 +46,6 @@ public class ManageLogin {
      */
     @Autowired
     private IUserManagement userManagement;
-
-    /**
-     * This field is used to manage the user repository.
-     */
-    @Autowired
-    private IUserManagement userManagement;
     
     @Autowired
     private UserRepository userRepository;
@@ -321,6 +315,7 @@ public class ManageLogin {
         // TODO : Show minutes duration before code expire
         String body1 = messageSource.getMessage("Login.Email.Body1", null, locale);
         String body2 = messageSource.getMessage("Login.Email.Body2", null, locale);
+        String subject = messageSource.getMessage("Login.Email.Subject", null, locale);
         emailService.sendEmail(user.getMail(), subject, body1 + validationCode + body2);
     }
 

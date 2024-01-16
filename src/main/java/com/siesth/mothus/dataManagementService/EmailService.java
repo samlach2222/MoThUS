@@ -106,11 +106,12 @@ public class EmailService implements IEmailService {
 
     /**
      * This method is used to get the validation code.
+     *
      * @param username the username to get the validation code
      * @return the validation code
      */
     @Override
-    public int getValidationCode(String username) {
+    public String getValidationCode(String username) {
         ValidationCode vc = userRepository.findUserByUsername(username).getValidationCode();
         if (vc == null) { // if there is no validation code we create one
             createValidationCode(username);

@@ -1,6 +1,7 @@
 package com.siesth.mothus.dataManagementService;
 
 import com.siesth.mothus.dto.RegistrationDto;
+import com.siesth.mothus.model.Stats;
 import com.siesth.mothus.model.ValidationCode;
 
 /**
@@ -42,6 +43,13 @@ public interface IUserManagement {
      * @return the language
      */
     String getLanguageByUsername(String username);
+
+    /**
+     * This method is used to get the stats by username.
+     * @param username the username
+     * @return stats
+     */
+    Stats getStatsByUsername(String username);
 
     /**
      * This method is used to update the language by username.
