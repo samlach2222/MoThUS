@@ -7,7 +7,7 @@ window.onload = function () {
     firstLetter = "";
     receiveDataFromSpring();
     receiveWordFromSpring();
-
+    actualizeMollards();
     let currentTime = new Date();
     // TODO : send to Spring to save the start time (if there is no startTime in Spring)
 }
@@ -739,4 +739,26 @@ function shareResult(){
     );
 }
 
-// TODO : Update player stats while playing
+function actualizeMollards() {
+
+    const token = document.head.querySelector('meta[name="_csrf"]').content;
+    const header = document.head.querySelector('meta[name="_csrf_header"]').content;
+    fetch('/getMollards', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            [header]: token
+        },
+    })
+        .then(response => response.text())
+        .then(m => {
+            let mollards = document.getElementById("coinCounter");
+            if(mollards !== null){
+                mollards.innerHTML = m;
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching or parsing JSON data:', error);
+            throw error; // Rethrow the error if necessary
+        });
+}

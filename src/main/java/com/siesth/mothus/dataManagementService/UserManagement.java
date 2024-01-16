@@ -147,6 +147,17 @@ public class UserManagement implements IUserManagement {
     }
 
     /**
+     * This method is used to get the balance by username.
+     * @param username the username
+     * @return the balance (Mollards)
+     */
+    @Override
+    public int getMollardsByUsername(String username) {
+        User user = userRepository.findUserByUsername(username);
+        return user.getBalance();
+    }
+
+    /**
      * This method is used to update the language by username.
      * @param username the username
      * @param language the language

@@ -335,6 +335,19 @@ public class ManageAccountZone {
         }
     }
 
+    @PostMapping("/getMollards")
+    @ResponseBody
+    public int getMollards(Authentication authentication) {
+        // get current user
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            return userManagement.getMollardsByUsername(currentUserName);
+        }
+        else {
+            return 0;
+        }
+    }
+
     /**
      * This method is used to load the terms of use content.
      * It adds the texts to the model from locale.
