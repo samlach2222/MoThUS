@@ -26,7 +26,6 @@ function displayUsernameValidateButton() {
  * Function called when the email validation button is clicked to change the email in the database
  */
 function validateEmailChange() {
-
     // get the value
     let email = document.getElementById("email");
     let emailValue = email.value;
@@ -37,8 +36,38 @@ function validateEmailChange() {
         notifyError("Invalid email") // TODO : translate
         return;
     }
-    // TODO : Send email change request to server and change in the input
-    document.getElementById("emailChange").style.display = "none";
+
+    let message = "";
+
+    // Construct the request body
+    let requestBody = JSON.stringify({
+        newMail: emailValue,
+    });
+
+    const token = document.head.querySelector('meta[name="_csrf"]').content;
+    const header = document.head.querySelector('meta[name="_csrf_header"]').content;
+    fetch('/changeMail', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            [header]: token
+        },
+        body: requestBody
+    })
+        .then(response => response.text())
+        .then(m => {
+            message = m;
+            if (message === "SUCCESS") {
+                notifySuccess("Email changed successfully"); // TODO: translate
+            } else {
+                notifyError(message);
+            }
+            document.getElementById("emailChange").style.display = "none";
+        })
+        .catch(error => {
+            console.error('Error fetching or parsing JSON data:', error);
+            throw error; // Rethrow the error if necessary
+        });
 }
 
 /**
@@ -46,7 +75,6 @@ function validateEmailChange() {
 
  */
 function validateUsernameChange() {
-
     // get the value
     let username = document.getElementById("username");
     let usernameValue = username.value;
@@ -57,8 +85,37 @@ function validateUsernameChange() {
         notifyError("Invalid username") // TODO : translate
         return;
     }
-    // TODO : Send username change request to server and change in the input
-    document.getElementById("usernameChange").style.display = "none";
+    let message = "";
+
+    // Construct the request body
+    let requestBody = JSON.stringify({
+        newUsername: usernameValue,
+    });
+
+    const token = document.head.querySelector('meta[name="_csrf"]').content;
+    const header = document.head.querySelector('meta[name="_csrf_header"]').content;
+    fetch('/changeUsername', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            [header]: token
+        },
+        body: requestBody
+    })
+        .then(response => response.text())
+        .then(m => {
+            message = m;
+            if (message === "SUCCESS") {
+                notifySuccess("Username changed successfully"); // TODO: translate
+            } else {
+                notifyError(message);
+            }
+            document.getElementById("usernameChange").style.display = "none";
+        })
+        .catch(error => {
+            console.error('Error fetching or parsing JSON data:', error);
+            throw error; // Rethrow the error if necessary
+        });
 }
 
 /**
@@ -92,6 +149,41 @@ function cancelChangeDisplayPassword() {
  * Function called when the user click on the validate button to validate the password change
  */
 function validatePasswordChange() {
-    // TODO : Send password change request to server and change in the input
-    cancelChangeDisplayPassword();
+    let oldPassword = document.getElementById("oldPass").value;
+    let newPassword = document.getElementById("newPass").value;
+    let newPasswordConfirm = document.getElementById("confirmNewPass").value;
+
+    let message = "";
+
+    // Construct the request body
+    let requestBody = JSON.stringify({
+        oldPassword: oldPassword,
+        newPassword: newPassword,
+        newPasswordConfirm: newPasswordConfirm
+    });
+
+    const token = document.head.querySelector('meta[name="_csrf"]').content;
+    const header = document.head.querySelector('meta[name="_csrf_header"]').content;
+    fetch('/changePassword', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            [header]: token
+        },
+        body: requestBody
+    })
+        .then(response => response.text())
+        .then(m => {
+            message = m;
+            if (message === "SUCCESS") {
+                notifySuccess("Password changed successfully"); // TODO: translate
+            } else {
+                notifyError(message);
+            }
+            cancelChangeDisplayPassword();
+        })
+        .catch(error => {
+            console.error('Error fetching or parsing JSON data:', error);
+            throw error; // Rethrow the error if necessary
+        });
 }

@@ -25,6 +25,20 @@ public interface IUserManagement {
     boolean checkLogin(RegistrationDto registrationDto);
 
     /**
+     * This method is used to check if the username is taken.
+     * @param username the username
+     * @return true if the username is taken, false otherwise
+     */
+    boolean isUsernameTaken(String username);
+
+    /**
+     * This method is used to check if the mail is taken.
+     * @param mail the mail
+     * @return true if the mail is taken, false otherwise
+     */
+    boolean isMailTaken(String mail);
+
+    /**
      * This method is used to get the user by username and update the validation code.
      * @param username the username
      * @param validationCode the validation code
@@ -60,6 +74,13 @@ public interface IUserManagement {
     SkinInventory getSkinInventoryByUsername(String username);
 
     /**
+     * This method is used to get the password by username.
+     * @param username the username
+     * @return the password
+     */
+    String getPasswordByUsername(String username);
+
+    /**
      * This method is used to update the language by username.
      * @param username the username
      * @param language the language
@@ -79,4 +100,11 @@ public interface IUserManagement {
      * @param password the password
      */
     void updatePasswordByUsername(String username, String password);
+
+    /**
+     * This method is used to update the mail by username.
+     * @param username the username
+     * @param email the email
+     */
+    void updateEmailByUsername(String username, String email);
 }
