@@ -81,6 +81,13 @@ public interface IUserManagement {
     String getPasswordByUsername(String username);
 
     /**
+     * This method is used to get the balance by username.
+     * @param username the username
+     * @return the balance (Mollards)
+     */
+    int getMollardsByUsername(String username);
+
+    /**
      * This method is used to update the language by username.
      * @param username the username
      * @param language the language
