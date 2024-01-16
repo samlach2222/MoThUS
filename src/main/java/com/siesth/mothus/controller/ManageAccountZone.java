@@ -1,6 +1,9 @@
 package com.siesth.mothus.controller;
 
 import com.siesth.mothus.dataManagementService.IUserManagement;
+import com.siesth.mothus.model.Skin;
+import com.siesth.mothus.model.SkinInventory;
+import com.siesth.mothus.model.SkinType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -9,7 +12,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Locale;
 
 /**
@@ -175,8 +181,79 @@ public class ManageAccountZone {
         model.addAttribute("rareLabel", rareLabel);
         model.addAttribute("mythicLabel", mythicLabel);
         // locale END
-
         return "Content/pageSkinsContent";
+    }
+
+    /**
+     * This method is used to get page skins data for the current User.
+     * @return the page skin data
+     */
+    @GetMapping("/getPageSkinsData")
+    @ResponseBody
+    public String getPageSkinsData(Authentication authentication) {
+        // get current user
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            SkinInventory skinInventory = userManagement.getSkinInventoryByUsername(currentUserName);
+            // get all skins
+            Collection<Skin> skins = skinInventory.getSkinList();
+            ArrayList<Skin> pageSkins = new ArrayList<>();
+            for(Skin skin : skins) {
+                if (skin.getType() == SkinType.PageSkin) {
+                    pageSkins.add(skin);
+                }
+            }
+            // jsonify the array
+            StringBuilder result = new StringBuilder();
+            result.append("[");
+            for (Skin skin : pageSkins) {
+                result.append("{");
+                result.append("\"rarity\": \"").append(skin.getRarity().toString()).append("\",");
+                result.append("\"cssFile\": \"").append(skin.getCssFile()).append("\",");
+                result.append("\"previewImage\": \"").append(skin.getPreviewImage()).append("\"");
+                result.append("},");
+            }
+            result.deleteCharAt(result.length() - 1);
+            result.append("]");
+            return result.toString();
+        }
+        return null;
+    }
+
+    /**
+     * This method is used to get page skins data for the current User.
+     * @return the page skin data
+     */
+    @GetMapping("/getElementSkinsData")
+    @ResponseBody
+    public String getElementSkinsData(Authentication authentication) {
+        // get current user
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            SkinInventory skinInventory = userManagement.getSkinInventoryByUsername(currentUserName);
+            // get all skins
+            Collection<Skin> skins = skinInventory.getSkinList();
+            ArrayList<Skin> elementSkins = new ArrayList<>();
+            for(Skin skin : skins) {
+                if (skin.getType() == SkinType.ElementSkin) {
+                    elementSkins.add(skin);
+                }
+            }
+            // jsonify the array
+            StringBuilder result = new StringBuilder();
+            result.append("[");
+            for (Skin skin : elementSkins) {
+                result.append("{");
+                result.append("\"rarity\": \"").append(skin.getRarity().toString()).append("\",");
+                result.append("\"cssFile\": \"").append(skin.getCssFile()).append("\",");
+                result.append("\"previewImage\": \"").append(skin.getPreviewImage()).append("\"");
+                result.append("},");
+            }
+            result.deleteCharAt(result.length() - 1);
+            result.append("]");
+            return result.toString();
+        }
+        return null;
     }
 
     /**

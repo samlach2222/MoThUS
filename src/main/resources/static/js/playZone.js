@@ -708,7 +708,7 @@ function exportResult(){
         let mothustext = document.createElement("p");
         let gameNumber = 1; // TODO : get the number of the game
         let row = lines.length;
-        let time = "00:35";
+        let time = "00:35"; // TODO : get the time of the game
         mothustext.innerHTML = "#MoThUS #" + gameNumber + " " + row + "/8 " + time;
         mothustext.id = "mothusText";
 

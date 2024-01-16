@@ -103,6 +103,17 @@ public class UserManagement implements IUserManagement {
     }
 
     /**
+     * This method is used to get the skin inventory by username.
+     * @param username the username
+     * @return the skin inventory
+     */
+    @Override
+    public SkinInventory getSkinInventoryByUsername(String username) {
+        User user = userRepository.findUserByUsername(username);
+        return user.getSkinInventory();
+    }
+
+    /**
      * This method is used to update the language by username.
      * @param username the username
      * @param language the language

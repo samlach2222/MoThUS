@@ -1,6 +1,7 @@
 package com.siesth.mothus.dataManagementService;
 
 import com.siesth.mothus.dto.RegistrationDto;
+import com.siesth.mothus.model.SkinInventory;
 import com.siesth.mothus.model.Stats;
 import com.siesth.mothus.model.ValidationCode;
 
@@ -50,6 +51,13 @@ public interface IUserManagement {
      * @return stats
      */
     Stats getStatsByUsername(String username);
+
+    /**
+     * This method is used to get the skin inventory by username.
+     * @param username the username
+     * @return the skin inventory
+     */
+    SkinInventory getSkinInventoryByUsername(String username);
 
     /**
      * This method is used to update the language by username.
