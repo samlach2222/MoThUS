@@ -39,10 +39,12 @@
     <div>
         <h2 th:text="${languageTitle}">Language</h2>
         <label for="language" th:text="${languageSubtitle}">The language that you speak or are trying to learn.</label><br>
-        <select id="language" name="language" th:attr="value=${language}">
-            <option value="fr" th:selected="${language == 'fr_FR'}">Français</option>
-            <option value="en" th:selected="${language == 'en'}">English</option>
-        </select>
+        <form th:action="@{/changeLocale}" method="post">
+            <select id="language" name="language" onchange="this.form.submit()">
+                <option value="en" th:selected="${englishLanguageSelected}">English</option>
+                <option value="fr" th:selected="${frenchLanguageSelected}">Français</option>
+            </select>
+        </form>
     </div>
     <div>
         <input type="button" id="logout" name="logout" value="Log out" th:value="${logOutButton}" onclick="disconnect()">

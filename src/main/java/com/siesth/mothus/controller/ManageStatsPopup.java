@@ -46,6 +46,12 @@ public class ManageStatsPopup {
      */
     @GetMapping("/statsPopup")
     public String statsPopup(Authentication authentication, Model model, Locale locale) {
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            locale = new Locale(userLanguage);
+        }
+
         String pageTitle = messageSource.getMessage("StatsPopup.PageTitle", null, locale);
         String elementsHandledLabel = messageSource.getMessage("StatsPopup.ElementsHandledLabel", null, locale);
         String gameNotFinished = messageSource.getMessage("StatsPopup.GameNotFinished", null, locale);
