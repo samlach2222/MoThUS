@@ -40,6 +40,22 @@ public class SkinInventory {
      */
     int currentElementSkinId;
 
+    public int getCurrentElementSkinId() {
+        return currentElementSkinId;
+    }
+
+    public void setCurrentElementSkinId(int currentElementSkinId) {
+        this.currentElementSkinId = currentElementSkinId;
+    }
+
+    public int getCurrentPageSkinId() {
+        return currentPageSkinId;
+    }
+
+    public void setCurrentPageSkinId(int currentPageSkinId) {
+        this.currentPageSkinId = currentPageSkinId;
+    }
+
     /**
      * Id of the current page skin
      */

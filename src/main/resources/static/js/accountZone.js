@@ -65,7 +65,7 @@ function displaySkinsContent(elt, type) {
     let elementSkin = document.createElement("div");
     elementSkin.classList.add("elementSkin");
     elementSkin.id = elt.id;
-    elementSkin.style.backgroundImage = "url(" + elt.image + ")";
+    elementSkin.style.backgroundImage = "url(" + elt.previewImage + ")";
 
     if(type === "element") {
         // create <p> in elementSkin (Element letter)
@@ -83,6 +83,13 @@ function displaySkinsContent(elt, type) {
     // create <div> in elementSkin (Element rarity)
     let elementSkinRarityDiv = document.createElement("div");
     elementSkinRarityDiv.classList.add("elementSkinRarity");
+
+    // create <div> in elementSkin (cssFile)
+    let elementSkinCssFile = document.createElement("div");
+    elementSkinCssFile.classList.add("elementSkinCssFile");
+    elementSkinCssFile.innerHTML = elt.cssFile;
+    elementSkinCssFile.style.display = "none";
+    elementSkin.appendChild(elementSkinCssFile);
 
     switch (elt.rarity) {
         case "Common":
@@ -126,16 +133,17 @@ function displaySkinsContent(elt, type) {
  */
 function displaySkins(data, type) {
     let elts = [];
+    console.log(data);
     Object.values(data).forEach(elementSkin => {
-        elementSkin.forEach(elementSkin => {
-            let elt = {
-                rarity: elementSkin.rarity,
-                image: elementSkin.image,
-                id: elementSkin.id,
-                equipped: elementSkin.equipped
-            };
-            elts.push(elt);
-        });
+        console.log(elementSkin);
+        let elt = {
+            rarity: elementSkin.rarity,
+            previewImage: elementSkin.previewImage,
+            id: elementSkin.id,
+            equipped: elementSkin.equipped, // TODO : Change, no equipped in pageSkin
+            cssFile : elementSkin.cssFile
+        };
+        elts.push(elt);
     });
     let skinList = document.getElementById("skinList");
     for(let i = 0; i < elts.length; i++) {
