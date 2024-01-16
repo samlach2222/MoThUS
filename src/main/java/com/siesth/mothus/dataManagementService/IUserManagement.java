@@ -1,6 +1,7 @@
 package com.siesth.mothus.dataManagementService;
 
 import com.siesth.mothus.dto.RegistrationDto;
+import com.siesth.mothus.model.Skin;
 import com.siesth.mothus.model.SkinInventory;
 import com.siesth.mothus.model.Stats;
 import com.siesth.mothus.model.ValidationCode;
@@ -114,4 +115,6 @@ public interface IUserManagement {
      * @param email the email
      */
     void updateEmailByUsername(String username, String email);
+
+    Skin getRandomSkin(String username, String type);
 }

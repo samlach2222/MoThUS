@@ -38,3 +38,30 @@ function updateMargin() {
     const verticalMenuWidth = document.getElementById('verticalMenu').offsetWidth;
     document.getElementById('content').style.marginLeft = verticalMenuWidth + 'px';
 }
+
+function getSkin(type){
+    // Construct the request body
+    let requestBody = JSON.stringify({
+        type: type,
+    });
+
+    const token = document.head.querySelector('meta[name="_csrf"]').content;
+    const header = document.head.querySelector('meta[name="_csrf_header"]').content;
+    fetch('/getRandomSkin', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            [header]: token
+        },
+        body: requestBody
+    })
+        .then(response => response.text())
+        .then(jsonData => {
+            let json = JSON.parse(jsonData);
+            console.log(json);
+        })
+        .catch(error => {
+            console.error('Error fetching or parsing JSON data:', error);
+            throw error; // Rethrow the error if necessary
+        });
+}

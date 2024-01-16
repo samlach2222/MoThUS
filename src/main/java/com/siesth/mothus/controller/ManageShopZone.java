@@ -1,6 +1,7 @@
 package com.siesth.mothus.controller;
 
 import com.siesth.mothus.dataManagementService.IUserManagement;
+import com.siesth.mothus.model.Skin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -8,8 +9,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * This class is used to manage the shop zone.
@@ -119,5 +124,56 @@ public class ManageShopZone {
         // locale END
 
         return "Popup/creditCardPopup";
+    }
+
+    @PostMapping("/getRandomSkin")
+    @ResponseBody
+    public String getRandomSkin(Authentication authentication, @RequestBody Map<String, String> boxInfo) {
+        String type = boxInfo.get("type");
+        // get current user
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            int commonProb = 0;
+            int uncommonProb = 0;
+            int rareProb = 0;
+            int mythicProb = 0;
+            switch (type) {
+                case "Common":
+                    //55 30 15 5
+                    commonProb = 55;
+                    uncommonProb = 30;
+                    rareProb = 15;
+                    mythicProb = 5;
+                case "Rare":
+                    // 30 30 25 15
+                    commonProb = 30;
+                    uncommonProb = 30;
+                    rareProb = 25;
+                    mythicProb = 15;
+                case "Mythic":
+                    // 10 10 40 40
+                    commonProb = 10;
+                    uncommonProb = 10;
+                    rareProb = 40;
+                    mythicProb = 40;
+            }
+            int random = (int) (Math.random() * 100);
+            String rarity;
+            if (random < commonProb) {
+                rarity = "Common";
+            } else if (random < commonProb + uncommonProb) {
+                rarity = "Uncommon";
+            } else if (random < commonProb + uncommonProb + rareProb) {
+                rarity = "Rare";
+            } else {
+                rarity = "Mythic";
+            }
+            Skin s = userManagement.getRandomSkin(currentUserName, rarity);
+            // transform to json
+            return "{\"type\":\"" + s.getType() + "\",\"rarity\":\"" + s.getRarity() + "\",\"cssPath\":\"" + s.getCssFile() + "\",\"imagePath\":\"" + s.getPreviewImage() + "\"}";
+        }
+        else {
+            return null;
+        }
     }
 }
