@@ -67,12 +67,11 @@ public class SecurityConfig {
                                 // If needed, /login will redirect further
                                 .defaultSuccessUrl("/login", true)
                                 // TODO : Notifications no longer work, fix it
-                                /*
                                 .failureHandler((request, response, exception) -> {
-                                    request.getSession().setAttribute("loginError", exception.getMessage());
-                                    response.sendRedirect("/login?loginError=test");
+                                    //request.getSession().setAttribute("loginError", exception.getMessage());
+                                    //response.sendRedirect("/login?loginError=test");
+                                    response.sendRedirect("/login");
                                 })
-                                */
                                 .permitAll()
                 ).logout(
                         logout -> logout
