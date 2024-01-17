@@ -67,6 +67,14 @@ function displaySkinsContent(elt, type) {
     elementSkin.id = elt.id;
     elementSkin.style.backgroundImage = "url(" + elt.previewImage + ")";
 
+    // On click
+    elementSkin.onclick = function () {
+        // get the cssFile in the elementSkinCssFile div inside the elementSkin div
+        let cssFile = elementSkin.getElementsByClassName("elementSkinCssFile")[0].innerHTML;
+
+        changeEquippedSkin(cssFile);
+    }
+
     if(type === "element") {
         // create <p> in elementSkin (Element letter)
         let elementSkinRarity = document.createElement("p");
@@ -133,9 +141,7 @@ function displaySkinsContent(elt, type) {
  */
 function displaySkins(data, type) {
     let elts = [];
-    console.log(data);
     Object.values(data).forEach(elementSkin => {
-        console.log(elementSkin);
         let elt = {
             rarity: elementSkin.rarity,
             previewImage: elementSkin.previewImage,
@@ -151,5 +157,32 @@ function displaySkins(data, type) {
         let skin = displaySkinsContent(elt, type);
         skinList.appendChild(skin);
     }
+}
+
+function changeEquippedSkin(cssFile) {
+    let requestBody = JSON.stringify({
+        cssFile: cssFile
+    });
+
+    const token = document.head.querySelector('meta[name="_csrf"]').content;
+    const header = document.head.querySelector('meta[name="_csrf_header"]').content;
+    fetch('/changeEquippedSkin', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            [header]: token
+        },
+        body: requestBody
+    })
+        .then(response => response.text())
+        .then(m => {
+            if(m === "OK") {
+                window.location.reload();
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching or parsing JSON data:', error);
+            throw error; // Rethrow the error if necessary
+        });
 }
 

@@ -238,4 +238,11 @@ public class UserManagement implements IUserManagement {
         userRepository.save(userRepository.findUserByUsername(username));
         return skin;
     }
+
+    @Override
+    public void updateSkinInventoryByUsername(String username, SkinInventory skinInventory) {
+        User user = userRepository.findUserByUsername(username);
+        user.setSkinInventory(skinInventory);
+        userRepository.save(user);
+    }
 }
