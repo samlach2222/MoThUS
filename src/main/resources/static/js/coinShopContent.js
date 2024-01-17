@@ -66,8 +66,6 @@ function closePopup() {
 function loadPopupContent(contentType, lootboxType) {
     const popupContent = document.querySelector('.popup-content');
 
-    console.log(lootboxType);
-
     // Clear previous content
     popupContent.innerHTML = '';
 

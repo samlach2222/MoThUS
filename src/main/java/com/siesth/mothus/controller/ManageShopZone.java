@@ -135,6 +135,20 @@ public class ManageShopZone {
         return "Content/elementCaseContent";
     }
 
+    @GetMapping("/lootPopup")
+    public String lootPopup(Model model, Locale locale, Authentication authentication){
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            locale = new Locale(userLanguage);
+        }
+        String scientificKnowledge = messageSource.getMessage("ShopZone.lootPopup.scientificKnowledge", null, locale);
+        String validateButton = messageSource.getMessage("ShopZone.lootPopup.validateButton", null, locale);
+        model.addAttribute("scientificKnowledge", scientificKnowledge);
+        model.addAttribute("validateButton", validateButton);
+        return "Popup/lootPopup";
+    }
+
     /**
      * This method is used to show the credit card popup.
      * It adds the texts to the model from locale.
