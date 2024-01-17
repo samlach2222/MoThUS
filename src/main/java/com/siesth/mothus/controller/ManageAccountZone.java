@@ -370,19 +370,6 @@ public class ManageAccountZone {
         }
     }
 
-    @PostMapping("/getMollards")
-    @ResponseBody
-    public int getMollards(Authentication authentication) {
-        // get current user
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            String currentUserName = authentication.getName();
-            return userManagement.getMollardsByUsername(currentUserName);
-        }
-        else {
-            return 0;
-        }
-    }
-
     @PostMapping("/changeEquippedSkin")
     @ResponseBody
     public String changeEquippedSkin(Authentication authentication, @RequestBody Map<String, String> skinChangeRequest) {

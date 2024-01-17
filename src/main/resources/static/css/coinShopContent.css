@@ -1,0 +1,101 @@
+
+#commonBuyDiv, #rareBuyDiv, #mythicBuyDiv {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: auto;
+    margin-top: auto;
+    margin-top: 4vh; /* keep this */
+    padding: 2vh;
+    background-color: #b8b9bc;
+}
+
+#coinShopDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.coinValueDiv {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: solid black 2px;
+    border-radius: 10px;
+    padding: 1vh;
+    font-size: 2vh;
+    margin-top: 1vh;
+    justify-content: center;
+    width: 20vh;
+    height: 5vh;
+    color: white;
+}
+
+#commonBuyDiv .coinValueDiv{
+    background-color: #009f63;
+}
+
+#rareBuyDiv .coinValueDiv{
+    background: linear-gradient(to bottom right, #c3ab1c, #ffdb00);
+}
+
+#mythicBuyDiv .coinValueDiv{
+    background: linear-gradient(to bottom right, #fa6101, #cd0c07);
+}
+
+.euroValueDiv {
+    background-color: white;
+    border: solid black 2px;
+    border-radius: 10px;
+    padding: 1vh;
+    font-size: 2vh;
+    margin-top: 1vh;
+}
+
+.euroValueDiv:hover {
+    background-color: whitesmoke;
+    cursor: pointer;
+}
+
+.coinButton {
+    height: 85%;
+    object-fit: contain;
+}
+
+span {
+    margin: 1vh;
+    font-size: 3vh;
+}
+
+#coinCounterDiv {
+    display: flex;
+    flex-direction: row;
+    border: 0.3vh solid black;
+    border-radius: 20px;
+    align-items: center;
+    width: 10vh;
+    height: 8vh;
+}
+#shop {
+    width: 10vh;
+    height: 8vh;
+    display: flex;
+}
+
+#coinCounter {
+    font-size: 2vh;
+    margin-right: 0.5vh;
+    text-align: center;
+}
+
+#coinButton {
+    margin-left: 0.5vh;
+    margin-right: 0.5vh;
+    width: unset;
+    height: 85%;
+    object-fit: contain;
+}

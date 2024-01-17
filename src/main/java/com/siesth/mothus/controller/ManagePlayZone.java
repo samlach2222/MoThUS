@@ -232,5 +232,18 @@ public class ManagePlayZone {
         return compareWords(word);
     }
 
+    @PostMapping("/getMollards")
+    @ResponseBody
+    public int getMollards(Authentication authentication) {
+        // get current user
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            return userManagement.getMollardsByUsername(currentUserName);
+        }
+        else {
+            return 0;
+        }
+    }
+
     // TODO : Add code for guest playing
 }

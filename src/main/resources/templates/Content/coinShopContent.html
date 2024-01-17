@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Coin Shop Content</title>
+        <link href="/css/coinShopContent.css" rel="stylesheet">
         <script src="/js/coinShopContent.js"></script>
     </head>
     <body>
@@ -10,9 +11,37 @@
             <div class="popup-content"></div>
         </div>
 
-        <h2>Coin Shop</h2>
-        <p>This is the content of the Coin Shop.</p>
+        <div id="shop">
+            <div id="coinCounterDiv">
+                <img src="/assets/icons/AccountIcon.svg" alt="logo" id="coinButton"> <!-- Temporary image -->
+                <p id="coinCounter" th:text="${mollardValue}">0</p>
+            </div>
+        </div>
 
-        <input type="button" id="buyButton" name="buyButton" value="Buy" onclick="openPopup('buyButton')">
+        <div id="coinShopDiv">
+            <div id="commonBuyDiv">
+                <div class="coinValueDiv">
+                    <span>100 x </span>
+                    <img src="/assets/icons/AccountIcon.svg" alt="logo" class="coinButton">
+                </div>
+                <div class="euroValueDiv" onclick="openPopup('buyButton')">1€99</div>
+            </div>
+
+            <div id="rareBuyDiv">
+                <div class="coinValueDiv">
+                    <span>500 x </span>
+                    <img src="/assets/icons/AccountIcon.svg" alt="logo" class="coinButton">
+                </div>
+                <div class="euroValueDiv" onclick="openPopup('buyButton')">8€99</div>
+            </div>
+
+            <div id="mythicBuyDiv">
+                <div class="coinValueDiv">
+                    <span>1000 x </span>
+                    <img src="/assets/icons/AccountIcon.svg" alt="logo" class="coinButton">
+                </div>
+                <div class="euroValueDiv" onclick="openPopup('buyButton')">15€99</div>
+            </div>
+        </div>
     </body>
 </html>

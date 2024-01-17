@@ -2,7 +2,6 @@
  * Function called when the user clicks on the "Coin Shop" button in the vertical menu.
  */
 function initCoinShopContent() {
-
 }
 
 /**
@@ -92,6 +91,7 @@ function loadPopupContent(contentType) {
 function validatePayment(){
     // TODO: Validate payment
     closePopup();
+    actualizeMollards();
 }
 
 /**

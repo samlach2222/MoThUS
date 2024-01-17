@@ -70,7 +70,15 @@ public class ManageShopZone {
      * @return the coin shop content page
      */
     @GetMapping("/coinShopContent")
-    public String loadCoinShopContent(Model model) {
+    public String loadCoinShopContent(Model model, Authentication authentication, Locale locale) {
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            locale = new Locale(userLanguage);
+            int mollardValue = userManagement.getMollardsByUsername(currentUserName);
+            model.addAttribute("mollardValue", mollardValue);
+        }
+
         return "Content/coinShopContent";
     }
 
