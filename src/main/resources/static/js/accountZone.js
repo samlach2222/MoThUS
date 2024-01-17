@@ -115,7 +115,7 @@ function displaySkinsContent(elt, type) {
     }
 
     // create <div> in elementSkin (Element equipped)
-    if(elt.equipped === "true") {
+    if(elt.equipped === true) {
         let elementSkinEquipped = document.createElement("div");
         elementSkinEquipped.classList.add("elementSkinEquipped");
         elementSkinEquipped.innerHTML = document.getElementById("equippedLabel").innerHTML;
@@ -140,7 +140,7 @@ function displaySkins(data, type) {
             rarity: elementSkin.rarity,
             previewImage: elementSkin.previewImage,
             id: elementSkin.id,
-            equipped: elementSkin.equipped, // TODO : Change, no equipped in pageSkin
+            equipped: elementSkin.equipped,
             cssFile : elementSkin.cssFile
         };
         elts.push(elt);
