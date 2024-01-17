@@ -6,3 +6,7 @@ body {
 #helpButton, #statsButton, #accountButton, #coinCounterDiv {
     filter: invert(100%);
 }
+
+#coinButton {
+    filter: invert(100%);
+}
