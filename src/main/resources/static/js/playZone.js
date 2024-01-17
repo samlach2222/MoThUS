@@ -12,6 +12,7 @@ window.onload = function () {
 }
 
 let currentLine;
+let messageMollard;
 let firstLetter;
 let startTime;
 let currentTime;
@@ -776,9 +777,15 @@ function exportResult(){
         mothustext.innerHTML = "#MoThUS #" + gameNumber + " " + row + "/8 " + time;
         mothustext.id = "mothusText";
 
+        // EARN MOLLARDS TEXT
+        let earnMollardsText = document.createElement("p");
+        earnMollardsText.innerHTML = "You earn " + messageMollard + " Mollards";
+        earnMollardsText.id = "mothusText";
+
         let gameResults = document.getElementById("gameResults");
         gameResults.appendChild(mothustext);
         gameResults.appendChild(table);
+        gameResults.appendChild(earnMollardsText);
     }
 }
 
@@ -802,6 +809,12 @@ function exportResultToServer(data){
     xhr.setRequestHeader(header, token);
     try {
         xhr.send(requestBody);
+        if (xhr.status === 200) {
+            messageMollard = xhr.responseText;
+            actualizeMollards();
+        } else {
+            throw new Error('Network response was not ok');
+        }
     }
     catch (err) {
         console.error(err);

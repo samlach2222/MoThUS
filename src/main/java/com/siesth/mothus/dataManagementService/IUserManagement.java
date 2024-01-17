@@ -102,6 +102,8 @@ public interface IUserManagement {
      */
     void updateUsernameByUsername(String oldUsername, String newUsername);
 
+    void updateBalanceByUsername(String oldUsername, int balance);
+
     /**
      * This method is used to update the password by username.
      * @param username the username

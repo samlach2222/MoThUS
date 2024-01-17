@@ -197,6 +197,13 @@ public class UserManagement implements IUserManagement {
         userRepository.save(user);
     }
 
+    @Override
+    public void updateBalanceByUsername(String oldUsername, int balance) {
+        User user = userRepository.findUserByUsername(oldUsername);
+        user.setBalance(user.getBalance() + balance);
+        userRepository.save(user);
+    }
+
     /**
      * This method is used to update the password by username.
      * @param username the username
