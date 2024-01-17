@@ -69,7 +69,7 @@ public class UserManagement implements IUserManagement {
         if (user == null) {
             return false;
         }
-        Argon2PasswordEncoder arg2SpringSecurity = new Argon2PasswordEncoder(16, 32, 1, 60000, 10);
+        Argon2PasswordEncoder arg2SpringSecurity = new Argon2PasswordEncoder(16, 32, 1, 50000, 3);
         return arg2SpringSecurity.matches(registrationDto.getPassword(), user.getPassword());
     }
 
