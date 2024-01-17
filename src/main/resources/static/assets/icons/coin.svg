@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg width="52mm" height="51mm" version="1.1" viewBox="0 0 52 51" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<defs>
+		<radialGradient id="radialGradient2" cx="92.549" cy="41.264" r="25" gradientUnits="userSpaceOnUse">
+			<stop stop-color="#a9b900" offset="0"/>
+			<stop stop-color="#e69000" offset="1"/>
+		</radialGradient>
+		<pattern id="pattern11-9" patternTransform="matrix(0,2.8,-2.8,0,0,0)" preserveAspectRatio="xMidYMid" xlink:href="#Strips1_2-3"/>
+		<pattern id="Strips1_2-3" width="3" height="1" fill="#663d00" patternTransform="translate(0) scale(2)" patternUnits="userSpaceOnUse" preserveAspectRatio="xMidYMid">
+			<rect y="-.5" width="1" height="2"/>
+		</pattern>
+	</defs>
+	<g transform="translate(-98.324 -83.274)">
+		<g transform="translate(32.775 68.01)">
+			<g>
+				<rect x="65.549" y="15.264" width="50" height="50" ry="25" fill="#bd7200"/>
+				<rect x="65.549" y="15.264" width="50" height="50" ry="25" fill="url(#pattern11-9)"/>
+				<rect x="67.549" y="16.264" width="50" height="50" ry="25" fill="url(#radialGradient2)"/>
+			</g>
+			<text x="92.54937" y="51.523426" fill="#ffffff" font-family="Play" font-size="28.222px" font-weight="bold" text-align="center" text-anchor="middle" style="white-space:pre" xml:space="preserve">M</text>
+		</g>
+	</g>
+</svg>
