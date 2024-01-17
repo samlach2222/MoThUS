@@ -85,7 +85,7 @@ public class EmailService implements IEmailService {
         int duration = vc.getDuration();
         LocalDateTime currentTime = LocalDateTime.now();
 
-        Duration d = Duration.between(lt.plusSeconds(duration), currentTime);
+        Duration d = Duration.between(currentTime, lt.plusSeconds(duration));
         return (int) d.getSeconds();
     }
 
