@@ -9,7 +9,6 @@ window.onload = function () {
     receiveWordFromSpring();
     actualizeMollards();
     startTime = new Date();
-    // TODO : send to Spring to save the start time (if there is no startTime in Spring)
 }
 
 let currentLine;
@@ -710,7 +709,7 @@ function getResultsAndPrepareToSendDb(){
         numberOfPurpleSquare += coloration.split("🟪").length - 1;
     }
 
-    let gameNumber = getLatestGameNumber(); // TODO BUG HERE
+    let gameNumber = getLatestGameNumber();
     // transform time to seconds
     let time = getEndGameTime();
     let splitTime = time.split(":");
@@ -771,7 +770,7 @@ function exportResult(){
 
         // MOTHUS TEXT
         let mothustext = document.createElement("p");
-        let gameNumber = getLatestGameNumber(); // TODO BUG HERE
+        let gameNumber = getLatestGameNumber();
         let row = lines.length;
         let time = getEndGameTime();
         mothustext.innerHTML = "#MoThUS #" + gameNumber + " " + row + "/8 " + time;
