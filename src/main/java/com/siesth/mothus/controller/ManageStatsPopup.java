@@ -118,7 +118,7 @@ public class ManageStatsPopup {
 
     @PostMapping("/exportResultToServer")
     @ResponseBody
-    public String exportResultToServer(Authentication authentication, @RequestBody Map<String, String> resultInfo) {
+    public Integer exportResultToServer(Authentication authentication, @RequestBody Map<String, String> resultInfo) {
         int gameNumber = Integer.parseInt(resultInfo.get("gameNumber"));
         int time = Integer.parseInt(resultInfo.get("time"));
         int numberOfTries = Integer.parseInt(resultInfo.get("numberOfTries"));
@@ -138,39 +138,50 @@ public class ManageStatsPopup {
             stats.setYellowCircleCount(stats.getYellowCircleCount() + numberOfYellowCircle);
             stats.setPurpleSquareCount(stats.getPurpleSquareCount() + numberOfPurpleSquare);
             stats.setWinCount(stats.getWinCount() + (win ? 1 : 0));
+            int amountOfMollardsWin = 0;
             if(win) {
                 switch(numberOfTries){
                     case 1:
                         stats.setFirstTryCount(stats.getFirstTryCount() + 1);
+                        amountOfMollardsWin = 100;
                         break;
                     case 2:
                         stats.setSecondTryCount(stats.getSecondTryCount() + 1);
+                        amountOfMollardsWin = 30;
                         break;
                     case 3:
                         stats.setThirdTryCount(stats.getThirdTryCount() + 1);
+                        amountOfMollardsWin = 20;
                         break;
                     case 4:
                         stats.setFourthTryCount(stats.getFourthTryCount() + 1);
+                        amountOfMollardsWin = 15;
                         break;
                     case 5:
                         stats.setFifthTryCount(stats.getFifthTryCount() + 1);
+                        amountOfMollardsWin = 12;
                         break;
                     case 6:
                         stats.setSixthTryCount(stats.getSixthTryCount() + 1);
+                        amountOfMollardsWin = 10;
                         break;
                     case 7:
                         stats.setSeventhTryCount(stats.getSeventhTryCount() + 1);
+                        amountOfMollardsWin = 7;
                         break;
                     case 8:
                         stats.setEighthTryCount(stats.getEighthTryCount() + 1);
+                        amountOfMollardsWin = 4;
                         break;
                 }
             }
             else {
                 stats.setLooseCount(stats.getLooseCount() + 1);
+                amountOfMollardsWin = -1;
             }
             userManagement.updateStatsByUsername(currentUserName, stats);
-            return "OK";
+            userManagement.updateBalanceByUsername(currentUserName, amountOfMollardsWin);
+            return amountOfMollardsWin;
         }
         else {
             return null;
