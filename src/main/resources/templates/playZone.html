@@ -7,6 +7,8 @@
         <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
         <link href="/assets/icons/favicon.ico" rel="icon" type="image/x-icon"/>
         <link href="/css/playZone.css" rel="stylesheet">
+        <link th:if="${pageSkin}" th:href="${pageSkin}" rel="stylesheet">
+        <link th:if="${elementSkin}" th:href="${elementSkin}" rel="stylesheet">
         <link type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" rel="stylesheet">
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>

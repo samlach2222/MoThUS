@@ -3,6 +3,7 @@ package com.siesth.mothus.controller;
 import com.siesth.mothus.dataManagementService.IGameManagement;
 import com.siesth.mothus.dataManagementService.IUserManagement;
 import com.siesth.mothus.model.Game;
+import com.siesth.mothus.model.Skin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.core.io.Resource;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Collection;
 import java.util.Locale;
 
 /**
@@ -182,10 +184,23 @@ public class ManagePlayZone {
      */
     @GetMapping("/playZone")
     public String playZone(Model model, Locale locale, Authentication authentication) {
-        if (!(authentication instanceof AnonymousAuthenticationToken)) {
-            String currentUserName = authentication.getName();
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-            locale = new Locale(userLanguage);
+        if(authentication != null) {
+            if (!(authentication instanceof AnonymousAuthenticationToken)) {
+                String currentUserName = authentication.getName();
+                String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+                locale = new Locale(userLanguage);
+                int pageSkinId = userManagement.getSkinInventoryByUsername(currentUserName).getCurrentPageSkinId();
+                int elementSkinId = userManagement.getSkinInventoryByUsername(currentUserName).getCurrentElementSkinId();
+                Collection<Skin> skinList = userManagement.getSkinInventoryByUsername(currentUserName).getSkinList();
+                for (Skin s : skinList) {
+                    if (s.getIdSkin() == pageSkinId) {
+                        model.addAttribute("pageSkin", s.getCssFile());
+                    }
+                    if (s.getIdSkin() == elementSkinId) {
+                        model.addAttribute("elementSkin", s.getCssFile());
+                    }
+                }
+            }
         }
 
         String pageTitle = messageSource.getMessage("PlayZone.PageTitle", null, locale);
