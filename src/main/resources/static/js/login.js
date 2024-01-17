@@ -95,6 +95,7 @@ function startTimer() {
         .then(response => response.text())
         .then(data => {
             let initialTime = parseInt(data);
+            console.log(data);
             let timeRemaining = initialTime;
             document.getElementById('timerValue').innerText = timeRemaining.toString();
 

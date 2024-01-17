@@ -23,6 +23,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Collections;
@@ -46,7 +47,7 @@ public class ManageLogin {
      */
     @Autowired
     private IUserManagement userManagement;
-    
+
     @Autowired
     private UserRepository userRepository;
 
@@ -95,7 +96,7 @@ public class ManageLogin {
                 return "redirect:/playZone";
             }
         }
-    
+
         // locale BEGIN
         String pageTitle = messageSource.getMessage("Login.PageTitle", null, locale);
         String loginButton = messageSource.getMessage("Login.LoginButton", null, locale);
@@ -124,7 +125,7 @@ public class ManageLogin {
         if (isAuthenticated()) {
             return "redirect:/login";
         }
-    
+
         // To pass data to the template
         Object registrationError = model.asMap().get("registrationError");
         Object loginError = model.asMap().get("loginError");
@@ -166,7 +167,7 @@ public class ManageLogin {
         if (isAuthenticated()) {
             return "redirect:/login";
         }
-    
+
         // To pass data to the template
         Object registrationSuccess = model.asMap().get("registrationSuccess");
 
@@ -213,7 +214,7 @@ public class ManageLogin {
             redirectAttributes.addFlashAttribute("registrationPasswordError", "Registration failed. Passwords don't match.");
             return "redirect:/login";
         }
-    
+
         // TODO : createNewUser is very slow (a few seconds), make it faster
         boolean isGood = userManagement.createNewUser(registrationDto);
         if(isGood) {
@@ -282,10 +283,11 @@ public class ManageLogin {
      * @return the time before the validation code expires
      */
     @PostMapping("/timeBeforeValidationCode")
+    @ResponseBody
     public int timeBeforeValidationCode(Authentication authentication) {
         // Redirect to playZone if the user has already validated his email
         if (isRoleUser()) {
-            return -1;
+            return 0;
         }
 
         return emailService.getValidationCodeTime(authentication.getName());
@@ -334,7 +336,7 @@ public class ManageLogin {
         if (isRoleUser()) {
             return "redirect:/playZone";
         }
-    
+
         model.addAttribute("validateEmailDto", new ValidateEmailDto());
 
         // locale BEGIN
