@@ -11,4 +11,8 @@ public interface IGameManagement {
      * @return game of today
      */
     Game getTodayGame();
+
+    String getRandomFrench();
+
+    String getRandomEnglish();
 }
