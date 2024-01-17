@@ -10,6 +10,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -117,11 +118,26 @@ public class ManagePlayZone {
      * @param receivedWord the received word
      * @return the result of the comparison
      */
-    private String compareWords(String receivedWord) {
+    private String compareWords(String receivedWord, Locale locale) {
         // remove empty strings and quote from receivedWord
         receivedWord = receivedWord.replace("\"", "");
         receivedWord = receivedWord.replace(" ", "");
-        String[] localWordLetters = frenchWord.split("(?=[A-Z])");
+        String userLanguage;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication !=null && !(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            userLanguage = userManagement.getLanguageByUsername(currentUserName);
+        }
+        else {
+            userLanguage = locale.getLanguage();
+        }
+        String[] localWordLetters;
+        if(userLanguage.equals("fr")) {
+            localWordLetters = frenchWord.split("(?=[A-Z])");
+        }
+        else {
+            localWordLetters = englishWord.split("(?=[A-Z])");
+        }
         String[] receivedWordLetters = receivedWord.split("(?=[A-Z])");
 
         String[] result = new String[receivedWordLetters.length];
@@ -255,9 +271,9 @@ public class ManagePlayZone {
      */
     @PostMapping("/sendWord")
     @ResponseBody
-    public String receiveWord(@RequestBody String word) {
+    public String receiveWord(@RequestBody String word, Locale locale) {
         System.out.println("Received word: " + word);
-        return compareWords(word);
+        return compareWords(word, locale);
     }
 
     @PostMapping("/getMollards")
