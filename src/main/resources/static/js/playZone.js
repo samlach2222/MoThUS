@@ -682,8 +682,30 @@ function loadPopupContent(contentType) {
                 .then(response => response.text())
                 .then(html => {
                     popupContent.innerHTML = html;
+
                     exportResult();
-                })
+                }).then(() => {
+                // Display the graph with different heights
+                let graphValues = [];
+                let elementsNumberOfTriesText = document.body.getElementsByClassName("numberOfTriesText");
+                for (let i = 0; i < elementsNumberOfTriesText.length; i++) {
+                    let numberOfTries= elementsNumberOfTriesText[i].innerHTML;
+                    graphValues.push(numberOfTries);
+                }
+
+                let min = Math.min(...graphValues);
+                let max = Math.max(...graphValues);
+
+                // Calculate and update height of each bar
+                let elementsNumberOfTriesBar = document.body.getElementsByClassName("numberOfTriesBar");
+                for (let i = 0; i < elementsNumberOfTriesBar.length; i++) {
+                    // height between 10px and 100px
+                    let height = 10 + ((graphValues[i] - min) / (max - min)) * 90;
+                    elementsNumberOfTriesBar[i].style.height = height + "px";
+                    console.log(graphValues[i]);
+                    console.log(height);
+                }
+            })
                 .catch(error => {
                     console.error('Error loading content:', error);
                 });
