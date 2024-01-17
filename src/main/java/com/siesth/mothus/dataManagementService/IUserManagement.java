@@ -116,6 +116,8 @@ public interface IUserManagement {
      */
     void updateEmailByUsername(String username, String email);
 
+    void updateStatsByUsername(String username, Stats stats);
+
     Skin getRandomSkin(String username, String type);
 
     void updateSkinInventoryByUsername(String username, SkinInventory skinInventory);

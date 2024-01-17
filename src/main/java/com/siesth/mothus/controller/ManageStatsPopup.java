@@ -1,5 +1,6 @@
 package com.siesth.mothus.controller;
 
+import com.siesth.mothus.dataManagementService.IGameManagement;
 import com.siesth.mothus.dataManagementService.IUserManagement;
 import com.siesth.mothus.model.Stats;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * This class is used to manage the stats popup.
@@ -27,6 +32,9 @@ public class ManageStatsPopup {
      */
     @Autowired
     private IUserManagement userManagement;
+
+    @Autowired
+    private IGameManagement gameManagement;
 
     /**
      * This constructor is used to autowire the message source.
@@ -100,5 +108,72 @@ public class ManageStatsPopup {
         }
 
         return "Popup/statsPopup";
+    }
+
+    @GetMapping("/getLatestGameNumber")
+    @ResponseBody
+    public int getLatestGameNumber() {
+        return gameManagement.getTodayGame().getIdGame();
+    }
+
+    @PostMapping("/exportResultToServer")
+    @ResponseBody
+    public String exportResultToServer(Authentication authentication, @RequestBody Map<String, String> resultInfo) {
+        int gameNumber = Integer.parseInt(resultInfo.get("gameNumber"));
+        int time = Integer.parseInt(resultInfo.get("time"));
+        int numberOfTries = Integer.parseInt(resultInfo.get("numberOfTries"));
+        int numberOfRedSquare = Integer.parseInt(resultInfo.get("numberOfRedSquare"));
+        int numberOfBlueSquare = Integer.parseInt(resultInfo.get("numberOfBlueSquare"));
+        int numberOfYellowCircle = Integer.parseInt(resultInfo.get("numberOfYellowCircle"));
+        int numberOfPurpleSquare = Integer.parseInt(resultInfo.get("numberOfPurpleSquare"));
+        boolean win = Boolean.parseBoolean(resultInfo.get("win"));
+
+        // get current user
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            Stats stats = userManagement.getStatsByUsername(currentUserName);
+            stats.setPlayTime(stats.getPlayTime() + time);
+            stats.setBlueSquareCount(stats.getBlueSquareCount() + numberOfBlueSquare);
+            stats.setRedSquareCount(stats.getRedSquareCount() + numberOfRedSquare);
+            stats.setYellowCircleCount(stats.getYellowCircleCount() + numberOfYellowCircle);
+            stats.setPurpleSquareCount(stats.getPurpleSquareCount() + numberOfPurpleSquare);
+            stats.setWinCount(stats.getWinCount() + (win ? 1 : 0));
+            if(win) {
+                switch(numberOfTries){
+                    case 1:
+                        stats.setFirstTryCount(stats.getFirstTryCount() + 1);
+                        break;
+                    case 2:
+                        stats.setSecondTryCount(stats.getSecondTryCount() + 1);
+                        break;
+                    case 3:
+                        stats.setThirdTryCount(stats.getThirdTryCount() + 1);
+                        break;
+                    case 4:
+                        stats.setFourthTryCount(stats.getFourthTryCount() + 1);
+                        break;
+                    case 5:
+                        stats.setFifthTryCount(stats.getFifthTryCount() + 1);
+                        break;
+                    case 6:
+                        stats.setSixthTryCount(stats.getSixthTryCount() + 1);
+                        break;
+                    case 7:
+                        stats.setSeventhTryCount(stats.getSeventhTryCount() + 1);
+                        break;
+                    case 8:
+                        stats.setEighthTryCount(stats.getEighthTryCount() + 1);
+                        break;
+                }
+            }
+            else {
+                stats.setLooseCount(stats.getLooseCount() + 1);
+            }
+            userManagement.updateStatsByUsername(currentUserName, stats);
+            return "OK";
+        }
+        else {
+            return null;
+        }
     }
 }

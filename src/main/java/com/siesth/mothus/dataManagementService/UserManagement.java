@@ -222,6 +222,13 @@ public class UserManagement implements IUserManagement {
     }
 
     @Override
+    public void updateStatsByUsername(String username, Stats stats) {
+        User user = userRepository.findUserByUsername(username);
+        user.setStats(stats);
+        userRepository.save(user);
+    }
+
+    @Override
     public Skin getRandomSkin(String username, String type) {
         List<Skin> skins = skinRepository.findAll();
         Collection<Skin> ownedSkins = getSkinInventoryByUsername(username).getSkinList();

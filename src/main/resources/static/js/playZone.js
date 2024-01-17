@@ -8,12 +8,14 @@ window.onload = function () {
     receiveDataFromSpring();
     receiveWordFromSpring();
     actualizeMollards();
-    let currentTime = new Date();
+    startTime = new Date();
     // TODO : send to Spring to save the start time (if there is no startTime in Spring)
 }
 
 let currentLine;
 let firstLetter;
+let startTime;
+let currentTime;
 let lines = [];
 let isWin = false;
 let isGameFinished = false;
@@ -479,9 +481,20 @@ function clearUnderLines() {
 /**
  * Send the end game time to Spring
  */
-function sendEndGameTime() {
-    let currentTime = new Date();
-    // TODO : send to Spring to save the end time (if there is no endTime in Spring)
+function getEndGameTime() {
+    let timeElapsed = currentTime - startTime;
+    let seconds = Math.floor(timeElapsed / 1000);
+    let minutes = Math.floor(seconds / 60);
+    let hours = Math.floor(minutes / 60);
+    let time = "";
+    if(hours > 0) {
+        time += hours + ":";
+    }
+    if(minutes > 0) {
+        time += minutes + ":";
+    }
+    time += seconds;
+    return time;
 }
 
 /**
@@ -521,24 +534,24 @@ function sendCurrentWord(){
             if(!coloration.includes("-") && !coloration.includes("*") && !coloration.includes("/")) {
                 isGameFinished = true;
                 isWin = true;
-                sendEndGameTime();
+                currentTime = new Date();
+                getResultsAndPrepareToSendDb();
                 notifySuccess("Gagné"); // TODO : translate
                 deactivateTable();
                 deactivateKeyboard();
                 clearUnderLines();
-                // TODO : Mark the user game as won in the database
                 exportResult();
                 openPopup('statsButton');
             }
             // LOOSING CONDITION
             else if(currentLine === 7 && !isWin) {
                 isGameFinished = true;
-                sendEndGameTime();
+                currentTime = new Date();
+                getResultsAndPrepareToSendDb();
                 notifyError("Perdu"); // TODO : translate
                 deactivateTable();
                 deactivateKeyboard();
                 exportResult();
-                // TODO : Mark the user game as lost in the database
                 openPopup('statsButton');
             }
             // PREPARE FOR THE NEXT LINE
@@ -678,6 +691,57 @@ function loadPopupContent(contentType) {
     }
 }
 
+function getResultsAndPrepareToSendDb(){
+
+    let numberOfRedSquare = 0;
+    let numberOfYellowCircle = 0;
+    let numberOfBlueSquare = 0;
+    let numberOfPurpleSquare = 0;
+
+    for (let i = 0; i < lines.length; i++) {
+        let coloration = lines[i];
+        coloration = coloration.replaceAll("-", "🟦");
+        numberOfBlueSquare += coloration.split("🟦").length - 1;
+        coloration = coloration.replaceAll("+", "🟥");
+        numberOfRedSquare += coloration.split("🟥").length - 1;
+        coloration = coloration.replaceAll("*", "🟨");
+        numberOfYellowCircle += coloration.split("🟨").length - 1;
+        coloration = coloration.replaceAll("/", "🟪");
+        numberOfPurpleSquare += coloration.split("🟪").length - 1;
+    }
+
+    let gameNumber = getLatestGameNumber(); // TODO BUG HERE
+    // transform time to seconds
+    let time = getEndGameTime();
+    let splitTime = time.split(":");
+    let seconds = 0;
+    if(splitTime.length === 3) {
+        seconds += parseInt(splitTime[0]) * 3600;
+        seconds += parseInt(splitTime[1]) * 60;
+        seconds += parseInt(splitTime[2]);
+    }
+    else if(splitTime.length === 2) {
+        seconds += parseInt(splitTime[0]) * 60;
+        seconds += parseInt(splitTime[1]);
+    }
+    else {
+        seconds += parseInt(splitTime[0]);
+    }
+
+    // Export data to server
+    let data = {
+        "gameNumber": gameNumber,
+        "time": seconds,
+        "numberOfTries": lines.length,
+        "numberOfRedSquare": numberOfRedSquare,
+        "numberOfYellowCircle": numberOfYellowCircle,
+        "numberOfBlueSquare": numberOfBlueSquare,
+        "numberOfPurpleSquare": numberOfPurpleSquare,
+        "win": isWin
+    };
+    exportResultToServer(data);
+}
+
 function exportResult(){
     if(isGameFinished) {
         let gameNotFinishedText = document.getElementById("gameNotFinishedText");
@@ -688,6 +752,7 @@ function exportResult(){
         // EXPORT TABLE
         let table = document.createElement("table");
         let tableBody = document.createElement("tbody");
+
         for (let i = 0; i < lines.length; i++) {
             let row = document.createElement("tr");
             let cell = document.createElement("td");
@@ -706,15 +771,63 @@ function exportResult(){
 
         // MOTHUS TEXT
         let mothustext = document.createElement("p");
-        let gameNumber = 1; // TODO : get the number of the game
+        let gameNumber = getLatestGameNumber(); // TODO BUG HERE
         let row = lines.length;
-        let time = "00:35"; // TODO : get the time of the game
+        let time = getEndGameTime();
         mothustext.innerHTML = "#MoThUS #" + gameNumber + " " + row + "/8 " + time;
         mothustext.id = "mothusText";
 
         let gameResults = document.getElementById("gameResults");
         gameResults.appendChild(mothustext);
         gameResults.appendChild(table);
+    }
+}
+
+function exportResultToServer(data){
+    let requestBody = JSON.stringify({
+        gameNumber: data.gameNumber,
+        time: data.time,
+        numberOfTries: data.numberOfTries,
+        numberOfRedSquare: data.numberOfRedSquare,
+        numberOfYellowCircle: data.numberOfYellowCircle,
+        numberOfBlueSquare: data.numberOfBlueSquare,
+        numberOfPurpleSquare: data.numberOfPurpleSquare,
+        win: data.win
+    });
+
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', '/exportResultToServer', false);  // The third parameter 'false' makes the request synchronous
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    const token = document.head.querySelector('meta[name="_csrf"]').content;
+    const header = document.head.querySelector('meta[name="_csrf_header"]').content;
+    xhr.setRequestHeader(header, token);
+    try {
+        xhr.send(requestBody);
+    }
+    catch (err) {
+        console.error(err);
+    }
+}
+
+function getLatestGameNumber(){
+
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', '/getLatestGameNumber', false);  // The third parameter 'false' makes the request synchronous
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    const token = document.head.querySelector('meta[name="_csrf"]').content;
+    const header = document.head.querySelector('meta[name="_csrf_header"]').content;
+    xhr.setRequestHeader(header, token);
+
+    try {
+        xhr.send();
+        if (xhr.status === 200) {
+            return xhr.responseText;
+        } else {
+            throw new Error('Network response was not ok');
+        }
+    }
+    catch (err) {
+        console.error(err);
     }
 }
 
