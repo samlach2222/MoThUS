@@ -11,17 +11,17 @@
                 <div class="caisse" onclick="getSkin('Common')">
                     <img class="lootboxAnimated" src="/assets/icons/lootbox_animated1.svg" alt="Logo Caisse 1">
                     <div class="buy">
-                        <p>Buy common case</p>
-                        <p>510 Mollards</p>
+                        <p th:text="${buyCommonCase}">Buy common case</p>
+                        <p th:text="${commonCaseMollards}">110 Mollards</p>
                     </div>
                 </div>
                 <div class ="stats">
-                    <p class="chancesCenter">Chances :</p>
+                    <p th:text="${chances}" class="chancesCenter">Chances :</p>
                     <ul>
-                        <li>Objet Commun : 55%</li>
-                        <li>Objet Peu Commun : 30%</li>
-                        <li>Objet Rare : 15%</li>
-                        <li>Objet Très Rare : 5%</li>
+                        <li th:text="${commonSkin55}">Skin Commun : 55%</li>
+                        <li th:text="${uncommonSkin30}">Skin Peu Commun : 30%</li>
+                        <li th:text="${rareSkin15}">Skin Rare : 15%</li>
+                        <li th:text="${mythicSkin5}">Skin Très Rare : 5%</li>
                     </ul>
                 </div>
             </div>
@@ -30,17 +30,17 @@
                 <div class="caisse" onclick="getSkin('Rare')">
                     <img class="lootboxAnimated" src="/assets/icons/lootbox_animated2.svg" alt="Logo Caisse 2">
                     <div class="buy">
-                        <p>Buy rare case</p>
-                        <p>510 Mollards</p>
+                        <p th:text="${buyRareCase}">Buy rare case</p>
+                        <p th:text="${rareCaseMollards}">510 Mollards</p>
                     </div>
                 </div>
                 <div class ="stats">
-                    <p class="chancesCenter">Chances :</p>
+                    <p th:text="${chances}" class="chancesCenter">Chances :</p>
                     <ul>
-                        <li>Objet Commun : 30%</li>
-                        <li>Objet Peu Commun : 30%</li>
-                        <li>Objet Rare : 25%</li>
-                        <li>Objet Très Rare : 15%</li>
+                        <li th:text="${commonSkin30}">Objet Commun : 30%</li>
+                        <li th:text="${uncommonSkin30}">Objet Peu Commun : 30%</li>
+                        <li th:text="${rareSkin25}">Objet Rare : 25%</li>
+                        <li th:text="${mythicSkin15}">Objet Très Rare : 15%</li>
                     </ul>
                 </div>
             </div>
@@ -48,17 +48,17 @@
                 <div class="caisse" onclick="getSkin('Mythic')">
                     <img class="lootboxAnimated" src="/assets/icons/lootbox_animated3.svg" alt="Logo Caisse 3">
                     <div class="buy">
-                        <p>Buy mythic case</p>
-                        <p>510 Mollards</p>
+                        <p th:text="${buyMythicCase}">Buy mythic case</p>
+                        <p th:text="${mythicCaseMollards}">1010 Mollards</p>
                     </div>
                 </div>
                 <div class ="stats">
-                    <p class="chancesCenter">Chances :</p>
+                    <p th:text="${chances}" class="chancesCenter">Chances :</p>
                     <ul>
-                        <li>Objet Commun : 10%</li>
-                        <li>Objet Peu Commun : 10%</li>
-                        <li>Objet Rare : 40%</li>
-                        <li>Objet Très Rare : 40%</li>
+                        <li th:text="${commonSkin10}">Objet Commun : 10%</li>
+                        <li th:text="${uncommonSkin10}">Objet Peu Commun : 10%</li>
+                        <li th:text="${rareSkin40}">Objet Rare : 40%</li>
+                        <li th:text="${mythicSkin40}">Objet Très Rare : 40%</li>
                     </ul>
                 </div>
             </div>

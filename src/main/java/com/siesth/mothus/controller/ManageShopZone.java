@@ -85,7 +85,53 @@ public class ManageShopZone {
      * @return the element case content page
      */
     @GetMapping("/elementCaseContent")
-    public String loadElementCaseContent(Model model) {
+    public String loadElementCaseContent(Model model, Authentication authentication, Locale locale){
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            locale = new Locale(userLanguage);
+        }
+
+        // locale BEGIN
+        String buyCommonCase = messageSource.getMessage("ShopZone.ElementCaseContent.BuyCommonCase", null, locale);
+        String buyRareCase = messageSource.getMessage("ShopZone.ElementCaseContent.BuyRareCase", null, locale);
+        String buyMythicCase = messageSource.getMessage("ShopZone.ElementCaseContent.BuyMythicCase", null, locale);
+        String commonCaseMollards = messageSource.getMessage("ShopZone.ElementCaseContent.CommonCaseMollards", null, locale);
+        String rareCaseMollards = messageSource.getMessage("ShopZone.ElementCaseContent.RareCaseMollards", null, locale);
+        String mythicCaseMollards = messageSource.getMessage("ShopZone.ElementCaseContent.MythicCaseMollards", null, locale);
+        String chances = messageSource.getMessage("ShopZone.ElementCaseContent.Chances", null, locale);
+        String commonSkin55 = messageSource.getMessage("ShopZone.ElementCaseContent.CommonSkin55", null, locale);
+        String uncommonSkin30 = messageSource.getMessage("ShopZone.ElementCaseContent.UncommonSkin30", null, locale);
+        String rareSkin15 = messageSource.getMessage("ShopZone.ElementCaseContent.RareSkin15", null, locale);
+        String mythicSkin5 = messageSource.getMessage("ShopZone.ElementCaseContent.MythicSkin5", null, locale);
+        String commonSkin30 = messageSource.getMessage("ShopZone.ElementCaseContent.CommonSkin30", null, locale);
+        String rareSkin25 = messageSource.getMessage("ShopZone.ElementCaseContent.RareSkin25", null, locale);
+        String mythicSkin15 = messageSource.getMessage("ShopZone.ElementCaseContent.MythicSkin15", null, locale);
+        String commonSkin10 = messageSource.getMessage("ShopZone.ElementCaseContent.CommonSkin10", null, locale);
+        String uncommonSkin10 = messageSource.getMessage("ShopZone.ElementCaseContent.UncommonSkin10", null, locale);
+        String rareSkin40 = messageSource.getMessage("ShopZone.ElementCaseContent.RareSkin40", null, locale);
+        String mythicSkin40 = messageSource.getMessage("ShopZone.ElementCaseContent.MythicSkin40", null, locale);
+
+        model.addAttribute("buyCommonCase", buyCommonCase);
+        model.addAttribute("buyRareCase", buyRareCase);
+        model.addAttribute("buyMythicCase", buyMythicCase);
+        model.addAttribute("commonCaseMollards", commonCaseMollards);
+        model.addAttribute("rareCaseMollards", rareCaseMollards);
+        model.addAttribute("mythicCaseMollards", mythicCaseMollards);
+        model.addAttribute("chances", chances);
+        model.addAttribute("commonSkin55", commonSkin55);
+        model.addAttribute("uncommonSkin30", uncommonSkin30);
+        model.addAttribute("rareSkin15", rareSkin15);
+        model.addAttribute("mythicSkin5", mythicSkin5);
+        model.addAttribute("commonSkin30", commonSkin30);
+        model.addAttribute("rareSkin25", rareSkin25);
+        model.addAttribute("mythicSkin15", mythicSkin15);
+        model.addAttribute("commonSkin10", commonSkin10);
+        model.addAttribute("uncommonSkin10", uncommonSkin10);
+        model.addAttribute("rareSkin40", rareSkin40);
+        model.addAttribute("mythicSkin40", mythicSkin40);
+        // locale END
+
         return "Content/elementCaseContent";
     }
 
