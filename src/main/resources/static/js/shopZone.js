@@ -127,11 +127,18 @@ function loadPopupContent(contentType, json) {
     switch (contentType) {
         case 'loot':
 
-            fetch('/lootPopup')
+            const token = document.head.querySelector('meta[name="_csrf"]').content;
+            const header = document.head.querySelector('meta[name="_csrf_header"]').content;
+            fetch('/lootPopup', {
+                headers: {
+                    [header]: token
+                }
+            })
                 .then(response => response.text())
                 .then(html => {
-                    initLootPopup(json);
                     popupContent.innerHTML = html;
+                })
+                .then(() => {
                     initLootPopup(json);
                 })
                 .catch(error => {
@@ -146,23 +153,23 @@ function initLootPopup(json) {
     console.log(json);
     // return "{\"type\":\"" + s.getType() + "\",\"rarity\":\"" + s.getRarity() + "\",\"cssPath\":\"" + s.getCssFile() + "\",\"imagePath\":\"" + s.getPreviewImage() + "\"}";
     if(json.type === "elementSkin") {
-        let elementSkin = document.getElementsByClassName('elementSkin')[0];
+        let elementSkin = document.body.getElementsByClassName('elementSkin')[0];
         elementSkin.style.backgroundImage = "url('" + json.imagePath + "')";
         elementSkin.style.backgroundSize = "cover";
         elementSkin.style.backgroundPosition = "center";
         elementSkin.style.backgroundRepeat = "no-repeat";
-        elementSkin.display = "unset";
-        let elementSkinRarity = document.getElementsByClassName('elementSkinRarity')[0];
+        elementSkin.style.display = "unset";
+        let elementSkinRarity = document.body.getElementsByClassName('elementSkinRarity')[0];
         elementSkinRarity.innerHTML = json.rarity;
     }
     else {
-        let pageSkin = document.getElementsByClassName('pageSkin')[0];
+        let pageSkin = document.body.getElementsByClassName('pageSkin')[0];
         pageSkin.style.backgroundImage = "url('" + json.imagePath + "')";
         pageSkin.style.backgroundSize = "cover";
         pageSkin.style.backgroundPosition = "center";
         pageSkin.style.backgroundRepeat = "no-repeat";
-        pageSkin.display = "unset";
-        let pageSkinRarity = document.getElementsByClassName('pageSkinRarity')[0];
+        pageSkin.style.display = "unset";
+        let pageSkinRarity = document.body.getElementsByClassName('pageSkinRarity')[0];
         pageSkinRarity.innerHTML = json.rarity;
     }
 }
