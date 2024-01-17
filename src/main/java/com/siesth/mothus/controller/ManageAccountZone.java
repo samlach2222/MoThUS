@@ -383,6 +383,36 @@ public class ManageAccountZone {
         }
     }
 
+    @PostMapping("/changeEquippedSkin")
+    @ResponseBody
+    public String changeEquippedSkin(Authentication authentication, @RequestBody Map<String, String> skinChangeRequest) {
+        // get current user
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            String cssFile = skinChangeRequest.get("cssFile");
+
+            SkinInventory skinInventory = userManagement.getSkinInventoryByUsername(currentUserName);
+            Skin skin = skinInventory.getSkinList().stream().filter(s -> s.getCssFile().equals(cssFile)).findFirst().orElse(null);
+
+            if(skin != null) {
+                if(skin.getType() == SkinType.ElementSkin) {
+                    skinInventory.setCurrentElementSkinId(skin.getIdSkin());
+                }
+                else if(skin.getType() == SkinType.PageSkin) {
+                    skinInventory.setCurrentPageSkinId(skin.getIdSkin());
+                }
+                userManagement.updateSkinInventoryByUsername(currentUserName, skinInventory);
+                return "OK";
+            }
+            else {
+                return "NOTOK";
+            }
+        }
+        else {
+            return "NOTOK";
+        }
+    }
+
     /**
      * This method is used to load the terms of use content.
      * It adds the texts to the model from locale.
