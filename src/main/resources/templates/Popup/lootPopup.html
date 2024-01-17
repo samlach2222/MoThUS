@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<link href="/css/lootPopup.css" rel="stylesheet">
+<div id="lootPopup">
+    <p id="scientificKnowledge" th:text="${scientificKnowledge}">Your scientific knowledge has enabled you to discover a new skin !</p>
+    <div class="elementSkin" id="elementWin">
+        <p class="elementSkinLetter">X</p>
+        <p class="elementSkinNumber">0</p>
+        <div class="elementSkinRarity">Common</div>
+    </div>
+    <div class="pageSkin" id="pageWin">
+        <div class="pageSkinCssFile"></div>
+        <div class="pageSkinRarity">Common</div>
+    </div>
+    <input type="button" id="validateSkinButton" name="validateSkinButton" th:value="${validateButton}">
+</div>
