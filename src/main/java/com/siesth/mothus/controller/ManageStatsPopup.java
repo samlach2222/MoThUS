@@ -60,6 +60,7 @@ public class ManageStatsPopup {
         String playTimeLabel = messageSource.getMessage("StatsPopup.PlayTimeLabel", null, locale);
         String statisticsTitle = messageSource.getMessage("StatsPopup.StatisticsTitle", null, locale);
         String victoriesLabel = messageSource.getMessage("StatsPopup.VictoriesLabel", null, locale);
+        String shareButton = messageSource.getMessage("StatsPopup.ShareButton", null, locale);
 
         model.addAttribute("pageTitle", pageTitle);
         model.addAttribute("elementsHandledLabel", elementsHandledLabel);
@@ -69,6 +70,7 @@ public class ManageStatsPopup {
         model.addAttribute("playTimeLabel", playTimeLabel);
         model.addAttribute("statisticsTitle", statisticsTitle);
         model.addAttribute("victoriesLabel", victoriesLabel);
+        model.addAttribute("shareButton", shareButton);
 
         // get current user
         if (!(authentication instanceof AnonymousAuthenticationToken)) {

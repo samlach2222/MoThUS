@@ -245,7 +245,7 @@ public class ManageShopZone {
 
     @PostMapping("/payMollard")
     @ResponseBody
-    public String payMollard(Authentication authentication, @RequestBody Map<String, String> mollardInfo) {
+    public String payMollard(Authentication authentication, Locale locale, @RequestBody Map<String, String> mollardInfo) {
         int amount = Integer.parseInt(mollardInfo.get("amount"));
         // get current user
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
@@ -254,7 +254,7 @@ public class ManageShopZone {
             return "OK";
         }
         else {
-            return "You are not logged in!"; // TODO: translate
+            return messageSource.getMessage("ShopZone.NotLoggedIn", null, locale);
         }
     }
 }

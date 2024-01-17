@@ -303,13 +303,15 @@ public class ManageAccountZone {
      */
     @PostMapping("/changePassword")
     @ResponseBody
-    public String changePassword(Authentication authentication, @RequestBody Map<String, String> passwordChangeRequest) {
+    public String changePassword(Authentication authentication, Locale locale, @RequestBody Map<String, String> passwordChangeRequest) {
         String previousPassword = passwordChangeRequest.get("oldPassword");
         String newPassword = passwordChangeRequest.get("newPassword");
         String confirmNewPassword = passwordChangeRequest.get("newPasswordConfirm");
         // get current user
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
+            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            locale = new Locale(userLanguage);
             String serverPass = userManagement.getPasswordByUsername(currentUserName);
             Argon2PasswordEncoder arg2SpringSecurity = new Argon2PasswordEncoder(16, 32, 1, 60000, 10);
             if(arg2SpringSecurity.matches(previousPassword, serverPass)) {
@@ -318,27 +320,29 @@ public class ManageAccountZone {
                     return "SUCCESS"; // not translate this
                 }
                 else {
-                    return "The 2 new passwords are not equals"; // TODO: translate
+                    return messageSource.getMessage("AccountZone.ChangePassword.PassAndConfirmNotEquals", null, locale);
                 }
             }
             else {
-                return "previous password is not correct"; // TODO: translate
+                return messageSource.getMessage("AccountZone.ChangePassword.OldPasswordWrong", null, locale);
             }
         }
         else {
-            return "you are not logged in"; // TODO: translate
+            return messageSource.getMessage("AccountZone.ChangePassword.NotLoggedIn", null, locale);
         }
     }
 
     @PostMapping("/changeUsername")
     @ResponseBody
-    public String changeUsername(Authentication authentication, @RequestBody Map<String, String> usernameChangeRequest) {
+    public String changeUsername(Authentication authentication, Locale locale, @RequestBody Map<String, String> usernameChangeRequest) {
         String newUsername = usernameChangeRequest.get("newUsername");
         // get current user
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
+            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            locale = new Locale(userLanguage);
             if(userManagement.isUsernameTaken(newUsername)) {
-                return "Username already taken"; // TODO: translate
+                return messageSource.getMessage("AccountZone.ChangeUsername.UsernameAlreadyTaken", null, locale);
             }
             else {
                 userManagement.updateUsernameByUsername(currentUserName, newUsername);
@@ -346,19 +350,21 @@ public class ManageAccountZone {
             }
         }
         else {
-            return "you are not logged in"; // TODO: translate
+            return messageSource.getMessage("AccountZone.ChangeUsername.NotLoggedIn", null, locale);
         }
     }
 
     @PostMapping("/changeMail")
     @ResponseBody
-    public String changeMail(Authentication authentication, @RequestBody Map<String, String> mailChangeRequest) {
+    public String changeMail(Authentication authentication, Locale locale, @RequestBody Map<String, String> mailChangeRequest) {
         String newMail = mailChangeRequest.get("newMail");
         // get current user
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
+            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            locale = new Locale(userLanguage);
             if(userManagement.isMailTaken(newMail)) {
-                return "Mail already taken"; // TODO: translate
+                return messageSource.getMessage("AccountZone.ChangeMail.MailAlreadyTaken", null, locale);
             }
             else {
                 userManagement.updateEmailByUsername(currentUserName, newMail);
@@ -366,7 +372,7 @@ public class ManageAccountZone {
             }
         }
         else {
-            return "you are not logged in"; // TODO: translate
+            return messageSource.getMessage("AccountZone.ChangeMail.NotLoggedIn", null, locale);
         }
     }
 

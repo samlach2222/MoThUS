@@ -2,7 +2,7 @@
 <div id="statsZone">
     <div style="display: ruby;">
         <h1 th:text="${statisticsTitle}">Statistics</h1>
-        <button id="shareStats" onclick="shareResult()">Share</button> <!-- TODO : Translate-->
+        <button id="shareStats" th:text="${shareButton}" onclick="shareResult()"></button>
     </div>
     <p id="gameNotFinishedText" th:text="${gameNotFinished}">You haven't finished today's game yet.</p>
     <div id="gameResults"></div>
