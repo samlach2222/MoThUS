@@ -245,4 +245,11 @@ public class UserManagement implements IUserManagement {
         user.setSkinInventory(skinInventory);
         userRepository.save(user);
     }
+
+    @Override
+    public void addBalanceByUsername(String username, int amount) {
+        User user = userRepository.findUserByUsername(username);
+        user.setBalance(user.getBalance() + amount);
+        userRepository.save(user);
+    }
 }

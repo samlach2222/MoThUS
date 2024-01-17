@@ -8,10 +8,7 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Locale;
 import java.util.Map;
@@ -100,11 +97,26 @@ public class ManageShopZone {
      * @return the credit card popup page
      */
     @GetMapping("/creditCardPopup")
-    public String creditCardPopup(Model model, Locale locale, Authentication authentication) {
+    public String creditCardPopup(Model model, Locale locale, Authentication authentication, @RequestParam(name = "lootboxType", required = true) String lootboxType) {
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
             String userLanguage = userManagement.getLanguageByUsername(currentUserName);
             locale = new Locale(userLanguage);
+        }
+
+        switch(lootboxType){
+            case "commonBuy":
+                model.addAttribute("coinNumber", 100);
+                model.addAttribute("lootboxPrice", "1€99");
+                break;
+            case "rareBuy":
+                model.addAttribute("coinNumber", 500);
+                model.addAttribute("lootboxPrice", "8€99");
+                break;
+            case "mythicBuy":
+                model.addAttribute("coinNumber", 1000);
+                model.addAttribute("lootboxPrice", "15€99");
+                break;
         }
 
         // locale BEGIN
@@ -182,6 +194,21 @@ public class ManageShopZone {
         }
         else {
             return null;
+        }
+    }
+
+    @PostMapping("/payMollard")
+    @ResponseBody
+    public String payMollard(Authentication authentication, @RequestBody Map<String, String> mollardInfo) {
+        int amount = Integer.parseInt(mollardInfo.get("amount"));
+        // get current user
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            userManagement.addBalanceByUsername(currentUserName, amount);
+            return "OK";
+        }
+        else {
+            return "You are not logged in!"; // TODO: translate
         }
     }
 }

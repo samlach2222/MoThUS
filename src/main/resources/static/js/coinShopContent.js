@@ -30,7 +30,7 @@ function setupInputs(){
  * Function to open a popup
  * @param contentType the type of content to load in the popup
  */
-function openPopup(contentType) {
+function openPopup(contentType, lootboxType) {
     const popup = document.getElementById('popup');
     const body = document.body;
 
@@ -38,7 +38,7 @@ function openPopup(contentType) {
     body.classList.add('overlay-active');
 
     // Load content based on contentType
-    loadPopupContent(contentType);
+    loadPopupContent(contentType, lootboxType);
 
     popup.style.display = 'block';
 }
@@ -63,8 +63,10 @@ function closePopup() {
  * Function to load content in the popup
  * @param contentType the type of content to load in the popup
  */
-function loadPopupContent(contentType) {
+function loadPopupContent(contentType, lootboxType) {
     const popupContent = document.querySelector('.popup-content');
+
+    console.log(lootboxType);
 
     // Clear previous content
     popupContent.innerHTML = '';
@@ -72,7 +74,7 @@ function loadPopupContent(contentType) {
     // Load content based on contentType
     switch (contentType) {
         case 'buyButton':
-            fetch('/creditCardPopup')
+            fetch('/creditCardPopup?lootboxType=' + lootboxType)
                 .then(response => response.text())
                 .then(html => {
                     popupContent.innerHTML = html;
@@ -80,6 +82,7 @@ function loadPopupContent(contentType) {
                 })
                 .catch(error => {
                     console.error('Error loading content:', error);
+                    throw error; // Rethrow the error if necessary
                 });
             break;
     }
@@ -89,9 +92,37 @@ function loadPopupContent(contentType) {
  * Function called when the user click on the validate payment button in the popup.
  */
 function validatePayment(){
-    // TODO: Validate payment
+
+    // Construct the request body
+    let requestBody = JSON.stringify({
+        amount: document.getElementById("coinNumber").innerText,
+    });
+
+    const token = document.head.querySelector('meta[name="_csrf"]').content;
+    const header = document.head.querySelector('meta[name="_csrf_header"]').content;
+    fetch('/payMollard', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            [header]: token
+        },
+        body: requestBody
+    })
+        .then(response => response.text())
+        .then(r => {
+            if(r === "OK"){ // TODO : NotifySuccess and NotifyError not found
+                notifySuccess("Payment successful"); // TODO : translate
+            }
+            else {
+                notifyError(r);
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching or parsing JSON data:', error);
+            throw error; // Rethrow the error if necessary
+        });
+    // TODO : Actualize mollards
     closePopup();
-    actualizeMollards();
 }
 
 /**

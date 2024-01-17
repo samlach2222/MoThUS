@@ -4,8 +4,10 @@
         <p th:text="${payInvoiceLabel}">Pay Invoice</p>
     </div>
 
+    <div id="coinNumber" th:text="${coinNumber}" style="display: none"></div>
+
     <label for="cczPaymentValue" th:text="${paymentAmountLabel}">Payment amount</label>
-    <span id="cczPaymentValue">1€99</span>
+    <span id="cczPaymentValue" th:text="${lootboxPrice}"></span>
 
     <label for="cczNameOnCardInput" th:text="${nameOnCardLabel}"></label>
     <input type="text" id="cczNameOnCardInput" name="cczNameOnCardInput" th:placeholder="${namePlaceholder}" required>
