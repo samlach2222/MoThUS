@@ -73,4 +73,28 @@ public class GameManagement implements IGameManagement {
 
         return lastGame;
     }
+
+    @Override
+    public String getRandomFrench() {
+        String frenchWord;
+        try {
+            File frDictionary = ResourceUtils.getFile("classpath:static/assets/dictionaries/fr/full_dictionary.txt");
+            frenchWord = GetRandomLine(frDictionary);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return frenchWord;
+    }
+
+    @Override
+    public String getRandomEnglish() {
+        String englishWord;
+        try {
+            File enDictionary = ResourceUtils.getFile("classpath:static/assets/dictionaries/en/full_dictionary.txt");
+            englishWord = GetRandomLine(enDictionary);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return englishWord;
+    }
 }

@@ -41,6 +41,7 @@ public class ManagePlayZone {
      * This field is used to store the word of the day.
      */
     private String frenchWord;
+    private String englishWord;
 
     /**
      * This field is used to get the game manager.
@@ -69,14 +70,41 @@ public class ManagePlayZone {
      */
     @GetMapping("/getTodayWordData")
     @ResponseBody
-    public String getTodayWordData() {
+    public String getTodayWordData(Authentication authentication, Locale locale) {
+
         // Fetch the latest game entity
         Game latestGame = gameManager.getTodayGame();
-        // Extract the word from the latest game entity
-        frenchWord = latestGame.getFrenchWord(); // TODO : When accounts are made, get the user's language and fetch the word in the user's language
+        String[] letters;
 
-        // split each upper case letter
-        String[] letters = frenchWord.split("(?=[A-Z])");
+        if (authentication !=null && !(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            if (userLanguage.equals("fr")) {
+                // Extract the word from the latest game entity
+                frenchWord = latestGame.getFrenchWord();
+                // split each upper case letter
+                letters = frenchWord.split("(?=[A-Z])");
+            } else {
+                // Extract the word from the latest game entity
+                englishWord = latestGame.getEnglishWord();
+                // split each upper case letter
+                letters = englishWord.split("(?=[A-Z])");
+            }
+        }
+        else {
+            if (locale.getLanguage().equals("fr")) {
+                // Extract the word from the latest game entity
+                frenchWord = gameManager.getRandomFrench();
+                // split each upper case letter
+                letters = frenchWord.split("(?=[A-Z])");
+            } else {
+                // Extract the word from the latest game entity
+                englishWord = gameManager.getRandomEnglish();
+                // split each upper case letter
+                letters = englishWord.split("(?=[A-Z])");
+            }
+        }
+
         int length = letters.length;
         String firstLetter = letters[0];
 
