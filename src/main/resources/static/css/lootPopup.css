@@ -4,6 +4,7 @@
     justify-content: center;
     background-color: white;
     align-items: center;
+    border-radius: 30px;
 }
 
 .popup-content{
