@@ -61,7 +61,6 @@ public class SecurityConfig {
                                 // Block every other page until the user has validated their email
                                 .anyRequest()
                                 .hasRole("USER")
-                        // TODO : Change popups and other things that don't need a URL to ResourceUtils.getFile("classpath:...")
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")

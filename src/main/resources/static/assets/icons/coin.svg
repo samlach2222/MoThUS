@@ -11,14 +11,12 @@
 			<rect y="-.5" width="1" height="2"/>
 		</pattern>
 	</defs>
-	<g transform="translate(-98.324 -83.274)">
-		<g transform="translate(32.775 68.01)">
-			<g>
-				<rect x="65.549" y="15.264" width="50" height="50" ry="25" fill="#bd7200"/>
-				<rect x="65.549" y="15.264" width="50" height="50" ry="25" fill="url(#pattern11-9)"/>
-				<rect x="67.549" y="16.264" width="50" height="50" ry="25" fill="url(#radialGradient2)"/>
-			</g>
-			<text x="92.54937" y="51.523426" fill="#ffffff" font-family="Play" font-size="28.222px" font-weight="bold" text-align="center" text-anchor="middle" style="white-space:pre" xml:space="preserve">M</text>
-		</g>
-	</g>
+    <g transform="translate(-65.549 -15.264)">
+        <rect x="65.549" y="15.264" width="50" height="50" ry="25" fill="#bd7200"/>
+        <rect x="65.549" y="15.264" width="50" height="50" ry="25" fill="url(#pattern11-9)"/>
+        <rect x="67.549" y="16.264" width="50" height="50" ry="25" fill="url(#radialGradient2)"/>
+    </g>
+    <path transform="translate(-65.549 -15.264)"
+          d="m103.3 51.523h-5.2641v-13.739l-3.8034 8.9158h-3.6518l-3.8034-8.9158v13.739h-4.9885v-20.519h6.146l4.6164 10.294 4.6026-10.294h6.146z"
+          fill="#fff" style="white-space:pre" aria-label="M"/>
 </svg>
