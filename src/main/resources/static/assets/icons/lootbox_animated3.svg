@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="185.71mm" height="185.91mm" version="1.1" viewBox="0 0 185.71 185.91" xmlns="http://www.w3.org/2000/svg">
-	<path transform="translate(2.904,23)" d="m-1.404-1.404 19.904-20.096h162.81v162.81l-19.904 20.096h-162.81z" fill="none" stroke="#000" stroke-width="3"/>
+
+	<defs>
+		<linearGradient id="gradient2" gradientTransform="rotate(45)">
+			<stop offset="0%" style="stop-color:#fa6101" />
+			<stop offset="100%" style="stop-color:#cd0c07" />
+		</linearGradient>
+	</defs>
+
+	<path fill="url('#gradient2')" transform="translate(2.904,23)" d="m-1.404-1.404 19.904-20.096h162.81v162.81l-19.904 20.096h-162.81z" stroke="#000" stroke-width="3"/>
 	<g transform="translate(2.904,23)" stroke="#000" stroke-linecap="round" stroke-width="3">
 		<path transform="translate(-2.904,-23)" d="m1.5 21.596h162.8l6e-3 162.81" fill="none" stroke="#000" stroke-linecap="round" stroke-width="3"/>
 		<path d="m161.4-1.404 19.905-20.096" fill="#fff" fill-rule="evenodd"/>
