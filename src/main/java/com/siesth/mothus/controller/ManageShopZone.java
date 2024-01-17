@@ -242,7 +242,7 @@ public class ManageShopZone {
                     if(mollardsRare < 510) {
                         return null;
                     }
-                    userManagement.addBalanceByUsername(currentUserName, -500);
+                    userManagement.addBalanceByUsername(currentUserName, -510);
                     break;
                 case "Mythic":
                     // 10 10 40 40
@@ -250,12 +250,12 @@ public class ManageShopZone {
                     uncommonProb = 10;
                     rareProb = 40;
                     mythicProb = 40;
-                    // remove 1100 mollards
+                    // remove 10100 mollards
                     int mollardsMythic = userManagement.getMollardsByUsername(currentUserName);
-                    if(mollardsMythic < 1100) {
+                    if(mollardsMythic < 1010) {
                         return null;
                     }
-                    userManagement.addBalanceByUsername(currentUserName, -1100);
+                    userManagement.addBalanceByUsername(currentUserName, -1010);
                     break;
             }
             int random = (int) (Math.random() * 100);

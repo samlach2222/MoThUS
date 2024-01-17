@@ -107,6 +107,7 @@ function validateUsernameChange() {
             message = m;
             if (message === "SUCCESS") {
                 notifySuccess("Username changed successfully"); // TODO: translate
+                disconnect();
             } else {
                 notifyError(message);
             }
