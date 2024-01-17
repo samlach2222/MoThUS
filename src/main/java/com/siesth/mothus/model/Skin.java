@@ -129,4 +129,8 @@ public class Skin {
     public void setPreviewImage(String previewImage) {
         this.previewImage = previewImage;
     }
+
+    public int getIdSkin() {
+        return idSkin;
+    }
 }

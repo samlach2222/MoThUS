@@ -220,6 +220,7 @@ public class ManageAccountZone {
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
             SkinInventory skinInventory = userManagement.getSkinInventoryByUsername(currentUserName);
+            int equippedSkinId = skinInventory.getCurrentPageSkinId();
             // get all skins
             Collection<Skin> skins = skinInventory.getSkinList();
             ArrayList<Skin> pageSkins = new ArrayList<>();
@@ -235,7 +236,13 @@ public class ManageAccountZone {
                 result.append("{");
                 result.append("\"rarity\": \"").append(skin.getRarity().toString()).append("\",");
                 result.append("\"cssFile\": \"").append(skin.getCssFile()).append("\",");
-                result.append("\"previewImage\": \"").append(skin.getPreviewImage()).append("\"");
+                result.append("\"previewImage\": \"").append(skin.getPreviewImage()).append("\",");
+                if(skin.getIdSkin() == equippedSkinId) {
+                    result.append("\"equipped\": true");
+                }
+                else {
+                    result.append("\"equipped\": false");
+                }
                 result.append("},");
             }
             result.deleteCharAt(result.length() - 1);
@@ -256,6 +263,7 @@ public class ManageAccountZone {
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
             SkinInventory skinInventory = userManagement.getSkinInventoryByUsername(currentUserName);
+            int equippedSkinId = skinInventory.getCurrentElementSkinId();
             // get all skins
             Collection<Skin> skins = skinInventory.getSkinList();
             ArrayList<Skin> elementSkins = new ArrayList<>();
@@ -271,7 +279,13 @@ public class ManageAccountZone {
                 result.append("{");
                 result.append("\"rarity\": \"").append(skin.getRarity().toString()).append("\",");
                 result.append("\"cssFile\": \"").append(skin.getCssFile()).append("\",");
-                result.append("\"previewImage\": \"").append(skin.getPreviewImage()).append("\"");
+                result.append("\"previewImage\": \"").append(skin.getPreviewImage()).append("\",");
+                if(skin.getIdSkin() == equippedSkinId) {
+                    result.append("\"equipped\": true");
+                }
+                else {
+                    result.append("\"equipped\": false");
+                }
                 result.append("},");
             }
             result.deleteCharAt(result.length() - 1);
