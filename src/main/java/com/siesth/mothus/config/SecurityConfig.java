@@ -30,7 +30,7 @@ public class SecurityConfig {
                                 .requestMatchers(
                                         HttpMethod.GET,
                                         "/login", "/logout",
-                                        "/playZone", "/helpPopup", "/getYamlData", "/getTodayWordData",
+                                        "/playZone", "/helpPopup", "/getYamlData", "/getTodayWordData", "/assets/SamplePublicity.png",
                                         "/assets/icons/**", "/assets/logos/**", "/assets/Login_Wallpaper.png",
                                         "/css/confirmEmailPopup.css", "/css/helpPopup.css", "/css/login.css", "/css/playZone.css",
                                         "/js/helpPopup.js", "/js/login.js", "/js/notify.js", "/js/playZone.js"
