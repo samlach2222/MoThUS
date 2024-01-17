@@ -230,6 +230,7 @@ public class ManageShopZone {
                         return null;
                     }
                     userManagement.addBalanceByUsername(currentUserName, -110);
+                    break;
                 case "Rare":
                     // 30 30 25 15
                     commonProb = 30;
@@ -242,6 +243,7 @@ public class ManageShopZone {
                         return null;
                     }
                     userManagement.addBalanceByUsername(currentUserName, -500);
+                    break;
                 case "Mythic":
                     // 10 10 40 40
                     commonProb = 10;
@@ -254,6 +256,7 @@ public class ManageShopZone {
                         return null;
                     }
                     userManagement.addBalanceByUsername(currentUserName, -1100);
+                    break;
             }
             int random = (int) (Math.random() * 100);
             String rarity;
