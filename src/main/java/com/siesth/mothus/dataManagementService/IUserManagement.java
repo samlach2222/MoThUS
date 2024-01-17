@@ -119,4 +119,6 @@ public interface IUserManagement {
     Skin getRandomSkin(String username, String type);
 
     void updateSkinInventoryByUsername(String username, SkinInventory skinInventory);
+
+    void addBalanceByUsername(String username, int amount);
 }
