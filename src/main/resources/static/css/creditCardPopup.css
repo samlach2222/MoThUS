@@ -22,11 +22,6 @@ label {
     font-size: 1.2em;
 }
 
-span {
-    margin: 1vh;
-    font-size: 3vh;
-}
-
 #cczRowDiv {
     display: flex;
     flex-direction: row;
