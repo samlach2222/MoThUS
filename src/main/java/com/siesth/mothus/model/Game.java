@@ -107,4 +107,8 @@ public class Game {
     public void setEnglishWord(String englishWord) {
         this.englishWord = englishWord;
     }
+
+    public int getIdGame() {
+        return idGame;
+    }
 }
