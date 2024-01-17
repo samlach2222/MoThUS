@@ -313,7 +313,7 @@ public class ManageAccountZone {
             String userLanguage = userManagement.getLanguageByUsername(currentUserName);
             locale = new Locale(userLanguage);
             String serverPass = userManagement.getPasswordByUsername(currentUserName);
-            Argon2PasswordEncoder arg2SpringSecurity = new Argon2PasswordEncoder(16, 32, 1, 60000, 10);
+            Argon2PasswordEncoder arg2SpringSecurity = new Argon2PasswordEncoder(16, 32, 1, 50000, 3);
             if(arg2SpringSecurity.matches(previousPassword, serverPass)) {
                 if(newPassword.equals(confirmNewPassword)) {
                     userManagement.updatePasswordByUsername(currentUserName, newPassword);
