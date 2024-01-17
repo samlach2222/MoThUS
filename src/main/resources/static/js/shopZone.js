@@ -57,7 +57,11 @@ function getSkin(type){
     })
         .then(response => response.text())
         .then(jsonData => {
-            let json = JSON.parse(jsonData); // TODO : Display in the popup
+
+            if(jsonData === "null") {
+                notifyError("You don't have enough Mollards to buy this item"); // TODO : Translate
+            }
+            let json = JSON.parse(jsonData);
             openPopup('loot', json);
         })
         .catch(error => {

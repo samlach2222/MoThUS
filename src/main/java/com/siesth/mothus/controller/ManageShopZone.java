@@ -224,18 +224,36 @@ public class ManageShopZone {
                     uncommonProb = 30;
                     rareProb = 15;
                     mythicProb = 5;
+                    // remove 110 mollards
+                    int mollardsCommon = userManagement.getMollardsByUsername(currentUserName);
+                    if(mollardsCommon < 110) {
+                        return null;
+                    }
+                    userManagement.addBalanceByUsername(currentUserName, -110);
                 case "Rare":
                     // 30 30 25 15
                     commonProb = 30;
                     uncommonProb = 30;
                     rareProb = 25;
                     mythicProb = 15;
+                    // remove 510 mollards
+                    int mollardsRare = userManagement.getMollardsByUsername(currentUserName);
+                    if(mollardsRare < 510) {
+                        return null;
+                    }
+                    userManagement.addBalanceByUsername(currentUserName, -500);
                 case "Mythic":
                     // 10 10 40 40
                     commonProb = 10;
                     uncommonProb = 10;
                     rareProb = 40;
                     mythicProb = 40;
+                    // remove 1100 mollards
+                    int mollardsMythic = userManagement.getMollardsByUsername(currentUserName);
+                    if(mollardsMythic < 1100) {
+                        return null;
+                    }
+                    userManagement.addBalanceByUsername(currentUserName, -1100);
             }
             int random = (int) (Math.random() * 100);
             String rarity;
