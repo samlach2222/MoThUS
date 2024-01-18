@@ -19,7 +19,7 @@ public class User {
      * Id of the user
      */
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     int idUser;
 
     /**
@@ -63,7 +63,7 @@ public class User {
      * Validation code of the user
      */
     @OneToOne  // Causes problems when removing it if cascade set to CascadeType.ALL
-    ValidationCode validationCode;
+            ValidationCode validationCode;
 
     /**
      * Empty constructor
@@ -74,13 +74,13 @@ public class User {
 
     /**
      * Constructor of a user
-     * @param username username of the user
-     * @param mail mail of the user
-     * @param password raw password of the user
+     * @param username        username of the user
+     * @param mail            mail of the user
+     * @param password        raw password of the user
      * @param currentLanguage language of the user
-     * @param balance in-game currency balance of the user
-     * @param stats stats of the user
-     * @param skinInventory skin inventory of the user
+     * @param balance         in-game currency balance of the user
+     * @param stats           stats of the user
+     * @param skinInventory   skin inventory of the user
      */
     public User(String username, String mail, String password, UserLanguage currentLanguage, int balance, Stats stats, SkinInventory skinInventory) {
         setUsername(username);

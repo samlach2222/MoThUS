@@ -66,12 +66,12 @@ label {
     background-color: #b90022;
 }
 
-#cczPayButton:hover{
+#cczPayButton:hover {
     cursor: pointer;
     background-color: #003f9f;
 }
 
-#cczCancelButton:hover{
+#cczCancelButton:hover {
     cursor: pointer;
     background-color: #a90022;
 }

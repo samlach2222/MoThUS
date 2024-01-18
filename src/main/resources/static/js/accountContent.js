@@ -123,7 +123,7 @@ function validateUsernameChange() {
  * Function called when the user click on the disconnect button to disconnect the user
  */
 function disconnect() {
-    location.href='/logout'
+    location.href = '/logout'
 }
 
 /**

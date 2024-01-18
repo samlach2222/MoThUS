@@ -73,8 +73,8 @@ public class ManageLogin {
      * This method is used to show the login page.
      * It adds the texts to the model from locale.
      * @param authentication the authentication
-     * @param model the model
-     * @param locale the locale
+     * @param model          the model
+     * @param locale         the locale
      * @return the login page
      */
     @GetMapping("/login")
@@ -115,7 +115,7 @@ public class ManageLogin {
     /**
      * This method is used to show the login content.
      * It adds the texts to the model from locale.
-     * @param model the model
+     * @param model  the model
      * @param locale the locale
      * @return the login content page
      */
@@ -135,7 +135,7 @@ public class ManageLogin {
             String registrationErrorMessage = messageSource.getMessage("Login.Messages.RegistrationErrorMessage", null, locale);
             model.addAttribute("registrationErrorMessage", registrationErrorMessage);
         }
-        if(loginError != null) {
+        if (loginError != null) {
             model.addAttribute("loginError", loginError);
             String loginErrorMessage = messageSource.getMessage("Login.Messages.LoginErrorMessage", null, locale);
             model.addAttribute("loginErrorMessage", loginErrorMessage);
@@ -157,7 +157,7 @@ public class ManageLogin {
     /**
      * This method is used to show the register content.
      * It adds the texts to the model from locale.
-     * @param model the model
+     * @param model  the model
      * @param locale the locale
      * @return the register content page
      */
@@ -198,13 +198,13 @@ public class ManageLogin {
     /**
      * This method is used to show the email validation content.
      * It adds the texts to the model from locale.
-     * @param registrationDto the registration data from the form
+     * @param registrationDto    the registration data from the form
      * @param redirectAttributes to pass data to the template
-     * @param locale the locale
+     * @param locale             the locale
      * @return a redirection to the login page
      */
     @PostMapping("/processRegister")
-    public String processRegister(HttpServletRequest request, @ModelAttribute("registrationDto") RegistrationDto registrationDto , RedirectAttributes redirectAttributes, Locale locale) {
+    public String processRegister(HttpServletRequest request, @ModelAttribute("registrationDto") RegistrationDto registrationDto, RedirectAttributes redirectAttributes, Locale locale) {
         // Redirect to /login (which will redirect further if needed) if the user is already logged in
         if (isAuthenticated()) {
             return "redirect:/login";
@@ -217,7 +217,7 @@ public class ManageLogin {
 
         // TODO : createNewUser is very slow (a few seconds), make it faster
         boolean isGood = userManagement.createNewUser(registrationDto);
-        if(isGood) {
+        if (isGood) {
             String validationCode = emailService.getValidationCode(registrationDto.getUsername());
             int minutesDuration = emailService.getDurationMinutes(registrationDto.getUsername());
 
@@ -234,8 +234,7 @@ public class ManageLogin {
             String pendingRegistrationMessage = messageSource.getMessage("Login.Messages.PendingRegistrationMessage", null, locale);
             redirectAttributes.addFlashAttribute("pendingRegistration", pendingRegistrationMessage);
             redirectAttributes.addFlashAttribute("pendingRegistrationMessage", pendingRegistrationMessage);
-        }
-        else {
+        } else {
             String registrationErrorMessage = messageSource.getMessage("Login.Messages.RegistrationErrorMessage", null, locale);
             redirectAttributes.addFlashAttribute("registrationError", registrationErrorMessage);
             redirectAttributes.addFlashAttribute("registrationErrorMessage", registrationErrorMessage);
@@ -246,10 +245,10 @@ public class ManageLogin {
     /**
      * Validate the email
      * It is used to validate the email of the user after clicking on the validate email address button in the email validation page
-	 * @param authentication the authentication
-     * @param validateEmailDto the username and the validation code
+     * @param authentication     the authentication
+     * @param validateEmailDto   the username and the validation code
      * @param redirectAttributes to pass data to the template
-     * @param locale the locale
+     * @param locale             the locale
      * @return where to redirect
      */
     @PostMapping("/validateMailRegister")
@@ -260,15 +259,14 @@ public class ManageLogin {
         }
 
         boolean isGood = emailService.checkValidationCode(authentication.getName(), validateEmailDto.getCode());
-        if(isGood) {
+        if (isGood) {
             // If the validation code is correct, we remove it from the database
             emailService.removeValidationCode(authentication.getName());
 
             String registrationSuccessMessage = messageSource.getMessage("Login.Messages.RegistrationSuccessMessage", null, locale);
             redirectAttributes.addFlashAttribute("registrationSuccess", registrationSuccessMessage);
             redirectAttributes.addFlashAttribute("registrationSuccessMessage", registrationSuccessMessage);
-        }
-        else {
+        } else {
             String wrongCodeRegistrationMessage = messageSource.getMessage("Login.Messages.WrongCodeRegistrationMessage", null, locale);
             redirectAttributes.addFlashAttribute("wrongCodeRegistration", wrongCodeRegistrationMessage);
             redirectAttributes.addFlashAttribute("wrongCodeRegistrationMessage", wrongCodeRegistrationMessage);
@@ -297,7 +295,7 @@ public class ManageLogin {
      * Create a new validation code
      * It is used to create a new validation code when the user clicks on the "resend validation code" button in the email validation page
      * @param authentication the authentication of the user
-	 * @param locale the locale
+     * @param locale         the locale
      */
     @PostMapping("/createNewValidationCode")
     public void createNewValidationCode(Authentication authentication, Locale locale) {
@@ -324,7 +322,7 @@ public class ManageLogin {
     /**
      * This method is used to show the email validation content.
      * It adds the texts to the model from locale.
-     * @param model the model
+     * @param model  the model
      * @param locale the locale
      * @return the email validation content page
      */

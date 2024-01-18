@@ -39,7 +39,7 @@ function updateMargin() {
     document.getElementById('content').style.marginLeft = verticalMenuWidth + 'px';
 }
 
-function getSkin(type){
+function getSkin(type) {
     // Construct the request body
     let requestBody = JSON.stringify({
         type: type,
@@ -58,7 +58,7 @@ function getSkin(type){
         .then(response => response.text())
         .then(jsonData => {
 
-            if(jsonData === "null") {
+            if (jsonData === "null") {
                 notifyError("You don't have enough Mollards to buy this item"); // TODO : Translate
             }
             let json = JSON.parse(jsonData);
@@ -69,6 +69,7 @@ function getSkin(type){
             throw error; // Rethrow the error if necessary
         });
 }
+
 /////////////////
 // OPEN POPUPS //
 /////////////////
@@ -90,7 +91,7 @@ function openPopup(contentType, json) {
     popup.style.display = 'block';
 
     // Close the popup and remove the overlay when clicking outside (grayed-out zone)
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (event.target === popup) {
             closePopup();
         }
@@ -152,7 +153,7 @@ function loadPopupContent(contentType, json) {
 function initLootPopup(json) {
     console.log(json);
     // return "{\"type\":\"" + s.getType() + "\",\"rarity\":\"" + s.getRarity() + "\",\"cssPath\":\"" + s.getCssFile() + "\",\"imagePath\":\"" + s.getPreviewImage() + "\"}";
-    if(json.type.toLowerCase() === "elementskin") {
+    if (json.type.toLowerCase() === "elementskin") {
         let elementSkin = document.body.getElementsByClassName('elementSkin')[0];
         elementSkin.style.backgroundImage = "url('" + json.imagePath + "')";
         elementSkin.style.backgroundSize = "cover";
@@ -161,8 +162,7 @@ function initLootPopup(json) {
         elementSkin.style.display = "flex";
         let elementSkinRarity = document.body.getElementsByClassName('elementSkinRarity')[0];
         elementSkinRarity.innerHTML = json.rarity;
-    }
-    else {
+    } else {
         let pageSkin = document.body.getElementsByClassName('pageSkin')[0];
         pageSkin.style.backgroundImage = "url('" + json.imagePath + "')";
         pageSkin.style.backgroundSize = "cover";

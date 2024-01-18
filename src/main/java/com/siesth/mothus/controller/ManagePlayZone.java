@@ -55,7 +55,7 @@ public class ManagePlayZone {
 
     /**
      * This constructor is used to autowire the message source and resource loader.
-     * @param messageSource the message source
+     * @param messageSource  the message source
      * @param resourceLoader the resource loader
      */
     @Autowired
@@ -77,7 +77,7 @@ public class ManagePlayZone {
         Game latestGame = gameManager.getTodayGame();
         String[] letters;
 
-        if (authentication !=null && !(authentication instanceof AnonymousAuthenticationToken)) {
+        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
             String userLanguage = userManagement.getLanguageByUsername(currentUserName);
             if (userLanguage.equals("fr")) {
@@ -91,8 +91,7 @@ public class ManagePlayZone {
                 // split each upper case letter
                 letters = englishWord.split("(?=[A-Z])");
             }
-        }
-        else {
+        } else {
             if (locale.getLanguage().equals("fr")) {
                 // Extract the word from the latest game entity
                 frenchWord = gameManager.getRandomFrench();
@@ -124,18 +123,16 @@ public class ManagePlayZone {
         receivedWord = receivedWord.replace(" ", "");
         String userLanguage;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication !=null && !(authentication instanceof AnonymousAuthenticationToken)) {
+        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
             userLanguage = userManagement.getLanguageByUsername(currentUserName);
-        }
-        else {
+        } else {
             userLanguage = locale.getLanguage();
         }
         String[] localWordLetters;
-        if(userLanguage.equals("fr")) {
+        if (userLanguage.equals("fr")) {
             localWordLetters = frenchWord.split("(?=[A-Z])");
-        }
-        else {
+        } else {
             localWordLetters = englishWord.split("(?=[A-Z])");
         }
         String[] receivedWordLetters = receivedWord.split("(?=[A-Z])");
@@ -174,7 +171,7 @@ public class ManagePlayZone {
             String localWordLetter = localWordLetters[i].toLowerCase();
 
             // check if one of the strings is size 2
-            if(receivedWordLetter.length() == 2) {
+            if (receivedWordLetter.length() == 2) {
                 for (int j = 0; j < receivedWordLetter.length(); j++) {
                     if (localWordLetter.contains(receivedWordLetter.charAt(j) + "")) {
                         result[i] = "/";
@@ -183,8 +180,7 @@ public class ManagePlayZone {
                         break;
                     }
                 }
-            }
-            else {
+            } else {
                 for (int j = 0; j < localWordLetter.length(); j++) {
                     if (receivedWordLetter.contains(localWordLetter.charAt(j) + "")) {
                         result[i] = "/";
@@ -222,13 +218,13 @@ public class ManagePlayZone {
     /**
      * This method is used to show the play zone.
      * It adds the texts to the model from locale.
-     * @param model the model
+     * @param model  the model
      * @param locale the locale
      * @return the play zone page
      */
     @GetMapping("/playZone")
     public String playZone(Model model, Locale locale, Authentication authentication) {
-        if(authentication != null) {
+        if (authentication != null) {
             if (!(authentication instanceof AnonymousAuthenticationToken)) {
                 String currentUserName = authentication.getName();
                 String userLanguage = userManagement.getLanguageByUsername(currentUserName);
@@ -283,8 +279,7 @@ public class ManagePlayZone {
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
             return userManagement.getMollardsByUsername(currentUserName);
-        }
-        else {
+        } else {
             return 0;
         }
     }

@@ -14,7 +14,7 @@ import java.util.List;
  * This class is used to manage the skin management.
  */
 @Service
-public class SkinManagement{
+public class SkinManagement {
     /**
      * This field is used to get the skin repository.
      */

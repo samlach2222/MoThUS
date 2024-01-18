@@ -75,7 +75,7 @@ function displaySkinsContent(elt, type) {
         changeEquippedSkin(cssFile);
     }
 
-    if(type === "element") {
+    if (type === "element") {
         // create <p> in elementSkin (Element letter)
         let elementSkinRarity = document.createElement("p");
         elementSkinRarity.classList.add("elementSkinLetter");
@@ -123,7 +123,7 @@ function displaySkinsContent(elt, type) {
     }
 
     // create <div> in elementSkin (Element equipped)
-    if(elt.equipped === true) {
+    if (elt.equipped === true) {
         let elementSkinEquipped = document.createElement("div");
         elementSkinEquipped.classList.add("elementSkinEquipped");
         elementSkinEquipped.innerHTML = document.getElementById("equippedLabel").innerHTML;
@@ -147,12 +147,12 @@ function displaySkins(data, type) {
             previewImage: elementSkin.previewImage,
             id: elementSkin.id,
             equipped: elementSkin.equipped,
-            cssFile : elementSkin.cssFile
+            cssFile: elementSkin.cssFile
         };
         elts.push(elt);
     });
     let skinList = document.getElementById("skinList");
-    for(let i = 0; i < elts.length; i++) {
+    for (let i = 0; i < elts.length; i++) {
         let elt = elts[i];
         let skin = displaySkinsContent(elt, type);
         skinList.appendChild(skin);
@@ -176,7 +176,7 @@ function changeEquippedSkin(cssFile) {
     })
         .then(response => response.text())
         .then(m => {
-            if(m === "OK") {
+            if (m === "OK") {
                 window.location.reload();
             }
         })

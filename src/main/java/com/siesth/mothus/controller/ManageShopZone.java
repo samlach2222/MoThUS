@@ -38,7 +38,7 @@ public class ManageShopZone {
     /**
      * This method is used to show the shop zone.
      * It adds the texts to the model from locale.
-     * @param model the model
+     * @param model  the model
      * @param locale the locale
      * @return the shop zone page
      */
@@ -85,7 +85,7 @@ public class ManageShopZone {
      * @return the element case content page
      */
     @GetMapping("/elementCaseContent")
-    public String loadElementCaseContent(Model model, Authentication authentication, Locale locale){
+    public String loadElementCaseContent(Model model, Authentication authentication, Locale locale) {
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
             String userLanguage = userManagement.getLanguageByUsername(currentUserName);
@@ -136,7 +136,7 @@ public class ManageShopZone {
     }
 
     @GetMapping("/lootPopup")
-    public String lootPopup(Model model, Locale locale, Authentication authentication){
+    public String lootPopup(Model model, Locale locale, Authentication authentication) {
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
             String userLanguage = userManagement.getLanguageByUsername(currentUserName);
@@ -152,7 +152,7 @@ public class ManageShopZone {
     /**
      * This method is used to show the credit card popup.
      * It adds the texts to the model from locale.
-     * @param model the model
+     * @param model  the model
      * @param locale the locale
      * @return the credit card popup page
      */
@@ -164,7 +164,7 @@ public class ManageShopZone {
             locale = new Locale(userLanguage);
         }
 
-        switch(lootboxType){
+        switch (lootboxType) {
             case "commonBuy":
                 model.addAttribute("coinNumber", 100);
                 model.addAttribute("lootboxPrice", "1€99");
@@ -226,7 +226,7 @@ public class ManageShopZone {
                     mythicProb = 5;
                     // remove 110 mollards
                     int mollardsCommon = userManagement.getMollardsByUsername(currentUserName);
-                    if(mollardsCommon < 110) {
+                    if (mollardsCommon < 110) {
                         return null;
                     }
                     userManagement.addBalanceByUsername(currentUserName, -110);
@@ -239,7 +239,7 @@ public class ManageShopZone {
                     mythicProb = 15;
                     // remove 510 mollards
                     int mollardsRare = userManagement.getMollardsByUsername(currentUserName);
-                    if(mollardsRare < 510) {
+                    if (mollardsRare < 510) {
                         return null;
                     }
                     userManagement.addBalanceByUsername(currentUserName, -510);
@@ -252,7 +252,7 @@ public class ManageShopZone {
                     mythicProb = 40;
                     // remove 10100 mollards
                     int mollardsMythic = userManagement.getMollardsByUsername(currentUserName);
-                    if(mollardsMythic < 1010) {
+                    if (mollardsMythic < 1010) {
                         return null;
                     }
                     userManagement.addBalanceByUsername(currentUserName, -1010);
@@ -272,8 +272,7 @@ public class ManageShopZone {
             Skin s = userManagement.getRandomSkin(currentUserName, rarity);
             // transform to json
             return "{\"type\":\"" + s.getType() + "\",\"rarity\":\"" + s.getRarity() + "\",\"cssPath\":\"" + s.getCssFile() + "\",\"imagePath\":\"" + s.getPreviewImage() + "\"}";
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -287,8 +286,7 @@ public class ManageShopZone {
             String currentUserName = authentication.getName();
             userManagement.addBalanceByUsername(currentUserName, amount);
             return "OK";
-        }
-        else {
+        } else {
             return messageSource.getMessage("ShopZone.NotLoggedIn", null, locale);
         }
     }

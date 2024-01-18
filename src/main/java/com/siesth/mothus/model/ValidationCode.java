@@ -21,14 +21,14 @@ public class ValidationCode {
      * Id of the validation code
      */
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     int idValidationCode;
 
     /**
      * Date and time of the creation of the validation code
      */
     @Column(columnDefinition = "datetime") // The default "datetime(6)" is not supported in our server
-    LocalDateTime creationDate;
+            LocalDateTime creationDate;
 
     /**
      * Duration of the validation code in seconds
@@ -43,10 +43,10 @@ public class ValidationCode {
     /**
      * Constructor of the validation code
      * @param creationDate date and time of the creation of the validation code
-     * @param duration duration of the validation code
-     * @param code code of the validation code
+     * @param duration     duration of the validation code
+     * @param code         code of the validation code
      */
-    public ValidationCode(LocalDateTime creationDate, int duration, String code){
+    public ValidationCode(LocalDateTime creationDate, int duration, String code) {
         super();
         this.setCreationDate(creationDate);
         this.setDuration(duration);

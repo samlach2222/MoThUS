@@ -41,7 +41,7 @@ public interface IUserManagement {
 
     /**
      * This method is used to get the user by username and update the validation code.
-     * @param username the username
+     * @param username       the username
      * @param validationCode the validation code
      */
     void getUserByUsernameAndUpdateValidationCode(String username, ValidationCode validationCode);
@@ -114,7 +114,7 @@ public interface IUserManagement {
     /**
      * This method is used to update the mail by username.
      * @param username the username
-     * @param email the email
+     * @param email    the email
      */
     void updateEmailByUsername(String username, String email);
 

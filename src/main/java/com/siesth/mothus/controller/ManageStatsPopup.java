@@ -48,7 +48,7 @@ public class ManageStatsPopup {
     /**
      * This method is used to show the stats popup.
      * It adds the texts to the model from locale.
-     * @param model the model
+     * @param model  the model
      * @param locale the locale
      * @return the stats popup page
      */
@@ -139,8 +139,8 @@ public class ManageStatsPopup {
             stats.setPurpleSquareCount(stats.getPurpleSquareCount() + numberOfPurpleSquare);
             stats.setWinCount(stats.getWinCount() + (win ? 1 : 0));
             int amountOfMollardsWin = 0;
-            if(win) {
-                switch(numberOfTries){
+            if (win) {
+                switch (numberOfTries) {
                     case 1:
                         stats.setFirstTryCount(stats.getFirstTryCount() + 1);
                         amountOfMollardsWin = 100;
@@ -174,16 +174,14 @@ public class ManageStatsPopup {
                         amountOfMollardsWin = 4;
                         break;
                 }
-            }
-            else {
+            } else {
                 stats.setLooseCount(stats.getLooseCount() + 1);
                 amountOfMollardsWin = -1;
             }
             userManagement.updateStatsByUsername(currentUserName, stats);
             userManagement.updateBalanceByUsername(currentUserName, amountOfMollardsWin);
             return amountOfMollardsWin;
-        }
-        else {
+        } else {
             return null;
         }
     }

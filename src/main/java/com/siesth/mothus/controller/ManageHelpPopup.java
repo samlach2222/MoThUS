@@ -36,7 +36,7 @@ public class ManageHelpPopup {
     /**
      * This method is used to show the help popup.
      * It adds the texts to the model from locale.
-     * @param model the model
+     * @param model  the model
      * @param locale the locale
      * @return the help popup page
      */

@@ -19,7 +19,7 @@ import jakarta.persistence.Id;
 public class Stats {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     int idStats;
 
     /**
@@ -100,7 +100,7 @@ public class Stats {
     /**
      * Constructor of the stats
      */
-    public Stats(){
+    public Stats() {
         firstTryCount = 0;
         secondTryCount = 0;
         thirdTryCount = 0;

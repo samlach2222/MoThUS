@@ -7,7 +7,7 @@ function initCoinShopContent() {
 /**
  * Function called when the user^open the pay invoice popup button in the vertical menu to set up creditCard inputs.
  */
-function setupInputs(){
+function setupInputs() {
     let cleaveCNI = new Cleave('#cczCardNumberInput', {
         creditCard: true,
     });
@@ -89,7 +89,7 @@ function loadPopupContent(contentType, lootboxType) {
 /**
  * Function called when the user click on the validate payment button in the popup.
  */
-function validatePayment(){
+function validatePayment() {
 
     // Construct the request body
     let requestBody = JSON.stringify({
@@ -108,10 +108,9 @@ function validatePayment(){
     })
         .then(response => response.text())
         .then(r => {
-            if(r === "OK"){ // TODO : NotifySuccess and NotifyError not found
+            if (r === "OK") { // TODO : NotifySuccess and NotifyError not found
                 notifySuccess("Payment successful"); // TODO : translate
-            }
-            else {
+            } else {
                 notifyError(r);
             }
         })
@@ -126,6 +125,6 @@ function validatePayment(){
 /**
  * Function called when the user click on the cancel payment button in the popup.
  */
-function cancelPayment(){
+function cancelPayment() {
     closePopup();
 }
