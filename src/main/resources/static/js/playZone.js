@@ -53,7 +53,7 @@ function displayElement(element) {
  * Display the periodic table
  * @param data from Spring
  */
-function displayElementTable(data){
+function displayElementTable(data) {
     // Create a table of 10 rows and 18 columns with the periodic table
     const periodicTable = document.getElementById("periodicHtmlTable");
     const periodicTableBody = document.createElement("tbody");
@@ -208,8 +208,7 @@ function displayGameTable(length) {
                     symbol: firstLetter,
                 };
                 cell.appendChild(displayElement(elt));
-            }
-            else if (i ===0 && j >= 1) {
+            } else if (i === 0 && j >= 1) {
                 cell.style.border = "1px solid #005f9f";
                 cell.style.backgroundColor = "#005f9f";
                 const elt = {
@@ -217,8 +216,7 @@ function displayGameTable(length) {
                     symbol: ".",
                 };
                 cell.appendChild(displayElement(elt));
-            }
-            else {
+            } else {
                 cell.style.border = "1px solid #005f9f";
                 cell.style.backgroundColor = "#005f9f";
                 const elt = {
@@ -250,7 +248,7 @@ function activatePlayLine(rowNumber) {
             const cell = cells[j];
 
             // allow drop
-            if(i === rowNumber && j > 0) {
+            if (i === rowNumber && j > 0) {
                 cell.ondragover = function (event) {
                     event.preventDefault();
                 }
@@ -314,10 +312,10 @@ function deactivateKeyboard() {
     const periodicTable = document.getElementById("periodicHtmlTable");
     const periodicTableBody = periodicTable.getElementsByTagName("tbody");
 
-    let rows= periodicTableBody[0].rows;
-    for(let i=0; i<rows.length; i++){
-        let cells=rows[i].cells;
-        for(let j=0; j<cells.length; j++){
+    let rows = periodicTableBody[0].rows;
+    for (let i = 0; i < rows.length; i++) {
+        let cells = rows[i].cells;
+        for (let j = 0; j < cells.length; j++) {
             cells[j].onclick = null;
             cells[j].draggable = false;
         }
@@ -341,16 +339,13 @@ function colorCurrentLine(coloration) {
     for (let i = 0; i < cells.length; i++) {
         const cell = cells[i];
         const symbol = coloration[i];
-        if(symbol === "+") {
+        if (symbol === "+") {
             cell.style.backgroundColor = "#b90022";
-        }
-        else if(symbol === "-") {
+        } else if (symbol === "-") {
             cell.style.backgroundColor = "#005f9f";
-        }
-        else if(symbol === "*") {
+        } else if (symbol === "*") {
             cell.style.backgroundColor = "#997100";
-        }
-        else if(symbol === "/") {
+        } else if (symbol === "/") {
             cell.style.backgroundColor = "#7f00fd";
         }
     }
@@ -364,7 +359,7 @@ function colorCurrentLine(coloration) {
  * Catch keyboard events to send the current word to Spring or to delete a letter
  * @param event the keyboard event
  */
-document.addEventListener('keydown', function(event) {
+document.addEventListener('keydown', function (event) {
     if (event.code === 'Enter') {
         // check if the line is complete
         const gameTable = document.getElementById("mothusHtmlTable");
@@ -382,12 +377,10 @@ document.addEventListener('keydown', function(event) {
         }
         if (isComplete) {
             sendCurrentWord(); // Send to spring and color the line
-        }
-        else {
+        } else {
             notifyError("La ligne n'est pas complète"); // TODO : translate
         }
-    }
-    else if (event.code === 'Backspace') {
+    } else if (event.code === 'Backspace') {
         // get first td of the current line
         const gameTable = document.getElementById("mothusHtmlTable");
         const gameTableBody = gameTable.getElementsByTagName("tbody")[0];
@@ -487,10 +480,10 @@ function getEndGameTime() {
     let minutes = Math.floor(seconds / 60);
     let hours = Math.floor(minutes / 60);
     let time = "";
-    if(hours > 0) {
+    if (hours > 0) {
         time += hours + ":";
     }
-    if(minutes > 0) {
+    if (minutes > 0) {
         time += minutes + ":";
     }
     time += seconds;
@@ -501,7 +494,7 @@ function getEndGameTime() {
  * Send the current word to Spring
  * This is synchronous because we need the response before continuing
  */
-function sendCurrentWord(){
+function sendCurrentWord() {
     let word = "";
     const gameTable = document.getElementById("mothusHtmlTable");
     const gameTableBody = gameTable.getElementsByTagName("tbody")[0];
@@ -531,7 +524,7 @@ function sendCurrentWord(){
             colorCurrentLine(coloration);
 
             // WINNING CONDITION
-            if(!coloration.includes("-") && !coloration.includes("*") && !coloration.includes("/")) {
+            if (!coloration.includes("-") && !coloration.includes("*") && !coloration.includes("/")) {
                 isGameFinished = true;
                 isWin = true;
                 currentTime = new Date();
@@ -544,7 +537,7 @@ function sendCurrentWord(){
                 openPopup('statsButton');
             }
             // LOOSING CONDITION
-            else if(currentLine === 7 && !isWin) {
+            else if (currentLine === 7 && !isWin) {
                 isGameFinished = true;
                 currentTime = new Date();
                 getResultsAndPrepareToSendDb();
@@ -561,9 +554,9 @@ function sendCurrentWord(){
                 // first letter
                 const newRow = gameTableBody.rows[currentLine];
                 const newCells = newRow.cells;
-                for(let i = 0; i < newCells.length; i++) {
+                for (let i = 0; i < newCells.length; i++) {
                     const cell = newCells[i];
-                    if (i === 0 ) {
+                    if (i === 0) {
                         cell.style.border = "1px solid #b90022";
                         cell.style.backgroundColor = "#b90022";
                         cell.children[0].remove();
@@ -572,8 +565,7 @@ function sendCurrentWord(){
                             symbol: firstLetter,
                         };
                         cell.appendChild(displayElement(elt));
-                    }
-                    else if (i >= 1) {
+                    } else if (i >= 1) {
                         cell.style.border = "1px solid #005f9f";
                         cell.style.backgroundColor = "#005f9f";
                         cell.children[0].remove();
@@ -582,8 +574,7 @@ function sendCurrentWord(){
                             symbol: ".",
                         };
                         cell.appendChild(displayElement(elt));
-                    }
-                    else {
+                    } else {
                         cell.style.border = "1px solid #005f9f";
                         cell.style.backgroundColor = "#005f9f";
                         cell.children[0].remove();
@@ -625,7 +616,7 @@ function openPopup(contentType) {
     popup.style.display = 'block';
 
     // Close the popup and remove the overlay when clicking outside (grayed-out zone)
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (event.target === popup) {
             closePopup();
         }
@@ -689,7 +680,7 @@ function loadPopupContent(contentType) {
                 let graphValues = [];
                 let elementsNumberOfTriesText = document.body.getElementsByClassName("numberOfTriesText");
                 for (let i = 0; i < elementsNumberOfTriesText.length; i++) {
-                    let numberOfTries= elementsNumberOfTriesText[i].innerHTML;
+                    let numberOfTries = elementsNumberOfTriesText[i].innerHTML;
                     graphValues.push(numberOfTries);
                 }
 
@@ -713,7 +704,7 @@ function loadPopupContent(contentType) {
     }
 }
 
-function getResultsAndPrepareToSendDb(){
+function getResultsAndPrepareToSendDb() {
 
     let numberOfRedSquare = 0;
     let numberOfYellowCircle = 0;
@@ -737,16 +728,14 @@ function getResultsAndPrepareToSendDb(){
     let time = getEndGameTime();
     let splitTime = time.split(":");
     let seconds = 0;
-    if(splitTime.length === 3) {
+    if (splitTime.length === 3) {
         seconds += parseInt(splitTime[0]) * 3600;
         seconds += parseInt(splitTime[1]) * 60;
         seconds += parseInt(splitTime[2]);
-    }
-    else if(splitTime.length === 2) {
+    } else if (splitTime.length === 2) {
         seconds += parseInt(splitTime[0]) * 60;
         seconds += parseInt(splitTime[1]);
-    }
-    else {
+    } else {
         seconds += parseInt(splitTime[0]);
     }
 
@@ -764,8 +753,8 @@ function getResultsAndPrepareToSendDb(){
     exportResultToServer(data);
 }
 
-function exportResult(){
-    if(isGameFinished) {
+function exportResult() {
+    if (isGameFinished) {
         let gameNotFinishedText = document.getElementById("gameNotFinishedText");
         gameNotFinishedText.style.display = "none";
         let shareStatsButton = document.getElementById("shareStats");
@@ -811,7 +800,7 @@ function exportResult(){
     }
 }
 
-function exportResultToServer(data){
+function exportResultToServer(data) {
     let requestBody = JSON.stringify({
         gameNumber: data.gameNumber,
         time: data.time,
@@ -837,13 +826,12 @@ function exportResultToServer(data){
         } else {
             throw new Error('Network response was not ok');
         }
-    }
-    catch (err) {
+    } catch (err) {
         console.error(err);
     }
 }
 
-function getLatestGameNumber(){
+function getLatestGameNumber() {
 
     let xhr = new XMLHttpRequest();
     xhr.open('GET', '/getLatestGameNumber', false);  // The third parameter 'false' makes the request synchronous
@@ -859,22 +847,21 @@ function getLatestGameNumber(){
         } else {
             throw new Error('Network response was not ok');
         }
-    }
-    catch (err) {
+    } catch (err) {
         console.error(err);
     }
 }
 
-function shareResult(){
+function shareResult() {
     let mothustext = document.getElementById("mothusText");
     let gameResultsTable = document.getElementById("gameResultsTable");
     const gameResultsTableBody = gameResultsTable.getElementsByTagName("tbody")[0];
     let rows = gameResultsTableBody.rows;
     let string = mothustext.innerHTML + "\n\n";
-    for(let i = 0; i < rows.length; i++) {
+    for (let i = 0; i < rows.length; i++) {
         let row = rows[i];
         let cells = row.cells;
-        for(let j = 0; j < cells.length; j++) {
+        for (let j = 0; j < cells.length; j++) {
             let cell = cells[j];
             string += cell.innerHTML;
         }
@@ -900,7 +887,7 @@ function actualizeMollards() {
         .then(response => response.text())
         .then(m => {
             let mollards = document.getElementById("coinCounter");
-            if(mollards !== null){
+            if (mollards !== null) {
                 mollards.innerHTML = m;
             }
         })

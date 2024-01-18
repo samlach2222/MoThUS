@@ -86,7 +86,7 @@ footer {
  * Game table in the game div
  */
 #mothusHtmlTable {
-    width : 95%;
+    width: 95%;
     height: 95%;
     background-color: white;
     align-self: center;
@@ -101,7 +101,7 @@ footer {
  * Periodic table in the periodic div
  */
 #periodicHtmlTable {
-    width : 95%;
+    width: 95%;
     height: 95%;
     align-self: center;
     justify-self: center;
@@ -132,7 +132,7 @@ footer {
     text-align: center;
 }
 
-#mothusLogo{
+#mothusLogo {
     width: 100%;
     height: 100%;
     object-fit: contain;
@@ -265,7 +265,6 @@ footer {
 #returnButton:hover {
     background-color: #8f001a;
 }
-
 
 
 /***************/

@@ -64,7 +64,7 @@ function displayExemple() {
     table.appendChild(tableBody);
     table.style.height = elmtWidthAndHeight + "px";
 
-    for(let i = 0; i < elts.length; i++) {
+    for (let i = 0; i < elts.length; i++) {
         const cell = table.getElementsByTagName("td")[i];
         const div = cell.getElementsByClassName("elementDiv")[0];
         div.style.height = "auto";

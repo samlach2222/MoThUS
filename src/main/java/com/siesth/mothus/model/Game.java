@@ -28,7 +28,7 @@ public class Game {
      * Date of the game
      */
     @Column(columnDefinition = "datetime") // The default "datetime(6)" is not supported in our server
-    LocalDate dateOfTheGame;
+            LocalDate dateOfTheGame;
 
     /**
      * French word
@@ -43,8 +43,8 @@ public class Game {
     /**
      * Constructor of the game
      * @param dateOfTheGame date of the game
-     * @param frenchWord French word
-     * @param englishWord English word
+     * @param frenchWord    French word
+     * @param englishWord   English word
      */
     public Game(LocalDate dateOfTheGame, String frenchWord, String englishWord) {
         super();

@@ -10,7 +10,7 @@ label {
     padding-bottom: 1vh;
 }
 
-input[type="email"], input[type="text"], #language , #oldPass, #newPass, #confirmNewPass {
+input[type="email"], input[type="text"], #language, #oldPass, #newPass, #confirmNewPass {
     height: 2vh;
     width: 8vw;
     font-size: 1vh;

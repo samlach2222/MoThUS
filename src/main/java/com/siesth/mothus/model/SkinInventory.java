@@ -21,13 +21,13 @@ public class SkinInventory {
      * Id of the skin inventory
      */
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     int idSkinInventory;
 
     /**
      * List of all the skins of the user
      */
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
             name = "skinSkinInventory",
             joinColumns = @JoinColumn(name = "idSkin"),
@@ -64,7 +64,7 @@ public class SkinInventory {
     /**
      * Constructor of the skin inventory
      */
-    public SkinInventory(){
+    public SkinInventory() {
         skinList = new ArrayList<>();
         this.currentElementSkinId = -1;
         this.currentPageSkinId = -1;
@@ -74,7 +74,7 @@ public class SkinInventory {
      * Add a skin to the skin inventory
      * @param newSkin skin to add
      */
-    public void addSkinToList(Skin newSkin){
+    public void addSkinToList(Skin newSkin) {
         skinList.add(newSkin);
     }
 

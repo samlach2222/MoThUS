@@ -21,7 +21,7 @@ public class Skin {
      * Id of the skin
      */
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     int idSkin;
 
     /**
@@ -46,12 +46,12 @@ public class Skin {
 
     /**
      * Constructor of the skin
-     * @param rarity rarity of the skin
-     * @param type type of the skin
-     * @param cssFile CSS file of the skin
+     * @param rarity       rarity of the skin
+     * @param type         type of the skin
+     * @param cssFile      CSS file of the skin
      * @param previewImage preview image of the skin
      */
-    public Skin(SkinRarity rarity, SkinType type, String cssFile, String previewImage){
+    public Skin(SkinRarity rarity, SkinType type, String cssFile, String previewImage) {
         super();
         this.setRarity(rarity);
         this.setType(type);

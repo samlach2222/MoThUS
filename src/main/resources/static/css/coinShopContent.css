@@ -35,15 +35,15 @@
     color: white;
 }
 
-#commonBuyDiv .coinValueDiv{
+#commonBuyDiv .coinValueDiv {
     background-color: #009f63;
 }
 
-#rareBuyDiv .coinValueDiv{
+#rareBuyDiv .coinValueDiv {
     background: linear-gradient(to bottom right, #c3ab1c, #ffdb00);
 }
 
-#mythicBuyDiv .coinValueDiv{
+#mythicBuyDiv .coinValueDiv {
     background: linear-gradient(to bottom right, #fa6101, #cd0c07);
 }
 
@@ -80,6 +80,7 @@ span {
     width: 10vh;
     height: 8vh;
 }
+
 #shop {
     width: 10vh;
     height: 8vh;

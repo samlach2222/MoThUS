@@ -7,20 +7,20 @@ window.onload = function () {
         let text = document.getElementsByClassName('alert alert-registration-success')[0].innerText;
         notifySuccess(text)
         loadContent('/loginContent');
-    } else if (document.getElementsByClassName('alert alert-registration-error').length > 0){
+    } else if (document.getElementsByClassName('alert alert-registration-error').length > 0) {
         let text = document.getElementsByClassName('alert alert-registration-error')[0].innerText;
         notifyError(text)
         loadContent('/registerContent');
     } else if (document.getElementsByClassName('alert alert-registration-password-error').length > 0) {
         notifyError('Registration failed. Password and confirmed password do not match.')
         loadContent('/registerContent');
-    } else if (document.getElementsByClassName('alert alert-login-error').length > 0){
+    } else if (document.getElementsByClassName('alert alert-login-error').length > 0) {
         let text = document.getElementsByClassName('alert alert-login-error')[0].innerText;
         notifyError(text)
         loadContent('/loginContent');
-    } else if (document.getElementsByClassName('alert alert-registration-pending').length > 0){
+    } else if (document.getElementsByClassName('alert alert-registration-pending').length > 0) {
         openPopup();
-    } else if (document.getElementsByClassName('alert alert-registration-wrong-code').length > 0){
+    } else if (document.getElementsByClassName('alert alert-registration-wrong-code').length > 0) {
         let text = document.getElementsByClassName('alert alert-registration-wrong-code')[0].innerText;
         notifyError(text);
         openPopup();
@@ -133,8 +133,7 @@ function resendEmail() {
 
     try {
         xhr.send();
-    }
-    catch (err) {
+    } catch (err) {
         console.error(err);
     }
 }

@@ -125,7 +125,7 @@ div[role="alert"] {
 }
 
 #returnButton {
-    z-index:100;
+    z-index: 100;
     width: 5vh;
     height: 5vh;
     text-decoration: none;

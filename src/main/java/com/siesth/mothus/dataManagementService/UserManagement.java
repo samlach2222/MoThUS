@@ -35,8 +35,7 @@ public class UserManagement implements IUserManagement {
     public boolean createNewUser(RegistrationDto registrationDto) {
         if (userRepository.existsUserByUsername(registrationDto.getUsername()) || userRepository.existsUserByMail(registrationDto.getEmail())) {
             return false;
-        }
-        else {
+        } else {
             User user = new User(
                     registrationDto.getUsername(),
                     registrationDto.getEmail(),
@@ -97,7 +96,7 @@ public class UserManagement implements IUserManagement {
 
     /**
      * This method is used to get the user by username and update the validation code.
-     * @param username the username
+     * @param username       the username
      * @param validationCode the validation code
      */
     @Override
@@ -219,7 +218,7 @@ public class UserManagement implements IUserManagement {
     /**
      * This method is used to update the mail by username.
      * @param username the username
-     * @param email the email
+     * @param email    the email
      */
     @Override
     public void updateEmailByUsername(String username, String email) {
@@ -240,8 +239,8 @@ public class UserManagement implements IUserManagement {
         List<Skin> skins = skinRepository.findAll();
         Collection<Skin> ownedSkins = getSkinInventoryByUsername(username).getSkinList();
         List<Skin> availableSkins = new ArrayList<>();
-        for(Skin s : skins){
-            if(s.getRarity().toString().equals(type) && !ownedSkins.contains(s)){
+        for (Skin s : skins) {
+            if (s.getRarity().toString().equals(type) && !ownedSkins.contains(s)) {
                 availableSkins.add(s);
             }
         }

@@ -48,7 +48,7 @@ public class ManageAccountZone {
     /**
      * This method is used to load the account zone.
      * It adds the texts to the model from locale.
-     * @param model the model
+     * @param model  the model
      * @param locale the locale
      * @return the account zone
      */
@@ -80,7 +80,7 @@ public class ManageAccountZone {
     /**
      * This method is used to load the account content.
      * It adds the texts to the model from locale and user information.
-     * @param model the model
+     * @param model  the model
      * @param locale the locale
      * @return the account content
      */
@@ -146,7 +146,7 @@ public class ManageAccountZone {
     /**
      * This method is used to load the element skins content.
      * It adds the texts to the model from locale.
-     * @param model the model
+     * @param model  the model
      * @param locale the locale
      * @return the element skins content
      */
@@ -180,7 +180,7 @@ public class ManageAccountZone {
     /**
      * This method is used to load the page skins content.
      * It adds the texts to the model from locale.
-     * @param model the model
+     * @param model  the model
      * @param locale the locale
      * @return the page skins content
      */
@@ -224,7 +224,7 @@ public class ManageAccountZone {
             // get all skins
             Collection<Skin> skins = skinInventory.getSkinList();
             ArrayList<Skin> pageSkins = new ArrayList<>();
-            for(Skin skin : skins) {
+            for (Skin skin : skins) {
                 if (skin.getType() == SkinType.PageSkin) {
                     pageSkins.add(skin);
                 }
@@ -237,10 +237,9 @@ public class ManageAccountZone {
                 result.append("\"rarity\": \"").append(skin.getRarity().toString()).append("\",");
                 result.append("\"cssFile\": \"").append(skin.getCssFile()).append("\",");
                 result.append("\"previewImage\": \"").append(skin.getPreviewImage()).append("\",");
-                if(skin.getIdSkin() == equippedSkinId) {
+                if (skin.getIdSkin() == equippedSkinId) {
                     result.append("\"equipped\": true");
-                }
-                else {
+                } else {
                     result.append("\"equipped\": false");
                 }
                 result.append("},");
@@ -267,7 +266,7 @@ public class ManageAccountZone {
             // get all skins
             Collection<Skin> skins = skinInventory.getSkinList();
             ArrayList<Skin> elementSkins = new ArrayList<>();
-            for(Skin skin : skins) {
+            for (Skin skin : skins) {
                 if (skin.getType() == SkinType.ElementSkin) {
                     elementSkins.add(skin);
                 }
@@ -280,10 +279,9 @@ public class ManageAccountZone {
                 result.append("\"rarity\": \"").append(skin.getRarity().toString()).append("\",");
                 result.append("\"cssFile\": \"").append(skin.getCssFile()).append("\",");
                 result.append("\"previewImage\": \"").append(skin.getPreviewImage()).append("\",");
-                if(skin.getIdSkin() == equippedSkinId) {
+                if (skin.getIdSkin() == equippedSkinId) {
                     result.append("\"equipped\": true");
-                }
-                else {
+                } else {
                     result.append("\"equipped\": false");
                 }
                 result.append("},");
@@ -297,7 +295,7 @@ public class ManageAccountZone {
 
     /**
      * This method is used to change the password.
-     * @param authentication the authentication
+     * @param authentication        the authentication
      * @param passwordChangeRequest data from the form
      * @return a message
      */
@@ -314,20 +312,17 @@ public class ManageAccountZone {
             locale = new Locale(userLanguage);
             String serverPass = userManagement.getPasswordByUsername(currentUserName);
             Argon2PasswordEncoder arg2SpringSecurity = new Argon2PasswordEncoder(16, 32, 1, 50000, 3);
-            if(arg2SpringSecurity.matches(previousPassword, serverPass)) {
-                if(newPassword.equals(confirmNewPassword)) {
+            if (arg2SpringSecurity.matches(previousPassword, serverPass)) {
+                if (newPassword.equals(confirmNewPassword)) {
                     userManagement.updatePasswordByUsername(currentUserName, newPassword);
                     return "SUCCESS"; // not translate this
-                }
-                else {
+                } else {
                     return messageSource.getMessage("AccountZone.ChangePassword.PassAndConfirmNotEquals", null, locale);
                 }
-            }
-            else {
+            } else {
                 return messageSource.getMessage("AccountZone.ChangePassword.OldPasswordWrong", null, locale);
             }
-        }
-        else {
+        } else {
             return messageSource.getMessage("AccountZone.ChangePassword.NotLoggedIn", null, locale);
         }
     }
@@ -341,15 +336,13 @@ public class ManageAccountZone {
             String currentUserName = authentication.getName();
             String userLanguage = userManagement.getLanguageByUsername(currentUserName);
             locale = new Locale(userLanguage);
-            if(userManagement.isUsernameTaken(newUsername)) {
+            if (userManagement.isUsernameTaken(newUsername)) {
                 return messageSource.getMessage("AccountZone.ChangeUsername.UsernameAlreadyTaken", null, locale);
-            }
-            else {
+            } else {
                 userManagement.updateUsernameByUsername(currentUserName, newUsername);
                 return "SUCCESS"; // not translate this
             }
-        }
-        else {
+        } else {
             return messageSource.getMessage("AccountZone.ChangeUsername.NotLoggedIn", null, locale);
         }
     }
@@ -363,15 +356,13 @@ public class ManageAccountZone {
             String currentUserName = authentication.getName();
             String userLanguage = userManagement.getLanguageByUsername(currentUserName);
             locale = new Locale(userLanguage);
-            if(userManagement.isMailTaken(newMail)) {
+            if (userManagement.isMailTaken(newMail)) {
                 return messageSource.getMessage("AccountZone.ChangeMail.MailAlreadyTaken", null, locale);
-            }
-            else {
+            } else {
                 userManagement.updateEmailByUsername(currentUserName, newMail);
                 return "SUCCESS"; // not translate this
             }
-        }
-        else {
+        } else {
             return messageSource.getMessage("AccountZone.ChangeMail.NotLoggedIn", null, locale);
         }
     }
@@ -387,21 +378,18 @@ public class ManageAccountZone {
             SkinInventory skinInventory = userManagement.getSkinInventoryByUsername(currentUserName);
             Skin skin = skinInventory.getSkinList().stream().filter(s -> s.getCssFile().equals(cssFile)).findFirst().orElse(null);
 
-            if(skin != null) {
-                if(skin.getType() == SkinType.ElementSkin) {
+            if (skin != null) {
+                if (skin.getType() == SkinType.ElementSkin) {
                     skinInventory.setCurrentElementSkinId(skin.getIdSkin());
-                }
-                else if(skin.getType() == SkinType.PageSkin) {
+                } else if (skin.getType() == SkinType.PageSkin) {
                     skinInventory.setCurrentPageSkinId(skin.getIdSkin());
                 }
                 userManagement.updateSkinInventoryByUsername(currentUserName, skinInventory);
                 return "OK";
-            }
-            else {
+            } else {
                 return "NOTOK";
             }
-        }
-        else {
+        } else {
             return "NOTOK";
         }
     }
@@ -409,7 +397,7 @@ public class ManageAccountZone {
     /**
      * This method is used to load the terms of use content.
      * It adds the texts to the model from locale.
-     * @param model the model
+     * @param model  the model
      * @param locale the locale
      * @return the terms of use content
      */

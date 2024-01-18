@@ -1,7 +1,7 @@
 <link href="/css/confirmEmailPopup.css" rel="stylesheet">
 <div id="confirmEmailPopup">
     <p id="PopupLabel" th:text="${popupLabel}"></p>
-    <form id="confirmEmailForm" method="post"  th:action="@{/validateMailRegister}" th:object="${validateEmailDto}">
+    <form id="confirmEmailForm" method="post" th:action="@{/validateMailRegister}" th:object="${validateEmailDto}">
         <label>
             <input pattern="[0-9]{6}" placeholder="000000" th:field="*{code}" type="text">
         </label>

@@ -17,7 +17,8 @@ public class ValidateEmailDto {
     /**
      * Empty constructor
      */
-    public ValidateEmailDto() {}
+    public ValidateEmailDto() {
+    }
 
     /**
      * Getter for code
