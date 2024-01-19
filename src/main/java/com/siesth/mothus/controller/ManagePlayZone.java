@@ -196,11 +196,20 @@ public class ManagePlayZone {
         for (int i = 0; i < receivedWordLetters.length; i++) {
             if (!receivedWordLetters[i].isEmpty()) {
                 // check if not contains
-                if (!frenchWord.contains(receivedWordLetters[i])) {
-                    result[i] = "-";
-                    receivedWordLetters[i] = "";
-                    localWordLetters[i] = "";
+                if (userLanguage.equals("fr")) {
+                    if (!frenchWord.contains(receivedWordLetters[i])) {
+                        result[i] = "-";
+                        receivedWordLetters[i] = "";
+                        localWordLetters[i] = "";
+                    }
+                } else {
+                    if (!englishWord.contains(receivedWordLetters[i])) {
+                        result[i] = "-";
+                        receivedWordLetters[i] = "";
+                        localWordLetters[i] = "";
+                    }
                 }
+
             }
         }
 
