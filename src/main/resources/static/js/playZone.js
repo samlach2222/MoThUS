@@ -476,9 +476,9 @@ function clearUnderLines() {
  */
 function getEndGameTime() {
     let timeElapsed = currentTime - startTime;
-    let seconds = Math.floor(timeElapsed / 1000);
-    let minutes = Math.floor(seconds / 60);
-    let hours = Math.floor(minutes / 60);
+    let seconds = Math.floor(timeElapsed / 1000 % 60);
+    let minutes = Math.floor(timeElapsed / 1000 / 60);
+    let hours = Math.floor(timeElapsed / 1000 / 60 / 60);
     let time = "";
     if (hours > 0) {
         time += hours + ":";

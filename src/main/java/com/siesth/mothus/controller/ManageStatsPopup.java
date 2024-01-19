@@ -100,10 +100,11 @@ public class ManageStatsPopup {
             model.addAttribute("yellowCircleCount", stats.getYellowCircleCount());
             model.addAttribute("purpleSquareCount", stats.getPurpleSquareCount());
             int seconds = stats.getPlayTime();
-            int hours = seconds / 3600;
-            int minutes = (seconds % 3600) / 60;
-            seconds = seconds % 60;
-            String timeString = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+            int secondsModulo60 = seconds % 60;
+            int minutes = seconds / 60;
+            int hours = seconds / 60 / 60;
+
+            String timeString = String.format("%02d:%02d:%02d", hours, minutes, secondsModulo60);
             model.addAttribute("playtime", timeString);
         }
 

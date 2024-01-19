@@ -100,7 +100,7 @@ function startTimer() {
 
             const timerInterval = setInterval(function () {
                 timeRemaining--;
-                document.getElementById('timerValue').innerText = timeRemaining.toString() + 's';
+                document.getElementById('timerValue').innerText = timeRemaining.toString();
 
                 const progressPercentage = (timeRemaining / initialTime) * 100;
                 document.getElementById('progressBar').style.width = progressPercentage + '%';
