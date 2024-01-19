@@ -3,6 +3,7 @@
 #
 FROM maven:3.8.3-openjdk-17 AS build
 COPY . .
+COPY src/main/resources/env.properties ./src/main/resources/env.properties
 RUN mvn clean install
 
 #
