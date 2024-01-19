@@ -293,5 +293,63 @@ public class ManagePlayZone {
         }
     }
 
-    // TODO : Add code for guest playing
+    @PostMapping("/getMessageUncompletedLine")
+    @ResponseBody
+    public String getMessageUncompletedLine(Authentication authentication) {
+        // get current user
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            Locale locale = new Locale(userLanguage);
+            return messageSource.getMessage("PlayZone.UncompletedLineMessage", null, locale);
+        }
+        else {
+            return null;
+        }
+    }
+
+    @PostMapping("/getMessageWin")
+    @ResponseBody
+    public String getMessageWin(Authentication authentication) {
+        // get current user
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            Locale locale = new Locale(userLanguage);
+            return messageSource.getMessage("PlayZone.WinMessage", null, locale);
+        }
+        else {
+            return null;
+        }
+    }
+
+    @PostMapping("/getMessageLoose")
+    @ResponseBody
+    public String getMessageLoose(Authentication authentication) {
+        // get current user
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            Locale locale = new Locale(userLanguage);
+            return messageSource.getMessage("PlayZone.LooseMessage", null, locale);
+        }
+        else {
+            return null;
+        }
+    }
+
+    @PostMapping("/getMessageClipboard")
+    @ResponseBody
+    public String getMessageClipboard(Authentication authentication) {
+        // get current user
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            Locale locale = new Locale(userLanguage);
+            return messageSource.getMessage("PlayZone.ClipboardMessage", null, locale);
+        }
+        else {
+            return null;
+        }
+    }
 }

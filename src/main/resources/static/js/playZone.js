@@ -378,7 +378,22 @@ document.addEventListener('keydown', function (event) {
         if (isComplete) {
             sendCurrentWord(); // Send to spring and color the line
         } else {
-            notifyError("La ligne n'est pas complète"); // TODO : translate
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', '/getMessageUncompletedLine', false);  // The third parameter 'false' makes the request synchronous
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            const token = document.head.querySelector('meta[name="_csrf"]').content;
+            const header = document.head.querySelector('meta[name="_csrf_header"]').content;
+            xhr.setRequestHeader(header, token);
+            try {
+                xhr.send();
+                if (xhr.status === 200) {
+                    notifySuccess(xhr.responseText);
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            } catch (err) {
+                console.error(err);
+            }
         }
     } else if (event.code === 'Backspace') {
         // get first td of the current line
@@ -511,8 +526,6 @@ function sendCurrentWord() {
     let xhr = new XMLHttpRequest();
     xhr.open('POST', '/sendWord', false);  // The third parameter 'false' makes the request synchronous
     xhr.setRequestHeader('Content-Type', 'application/json');
-    const token = document.head.querySelector('meta[name="_csrf"]').content;
-    const header = document.head.querySelector('meta[name="_csrf_header"]').content;
     xhr.setRequestHeader(header, token);
 
     try {
@@ -529,7 +542,22 @@ function sendCurrentWord() {
                 isWin = true;
                 currentTime = new Date();
                 getResultsAndPrepareToSendDb();
-                notifySuccess("Gagné"); // TODO : translate
+                let xhr1 = new XMLHttpRequest();
+                xhr1.open('POST', '/getMessageWin', false);  // The third parameter 'false' makes the request synchronous
+                xhr1.setRequestHeader('Content-Type', 'application/json');
+                const token = document.head.querySelector('meta[name="_csrf"]').content;
+                const header = document.head.querySelector('meta[name="_csrf_header"]').content;
+                xhr1.setRequestHeader(header, token);
+                try {
+                    xhr1.send();
+                    if (xhr1.status === 200) {
+                        notifySuccess(xhr1.responseText);
+                    } else {
+                        throw new Error('Network response was not ok');
+                    }
+                } catch (err) {
+                    console.error(err);
+                }
                 deactivateTable();
                 deactivateKeyboard();
                 clearUnderLines();
@@ -541,7 +569,22 @@ function sendCurrentWord() {
                 isGameFinished = true;
                 currentTime = new Date();
                 getResultsAndPrepareToSendDb();
-                notifyError("Perdu"); // TODO : translate
+                let xhr1 = new XMLHttpRequest();
+                xhr1.open('POST', '/getMessageLoose', false);  // The third parameter 'false' makes the request synchronous
+                xhr1.setRequestHeader('Content-Type', 'application/json');
+                const token = document.head.querySelector('meta[name="_csrf"]').content;
+                const header = document.head.querySelector('meta[name="_csrf_header"]').content;
+                xhr1.setRequestHeader(header, token);
+                try {
+                    xhr1.send();
+                    if (xhr1.status === 200) {
+                        notifyError(xhr1.responseText);
+                    } else {
+                        throw new Error('Network response was not ok');
+                    }
+                } catch (err) {
+                    console.error(err);
+                }
                 deactivateTable();
                 deactivateKeyboard();
                 exportResult();
@@ -869,7 +912,24 @@ function shareResult() {
     }
     // put the string in the clipboard
     navigator.clipboard.writeText(string).then(
-        r => notifySuccess("Résultats copiés dans le presse-papier"), // TODO : translate
+        r => {
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', '/getMessageClipboard', false);  // The third parameter 'false' makes the request synchronous
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            const token = document.head.querySelector('meta[name="_csrf"]').content;
+            const header = document.head.querySelector('meta[name="_csrf_header"]').content;
+            xhr.setRequestHeader(header, token);
+            try {
+                xhr.send();
+                if (xhr.status === 200) {
+                    notifySuccess(xhr.responseText);
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
     );
 }
 
