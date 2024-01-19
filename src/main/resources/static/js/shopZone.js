@@ -59,7 +59,22 @@ function getSkin(type) {
         .then(jsonData => {
 
             if (jsonData === "null") {
-                notifyError("You don't have enough Mollards to buy this item"); // TODO : Translate
+                let xhr = new XMLHttpRequest();
+                xhr.open('POST', '/getMessageNotEnoughMollards', false);  // The third parameter 'false' makes the request synchronous
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                const token = document.head.querySelector('meta[name="_csrf"]').content;
+                const header = document.head.querySelector('meta[name="_csrf_header"]').content;
+                xhr.setRequestHeader(header, token);
+                try {
+                    xhr.send();
+                    if (xhr.status === 200) {
+                        notifyError(xhr.responseText);
+                    } else {
+                        throw new Error('Network response was not ok');
+                    }
+                } catch (err) {
+                    console.error(err);
+                }
             }
             let json = JSON.parse(jsonData);
             openPopup('loot', json);

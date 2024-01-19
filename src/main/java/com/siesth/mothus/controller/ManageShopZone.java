@@ -290,4 +290,34 @@ public class ManageShopZone {
             return messageSource.getMessage("ShopZone.NotLoggedIn", null, locale);
         }
     }
+
+    @PostMapping("/getMessageNotEnoughMollards")
+    @ResponseBody
+    public String getMessageNotEnoughMollards(Authentication authentication) {
+        // get current user
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            Locale locale = new Locale(userLanguage);
+            return messageSource.getMessage("ShopZone.NotEnoughMollardsMessage", null, locale);
+        }
+        else {
+            return null;
+        }
+    }
+
+    @PostMapping("/getMessagePaymentSuccess")
+    @ResponseBody
+    public String getMessagePaymentSuccess(Authentication authentication) {
+        // get current user
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            Locale locale = new Locale(userLanguage);
+            return messageSource.getMessage("ShopZone.PaymentSuccessMessage", null, locale);
+        }
+        else {
+            return null;
+        }
+    }
 }

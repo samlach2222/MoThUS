@@ -109,7 +109,22 @@ function validatePayment() {
         .then(response => response.text())
         .then(r => {
             if (r === "OK") { // TODO : NotifySuccess and NotifyError not found
-                notifySuccess("Payment successful"); // TODO : translate
+                let xhr = new XMLHttpRequest();
+                xhr.open('POST', '/getMessagePaymentSuccess', false);  // The third parameter 'false' makes the request synchronous
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                const token = document.head.querySelector('meta[name="_csrf"]').content;
+                const header = document.head.querySelector('meta[name="_csrf_header"]').content;
+                xhr.setRequestHeader(header, token);
+                try {
+                    xhr.send();
+                    if (xhr.status === 200) {
+                        notifySuccess(xhr.responseText);
+                    } else {
+                        throw new Error('Network response was not ok');
+                    }
+                } catch (err) {
+                    console.error(err);
+                }
             } else {
                 notifyError(r);
             }
