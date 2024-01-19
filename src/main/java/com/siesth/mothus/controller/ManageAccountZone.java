@@ -470,4 +470,79 @@ public class ManageAccountZone {
         }
         return "redirect:/accountZone";
     }
+
+    @PostMapping("/getMessageInvalidEmail")
+    @ResponseBody
+    public String getMessageInvalidEmail(Authentication authentication) {
+        // get current user
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            Locale locale = new Locale(userLanguage);
+            return messageSource.getMessage("AccountZone.AccountContent.InvalidEmailMessage", null, locale);
+        }
+        else {
+            return null;
+        }
+    }
+
+    @PostMapping("/getMessageInvalidUsername")
+    @ResponseBody
+    public String getMessageInvalidUsername(Authentication authentication) {
+        // get current user
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            Locale locale = new Locale(userLanguage);
+            return messageSource.getMessage("AccountZone.AccountContent.InvalidUsernameMessage", null, locale);
+        }
+        else {
+            return null;
+        }
+    }
+
+    @PostMapping("/getMessageEmailChangeSuccess")
+    @ResponseBody
+    public String getMessageEmailChangeSuccess(Authentication authentication) {
+        // get current user
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            Locale locale = new Locale(userLanguage);
+            return messageSource.getMessage("AccountZone.AccountContent.EmailChangeSuccessMessage", null, locale);
+        }
+        else {
+            return null;
+        }
+    }
+
+    @PostMapping("/getMessageUsernameChangeSuccess")
+    @ResponseBody
+    public String getMessageUsernameChangeSuccess(Authentication authentication) {
+        // get current user
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            Locale locale = new Locale(userLanguage);
+            return messageSource.getMessage("AccountZone.AccountContent.UsernameChangeSuccessMessage", null, locale);
+        }
+        else {
+            return null;
+        }
+    }
+
+    @PostMapping("/getMessagePasswordChangeSuccess")
+    @ResponseBody
+    public String getMessagePasswordChangeSuccess(Authentication authentication) {
+        // get current user
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            Locale locale = new Locale(userLanguage);
+            return messageSource.getMessage("AccountZone.AccountContent.PasswordChangeSuccessMessage", null, locale);
+        }
+        else {
+            return null;
+        }
+    }
 }
