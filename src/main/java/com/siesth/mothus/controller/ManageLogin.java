@@ -215,7 +215,6 @@ public class ManageLogin {
             return "redirect:/login";
         }
 
-        // TODO : createNewUser is very slow (a few seconds), make it faster
         boolean isGood = userManagement.createNewUser(registrationDto);
         if (isGood) {
             String validationCode = emailService.getValidationCode(registrationDto.getUsername());
@@ -299,6 +298,15 @@ public class ManageLogin {
      */
     @PostMapping("/createNewValidationCode")
     public void createNewValidationCode(Authentication authentication, Locale locale) {
+
+        if(authentication != null) {
+            if (!(authentication instanceof AnonymousAuthenticationToken)) {
+                String currentUserName = authentication.getName();
+                String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+                locale = new Locale(userLanguage);
+            }
+        }
+
         // Exit immediately if the user has already validated his email
         if (isRoleUser()) {
             return;
