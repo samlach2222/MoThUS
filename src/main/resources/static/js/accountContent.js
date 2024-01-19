@@ -33,7 +33,22 @@ function validateEmailChange() {
     // check if the email is valid
     let emailRegex = /\S+@\S+\.\S+/;
     if (!emailRegex.test(emailValue)) {
-        notifyError("Invalid email") // TODO : translate
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '/getMessageInvalidEmail', false);  // The third parameter 'false' makes the request synchronous
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        const token = document.head.querySelector('meta[name="_csrf"]').content;
+        const header = document.head.querySelector('meta[name="_csrf_header"]').content;
+        xhr.setRequestHeader(header, token);
+        try {
+            xhr.send();
+            if (xhr.status === 200) {
+                notifyError(xhr.responseText);
+            } else {
+                throw new Error('Network response was not ok');
+            }
+        } catch (err) {
+            console.error(err);
+        }
         return;
     }
 
@@ -58,7 +73,22 @@ function validateEmailChange() {
         .then(m => {
             message = m;
             if (message === "SUCCESS") {
-                notifySuccess("Email changed successfully"); // TODO: translate
+                let xhr = new XMLHttpRequest();
+                xhr.open('POST', '/getMessageEmailChangeSuccess', false);  // The third parameter 'false' makes the request synchronous
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                const token = document.head.querySelector('meta[name="_csrf"]').content;
+                const header = document.head.querySelector('meta[name="_csrf_header"]').content;
+                xhr.setRequestHeader(header, token);
+                try {
+                    xhr.send();
+                    if (xhr.status === 200) {
+                        notifySuccess(xhr.responseText);
+                    } else {
+                        throw new Error('Network response was not ok');
+                    }
+                } catch (err) {
+                    console.error(err);
+                }
             } else {
                 notifyError(message);
             }
@@ -82,7 +112,22 @@ function validateUsernameChange() {
     // check if the username is valid
     let usernameRegex = /^[a-zA-Z0-9]+$/;
     if (!usernameRegex.test(usernameValue)) {
-        notifyError("Invalid username") // TODO : translate
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '/getMessageInvalidUsername', false);  // The third parameter 'false' makes the request synchronous
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        const token = document.head.querySelector('meta[name="_csrf"]').content;
+        const header = document.head.querySelector('meta[name="_csrf_header"]').content;
+        xhr.setRequestHeader(header, token);
+        try {
+            xhr.send();
+            if (xhr.status === 200) {
+                notifyError(xhr.responseText);
+            } else {
+                throw new Error('Network response was not ok');
+            }
+        } catch (err) {
+            console.error(err);
+        }
         return;
     }
     let message = "";
@@ -106,7 +151,22 @@ function validateUsernameChange() {
         .then(m => {
             message = m;
             if (message === "SUCCESS") {
-                notifySuccess("Username changed successfully"); // TODO: translate
+                let xhr = new XMLHttpRequest();
+                xhr.open('POST', '/getMessageUsernameChangeSuccess', false);  // The third parameter 'false' makes the request synchronous
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                const token = document.head.querySelector('meta[name="_csrf"]').content;
+                const header = document.head.querySelector('meta[name="_csrf_header"]').content;
+                xhr.setRequestHeader(header, token);
+                try {
+                    xhr.send();
+                    if (xhr.status === 200) {
+                        notifySuccess(xhr.responseText);
+                    } else {
+                        throw new Error('Network response was not ok');
+                    }
+                } catch (err) {
+                    console.error(err);
+                }
                 disconnect();
             } else {
                 notifyError(message);
@@ -177,7 +237,22 @@ function validatePasswordChange() {
         .then(m => {
             message = m;
             if (message === "SUCCESS") {
-                notifySuccess("Password changed successfully"); // TODO: translate
+                let xhr = new XMLHttpRequest();
+                xhr.open('POST', '/getMessagePasswordChangeSuccess', false);  // The third parameter 'false' makes the request synchronous
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                const token = document.head.querySelector('meta[name="_csrf"]').content;
+                const header = document.head.querySelector('meta[name="_csrf_header"]').content;
+                xhr.setRequestHeader(header, token);
+                try {
+                    xhr.send();
+                    if (xhr.status === 200) {
+                        notifySuccess(xhr.responseText);
+                    } else {
+                        throw new Error('Network response was not ok');
+                    }
+                } catch (err) {
+                    console.error(err);
+                }
             } else {
                 notifyError(message);
             }
