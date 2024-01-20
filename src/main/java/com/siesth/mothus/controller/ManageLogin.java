@@ -5,6 +5,7 @@ import com.siesth.mothus.dataManagementService.IUserManagement;
 import com.siesth.mothus.dto.RegistrationDto;
 import com.siesth.mothus.dto.ValidateEmailDto;
 import com.siesth.mothus.model.User;
+import com.siesth.mothus.model.UserLanguage;
 import com.siesth.mothus.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -215,7 +216,7 @@ public class ManageLogin {
             return "redirect:/login";
         }
 
-        boolean isGood = userManagement.createNewUser(registrationDto);
+        boolean isGood = userManagement.createNewUser(registrationDto, UserLanguage.fromLocaleStringOrEn(locale.getLanguage()));
         if (isGood) {
             String validationCode = emailService.getValidationCode(registrationDto.getUsername());
             int minutesDuration = emailService.getDurationMinutes(registrationDto.getUsername());

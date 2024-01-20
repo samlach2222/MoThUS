@@ -1,10 +1,7 @@
 package com.siesth.mothus.dataManagementService;
 
 import com.siesth.mothus.dto.RegistrationDto;
-import com.siesth.mothus.model.Skin;
-import com.siesth.mothus.model.SkinInventory;
-import com.siesth.mothus.model.Stats;
-import com.siesth.mothus.model.ValidationCode;
+import com.siesth.mothus.model.*;
 
 /**
  * This interface is used to manage a user.
@@ -14,9 +11,10 @@ public interface IUserManagement {
     /**
      * This method is used to create a new user from registration data from form.
      * @param registrationDto the registration data from form
+     * @param userLanguage    the default language of the user
      * @return true if the user has been created, false otherwise (false is when the username or the email already exists)
      */
-    boolean createNewUser(RegistrationDto registrationDto);
+    boolean createNewUser(RegistrationDto registrationDto, UserLanguage userLanguage);
 
     /**
      * This method is used to check if the password is valid.

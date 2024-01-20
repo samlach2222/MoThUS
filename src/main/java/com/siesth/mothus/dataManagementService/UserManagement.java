@@ -29,10 +29,11 @@ public class UserManagement implements IUserManagement {
     /**
      * This method is used to create a new user from registration data from form.
      * @param registrationDto the registration data from form
+     * @param userLanguage    the default language of the user
      * @return true if the user has been created, false otherwise (false is when the username or the email already exists)
      */
     @Override
-    public boolean createNewUser(RegistrationDto registrationDto) {
+    public boolean createNewUser(RegistrationDto registrationDto, UserLanguage userLanguage) {
         if (userRepository.existsUserByUsername(registrationDto.getUsername()) || userRepository.existsUserByMail(registrationDto.getEmail())) {
             return false;
         } else {
@@ -40,7 +41,7 @@ public class UserManagement implements IUserManagement {
                     registrationDto.getUsername(),
                     registrationDto.getEmail(),
                     registrationDto.getPassword(),
-                    UserLanguage.en, // TODO : Use user (browser ?) current language
+                    userLanguage,
                     0,
                     new Stats(),
                     new SkinInventory());
