@@ -40,7 +40,7 @@ public class UserManagement implements IUserManagement {
                     registrationDto.getUsername(),
                     registrationDto.getEmail(),
                     registrationDto.getPassword(),
-                    UserLanguage.en,
+                    UserLanguage.en, // TODO : Use user (browser ?) current language
                     0,
                     new Stats(),
                     new SkinInventory());

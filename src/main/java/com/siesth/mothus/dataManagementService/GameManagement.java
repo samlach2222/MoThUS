@@ -1,10 +1,12 @@
 package com.siesth.mothus.dataManagementService;
 
 import com.siesth.mothus.model.Game;
+import com.siesth.mothus.model.UserLanguage;
 import com.siesth.mothus.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -58,8 +60,8 @@ public class GameManagement implements IGameManagement {
 
             // For each language, get the resource file and then read a random line
             try {
-                File frDictionary = ResourceUtils.getFile("classpath:static/assets/dictionaries/fr/full_dictionary.txt");
-                File enDictionary = ResourceUtils.getFile("classpath:static/assets/dictionaries/en/full_dictionary.txt");
+                File frDictionary = loadFullDictionary(UserLanguage.fr).getFile();
+                File enDictionary = loadFullDictionary(UserLanguage.en).getFile();
 
                 frenchWord = GetRandomLine(frDictionary);
                 englishWord = GetRandomLine(enDictionary);
@@ -78,7 +80,7 @@ public class GameManagement implements IGameManagement {
     public String getRandomFrench() {
         String frenchWord;
         try {
-            File frDictionary = ResourceUtils.getFile("classpath:static/assets/dictionaries/fr/full_dictionary.txt");
+            File frDictionary = loadFullDictionary(UserLanguage.fr).getFile();
             frenchWord = GetRandomLine(frDictionary);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -90,11 +92,20 @@ public class GameManagement implements IGameManagement {
     public String getRandomEnglish() {
         String englishWord;
         try {
-            File enDictionary = ResourceUtils.getFile("classpath:static/assets/dictionaries/en/full_dictionary.txt");
+            File enDictionary = loadFullDictionary(UserLanguage.en).getFile();
             englishWord = GetRandomLine(enDictionary);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return englishWord;
+    }
+
+    /**
+     * Returns the full dictionary for the given language
+     * @param language the language to get the dictionary from
+     * @return the full dictionary for the given language
+     */
+    private Resource loadFullDictionary(UserLanguage language) {
+        return new ClassPathResource("dictionaries/" + language.name() + "/full_dictionary.txt");
     }
 }
