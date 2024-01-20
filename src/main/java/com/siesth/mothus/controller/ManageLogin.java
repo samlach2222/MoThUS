@@ -299,7 +299,7 @@ public class ManageLogin {
     @PostMapping("/createNewValidationCode")
     public void createNewValidationCode(Authentication authentication, Locale locale) {
 
-        if(authentication != null) {
+        if (authentication != null) {
             if (!(authentication instanceof AnonymousAuthenticationToken)) {
                 String currentUserName = authentication.getName();
                 String userLanguage = userManagement.getLanguageByUsername(currentUserName);

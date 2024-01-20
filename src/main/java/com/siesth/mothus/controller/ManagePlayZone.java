@@ -72,14 +72,14 @@ public class ManagePlayZone {
     @GetMapping("/getTodayWordData")
     @ResponseBody
     public String getTodayWordData(Authentication authentication, Locale locale) {
-
-        // Fetch the latest game entity
-        Game latestGame = gameManager.getTodayGame();
         String[] letters;
 
         if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
             String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            // Fetch the latest game entity
+            Game latestGame = gameManager.getTodayGame();
+
             if (userLanguage.equals("fr")) {
                 // Extract the word from the latest game entity
                 frenchWord = latestGame.getFrenchWord();
@@ -302,8 +302,7 @@ public class ManagePlayZone {
             String userLanguage = userManagement.getLanguageByUsername(currentUserName);
             Locale locale = new Locale(userLanguage);
             return messageSource.getMessage("PlayZone.UncompletedLineMessage", null, locale);
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -317,8 +316,7 @@ public class ManagePlayZone {
             String userLanguage = userManagement.getLanguageByUsername(currentUserName);
             Locale locale = new Locale(userLanguage);
             return messageSource.getMessage("PlayZone.WinMessage", null, locale);
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -332,8 +330,7 @@ public class ManagePlayZone {
             String userLanguage = userManagement.getLanguageByUsername(currentUserName);
             Locale locale = new Locale(userLanguage);
             return messageSource.getMessage("PlayZone.LooseMessage", null, locale);
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -347,8 +344,7 @@ public class ManagePlayZone {
             String userLanguage = userManagement.getLanguageByUsername(currentUserName);
             Locale locale = new Locale(userLanguage);
             return messageSource.getMessage("PlayZone.ClipboardMessage", null, locale);
-        }
-        else {
+        } else {
             return null;
         }
     }
