@@ -526,6 +526,8 @@ function sendCurrentWord() {
     let xhr = new XMLHttpRequest();
     xhr.open('POST', '/sendWord', false);  // The third parameter 'false' makes the request synchronous
     xhr.setRequestHeader('Content-Type', 'application/json');
+    const token = document.head.querySelector('meta[name="_csrf"]').content;
+    const header = document.head.querySelector('meta[name="_csrf_header"]').content;
     xhr.setRequestHeader(header, token);
 
     try {
