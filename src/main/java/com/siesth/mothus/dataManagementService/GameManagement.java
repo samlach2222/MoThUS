@@ -8,10 +8,9 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 import java.time.LocalDate;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * This class is used to manage the game.
@@ -28,20 +27,29 @@ public class GameManagement implements IGameManagement {
      * Returns a random line from the given file
      * @param fullDictionary The full_dictionary.txt file to read from
      * @return a random line from the given file
-     * @throws IOException if the file doesn't exist
+     * @throws IOException if the resource cannot be resolved
      */
-    private static String GetRandomLine(File fullDictionary) throws IOException {
-        try (RandomAccessFile randomAccessFile = new RandomAccessFile(fullDictionary, "r")) {
-            // - 1 to not seek at the end of the file, and another - 1 to not seek at the last \n
-            randomAccessFile.seek((long) (Math.random() * (randomAccessFile.length() - 2)));
+    private static String GetRandomLine(Resource fullDictionary) throws IOException {
+        long fileSize = fullDictionary.contentLength();
+        byte[] fullDictionaryBytes = fullDictionary.getContentAsByteArray();
 
-            // Either \r\n or \n, so we can just check for \n
-            while (randomAccessFile.read() != '\n' && randomAccessFile.getFilePointer() > 1) {
-                randomAccessFile.seek(randomAccessFile.getFilePointer() - 2);
-            }
+        // 0 <= currentPosition < (fileSize - 1)
+        // - 1 to not seek at the last \n
+        int currentPosition = ThreadLocalRandom.current().nextInt((int) (fileSize - 1));
 
-            return randomAccessFile.readLine();
+        // Either \r\n or \n, so we can just check for \n
+        while (fullDictionaryBytes[currentPosition] != '\n' && currentPosition > 0) {
+            currentPosition--;
         }
+
+        // Build the word from the current position to the next \n or \r
+        StringBuilder word = new StringBuilder();
+        currentPosition++;
+        while (fullDictionaryBytes[currentPosition] != '\n' && fullDictionaryBytes[currentPosition] != '\r' && currentPosition < fileSize) {
+            word.append((char) fullDictionaryBytes[currentPosition]);
+            currentPosition++;
+        }
+        return word.toString();
     }
 
     /**
@@ -60,8 +68,8 @@ public class GameManagement implements IGameManagement {
 
             // For each language, get the resource file and then read a random line
             try {
-                File frDictionary = loadFullDictionary(UserLanguage.fr).getFile();
-                File enDictionary = loadFullDictionary(UserLanguage.en).getFile();
+                Resource frDictionary = loadFullDictionary(UserLanguage.fr);
+                Resource enDictionary = loadFullDictionary(UserLanguage.en);
 
                 frenchWord = GetRandomLine(frDictionary);
                 englishWord = GetRandomLine(enDictionary);
@@ -80,7 +88,7 @@ public class GameManagement implements IGameManagement {
     public String getRandomFrench() {
         String frenchWord;
         try {
-            File frDictionary = loadFullDictionary(UserLanguage.fr).getFile();
+            Resource frDictionary = loadFullDictionary(UserLanguage.fr);
             frenchWord = GetRandomLine(frDictionary);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -92,7 +100,7 @@ public class GameManagement implements IGameManagement {
     public String getRandomEnglish() {
         String englishWord;
         try {
-            File enDictionary = loadFullDictionary(UserLanguage.en).getFile();
+            Resource enDictionary = loadFullDictionary(UserLanguage.en);
             englishWord = GetRandomLine(enDictionary);
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -105,7 +113,7 @@ public class GameManagement implements IGameManagement {
      * @param language the language to get the dictionary from
      * @return the full dictionary for the given language
      */
-    private Resource loadFullDictionary(UserLanguage language) {
+    private static Resource loadFullDictionary(UserLanguage language) {
         return new ClassPathResource("dictionaries/" + language.name() + "/full_dictionary.txt");
     }
 }
