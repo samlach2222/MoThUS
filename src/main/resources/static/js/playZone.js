@@ -830,7 +830,12 @@ function exportResult() {
         let gameNumber = getLatestGameNumber();
         let row = lines.length;
         let time = getEndGameTime();
-        mothustext.innerHTML = "#MoThUS #" + gameNumber + " " + row + "/8 " + time;
+        if(isWin) {
+            mothustext.innerHTML = "#MoThUS #" + gameNumber + " " + row + "/8 " + time;
+        }
+        else {
+            mothustext.innerHTML = "#MoThUS #" + gameNumber + " -/8 " + time;
+        }
         mothustext.id = "mothusText";
 
         // EARN MOLLARDS TEXT
