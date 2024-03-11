@@ -8,7 +8,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
-import java.util.Arrays;
 import java.util.Locale;
 
 /**
@@ -28,7 +27,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public LocaleResolver localeResolver() {
         AcceptHeaderLocaleResolver resolver = new AcceptHeaderLocaleResolver();
         resolver.setDefaultLocale(Locale.US); // Set your desired default locale here
-        resolver.setSupportedLocales(Arrays.asList(Locale.US, Locale.FRANCE)); // Add supported locales
 
         return resolver;
     }
