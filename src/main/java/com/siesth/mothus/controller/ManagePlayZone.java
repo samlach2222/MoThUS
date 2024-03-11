@@ -4,6 +4,7 @@ import com.siesth.mothus.dataManagementService.IGameManagement;
 import com.siesth.mothus.dataManagementService.IUserManagement;
 import com.siesth.mothus.model.Game;
 import com.siesth.mothus.model.Skin;
+import com.siesth.mothus.model.UserLanguage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.core.io.Resource;
@@ -92,16 +93,20 @@ public class ManagePlayZone {
                 letters = englishWord.split("(?=[A-Z])");
             }
         } else {
-            if (locale.getLanguage().equals("fr")) {
-                // Extract the word from the latest game entity
-                frenchWord = gameManager.getRandomFrench();
-                // split each upper case letter
-                letters = frenchWord.split("(?=[A-Z])");
-            } else {
-                // Extract the word from the latest game entity
-                englishWord = gameManager.getRandomEnglish();
-                // split each upper case letter
-                letters = englishWord.split("(?=[A-Z])");
+            switch (UserLanguage.fromLocaleStringOrEn(locale.getLanguage())) {
+                case fr:
+                    // Extract the word from the latest game entity
+                    frenchWord = gameManager.getRandomWord(UserLanguage.fr);
+                    // split each upper case letter
+                    letters = frenchWord.split("(?=[A-Z])");
+                    break;
+                case en:
+                default:  // Default language is english
+                    // Extract the word from the latest game entity
+                    englishWord = gameManager.getRandomWord(UserLanguage.en);
+                    // split each upper case letter
+                    letters = englishWord.split("(?=[A-Z])");
+                    break;
             }
         }
 
