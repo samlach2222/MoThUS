@@ -44,8 +44,7 @@ public class ManageHelpPopup {
     public String helpPopup(Model model, Locale locale, Authentication authentication) {
         if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-            locale = new Locale(userLanguage);
+            locale = userManagement.getLanguageByUsername(currentUserName).toLocale();
         }
 
         // locale BEGIN

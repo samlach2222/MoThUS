@@ -77,7 +77,8 @@ public class ManagePlayZone {
 
         if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            // TODO : Refactor to not need changes when adding languages
+            String userLanguage = userManagement.getLanguageByUsername(currentUserName).toLocaleString();
             // Fetch the latest game entity
             Game latestGame = gameManager.getTodayGame();
 
@@ -93,7 +94,7 @@ public class ManagePlayZone {
                 letters = englishWord.split("(?=[A-Z])");
             }
         } else {
-            switch (UserLanguage.fromLocaleStringOrEn(locale.getLanguage())) {
+            switch (UserLanguage.fromLocaleOrEn(locale)) {
                 case fr:
                     // Extract the word from the latest game entity
                     frenchWord = gameManager.getRandomWord(UserLanguage.fr);
@@ -130,7 +131,8 @@ public class ManagePlayZone {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            userLanguage = userManagement.getLanguageByUsername(currentUserName);
+            // TODO : Refactor to not need changes when adding languages
+            userLanguage = userManagement.getLanguageByUsername(currentUserName).toLocaleString();
         } else {
             userLanguage = locale.getLanguage();
         }
@@ -241,8 +243,7 @@ public class ManagePlayZone {
         if (authentication != null) {
             if (!(authentication instanceof AnonymousAuthenticationToken)) {
                 String currentUserName = authentication.getName();
-                String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-                locale = new Locale(userLanguage);
+                locale = userManagement.getLanguageByUsername(currentUserName).toLocale();
                 int pageSkinId = userManagement.getSkinInventoryByUsername(currentUserName).getCurrentPageSkinId();
                 int elementSkinId = userManagement.getSkinInventoryByUsername(currentUserName).getCurrentElementSkinId();
                 Collection<Skin> skinList = userManagement.getSkinInventoryByUsername(currentUserName).getSkinList();
@@ -304,8 +305,7 @@ public class ManagePlayZone {
         // get current user
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-            Locale locale = new Locale(userLanguage);
+            Locale locale = userManagement.getLanguageByUsername(currentUserName).toLocale();
             return messageSource.getMessage("PlayZone.UncompletedLineMessage", null, locale);
         } else {
             return null;
@@ -318,8 +318,7 @@ public class ManagePlayZone {
         // get current user
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-            Locale locale = new Locale(userLanguage);
+            Locale locale = userManagement.getLanguageByUsername(currentUserName).toLocale();
             return messageSource.getMessage("PlayZone.WinMessage", null, locale);
         } else {
             return null;
@@ -332,8 +331,7 @@ public class ManagePlayZone {
         // get current user
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-            Locale locale = new Locale(userLanguage);
+            Locale locale = userManagement.getLanguageByUsername(currentUserName).toLocale();
             return messageSource.getMessage("PlayZone.LooseMessage", null, locale);
         } else {
             return null;
@@ -346,8 +344,7 @@ public class ManagePlayZone {
         // get current user
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-            Locale locale = new Locale(userLanguage);
+            Locale locale = userManagement.getLanguageByUsername(currentUserName).toLocale();
             return messageSource.getMessage("PlayZone.ClipboardMessage", null, locale);
         } else {
             return null;

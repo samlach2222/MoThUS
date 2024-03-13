@@ -4,6 +4,7 @@ import com.siesth.mothus.dataManagementService.IUserManagement;
 import com.siesth.mothus.model.Skin;
 import com.siesth.mothus.model.SkinInventory;
 import com.siesth.mothus.model.SkinType;
+import com.siesth.mothus.model.UserLanguage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -56,8 +57,7 @@ public class ManageAccountZone {
     public String accountZone(Model model, Locale locale, Authentication authentication) {
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-            locale = new Locale(userLanguage);
+            locale = userManagement.getLanguageByUsername(currentUserName).toLocale();
         }
 
         // locale BEGIN
@@ -88,8 +88,7 @@ public class ManageAccountZone {
     public String loadAccountContent(Model model, Locale locale, Authentication authentication) {
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-            locale = new Locale(userLanguage);
+            locale = userManagement.getLanguageByUsername(currentUserName).toLocale();
         }
 
         // locale BEGIN
@@ -135,9 +134,10 @@ public class ManageAccountZone {
             String currentUserName = authentication.getName();
             model.addAttribute("username", currentUserName);
             model.addAttribute("email", userManagement.getEmailByUsername(currentUserName));
-            model.addAttribute("language", userManagement.getLanguageByUsername(currentUserName));
-            model.addAttribute("englishLanguageSelected", userManagement.getLanguageByUsername(currentUserName).equals("en"));
-            model.addAttribute("frenchLanguageSelected", userManagement.getLanguageByUsername(currentUserName).equals("fr"));
+            model.addAttribute("language", userManagement.getLanguageByUsername(currentUserName).toLocaleString());
+            // TODO : Refactor to not need changes when adding languages (maybe remove "...LanguageSelected" attributes)
+            model.addAttribute("englishLanguageSelected", userManagement.getLanguageByUsername(currentUserName).toLocaleString().equals("en"));
+            model.addAttribute("frenchLanguageSelected", userManagement.getLanguageByUsername(currentUserName).toLocaleString().equals("fr"));
         }
 
         return "Content/accountContent";
@@ -154,8 +154,7 @@ public class ManageAccountZone {
     public String loadElementSkinsContent(Model model, Locale locale, Authentication authentication) {
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-            locale = new Locale(userLanguage);
+            locale = userManagement.getLanguageByUsername(currentUserName).toLocale();
         }
 
         // locale BEGIN
@@ -188,8 +187,7 @@ public class ManageAccountZone {
     public String loadPageSkinsContent(Model model, Locale locale, Authentication authentication) {
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-            locale = new Locale(userLanguage);
+            locale = userManagement.getLanguageByUsername(currentUserName).toLocale();
         }
         // locale BEGIN
         String pageTitle = messageSource.getMessage("AccountZone.ElementSkinsContent.PageTitle", null, locale);
@@ -308,8 +306,7 @@ public class ManageAccountZone {
         // get current user
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-            locale = new Locale(userLanguage);
+            locale = userManagement.getLanguageByUsername(currentUserName).toLocale();
             String serverPass = userManagement.getPasswordByUsername(currentUserName);
             Argon2PasswordEncoder arg2SpringSecurity = new Argon2PasswordEncoder(16, 32, 1, 50000, 3);
             if (arg2SpringSecurity.matches(previousPassword, serverPass)) {
@@ -334,8 +331,7 @@ public class ManageAccountZone {
         // get current user
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-            locale = new Locale(userLanguage);
+            locale = userManagement.getLanguageByUsername(currentUserName).toLocale();
             if (userManagement.isUsernameTaken(newUsername)) {
                 return messageSource.getMessage("AccountZone.ChangeUsername.UsernameAlreadyTaken", null, locale);
             } else {
@@ -354,8 +350,7 @@ public class ManageAccountZone {
         // get current user
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-            locale = new Locale(userLanguage);
+            locale = userManagement.getLanguageByUsername(currentUserName).toLocale();
             if (userManagement.isMailTaken(newMail)) {
                 return messageSource.getMessage("AccountZone.ChangeMail.MailAlreadyTaken", null, locale);
             } else {
@@ -405,8 +400,7 @@ public class ManageAccountZone {
     public String loadTermsOfUseContent(Model model, Locale locale, Authentication authentication) {
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-            locale = new Locale(userLanguage);
+            locale = userManagement.getLanguageByUsername(currentUserName).toLocale();
         }
 
         // locale BEGIN
@@ -466,7 +460,7 @@ public class ManageAccountZone {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            userManagement.updateLanguageByUsername(currentUserName, language);
+            userManagement.updateLanguageByUsername(currentUserName, UserLanguage.fromLocaleStringOrEn(language));
         }
         return "redirect:/accountZone";
     }
@@ -477,11 +471,9 @@ public class ManageAccountZone {
         // get current user
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-            Locale locale = new Locale(userLanguage);
+            Locale locale = userManagement.getLanguageByUsername(currentUserName).toLocale();
             return messageSource.getMessage("AccountZone.AccountContent.InvalidEmailMessage", null, locale);
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -492,11 +484,9 @@ public class ManageAccountZone {
         // get current user
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-            Locale locale = new Locale(userLanguage);
+            Locale locale = userManagement.getLanguageByUsername(currentUserName).toLocale();
             return messageSource.getMessage("AccountZone.AccountContent.InvalidUsernameMessage", null, locale);
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -507,11 +497,9 @@ public class ManageAccountZone {
         // get current user
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-            Locale locale = new Locale(userLanguage);
+            Locale locale = userManagement.getLanguageByUsername(currentUserName).toLocale();
             return messageSource.getMessage("AccountZone.AccountContent.EmailChangeSuccessMessage", null, locale);
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -522,11 +510,9 @@ public class ManageAccountZone {
         // get current user
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-            Locale locale = new Locale(userLanguage);
+            Locale locale = userManagement.getLanguageByUsername(currentUserName).toLocale();
             return messageSource.getMessage("AccountZone.AccountContent.UsernameChangeSuccessMessage", null, locale);
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -537,11 +523,9 @@ public class ManageAccountZone {
         // get current user
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-            Locale locale = new Locale(userLanguage);
+            Locale locale = userManagement.getLanguageByUsername(currentUserName).toLocale();
             return messageSource.getMessage("AccountZone.AccountContent.PasswordChangeSuccessMessage", null, locale);
-        }
-        else {
+        } else {
             return null;
         }
     }

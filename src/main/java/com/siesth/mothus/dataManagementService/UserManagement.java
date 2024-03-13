@@ -124,9 +124,9 @@ public class UserManagement implements IUserManagement {
      * @return the language
      */
     @Override
-    public String getLanguageByUsername(String username) {
+    public UserLanguage getLanguageByUsername(String username) {
         User user = userRepository.findUserByUsername(username);
-        return user.getCurrentLanguage().toString();
+        return user.getCurrentLanguage();
     }
 
     /**
@@ -179,9 +179,9 @@ public class UserManagement implements IUserManagement {
      * @param language the language
      */
     @Override
-    public void updateLanguageByUsername(String username, String language) {
+    public void updateLanguageByUsername(String username, UserLanguage language) {
         User user = userRepository.findUserByUsername(username);
-        user.setCurrentLanguage(UserLanguage.valueOf(language));
+        user.setCurrentLanguage(language);
         userRepository.save(user);
     }
 

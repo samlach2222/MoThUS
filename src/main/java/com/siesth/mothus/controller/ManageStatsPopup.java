@@ -56,8 +56,7 @@ public class ManageStatsPopup {
     public String statsPopup(Authentication authentication, Model model, Locale locale) {
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-            locale = new Locale(userLanguage);
+            locale = userManagement.getLanguageByUsername(currentUserName).toLocale();
         }
 
         String pageTitle = messageSource.getMessage("StatsPopup.PageTitle", null, locale);

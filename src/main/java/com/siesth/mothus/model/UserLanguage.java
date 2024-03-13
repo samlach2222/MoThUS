@@ -7,8 +7,13 @@
 
 package com.siesth.mothus.model;
 
+import java.util.Locale;
+
 /**
- * Enum of supported languages, using the same format as HTML but with an underscore _ instead of a hyphen -
+ * Enum of supported languages
+ * Follows IETF BCP 47 language and region codes but with underscores _ instead of hyphens -
+ * See <a href="https://www.iana.org/assignments/language-subtag-registry/language-subtag-registry">possible values</a>
+ * Note: regions are necessary to differentiate between "same" languages (e.g. Canadian French, Scottish English...)
  */
 public enum UserLanguage {
     /**
@@ -21,17 +26,6 @@ public enum UserLanguage {
     fr;
 
     /**
-     * Returns the UserLanguage from a locale string
-     * It will automatically replace hyphens - with underscores _
-     * @param language the locale string (en, fr-FR, ...)
-     * @return the UserLanguage corresponding to the locale string
-     * @throws IllegalArgumentException if the locale string is not supported
-     */
-    public static UserLanguage fromLocaleString(String language) {
-        return UserLanguage.valueOf(language.replace('-', '_'));
-    }
-
-    /**
      * Returns the UserLanguage from a locale string, or en (english) if the locale string is not supported
      * It will automatically replace hyphens - with underscores _
      * @param language the locale string (en, fr-FR, ...)
@@ -39,10 +33,27 @@ public enum UserLanguage {
      */
     public static UserLanguage fromLocaleStringOrEn(String language) {
         try {
-            return fromLocaleString(language);
+            return UserLanguage.valueOf(language.replace('-', '_'));
         } catch (IllegalArgumentException e) {
             return UserLanguage.en;
         }
+    }
+
+    /**
+     * Returns the UserLanguage from a locale, or en (english) if the locale is not supported
+     * @param language the locale. Only language and region are used, the rest is ignored
+     * @return the UserLanguage corresponding to the locale, or en (english) if not supported
+     */
+    public static UserLanguage fromLocaleOrEn(Locale language) {
+        return fromLocaleStringOrEn(language.getLanguage() + "-" + language.getCountry());
+    }
+
+    /**
+     * Returns a locale corresponding to the UserLanguage
+     * @return the locale corresponding to the UserLanguage, with its language and optionally region
+     */
+    public Locale toLocale() {
+        return Locale.forLanguageTag(this.name().replace('_', '-'));
     }
 
     /**

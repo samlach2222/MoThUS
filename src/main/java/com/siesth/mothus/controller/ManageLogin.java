@@ -216,7 +216,7 @@ public class ManageLogin {
             return "redirect:/login";
         }
 
-        boolean isGood = userManagement.createNewUser(registrationDto, UserLanguage.fromLocaleStringOrEn(locale.getLanguage()));
+        boolean isGood = userManagement.createNewUser(registrationDto, UserLanguage.fromLocaleOrEn(locale));
         if (isGood) {
             String validationCode = emailService.getValidationCode(registrationDto.getUsername());
             int minutesDuration = emailService.getDurationMinutes(registrationDto.getUsername());
@@ -303,8 +303,7 @@ public class ManageLogin {
         if (authentication != null) {
             if (!(authentication instanceof AnonymousAuthenticationToken)) {
                 String currentUserName = authentication.getName();
-                String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-                locale = new Locale(userLanguage);
+                locale = userManagement.getLanguageByUsername(currentUserName).toLocale();
             }
         }
 

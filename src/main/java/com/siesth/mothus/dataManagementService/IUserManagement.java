@@ -56,7 +56,7 @@ public interface IUserManagement {
      * @param username the username
      * @return the language
      */
-    String getLanguageByUsername(String username);
+    UserLanguage getLanguageByUsername(String username);
 
     /**
      * This method is used to get the stats by username.
@@ -91,7 +91,7 @@ public interface IUserManagement {
      * @param username the username
      * @param language the language
      */
-    void updateLanguageByUsername(String username, String language);
+    void updateLanguageByUsername(String username, UserLanguage language);
 
     /**
      * This method is used to update the username by username.

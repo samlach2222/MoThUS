@@ -46,8 +46,7 @@ public class ManageShopZone {
     public String shopZone(Model model, Locale locale, Authentication authentication) {
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-            locale = new Locale(userLanguage);
+            locale = userManagement.getLanguageByUsername(currentUserName).toLocale();
         }
 
         String pageTitle = messageSource.getMessage("ShopZone.PageTitle", null, locale);
@@ -70,8 +69,7 @@ public class ManageShopZone {
     public String loadCoinShopContent(Model model, Authentication authentication, Locale locale) {
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-            locale = new Locale(userLanguage);
+            locale = userManagement.getLanguageByUsername(currentUserName).toLocale();
             int mollardValue = userManagement.getMollardsByUsername(currentUserName);
             model.addAttribute("mollardValue", mollardValue);
         }
@@ -88,8 +86,7 @@ public class ManageShopZone {
     public String loadElementCaseContent(Model model, Authentication authentication, Locale locale) {
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-            locale = new Locale(userLanguage);
+            locale = userManagement.getLanguageByUsername(currentUserName).toLocale();
         }
 
         // locale BEGIN
@@ -139,8 +136,7 @@ public class ManageShopZone {
     public String lootPopup(Model model, Locale locale, Authentication authentication) {
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-            locale = new Locale(userLanguage);
+            locale = userManagement.getLanguageByUsername(currentUserName).toLocale();
         }
         String scientificKnowledge = messageSource.getMessage("ShopZone.lootPopup.scientificKnowledge", null, locale);
         String validateButton = messageSource.getMessage("ShopZone.lootPopup.validateButton", null, locale);
@@ -160,8 +156,7 @@ public class ManageShopZone {
     public String creditCardPopup(Model model, Locale locale, Authentication authentication, @RequestParam(name = "lootboxType", required = true) String lootboxType) {
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-            locale = new Locale(userLanguage);
+            locale = userManagement.getLanguageByUsername(currentUserName).toLocale();
         }
 
         switch (lootboxType) {
@@ -297,11 +292,9 @@ public class ManageShopZone {
         // get current user
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-            Locale locale = new Locale(userLanguage);
+            Locale locale = userManagement.getLanguageByUsername(currentUserName).toLocale();
             return messageSource.getMessage("ShopZone.NotEnoughMollardsMessage", null, locale);
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -312,11 +305,9 @@ public class ManageShopZone {
         // get current user
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName);
-            Locale locale = new Locale(userLanguage);
+            Locale locale = userManagement.getLanguageByUsername(currentUserName).toLocale();
             return messageSource.getMessage("ShopZone.PaymentSuccessMessage", null, locale);
-        }
-        else {
+        } else {
             return null;
         }
     }
