@@ -15,10 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 /**
  * This class is used to manage the account zone.
@@ -134,10 +131,20 @@ public class ManageAccountZone {
             String currentUserName = authentication.getName();
             model.addAttribute("username", currentUserName);
             model.addAttribute("email", userManagement.getEmailByUsername(currentUserName));
-            model.addAttribute("language", userManagement.getLanguageByUsername(currentUserName).toLocaleString());
-            // TODO : Refactor to not need changes when adding languages (maybe remove "...LanguageSelected" attributes)
-            model.addAttribute("englishLanguageSelected", userManagement.getLanguageByUsername(currentUserName).toLocaleString().equals("en"));
-            model.addAttribute("frenchLanguageSelected", userManagement.getLanguageByUsername(currentUserName).toLocaleString().equals("fr"));
+            model.addAttribute("currentLanguage", userManagement.getLanguageByUsername(currentUserName).toLocaleString());
+
+            // Create list of all languages, with code (en, fr, ...) and name (English, Français, ...)
+            record Language(String code, String name) {
+            }
+            List<Language> languages = new ArrayList<>();
+            for (UserLanguage language : UserLanguage.values()) {
+                String code = language.toLocaleString();
+                String name = language.toLocale().getDisplayLanguage(language.toLocale());
+                // Capitalize name so it always starts with an uppercase (e.g. Français instead of français)
+                name = name.substring(0, 1).toUpperCase() + name.substring(1);
+                languages.add(new Language(code, name));
+            }
+            model.addAttribute("languages", languages);
         }
 
         return "Content/accountContent";
