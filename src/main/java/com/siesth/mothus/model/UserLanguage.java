@@ -35,7 +35,12 @@ public enum UserLanguage {
         try {
             return UserLanguage.valueOf(language.replace('-', '_'));
         } catch (IllegalArgumentException e) {
-            return UserLanguage.en;
+            // Try again without region
+            try {
+                return UserLanguage.valueOf(language.substring(0, language.indexOf('-')));
+            } catch (IllegalArgumentException e2) {
+                return UserLanguage.en;
+            }
         }
     }
 
