@@ -77,38 +77,40 @@ public class ManagePlayZone {
 
         if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            // TODO : Refactor to not need changes when adding languages
-            String userLanguage = userManagement.getLanguageByUsername(currentUserName).toLocaleString();
             // Fetch the latest game entity
             Game latestGame = gameManager.getTodayGame();
 
-            if (userLanguage.equals("fr")) {
-                // Extract the word from the latest game entity
-                frenchWord = latestGame.getFrenchWord();
-                // split each upper case letter
-                letters = frenchWord.split("(?=[A-Z])");
-            } else {
-                // Extract the word from the latest game entity
-                englishWord = latestGame.getEnglishWord();
-                // split each upper case letter
-                letters = englishWord.split("(?=[A-Z])");
-            }
+            letters = switch (userManagement.getLanguageByUsername(currentUserName)) {
+                case fr -> {
+                    // Extract the word from the latest game entity
+                    frenchWord = latestGame.getFrenchWord();
+                    // split each upper case letter
+                    yield frenchWord.split("(?=[A-Z])");
+                }
+                // Default language is english
+                default -> {
+                    // Extract the word from the latest game entity
+                    englishWord = latestGame.getEnglishWord();
+                    // split each upper case letter
+                    yield englishWord.split("(?=[A-Z])");  // Default language is english
+                }
+            };
         } else {
-            switch (UserLanguage.fromLocaleOrEn(locale)) {
-                case fr:
+            letters = switch (UserLanguage.fromLocaleOrEn(locale)) {
+                case fr -> {
                     // Extract the word from the latest game entity
                     frenchWord = gameManager.getRandomWord(UserLanguage.fr);
                     // split each upper case letter
-                    letters = frenchWord.split("(?=[A-Z])");
-                    break;
-                case en:
-                default:  // Default language is english
+                    yield frenchWord.split("(?=[A-Z])");
+                }
+                // Default language is english
+                default -> {
                     // Extract the word from the latest game entity
                     englishWord = gameManager.getRandomWord(UserLanguage.en);
                     // split each upper case letter
-                    letters = englishWord.split("(?=[A-Z])");
-                    break;
-            }
+                    yield englishWord.split("(?=[A-Z])");  // Default language is english
+                }
+            };
         }
 
         int length = letters.length;
@@ -127,21 +129,19 @@ public class ManagePlayZone {
         // remove empty strings and quote from receivedWord
         receivedWord = receivedWord.replace("\"", "");
         receivedWord = receivedWord.replace(" ", "");
-        String userLanguage;
+        UserLanguage userLanguage;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
-            // TODO : Refactor to not need changes when adding languages
-            userLanguage = userManagement.getLanguageByUsername(currentUserName).toLocaleString();
+            userLanguage = userManagement.getLanguageByUsername(currentUserName);
         } else {
-            userLanguage = locale.getLanguage();
+            userLanguage = UserLanguage.fromLocaleOrEn(locale);
         }
-        String[] localWordLetters;
-        if (userLanguage.equals("fr")) {
-            localWordLetters = frenchWord.split("(?=[A-Z])");
-        } else {
-            localWordLetters = englishWord.split("(?=[A-Z])");
-        }
+        String[] localWordLetters = switch (userLanguage) {
+            case fr -> frenchWord.split("(?=[A-Z])");
+            // Default language is english
+            default -> englishWord.split("(?=[A-Z])");
+        };
         String[] receivedWordLetters = receivedWord.split("(?=[A-Z])");
 
         String[] result = new String[receivedWordLetters.length];
@@ -203,20 +203,23 @@ public class ManagePlayZone {
         for (int i = 0; i < receivedWordLetters.length; i++) {
             if (!receivedWordLetters[i].isEmpty()) {
                 // check if not contains
-                if (userLanguage.equals("fr")) {
-                    if (!frenchWord.contains(receivedWordLetters[i])) {
-                        result[i] = "-";
-                        receivedWordLetters[i] = "";
-                        localWordLetters[i] = "";
+                switch (userLanguage) {
+                    case fr -> {
+                        if (!frenchWord.contains(receivedWordLetters[i])) {
+                            result[i] = "-";
+                            receivedWordLetters[i] = "";
+                            localWordLetters[i] = "";
+                        }
                     }
-                } else {
-                    if (!englishWord.contains(receivedWordLetters[i])) {
-                        result[i] = "-";
-                        receivedWordLetters[i] = "";
-                        localWordLetters[i] = "";
+                    // Default language is english
+                    default -> {
+                        if (!englishWord.contains(receivedWordLetters[i])) {
+                            result[i] = "-";
+                            receivedWordLetters[i] = "";
+                            localWordLetters[i] = "";
+                        }
                     }
                 }
-
             }
         }
 
