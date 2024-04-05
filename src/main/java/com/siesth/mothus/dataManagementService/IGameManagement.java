@@ -1,6 +1,7 @@
 package com.siesth.mothus.dataManagementService;
 
 import com.siesth.mothus.model.Game;
+import com.siesth.mothus.model.UserLanguage;
 
 /**
  * This interface is used to manage the game.
@@ -12,7 +13,10 @@ public interface IGameManagement {
      */
     Game getTodayGame();
 
-    String getRandomFrench();
-
-    String getRandomEnglish();
+    /**
+     * Returns a random word from the given language using the full dictionary
+     * @param userLanguage The language to get a word from
+     * @return a random word from the given language
+     */
+    String getRandomWord(UserLanguage userLanguage);
 }

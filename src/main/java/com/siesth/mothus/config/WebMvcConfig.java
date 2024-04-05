@@ -3,12 +3,9 @@ package com.siesth.mothus.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver;
-import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
-import java.util.Arrays;
 import java.util.Locale;
 
 /**
@@ -26,21 +23,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
      */
     @Bean
     public LocaleResolver localeResolver() {
+        // Use HTML Accept-Language header to determine the locale
+        // This resolver does not support LocaleChangeInterceptor (at least not the "?lang=..." url parameter)
         AcceptHeaderLocaleResolver resolver = new AcceptHeaderLocaleResolver();
-        resolver.setDefaultLocale(Locale.US); // Set your desired default locale here
-        resolver.setSupportedLocales(Arrays.asList(Locale.US, Locale.FRANCE)); // Add supported locales
-
+        resolver.setDefaultLocale(Locale.US);
         return resolver;
-    }
-
-    /**
-     * This method is used to add an interceptor to the interceptor registry.
-     * @param registry the interceptor registry
-     */
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
-        localeChangeInterceptor.setParamName("lang");
-        registry.addInterceptor(localeChangeInterceptor);
     }
 }

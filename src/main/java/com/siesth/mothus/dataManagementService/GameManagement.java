@@ -84,28 +84,21 @@ public class GameManagement implements IGameManagement {
         return lastGame;
     }
 
+    /**
+     * Returns a random word from the given language using the full dictionary
+     * @param userLanguage The language to get a word from
+     * @return a random word from the given language
+     */
     @Override
-    public String getRandomFrench() {
-        String frenchWord;
+    public String getRandomWord(UserLanguage userLanguage) {
+        String word;
         try {
-            Resource frDictionary = loadFullDictionary(UserLanguage.fr);
-            frenchWord = GetRandomLine(frDictionary);
+            Resource dictionary = loadFullDictionary(userLanguage);
+            word = GetRandomLine(dictionary);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return frenchWord;
-    }
-
-    @Override
-    public String getRandomEnglish() {
-        String englishWord;
-        try {
-            Resource enDictionary = loadFullDictionary(UserLanguage.en);
-            englishWord = GetRandomLine(enDictionary);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return englishWord;
+        return word;
     }
 
     /**
