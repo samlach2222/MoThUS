@@ -496,12 +496,14 @@ function getEndGameTime() {
     let hours = Math.floor(timeElapsed / 1000 / 60 / 60);
     let time = "";
     if (hours > 0) {
-        time += hours + ":";
+        time += ("00000000"+hours).slice(-2) + ":";
     }
     if (minutes > 0) {
-        time += minutes + ":";
+        time += ("00000000"+minutes).slice(-2) + ":";
+    } else {
+        time += "00:";
     }
-    time += "00:" + seconds;
+    time += ("00000000"+seconds).slice(-2);
     return time;
 }
 
