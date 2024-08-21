@@ -85,6 +85,7 @@ public class SecurityConfig {
     /**
      * This bean is needed to be able to use the AuthenticationManager in a controller, for example to connect the user
      * without using the /login mapping
+     *
      * @param authenticationConfiguration The authentication configuration
      * @return The authentication manager
      * @throws Exception If the authentication manager can't be created

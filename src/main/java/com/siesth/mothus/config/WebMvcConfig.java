@@ -19,6 +19,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     /**
      * This method is used to configure the locale resolver.
+     *
      * @return the locale resolver
      */
     @Bean

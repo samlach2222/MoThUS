@@ -147,40 +147,41 @@ public class ManageStatsPopup {
             stats.setWinCount(stats.getWinCount() + (win ? 1 : 0));
             int amountOfMollardsWin = 0;
             if (win) {
-                switch (numberOfTries) {
-                    case 1:
+                amountOfMollardsWin = switch (numberOfTries) {
+                    case 1 -> {
                         stats.setFirstTryCount(stats.getFirstTryCount() + 1);
-                        amountOfMollardsWin = 100;
-                        break;
-                    case 2:
+                        yield 100;
+                    }
+                    case 2 -> {
                         stats.setSecondTryCount(stats.getSecondTryCount() + 1);
-                        amountOfMollardsWin = 30;
-                        break;
-                    case 3:
+                        yield 30;
+                    }
+                    case 3 -> {
                         stats.setThirdTryCount(stats.getThirdTryCount() + 1);
-                        amountOfMollardsWin = 20;
-                        break;
-                    case 4:
+                        yield 20;
+                    }
+                    case 4 -> {
                         stats.setFourthTryCount(stats.getFourthTryCount() + 1);
-                        amountOfMollardsWin = 15;
-                        break;
-                    case 5:
+                        yield 15;
+                    }
+                    case 5 -> {
                         stats.setFifthTryCount(stats.getFifthTryCount() + 1);
-                        amountOfMollardsWin = 12;
-                        break;
-                    case 6:
+                        yield 12;
+                    }
+                    case 6 -> {
                         stats.setSixthTryCount(stats.getSixthTryCount() + 1);
-                        amountOfMollardsWin = 10;
-                        break;
-                    case 7:
+                        yield 10;
+                    }
+                    case 7 -> {
                         stats.setSeventhTryCount(stats.getSeventhTryCount() + 1);
-                        amountOfMollardsWin = 7;
-                        break;
-                    case 8:
+                        yield 7;
+                    }
+                    case 8 -> {
                         stats.setEighthTryCount(stats.getEighthTryCount() + 1);
-                        amountOfMollardsWin = 4;
-                        break;
-                }
+                        yield 4;
+                    }
+                    default -> amountOfMollardsWin;
+                };
             } else {
                 stats.setLooseCount(stats.getLooseCount() + 1);
                 amountOfMollardsWin = -1;

@@ -62,6 +62,7 @@ function closePopup() {
 /**
  * Function to load content in the popup
  * @param contentType the type of content to load in the popup
+ * @param lootboxType the type of lootbox
  */
 function loadPopupContent(contentType, lootboxType) {
     const popupContent = document.querySelector('.popup-content');

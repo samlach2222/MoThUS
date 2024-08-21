@@ -92,6 +92,7 @@ function getSkin(type) {
 /**
  * Function to open a popup
  * @param contentType the type of content to load in the popup
+ * @param json json to pass
  */
 function openPopup(contentType, json) {
     const popup = document.getElementById('popup');

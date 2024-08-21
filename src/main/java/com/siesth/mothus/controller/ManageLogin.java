@@ -308,7 +308,7 @@ public class ManageLogin {
         }
 
         // Exit immediately if the user has already validated his email
-        if (isRoleUser()) {
+        if (isRoleUser() || authentication == null) {
             return;
         }
 
