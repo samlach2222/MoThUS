@@ -83,28 +83,35 @@ public class ManageStatsPopup {
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             String currentUserName = authentication.getName();
             Stats stats = userManagement.getStatsByUsername(currentUserName);
-            model.addAttribute("victories", stats.getWinCount());
-            model.addAttribute("looses", stats.getLooseCount());
-            model.addAttribute("firstTry", stats.getFirstTryCount());
-            model.addAttribute("secondTry", stats.getSecondTryCount());
-            model.addAttribute("thirdTry", stats.getThirdTryCount());
-            model.addAttribute("fourthTry", stats.getFourthTryCount());
-            model.addAttribute("fifthTry", stats.getFifthTryCount());
-            model.addAttribute("sixthTry", stats.getSixthTryCount());
-            model.addAttribute("seventhTry", stats.getSeventhTryCount());
-            model.addAttribute("eighthTry", stats.getEighthTryCount());
-            model.addAttribute("looseTry", stats.getLooseCount());
-            model.addAttribute("redSquareCount", stats.getRedSquareCount());
-            model.addAttribute("blueSquareCount", stats.getBlueSquareCount());
-            model.addAttribute("yellowCircleCount", stats.getYellowCircleCount());
-            model.addAttribute("purpleSquareCount", stats.getPurpleSquareCount());
+            model.addAttribute("victories", String.valueOf(stats.getWinCount()));
+            model.addAttribute("looses", String.valueOf(stats.getLooseCount()));
+            model.addAttribute("firstTry", String.valueOf(stats.getFirstTryCount()));
+            model.addAttribute("secondTry", String.valueOf(stats.getSecondTryCount()));
+            model.addAttribute("thirdTry", String.valueOf(stats.getThirdTryCount()));
+            model.addAttribute("fourthTry", String.valueOf(stats.getFourthTryCount()));
+            model.addAttribute("fifthTry", String.valueOf(stats.getFifthTryCount()));
+            model.addAttribute("sixthTry", String.valueOf(stats.getSixthTryCount()));
+            model.addAttribute("seventhTry", String.valueOf(stats.getSeventhTryCount()));
+            model.addAttribute("eighthTry", String.valueOf(stats.getEighthTryCount()));
+            model.addAttribute("looseTry", String.valueOf(stats.getLooseCount()));
+            model.addAttribute("redSquareCount", String.valueOf(stats.getRedSquareCount()));
+            model.addAttribute("blueSquareCount", String.valueOf(stats.getBlueSquareCount()));
+            model.addAttribute("yellowCircleCount", String.valueOf(stats.getYellowCircleCount()));
+            model.addAttribute("purpleSquareCount", String.valueOf(stats.getPurpleSquareCount()));
             int seconds = stats.getPlayTime();
             int secondsModulo60 = seconds % 60;
             int minutes = seconds / 60;
             int hours = seconds / 60 / 60;
 
-            String timeString = String.format("%02d:%02d:%02d", hours, minutes, secondsModulo60);
-            model.addAttribute("playtime", timeString);
+            if(hours > 0) {
+                model.addAttribute("playtime", hours + ":" + minutes + ":" + secondsModulo60);
+            }
+            else if(minutes > 0) {
+                model.addAttribute("playtime", minutes + ":" + secondsModulo60);
+            }
+            else {
+                model.addAttribute("playtime", "00:" + secondsModulo60);
+            }
         }
 
         return "Popup/statsPopup";

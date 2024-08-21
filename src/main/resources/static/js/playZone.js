@@ -501,7 +501,7 @@ function getEndGameTime() {
     if (minutes > 0) {
         time += minutes + ":";
     }
-    time += seconds;
+    time += "00:" + seconds;
     return time;
 }
 
