@@ -411,6 +411,28 @@ document.addEventListener('keydown', function (event) {
             }
         }
     }
+    else if (event.code === 'ArrowDown') {
+        if(currentLine <= 0) {
+            return;
+        }
+        const gameTable = document.getElementById("mothusHtmlTable");
+        const gameTableBody = gameTable.getElementsByTagName("tbody")[0];
+        const row = gameTableBody.rows[currentLine];
+        const cells = row.cells;
+        const prevRow = gameTableBody.rows[currentLine - 1];
+        const prevCells = prevRow.cells;
+        for (let i = 0; i < prevCells.length; i++) {
+            const prevCell = prevCells[i];
+            const prevElementDiv = prevCell.querySelector('.elementDiv');
+            const prevElementLettersDiv = prevElementDiv.querySelector('.elementLettersDiv');
+            if (prevElementLettersDiv.parentElement.parentElement.style.backgroundColor === "rgb(185, 0, 34)") {
+                const cell = cells[i];
+                const elementDiv = cell.querySelector('.elementDiv');
+                const elementLettersDiv = elementDiv.querySelector('.elementLettersDiv');
+                elementLettersDiv.innerHTML = prevElementLettersDiv.innerHTML;
+            }
+        }
+    }
 });
 
 //////////////////////////
