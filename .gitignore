@@ -14,10 +14,12 @@ target/
 .sts4-cache
 
 ### IntelliJ IDEA ###
-.idea
+.idea/*
 *.iws
 *.iml
 *.ipr
+# Default IntelliJ encoding for message.properties causes problems
+!.idea/encodings.xml
 
 ### NetBeans ###
 /nbproject/private/
