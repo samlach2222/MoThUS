@@ -230,7 +230,12 @@ public class ManageLogin {
             HttpSession session = request.getSession(true);
             session.setAttribute(SPRING_SECURITY_CONTEXT_KEY, sc);
 
-            emailService.sendEmail(registrationDto.getEmail(), "MoThUS Registration Validation", "Hello, thank you for registering to MoThUS by Siesth!\n\nHere is your validation code : " + validationCode + ", it will be valid for " + minutesDuration + " minutes.\n\nPlease enter this code in the validation page.");
+            String subject = messageSource.getMessage("Login.Email.Subject", null, locale);
+            String body1 = messageSource.getMessage("Login.Email.Body1", null, locale);
+            String body2 = messageSource.getMessage("Login.Email.Body2", new Object[]{validationCode, minutesDuration}, locale);
+            String body3 = messageSource.getMessage("Login.Email.Body3", null, locale);
+            String body = body1 + "\n\n" + body2 + "\n\n" + body3;
+            emailService.sendEmail(registrationDto.getEmail(), subject, body);
             String pendingRegistrationMessage = messageSource.getMessage("Login.Messages.PendingRegistrationMessage", null, locale);
             redirectAttributes.addFlashAttribute("pendingRegistration", pendingRegistrationMessage);
             redirectAttributes.addFlashAttribute("pendingRegistrationMessage", pendingRegistrationMessage);
@@ -320,11 +325,12 @@ public class ManageLogin {
         // Send a new mail
         String validationCode = emailService.getValidationCode(username);
         int minutesDuration = emailService.getDurationMinutes(username);
-        // TODO : Show minutes duration before code expire
-        String body1 = messageSource.getMessage("Login.Email.Body1", null, locale);
-        String body2 = messageSource.getMessage("Login.Email.Body2", null, locale);
         String subject = messageSource.getMessage("Login.Email.Subject", null, locale);
-        emailService.sendEmail(user.getMail(), subject, body1 + validationCode + body2);
+        String body1 = messageSource.getMessage("Login.Email.Body1", null, locale);
+        String body2 = messageSource.getMessage("Login.Email.Body2", new Object[]{validationCode, minutesDuration}, locale);
+        String body3 = messageSource.getMessage("Login.Email.Body3", null, locale);
+        String body = body1 + "\n\n" + body2 + "\n\n" + body3;
+        emailService.sendEmail(user.getMail(), subject, body);
     }
 
     /**
