@@ -6,16 +6,21 @@ ARG JAVA_VERSION=21
 # Package stage
 #
 FROM eclipse-temurin:${JAVA_VERSION}-jdk AS build
-COPY . .
+WORKDIR /app
+COPY pom.xml .
+COPY src src
 COPY ./env.properties ./src/main/resources/env.properties
 # Use Maven Wrapper instead of pulling Maven image
-RUN mvnw clean package
+COPY mvnw .
+COPY .mvn .mvn
+RUN chmod +x ./mvnw
+RUN ./mvnw clean package
 
 #
 # Run stage
 #
 FROM eclipse-temurin:${JAVA_VERSION}-jre
-COPY --from=build /target/MoThUS-0.0.1-SNAPSHOT.jar mothus.jar
-# ENV PORT=8080
+VOLUME /tmp
+COPY --from=build /app/target/MoThUS-0.0.1-SNAPSHOT.jar mothus.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","mothus.jar"]
