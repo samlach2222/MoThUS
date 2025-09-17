@@ -5,7 +5,7 @@
 FROM maven:3.9 AS build
 COPY . .
 COPY ./env.properties ./src/main/resources/env.properties
-RUN mvn clean install
+RUN mvn clean package
 
 #
 # Package stage
