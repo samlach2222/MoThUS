@@ -49,13 +49,17 @@ public class ManageHelpPopup {
 
         // locale BEGIN
         String pageTitle = messageSource.getMessage("HelpPopup.PageTitle", null, locale);
+        String mothusTitle = messageSource.getMessage("HelpPopup.MothusTitle", null, locale);
         String MothusExplanation = messageSource.getMessage("HelpPopup.MothusExplanation", null, locale);
+        String mothusAuthors = messageSource.getMessage("HelpPopup.MothusAuthors", null, locale);
         String RulesExplanation = messageSource.getMessage("HelpPopup.RulesExplanation", null, locale);
         String LettersExplanation = messageSource.getMessage("HelpPopup.LettersExplanation", null, locale);
         String rulesTitle = messageSource.getMessage("HelpPopup.RulesTitle", null, locale);
 
         model.addAttribute("pageTitle", pageTitle);
+        model.addAttribute("mothusTitle", mothusTitle);
         model.addAttribute("MothusExplanation", MothusExplanation);
+        model.addAttribute("mothusAuthors", mothusAuthors);
         model.addAttribute("RulesExplanation", RulesExplanation);
         model.addAttribute("LettersExplanation", LettersExplanation);
         model.addAttribute("rulesTitle", rulesTitle);

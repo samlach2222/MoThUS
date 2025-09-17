@@ -1,7 +1,8 @@
 <link href="/css/helpPopup.css" rel="stylesheet">
 <div id="helpZone">
-    <h1>MoThUS ?</h1>
+    <h1 th:text="${mothusTitle}">MoThUS ?</h1>
     <p th:text="${MothusExplanation}">MoThUS Explanation</p>
+    <p th:text="${mothusAuthors}"></p>
     <h1 th:text="${rulesTitle}">Rules</h1>
     <p th:text="${RulesExplanation}">Rules Explanation</p>
     <div id="mothusLettersExample">
