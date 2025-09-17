@@ -18,7 +18,7 @@ import java.util.Collection;
 public class SkinInventory {
 
     /**
-     * Id of the skin inventory
+     * ID of the skin inventory
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,7 +36,7 @@ public class SkinInventory {
     Collection<Skin> skinList;
 
     /**
-     * Id of the current element skin
+     * ID of the current element skin
      */
     int currentElementSkinId;
 
@@ -57,7 +57,7 @@ public class SkinInventory {
     }
 
     /**
-     * Id of the current page skin
+     * ID of the current page skin
      */
     int currentPageSkinId;
 

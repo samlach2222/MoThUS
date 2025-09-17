@@ -136,7 +136,7 @@ public class EmailService implements IEmailService {
             return -1;
         }
 
-        // Because the duration is a int, dividing it with another int already returns as an int
+        // Because the duration is an int, dividing it with another int already returns as an int
         return vc.getDuration() / 60;
     }
 

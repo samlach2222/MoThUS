@@ -18,7 +18,7 @@ import jakarta.persistence.Id;
 public class Skin {
 
     /**
-     * Id of the skin
+     * ID of the skin
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -16,7 +16,7 @@ import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 @Entity
 public class User {
     /**
-     * Id of the user
+     * ID of the user
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -18,7 +18,7 @@ import java.util.Random;
 public class ValidationCode {
 
     /**
-     * Id of the validation code
+     * ID of the validation code
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -72,8 +72,8 @@ public class ValidationCode {
     }
 
     /**
-     * Getter of the id of the validation code
-     * @return id of the validation code
+     * Getter of the ID of the validation code
+     * @return ID of the validation code
      */
     public int getIdValidationCode() {
         return idValidationCode;

@@ -18,7 +18,7 @@ import java.time.LocalDate;
 public class Game {
 
     /**
-     * Id of the game
+     * ID of the game
      */
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

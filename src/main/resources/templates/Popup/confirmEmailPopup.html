@@ -10,9 +10,6 @@
     <form id="resendEmailForm">
         <button type="submit" onclick="resendEmail()" th:text="${resendCodeLabel}"></button>
     </form>
-    <form id="resendEmailForm">
-        <button type="submit" onclick="resendEmail()">Resend code</button>
-    </form>
     <div id="timerContainer">
         <p id="timerText"><span th:text="${timeRemainingLabel1}"></span><span id="timerValue">60</span><span th:text="${timeRemainingLabel2}"></span></p>
         <div id="progressBar"></div>
