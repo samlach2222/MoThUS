@@ -12,7 +12,7 @@ RUN mvn clean install
 #
 # TODO : Use 25-jdk when available
 # Not latest JDK as it may cause breaking changes in the future
-FROM eclipse-temurin:21-jdk
+FROM eclipse-temurin:21-jre
 COPY --from=build /target/MoThUS-0.0.1-SNAPSHOT.jar mothus.jar
 # ENV PORT=8080
 EXPOSE 8080
