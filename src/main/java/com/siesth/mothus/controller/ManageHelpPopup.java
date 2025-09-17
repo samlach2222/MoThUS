@@ -50,7 +50,9 @@ public class ManageHelpPopup {
         // locale BEGIN
         String pageTitle = messageSource.getMessage("HelpPopup.PageTitle", null, locale);
         String mothusTitle = messageSource.getMessage("HelpPopup.MothusTitle", null, locale);
-        String MothusExplanation = messageSource.getMessage("HelpPopup.MothusExplanation", null, locale);
+        String mothusExplanation1 = messageSource.getMessage("HelpPopup.MothusExplanation1", null, locale);
+        String mothusExplanationOpenSource = messageSource.getMessage("HelpPopup.MothusExplanationOpenSource", null, locale);
+        String mothusExplanation2 = messageSource.getMessage("HelpPopup.MothusExplanation2", null, locale);
         String mothusAuthors = messageSource.getMessage("HelpPopup.MothusAuthors", null, locale);
         String RulesExplanation = messageSource.getMessage("HelpPopup.RulesExplanation", null, locale);
         String LettersExplanation = messageSource.getMessage("HelpPopup.LettersExplanation", null, locale);
@@ -58,7 +60,9 @@ public class ManageHelpPopup {
 
         model.addAttribute("pageTitle", pageTitle);
         model.addAttribute("mothusTitle", mothusTitle);
-        model.addAttribute("MothusExplanation", MothusExplanation);
+        model.addAttribute("mothusExplanation1", mothusExplanation1);
+        model.addAttribute("mothusExplanationOpenSource", mothusExplanationOpenSource);
+        model.addAttribute("mothusExplanation2", mothusExplanation2);
         model.addAttribute("mothusAuthors", mothusAuthors);
         model.addAttribute("RulesExplanation", RulesExplanation);
         model.addAttribute("LettersExplanation", LettersExplanation);
