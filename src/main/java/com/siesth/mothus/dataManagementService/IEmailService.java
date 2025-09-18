@@ -43,4 +43,10 @@ public interface IEmailService {
     int getDurationMinutes(String username);
 
     void removeValidationCode(String username);
+
+    /**
+     * Whether the email service is available
+     * @return true if email service available
+     */
+    boolean isAvailable();
 }

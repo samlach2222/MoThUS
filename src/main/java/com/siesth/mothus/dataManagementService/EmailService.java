@@ -18,9 +18,9 @@ import java.time.LocalDateTime;
 @Service
 public class EmailService implements IEmailService {
     /**
-     * This field is used to get the java mail sender.
+     * This field is used to get the java mail sender or null if no email service.
      */
-    @Autowired
+    @Autowired(required = false)
     private JavaMailSender javaMailSender;
 
     /**
@@ -49,12 +49,24 @@ public class EmailService implements IEmailService {
      */
     @Override
     public void sendEmail(String to, String subject, String body) {
+        // While code using sendEmail should handle accordingly whether the email service is available,
+        // it's safer to also check it here and avoid crashing
+        if (!isAvailable()) {
+            System.err.println("WARNING: sendEmail called but email service not available");
+            return;
+        }
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
         message.setSubject(subject);
         message.setText(body);
 
-        javaMailSender.send(message);
+        // An email service can also be present but not functional which can crash the whole app
+        try {
+            javaMailSender.send(message);
+        } catch (Exception e) {
+            System.err.println("ERROR: could not send email");
+            e.printStackTrace(System.err);
+        }
     }
 
     /**
@@ -148,6 +160,15 @@ public class EmailService implements IEmailService {
             user.setValidationCode(null);
             validationCodeRepository.delete(vc);
         }
+    }
+
+    /**
+     * Whether the email service is available
+     * @return true if email service available
+     */
+    @Override
+    public boolean isAvailable() {
+        return javaMailSender != null;
     }
 }
 
