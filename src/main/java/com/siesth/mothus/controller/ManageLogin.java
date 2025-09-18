@@ -353,7 +353,14 @@ public class ManageLogin {
 
         // locale BEGIN
         String confirmEmailLabel = messageSource.getMessage("Login.ConfirmEmailPopup.ConfirmEmailLabel", null, locale);
-        String popupLabel = messageSource.getMessage("Login.ConfirmEmailPopup.PopupLabel", null, locale);
+        String popupLabel;
+        if (emailService.isAvailable()) {
+            popupLabel = messageSource.getMessage("Login.ConfirmEmailPopup.PopupLabel", null, locale);
+        } else {
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
+            String validationCode = emailService.getValidationCode(username);
+            popupLabel = messageSource.getMessage("Login.ConfirmEmailPopup.PopupLabelNotConfigured", new Object[]{validationCode}, locale);
+        }
         String resendCodeLabel = messageSource.getMessage("Login.ConfirmEmailPopup.ResendCodeLabel", null, locale);
         String timeRemainingLabel1 = messageSource.getMessage("Login.ConfirmEmailPopup.TimeRemainingLabel1", null, locale);
         String timeRemainingLabel2 = messageSource.getMessage("Login.ConfirmEmailPopup.TimeRemainingLabel2", null, locale);
