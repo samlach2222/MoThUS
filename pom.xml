@@ -116,6 +116,7 @@
                 </executions>
             </plugin>
         </plugins>
+        <finalName>mothus</finalName>
     </build>
     <repositories>
         <repository>
@@ -129,5 +130,4 @@
             <url>https://repository.jboss.org/nexus/content/repositories/releases</url>
         </repository>
     </repositories>
-
 </project>

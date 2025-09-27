@@ -20,6 +20,6 @@ RUN ./mvnw clean package
 #
 FROM eclipse-temurin:${JAVA_VERSION}-jre
 VOLUME /tmp
-COPY --from=build /app/target/MoThUS-0.0.1-SNAPSHOT.jar mothus.jar
+COPY --from=build /app/target/mothus.jar mothus.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","mothus.jar"]

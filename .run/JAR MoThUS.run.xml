@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="JAR MoThUS" type="JarApplication">
-    <option name="JAR_PATH" value="$PROJECT_DIR$/target/MoThUS-0.0.1-SNAPSHOT.jar" />
+    <option name="JAR_PATH" value="$PROJECT_DIR$/target/mothus.jar" />
     <option name="WORKING_DIRECTORY" value="$ProjectFileDir$" />
     <option name="ALTERNATIVE_JRE_PATH" />
     <method v="2">
