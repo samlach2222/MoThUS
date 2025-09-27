@@ -15,8 +15,8 @@
     <name>MoThUS</name>
     <description>MoThUS</description>
     <properties>
-		<!-- TODO : Use 25 when Docker has a 25 JDK -->
-        <java.version>21</java.version>
+		<!-- If updating this, also update Docker Java version -->
+        <java.version>25</java.version>
     </properties>
     <dependencies>
         <dependency>

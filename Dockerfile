@@ -1,6 +1,5 @@
-# TODO : Use 25 when available
-# Not latest Java version as it may cause breaking changes in the future
-ARG JAVA_VERSION=21
+# Not latest Java version as it may cause breaking changes with future Java versions
+ARG JAVA_VERSION=25
 
 #
 # Package stage
